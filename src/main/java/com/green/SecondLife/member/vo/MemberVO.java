@@ -1,2 +1,7 @@
-package com.green.SecondLife.member.vo;public class MemberVO {
+package com.green.SecondLife.member.vo;
+
+public class MemberVO {
+
+
+
 }
