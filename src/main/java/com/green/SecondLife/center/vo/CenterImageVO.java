@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class CenterImageVO {
-    private String placeImageCode;
-    private String placeCode;
-    private String placeImageFileName;
+    private String facilityImageCode;
+    private String facilityCode;
+    private String facilityImageFileName;
 }
