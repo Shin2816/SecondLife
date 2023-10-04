@@ -18,7 +18,9 @@
             [[${session.loginInfo.getMemberName}]]님 어서오세요 
             <span class="login-span" onclick="location.href='/member/logout'">로그아웃</span> 
             / 
-            <span class="login-span" onclick="location.href='#'">내 정보</span> 
+            <span class="login-span" onclick="location.href='#'">내 정보</span>
+            <button th:if="${session.loginInfo.memberRoll == 'ADMIN'}" onclick="location.href='/instructor/insertInstructorForm';">강사등록하기</button>
+            <button th:if="${session.loginInfo.memberRoll == 'ADMIN'}" onclick="location.href='/lecture/insertLectureForm';">강좌등록하기</button>
         </p>
     </div>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
