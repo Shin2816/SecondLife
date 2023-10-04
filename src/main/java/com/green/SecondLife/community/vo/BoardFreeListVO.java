@@ -10,4 +10,6 @@ public class BoardFreeListVO {
     private String freeBoardWriter;
     private String createDate;
     private int freeBoardReadCnt;
+    private String searchType;
+    private String searchValue;
 }

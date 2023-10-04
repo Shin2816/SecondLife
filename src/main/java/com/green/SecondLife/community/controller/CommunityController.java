@@ -7,6 +7,8 @@ import org.springframework.beans.factory.ListableBeanFactoryExtensionsKt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.List;
 //import java.util.*;
 
 @Controller
@@ -16,9 +18,14 @@ public class CommunityController {
 
     //게시판 출력
     @GetMapping("/freeBoardList")
-    public String freeBoardList(Model model){
-
-        return "";
+    public String freeBoardList(Model model, BoardFreeListVO boardFreeListVO){
+        model.addAttribute("freeBoardList", communityService.selectFreeBoardList(boardFreeListVO));
+        return "board/free_board";
     }
 
+    //등록버튼 누르면 등록 페이지로 이동
+    @GetMapping("/regBoardForm")
+    private String regBoardForm(){
+        return "board/reg_board";
+    }
 }

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{fragment/main_layout}">
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+    <!-- 검색 영역 -->
+    <div>
+        <form action="/freeBoardList" method="post">
+            <select name="searchType">
+                <option value="FREE_BOARD_TITLE">제목</option>
+                <option value="FREE_BOARD_WRITER">작성자</option>
+            </select>
+            <input type="text" name="searchValue">
+            <input type="submit" value="검색">
+        </form>
+    </div>
+<th:block layout:fragment="content">
+    <table border="1">
+        <tr>
+            <td>번호</td>
+            <td>제목</td>
+            <td>작성자</td>
+            <td>작성일</td>
+            <td>조회수</td>
+        </tr>
+        <!-- 게시글 없을 때 -->
+        <th:block th:if="${#lists.size(freeBoardList) == 0}">
+            <tr>
+                <td colspan="5">조회된 게시글이 없습니다</td>
+            </tr>
+        </th:block>
+        <!-- 게시글 있을 때 -->
+        <th:block th:unless="${#lists.size(freeBoardList) == 0}">
+            <tr th:each="freeBoard, state : ${freeBoardList}">
+                <td>[[${#lists.size(freeBoardList) - state.index}]]</td>
+                <td>
+                    <a th:href="@{/board/boardDetail?(boardNum=${freeBoard.freeBoardNum})}">[[${freeBoard.freeBoardTitle}]]</a>
+                </td>
+                <td>[[${freeBoard.freeBoardWriter}]]</td>
+                <td>[[${freeBoard.createDate}]]</td>
+                <td>[[${freeBoard.freeBoardReadCnt}]]</td>
+            </tr>
+        </th:block>
+        <input th:if="${session.loginInfo != null}" type="button" value="등록하기" onclick="location.href='regBoardForm';">
+    </table>
+</th:block>
+</body>
+</html>
