@@ -10,4 +10,6 @@ public interface InstructorService {
     public List<SubjectVO> selectSubjectList();
     //강사 등록하는 기능
     public void insertInstructor(InstructorVO instructorVO);
+    //강사 목록 조회 기능
+    public List<InstructorVO> selectInstuctorList();
 }
