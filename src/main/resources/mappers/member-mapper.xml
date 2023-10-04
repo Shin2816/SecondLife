@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 해당 파일에 모든 쿼리문을 작성 -->
+<mapper namespace="memberMapper">
+	<resultMap id="member" type="com.green.SecondLife.member.vo.MemberVO">
+        <id column="MEMBER_ID"      property="memberId"/>
+        <result column="MEMBER_PW"      property="memberPW"/>
+        <result column="MEMBER_NAME"    property="memberName"/>
+        <result column="MEMBER_TEL"     property="memberTel"/>
+        <result column="MEMBER_ADDR"    property="memberAddr"/>
+        <result column="ADDR_DETAIL"    property="addrDetail"/>
+        <result column="MEMBER_EMAIL"   property="memberEmail"/>
+        <result column="MEMBER_GENDER"  property="memberGender"/>
+        <result column="MEMBER_ROLL"    property="memberRoll"/>
+    </resultMap>
+
+    <select id="memberSelect" resultMap="member">
+
+        SELECT MEMBER_ID
+            , MEMBER_NAME
+            , MEMBER_ROLL
+        FROM MEMBER
+        WHERE MEMBER_ID = #{memberId}
+        AND MEMBER_PW = #{memberPW}
+
+    </select>
+
+    <insert id="memberInsert">
+
+        INSERT INTO MEMBER (
+            MEMBER_ID
+            , MEMBER_PW
+            , MEMBER_NAME
+            , MEMBER_TEL
+            , MEMBER_ADDR
+            , ADDR_DETAIL
+            , MEMBER_EMAIL
+            , MEMBER_GENDER
+        ) VALUES (
+            #{memberId}
+            , #{memberPW}
+            , #{memberName}
+            , #{memberTel}
+            , #{memberAddr}
+            , #{addrDetail}
+            , #{memberEmail}
+            , #{memberGender}
+        )
+    </insert>
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
