@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 해당 파일에 모든 쿼리문을 작성 -->
+<mapper namespace="communityMapper">
+    <!--민원(고객의 소리)-->
+    <resultMap id="complaint" type="com.green.SecondLife.community.vo.BoardComplaintListVO">
+        <id column="COM_BOARD_NUM" property="comBoardNum"/>
+        <result column="COM_BOARD_TITLE" property="comBoardTitle"/>
+        <result column="COM_BOARD_CONTENT" property="comBoardContent"/>
+        <result column="COM_BOARD_WRITER" property="comBoardWriter"/>
+        <result column="COM_CREATE_DATE" property="comCreateDate"/>
+    </resultMap>
+    <!--이벤트 목록-->
+    <resultMap id="event" type="com.green.SecondLife.community.vo.BoardEventListVO">
+        <id column="EVENT_BOARD_NUM" property="eventBoardNum"/>
+        <result column="EVENT_BOARD_TITLE" property="eventBoardTitle"/>
+        <result column="EVENT_BOARD_CONTENT" property="eventBoardContent"/>
+        <result column="EVENT_BOARD_WRITER" property="eventBoardWriter"/>
+        <result column="EVENT_CREATE_DATE" property="eventCreateDate"/>
+    </resultMap>
+    <!--자유게시판 목록-->
+    <resultMap id="free" type="com.green.SecondLife.community.vo.BoardFreeListVO">
+        <id column="FREE_BOARD_NUM" property="freeBoardNum"/>
+        <result column="FREE_BOARD_TITLE" property="freeBoardTitle"/>
+        <result column="FREE_BOARD_CONTENT" property="freeBoardContent"/>
+        <result column="FREE_BOARD_WRITER" property="freeBoardWriter"/>
+        <result column="FREE_CREATE_DATE" property="freeCreateDate"/>
+        <result column="FREE_BOARD_READ_CNT" property="freeBoardReadCnt"/>
+    </resultMap>
+    <!--갤러리 이미지-->
+    <resultMap id="galleryImg" type="com.green.SecondLife.community.vo.BoardGalleryImg">
+        <id column="COM_BOARD_NUM" property="comBoardNum"/>
+        <result column="COM_BOARD_TITLE" property="comBoardTitle"/>
+        <result column="COM_BOARD_CONTENT" property="comBoardContent"/>
+        <result column="COM_BOARD_WRITER" property="comBoardWriter"/>
+        <result column="COM_CREATE_DATE" property="comCreateDate"/>
+    </resultMap>
+    <!--갤러리 목록-->
+    <resultMap id="galleryList" type="com.green.SecondLife.community.vo.BoardGalleryListVO">
+        <id column="COM_BOARD_NUM" property="comBoardNum"/>
+        <result column="COM_BOARD_TITLE" property="comBoardTitle"/>
+        <result column="COM_BOARD_CONTENT" property="comBoardContent"/>
+        <result column="COM_BOARD_WRITER" property="comBoardWriter"/>
+        <result column="COM_CREATE_DATE" property="comCreateDate"/>
+    </resultMap>
+    <!--Q&A 게시판 목록-->
+    <resultMap id="qaList" type="com.green.SecondLife.community.vo.BoardQaListVO">
+        <id column="COM_BOARD_NUM" property="comBoardNum"/>
+        <result column="COM_BOARD_TITLE" property="comBoardTitle"/>
+        <result column="COM_BOARD_CONTENT" property="comBoardContent"/>
+        <result column="COM_BOARD_WRITER" property="comBoardWriter"/>
+        <result column="COM_CREATE_DATE" property="comCreateDate"/>
+    </resultMap>
+
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
