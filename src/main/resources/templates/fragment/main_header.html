@@ -8,20 +8,25 @@
 <body>
 <th:block th:fragment="mainHeaderFragment">
     <link rel="stylesheet" href="/css/main_header.css">
-    <div class="login-menu">
-        <p th:if="${session.loginInfo == null}"> 
-            <span class="login-span" onclick="location.href='/member/loginForm'">로그인</span> 
-            / 
-            <span class="login-span" onclick="location.href='/member/insertMemberForm'">회원가입</span> 
-        </p>
-        <p th:unless="${session.loginInfo == null}"> 
-            [[${session.loginInfo.getMemberName}]]님 어서오세요 
-            <span class="login-span" onclick="location.href='/member/logout'">로그아웃</span> 
-            / 
-            <span class="login-span" onclick="location.href='#'">내 정보</span>
-            <button th:if="${session.loginInfo.memberRoll == 'ADMIN'}" onclick="location.href='/instructor/insertInstructorForm';">강사등록하기</button>
-            <button th:if="${session.loginInfo.memberRoll == 'ADMIN'}" onclick="location.href='/lecture/insertLectureForm';">강좌등록하기</button>
-        </p>
+    <div class="main">
+        <div class="left-menu">
+            <span class="login-span" onclick="location.href='/'">메인페이지로</span>
+        </div>
+        <div class="login-menu">
+            <p th:if="${session.loginInfo == null}"> 
+                <span class="login-span" onclick="location.href='/member/loginForm'">로그인</span> 
+                / 
+                <span class="login-span" onclick="location.href='/member/insertMemberForm'">회원가입</span> 
+            </p>
+            <p th:unless="${session.loginInfo == null}"> 
+                [[${session.loginInfo.getMemberName}]]님 어서오세요 
+                <span class="login-span" onclick="location.href='/member/logout'">로그아웃</span> 
+                / 
+                <span class="login-span" onclick="location.href='#'">내 정보</span>
+                <button th:if="${session.loginInfo.memberRoll == 'ADMIN'}" onclick="location.href='/instructor/insertInstructorForm';">강사등록하기</button>
+                <button th:if="${session.loginInfo.memberRoll == 'ADMIN'}" onclick="location.href='/lecture/insertLectureForm';">강좌등록하기</button>
+            </p>
+        </div>
     </div>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script src="/js/main_header.js"></script>

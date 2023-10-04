@@ -3,8 +3,9 @@
 .login-span{
     cursor: pointer;
 }
-.login-menu{
-    text-align: end;
+.main{
+    display: flex;
+    justify-content: space-between;
 }
 .error div{
     color:red;
