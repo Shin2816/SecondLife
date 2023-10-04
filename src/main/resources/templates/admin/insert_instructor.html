@@ -18,8 +18,10 @@
                     <input type="radio" value="여" name="instructorGender"> 여
                 </p>
         <p>과 목 : 
-            <select name="" id="" th:each="subject : ${subjectList}">
-                <option value="">[[subject.subjectName]]</option>
+            <select name="instructorMajor">
+                <th:block th:each="subject : ${subjectList}">
+                    <option></option>
+                </th:block>
             </select>
         </p>
         <p>연락처 : 

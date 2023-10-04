@@ -22,4 +22,11 @@ public class MemberServiceImpl implements MemberService{
     public void insertMember(MemberVO memberVO) {
         sqlSession.insert("memberMapper.memberInsert", memberVO);
     }
+
+    //중복 아이디 체크
+    @Override
+    public boolean selectId(MemberVO memberVO) {
+        String selectId = sqlSession.selectOne("memberMapper.selectId", memberVO);
+        return selectId == null;
+    }
 }

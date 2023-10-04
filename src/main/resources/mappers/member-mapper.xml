@@ -26,6 +26,12 @@
 
     </select>
 
+    <select id="selectId" resultType="String">
+        SELECT MEMBER_ID
+        FROM MEMBER
+        WHERE MEMBER_ID = #{memberId}
+    </select>
+
     <insert id="memberInsert">
 
         INSERT INTO MEMBER (

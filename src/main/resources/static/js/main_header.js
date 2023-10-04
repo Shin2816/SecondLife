@@ -51,3 +51,75 @@ function checkId(){
 function setDisabled(){
     document.querySelector('#join-btn').disabled = true;
 }
+
+//회원가입 시, 데이터 유효성 검사
+function joinValidate(){
+
+    //오류 메시지 리셋
+    resetMessage();
+
+    //id 입력 여부 체크
+    const memberJoin = document.querySelector('#memberJoin');
+
+    if(memberJoin.memberId.value == ''){
+        inputInvalidate('.id-error-div', '아이디는 필수 입력입니다.');
+        return;
+    }
+    else if(memberJoin.memberId.value.length < 3){
+        inputInvalidate('.id-error-div', '아이디는 3자리 이상입니다.');
+        return;
+    }
+    
+    //pw 입력 여부 체크
+    if(memberJoin.memberPW.value==''){
+        inputInvalidate('.pw-error-div', '비밀번호는 필수 입력입니다.');
+        return;
+    }
+
+    //name 입력 여부 체크
+    if(memberJoin.memberName.value==''){
+        inputInvalidate('.name-error-div', '이름은 필수 입력입니다.');
+        return;
+    }
+
+    //휴대폰 정규식표현식
+    let telRegex = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
+    const tel = memberJoin.memberTel.value;
+    if(!telRegex.test(tel)){
+        inputInvalidate('.tel-error-div', '연락처의 형식을 지켜주세요. ex) 010-0000-0000');
+        return;
+    }
+
+    //addr 입력 여부 체크
+    if(memberJoin.memberAddr.value==''){
+        inputInvalidate('.addr-error-div', '주소는 필수 입력입니다.')
+        return;
+    }
+
+    //이메일 정규식표현식
+    let emailRegex = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+    const email = memberJoin.memberEmail.value;
+    if(!emailRegex.test(email)){
+        inputInvalidate('.email-error-div', '이메일의 형식을 지켜주세요 ex)aaa@aaa.com');
+        return;
+    }
+
+    //submit 실행
+    memberJoin.submit();
+}
+
+//validate 실패 시 메세지 설정
+function inputInvalidate(tagid, content){
+    document.querySelector(tagid).style.display = 'block';
+    document.querySelector(tagid).textContent = content;
+}
+
+//validate 오류 메세지 초기화
+function resetMessage(){
+    document.querySelector('.id-error-div').style.display = 'none';
+    document.querySelector('.pw-error-div').style.display = 'none';
+    document.querySelector('.name-error-div').style.display = 'none';
+    document.querySelector('.tel-error-div').style.display = 'none';
+    document.querySelector('.addr-error-div').style.display = 'none';
+    document.querySelector('.email-error-div').style.display = 'none';
+}
