@@ -8,14 +8,20 @@
 <body>
 <th:block th:fragment="mainHeaderFragment">
     <link rel="stylesheet" href="/css/main_header.css">
-
-    <h3>헤더</h3>
-    <p> 
-        <span onclick="location.href='/member/loginForm'">로그인</span> 
-        / 
-        <span onclick="location.href='/member/insertMemberForm'">회원가입</span> 
-    </p>
-
+    <div class="login-menu">
+        <p th:if="${session.loginInfo == null}"> 
+            <span class="login-span" onclick="location.href='/member/loginForm'">로그인</span> 
+            / 
+            <span class="login-span" onclick="location.href='/member/insertMemberForm'">회원가입</span> 
+        </p>
+        <p th:unless="${session.loginInfo == null}"> 
+            [[${session.loginInfo.getMemberName}]]님 어서오세요 
+            <span class="login-span" onclick="location.href='/member/logout'">로그아웃</span> 
+            / 
+            <span class="login-span" onclick="location.href='#'">내 정보</span> 
+        </p>
+    </div>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script src="/js/main_header.js"></script>
 </th:block>
 </body>
