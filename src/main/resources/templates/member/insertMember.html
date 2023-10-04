@@ -8,21 +8,115 @@
 </head>
 <body>
     <th:block layout:fragment="content">
-        <form action="/member/insertMember" method="POST">
-            아이디 : <input type="text" class="form-control" name="memberId" onkeyup="setDisabled();" required> 
-            <input type="button" class="btn btn-primary" value="중복 확인" onclick="checkId()"><br>
-            비밀번호 : <input type="password" class="form-control" name="memberPW" required> <br>
-            이름 : <input type="text" class="form-control" name="memberName" required> <br>
-            전화번호 : <input type="text" class="form-control" name="memberTel" required> <br>
-            주소 : <input type="text" class="form-control" name="memberAddr" id="memberAddr" required> 
-            <input type="button" class="btn btn-primary" value="주소 검색" onclick="openPost();"> <br>
-            상세주소 : <input type="text" class="form-control" name="addrDetail" id="addrDetail"> <br>
-            이메일 : <input type="email" class="form-control" name="memberEmail"> <br>
-            성별 <input type="radio" class="form-check-input" name="memberGender" value="남"> 남 / 
-            <input type="radio" class="form-check-input" name="memberGender" value="여"> 여 <br>
+        <div class="row">
+            <div class="col">
+                <form action="/member/insertMember" method="POST" id="memberJoin">
+                    <div class="row mb-3">
+                        <div class="col-1">
+                            아이디 : 
+                        </div>
+                        <div class="col-2">
+                            <input type="text" class="form-control" name="memberId" id="memberId" onkeyup="setDisabled();" required> 
+                        </div>
+                        <div class="col-2">
+                            <input type="button" class="btn btn-primary" value="중복 확인" onclick="checkId();">
+                        </div>
+                    </div>
+                    <div class="row mb-3 error">
+                        <div class="id-error-div">
 
-            <input type="submit" id="join-btn" value="회원가입">
-        </form>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-1">
+                            비밀번호 : 
+                        </div>
+                        <div class="col-2">
+                            <input type="password" class="form-control" name="memberPW" required>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="pw-error-div">
+
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-1">
+                            이름 : 
+                        </div>
+                        <div class="col-2">
+                            <input type="text" class="form-control" name="memberName" required>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="name-error-div">
+
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-1">
+                            전화번호 : 
+                        </div>
+                        <div class="col-2">
+                            <input type="text" class="form-control" name="memberTel" placeholder="010-0000-0000" required>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="tel-error-div">
+
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-1">
+                            주소 : 
+                        </div>
+                        <div class="col-2">
+                            <input type="text" class="form-control" name="memberAddr" id="memberAddr" onclick="openPost();" readonly required>
+                        </div>
+                        <div class="col-2">
+                            <input type="button" class="btn btn-primary" value="주소 검색" onclick="openPost();">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="addr-error-div">
+
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-1">
+                            상세주소 : 
+                        </div>
+                        <div class="col-2">
+                            <input type="text" class="form-control" name="addrDetail" id="addrDetail">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-1">
+                            이메일 : 
+                        </div>
+                        <div class="col-2">
+                            <input type="email" class="form-control" name="memberEmail">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-1">
+                            성별
+                        </div>
+                        <div class="col-1">
+                            <input type="radio" class="form-check-input" name="memberGender" value="남" checked> 남 
+                        </div>
+                        <div class="col-1">
+                            <input type="radio" class="form-check-input" name="memberGender" value="여"> 여 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col offset-3">
+                            <input type="button" class="btn btn-primary" id="join-btn" value="회원가입" onclick="joinValidate()">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </th:block>
 </body>
 </html>

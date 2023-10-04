@@ -6,3 +6,7 @@
 .login-menu{
     text-align: end;
 }
+.error div{
+    color:red;
+    font-size: 0.8rem;
+}

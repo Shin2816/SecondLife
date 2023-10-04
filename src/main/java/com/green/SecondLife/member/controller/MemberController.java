@@ -4,10 +4,12 @@ import com.green.SecondLife.member.service.MemberService;
 import com.green.SecondLife.member.vo.MemberVO;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.lang.reflect.Member;
 
@@ -47,10 +49,17 @@ public class MemberController {
         return "/main";
     }
 
+    //로그아웃 처리 후, 메인페이지로 이동
     @GetMapping("/logout")
     public String logout(HttpSession session){
         session.removeAttribute("loginInfo");
         return "/main";
+    }
+
+    @ResponseBody
+    @PostMapping("/idFetch")
+    public boolean idFetch(MemberVO memberVO){
+        return memberService.selectId(memberVO);
     }
 
 }
