@@ -10,10 +10,11 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class CommunityServiceImpl implements CommunityService{
-    private final sqlSessionTemplate sqlSession;
+    private final SqlSessionTemplate sqlSession;
 
+    //자유게시판 목록 조회
     @Override
     public List<BoardFreeListVO> selectFreeBoardList(BoardFreeListVO boardFreeListVO) {
-        return null;
+        return sqlSession.selectList("communityMapper.selectFreeBoardList", boardFreeListVO);
     }
 }
