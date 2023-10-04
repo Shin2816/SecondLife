@@ -2,6 +2,8 @@ package com.green.SecondLife.member.service;
 
 import com.green.SecondLife.member.vo.MemberVO;
 
+import java.util.List;
+
 public interface MemberService {
 
     //로그인
