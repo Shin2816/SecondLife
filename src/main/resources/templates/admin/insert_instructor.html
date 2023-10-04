@@ -9,7 +9,7 @@
 <body>
 <th:block layout:fragment="content">
 <h1>강사등록페이지</h1>
-<form action="" method="post">
+<form action="/instructor/insertInstructor" method="post">
     <div>
         <p>이 름 : <input type="text" name="instructorName"></p>
         <p>나 이 : <input type="text" name="instructorAge"></p>
@@ -17,7 +17,11 @@
             성 별 : <input type="radio" value="남" name="instructorGender"> 남
                     <input type="radio" value="여" name="instructorGender"> 여
                 </p>
-        <p>과 목 : <input type="text" name="instructorMajor"></p>
+        <p>과 목 : 
+            <select name="" id="" th:each="subject : ${subjectList}">
+                <option value="">[[subject.subjectName]]</option>
+            </select>
+        </p>
         <p>연락처 : 
             <select name="instructorPhone" id="">
                 <option value="010">010</option>

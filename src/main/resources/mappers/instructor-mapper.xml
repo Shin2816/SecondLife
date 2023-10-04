@@ -2,9 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!-- 해당 파일에 모든 쿼리문을 작성 -->
-<mapper namespace="">
-	<resultMap id="" type="">
-        <result property="INSTRUCTOR_CODE"      column="instructorCode"/>
+<mapper namespace="instructorMapper">
+    <!-- 강사 테이블 -->
+	<resultMap id="instructor" type="com.green.SecondLife.instructor.vo.InstructorVO">
+        <id property="INSTRUCTOR_CODE"      column="instructorCode"/>
         <result property="INSTRUCTOR_MAJOR"     column="instructorMajor"/>
         <result property="INSTRUCTOR_NAME"      column="instructorName"/>
         <result property="INSTRUCTOR_AGE"       column="instructorAge"/>
@@ -13,6 +14,37 @@
         <result property="INSTRUCTOR_ADDR"      column="instructorAddr"/>
         <result property="HIREDATE"             column="hiredate"/>
     </resultMap>
+    <!-- 강좌 과목 테이블 -->
+    <resultMap id="subject" type="com.green.SecondLife.instructor.vo.SubjectVO">
+        <id property="SUBJECT_CODE" column="subjectCode"/>
+        <result property="SUBJECT_NAME" column="subjectName"/>
+    </resultMap>
+    <!-- 강사 등록 화면에서 전공 카테고리 조회 -->
+    <select id="selectSubject" resultMap="subject">
+        SELECT SUBJECT_CODE
+            , SUBJECT_NAME
+        FROM SUBJECT
+    </select>
+    <!-- 강사 등록 쿼리 -->
+    <insert id="insertInstructor">
+        INSERT INTO INSTRUCTOR (
+            INSTRUCTOR_CODE
+            , INSTRUCTOR_MAJOR
+            , INSTRUCTOR_NAME
+            , INSTRUCTOR_AGE
+            , INSTRUCTOR_GENDER
+            , INSTRUCTOR_PHONE
+            , INSTRUCTOR_ADDR
+        ) VALUES (
+            (SELECT NVL(MAX(INSTRUCTOR_CODE), 0) + 1 FROM INSTRUCTOR)
+            , #{instructorMajor}
+            , #{instructorName}
+            , #{instructorAge}
+            , #{instructorGender}
+            , #{instructorPhone}
+            , #{instructorAddr}
+        )
+    </insert>
 </mapper>
 
 
