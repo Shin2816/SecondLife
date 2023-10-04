@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 해당 파일에 모든 쿼리문을 작성 -->
+<mapper namespace="centerMapper">
+	<resultMap id="facility" type="com.green.SecondLife.center.vo.CenterFacilityVO">
+        <id column="FACILITY_CODE"          property="facilityCode"/>
+        <result column="FACILITY_NAME"      property="facilityName"/>
+        <result column="MAX_CLASS_CNT"      property="maxClassCnt"/>
+        <result column="RENTAL_AVAILABLE"   property="rentalAvailable"/>
+    </resultMap>
+
+    <!--시설 등록-->
+    <insert id="insertFacility">
+        INSERT INTO CENTER_FACILITY (
+            FACILITY_CODE
+            , FACILITY_NAME
+            , MAX_CLASS_CNT
+            , RENTAL_AVAILABLE
+        ) VALUES (
+            #{facilityCode}
+            , #{facilityName}
+            , #{maxClassCnt}
+            , #{rentalAvailable}
+        )
+    </insert>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

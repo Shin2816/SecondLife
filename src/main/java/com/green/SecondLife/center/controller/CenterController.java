@@ -12,4 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class CenterController {
     private final CenterService centerService;
 
+    @GetMapping("/insertFacility")
+    public String insertFacility(){
+        return "admin/insert_facility";
+    }
 }
