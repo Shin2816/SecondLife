@@ -22,4 +22,9 @@ public class InstructorServiceImpl implements InstructorService{
     public void insertInstructor(InstructorVO instructorVO) {
         sqlSession.insert("instructorMapper.insertInstructor", instructorVO);
     }
+    //강사 목록 조회 기능
+    @Override
+    public List<InstructorVO> selectInstuctorList() {
+        return sqlSession.selectList("instructorMapper.selectInstructorList");
+    }
 }

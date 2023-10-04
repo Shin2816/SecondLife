@@ -20,7 +20,7 @@
         <p>과 목 : 
             <select name="instructorMajor">
                 <th:block th:each="subject : ${subjectList}">
-                    <option></option>
+                    <option th:value="${subject.subjectName}">[[${subject.subjectName}]]</option>
                 </th:block>
             </select>
         </p>
