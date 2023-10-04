@@ -16,11 +16,11 @@
     </resultMap>
     <!-- 강좌 과목 테이블 -->
     <resultMap id="subject" type="com.green.SecondLife.instructor.vo.SubjectVO">
-        <id property="SUBJECT_CODE" column="subjectCode"/>
+        <id property="SUBJECT_CODE"     column="subjectCode"/>
         <result property="SUBJECT_NAME" column="subjectName"/>
     </resultMap>
     <!-- 강사 등록 화면에서 전공 카테고리 조회 -->
-    <select id="selectSubject" resultMap="subject">
+    <select id="selectSubjectList" resultMap="subject">
         SELECT SUBJECT_CODE
             , SUBJECT_NAME
         FROM SUBJECT
