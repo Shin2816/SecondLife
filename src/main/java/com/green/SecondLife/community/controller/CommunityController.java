@@ -46,6 +46,9 @@ public class CommunityController {
     @GetMapping("/boardDetail")
     private String boardDetail(int freeBoardNum, Model model){
         model.addAttribute("board", communityService.selectFreeBoardDetail(freeBoardNum));
+
+        communityService.updateFreeBoardCnt(freeBoardNum);
+
         return "board/board_detail";
     }
     //글 상세페이지에서 삭제버튼 클릭하였을 때

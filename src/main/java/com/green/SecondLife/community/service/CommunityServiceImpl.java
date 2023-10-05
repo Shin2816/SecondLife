@@ -38,4 +38,9 @@ public class CommunityServiceImpl implements CommunityService{
     public int updateFreeBoard(BoardFreeListVO boardFreeListVO) {
         return sqlSession.update("communityMapper.updateFreeBoard", boardFreeListVO);
     }
+
+    @Override
+    public int updateFreeBoardCnt(int freeBoardNum) {
+        return sqlSession.update("communityMapper.updateFreeBoardCnt", freeBoardNum);
+    }
 }

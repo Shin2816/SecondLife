@@ -15,4 +15,6 @@ public interface CommunityService {
     public int deleteFreeBoard(int freeBoardNum);
     //자유게시판 글 수정
     public int updateFreeBoard(BoardFreeListVO boardFreeListVO);
+    //자유게시판 조회수 증가
+    public int updateFreeBoardCnt(int freeBoardNum);
 }
