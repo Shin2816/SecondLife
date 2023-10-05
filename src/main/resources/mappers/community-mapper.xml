@@ -80,6 +80,17 @@
             , #{freeBoardWriter}
         )
     </insert>
+    <!--자유게시판 상세 조회-->
+    <select id="selectFreeBoardDetail" resultMap="free">
+        SELECT FREE_BOARD_NUM
+            , FREE_BOARD_TITLE
+            , FREE_BOARD_CONTENT
+            , FREE_BOARD_WRITER
+            , TO_CHAR(FREE_CREATE_DATE, 'YYYY-MM-DD') FREE_CREATE_DATE
+            , FREE_BOARD_READ_CNT
+        FROM BOARD_FREE_LIST
+        WHERE FREE_BOARD_NUM = #{freeBoardNum}
+    </select>
     <!--자유게시판 글 삭제-->
     <delete id="deleteFreeBoard">
         DELETE BOARD_FREE_LIST
@@ -94,7 +105,7 @@
         WHERE FREE_BOARD_NUM = #{freeBoardNum}
     </update>
     <!--클릭하면 조회수 1 증가-->
-    <update id="update">
+    <update id="updateFreeBoardCnt">
         UPDATE BOARD_FREE_LIST
         SET
             FREE_BOARD_READ_CNT = FREE_BOARD_READ_CNT + 1

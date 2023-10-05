@@ -25,6 +25,7 @@ public class InstructorController {
     //강사 등록 기능
     @PostMapping("/insertInstructor")
     public String insertInstructor(InstructorVO instructorVO, Model model){
+        System.out.println(instructorVO);
         instructorService.insertInstructor(instructorVO);
         return "redirect:/instructor/selectInstructorList";
     }

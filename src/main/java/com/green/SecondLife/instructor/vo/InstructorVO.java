@@ -10,6 +10,7 @@ public class InstructorVO {
     private int instructorAge;
     private String instructorGender;
     private String instructorPhone;
+    private String[] instructorPhones;
     private String instructorAddr;
-    private String hiredate;
+    private String instructorJoinDate;
 }

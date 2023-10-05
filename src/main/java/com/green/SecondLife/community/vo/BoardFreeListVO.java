@@ -8,7 +8,7 @@ public class BoardFreeListVO {
     private String freeBoardTitle;
     private String freeBoardContent;
     private String freeBoardWriter;
-    private String createDate;
+    private String freeCreateDate;
     private int freeBoardReadCnt;
     private String searchType;
     private String searchValue;
