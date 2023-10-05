@@ -23,7 +23,7 @@
                     [[${session.loginInfo.memberName}]]님 어서오세요 
                     <span class="login-span" onclick="location.href='/member/logout'">로그아웃</span> 
                     / 
-                    <span class="login-span" onclick="location.href='#'">내 정보</span>
+                    <span class="login-span" th:onclick="|location.href='@{/member/updateMemberForm(memberId=${session.loginInfo.memberId})}'|">내 정보</span>
                     <button th:if="${session.loginInfo.memberRoll == 'ADMIN'}" onclick="location.href='/instructor/insertInstructorForm';">강사등록하기</button>
                     <button th:if="${session.loginInfo.memberRoll == 'ADMIN'}" onclick="location.href='/lecture/insertLectureForm';">강좌등록하기</button>
                     <button th:if="${session.loginInfo.memberRoll == 'ADMIN'}" onclick="location.href='/instructor/selectInstructorList';">강사목록페이지</button>

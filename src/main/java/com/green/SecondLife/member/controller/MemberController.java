@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -56,10 +57,24 @@ public class MemberController {
         return "/main";
     }
 
+    //아이디 중복처리 비동기 통신
     @ResponseBody
     @PostMapping("/idFetch")
     public boolean idFetch(MemberVO memberVO){
         return memberService.selectId(memberVO);
     }
 
+    //회원 정보 수정폼으로 이동
+    @GetMapping("/updateMemberForm")
+    public String updateMemberForm(MemberVO memberVO, Model model){
+        model.addAttribute("member" ,memberService.selectMember(memberVO));
+        return "/updateMember";
+    }
+
+    //회원정보 수정
+    @PostMapping("/updateMember")
+    public String updateMember(MemberVO memberVO){
+        memberService.memberUpdate(memberVO);
+        return "/main";
+    }
 }

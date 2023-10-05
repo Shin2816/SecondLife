@@ -29,4 +29,15 @@ public class MemberServiceImpl implements MemberService{
         String selectId = sqlSession.selectOne("memberMapper.selectId", memberVO);
         return selectId == null;
     }
+    //회원 정보 수정
+    @Override
+    public void memberUpdate(MemberVO memberVO) {
+        sqlSession.update("memberMapper.memberUpdate", memberVO);
+    }
+    //회원 정보 검색
+    @Override
+    public MemberVO selectMember(MemberVO memberVO) {
+        return sqlSession.selectOne("memberMapper.memberSelectOne", memberVO);
+    }
+
 }

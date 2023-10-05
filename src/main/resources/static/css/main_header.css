@@ -11,11 +11,34 @@
     color:red;
     font-size: 0.8rem;
 }
+.facility{
+    display: flex;
+    justify-content: space-evenly;
+}
+.facility_info{
+    padding: 0 0 0 0;
+    margin: 50px 0 20px 0;
+    width: 50px;
+    height: 50px;
+    background-image: url(../images/icons.png);
+    background-position: -369px -97px;
+    background-repeat: no-repeat;
+}
+.facility_reservation{
+    margin: 56px 0 20px 0;
+    width: 57px;
+    height: 44px;
+    background-image: url(../images/icons.png);
+    background-position: -96px -106px;
+    background-repeat: no-repeat;
+}
+
+
+
+
+
 .lecture{
     background-color: aqua;
-}
-.facility{
-    background-color: aquamarine;
 }
 .board-1{
     background-color: burlywood;
