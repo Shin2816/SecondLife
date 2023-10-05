@@ -3,11 +3,45 @@
 .login-span{
     cursor: pointer;
 }
-.main{
+.menu{
     display: flex;
     justify-content: space-between;
 }
 .error div{
     color:red;
     font-size: 0.8rem;
+}
+.lecture{
+    background-color: aqua;
+}
+.facility{
+    background-color: aquamarine;
+}
+.board-1{
+    background-color: burlywood;
+}
+.board-2{
+    background-color: chocolate;
+}
+.board-photo{
+    background-color: blueviolet;
+}
+.link{
+    background-color: chartreuse;
+}
+.footer{
+    background-color: lightgrey;
+    height: 15rem;
+}
+.first{
+    height: 12rem;
+}
+.second{
+    height: 12rem;
+}
+.thrid{
+    height: 12rem;
+}
+.forth{
+    height: 12rem;
 }

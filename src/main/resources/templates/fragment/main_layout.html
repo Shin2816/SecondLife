@@ -17,10 +17,16 @@
             <th:block th:replace="~{fragment/main_header :: mainHeaderFragment}"></th:block>
         </div>
     </div>
-    <div class="row">
+    <div class="row mb-4">
         <!-- 컨텐츠 영역 -->
         <div class="col">
             <th:block layout:fragment="content"></th:block>
+        </div>
+    </div>
+    <div class="row">
+        <!-- 푸터영역 -->
+        <div class="col">
+            <th:block th:replace="~{fragment/main_footer :: mainFooterFragment}"></th:block>
         </div>
     </div>
 </div>
