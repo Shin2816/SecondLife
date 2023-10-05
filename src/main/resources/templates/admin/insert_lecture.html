@@ -9,11 +9,34 @@
 <body>
 <th:block layout:fragment="content">
 <h1>강좌등록페이지</h1>
-<form action="" method="post">
+<form action="/lecture/insertLecture" method="post">
     <div>
-        <p>강 좌 : <input type="text" name="lectureName"></p>
-        <p>강 사 : <input type="text" name="instructorName"></p>
+        <p>
+            강좌명 : 
+            <select name="lectureSubject">
+                <th:block th:each="subject : ${subjectList}">
+                    <option th:value="${subject.subjectName}">[[${subject.subjectName}]]</option>
+                </th:block>
+            </select>
+        </p>
+        <p>
+            강사 : 
+            <select name="instructorName">
+                <th:block th:each="instructor : ${instructorList}">
+                    <option th:value="${instructor.instructorName}">[[${instructor.instructorName}]]</option>
+                </th:block>
+            </select>
+        </p>
+        <p>
+            수강생 정원 : 
+            <select name="lectureStudent">
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+            </select>
+        </p>
         <p>수업기간 : <input type="text" name="lecturePeriod"> ~ <input type="text" name="lecturePeriod"></p>
+        <p>수강료 : <input type="text" name="lecturePrice"></p>
         <p><input type="submit" value="등록!!"></p>
     </div>
 </form>
