@@ -26,7 +26,7 @@ public class InstructorController {
     @PostMapping("/insertInstructor")
     public String insertInstructor(InstructorVO instructorVO, Model model){
         instructorService.insertInstructor(instructorVO);
-        return "redirect:/selectInstructorList";
+        return "redirect:/instructor/selectInstructorList";
     }
     //강사 목록 페이지
     @GetMapping("/selectInstructorList")
