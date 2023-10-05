@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{fragment/main_layout}">
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+<th:block layout:fragment="content">
+    글번호 : [[${board.freeBoardNum}]]<br>
+    제목 : [[${board.freeBoardTitle}]]<br>
+    내용 : [[${board.freeBoardContent}]]<br>
+    작성자 : [[${board.freeBoardWriter}]]<br>
+    작성일 : [[${board.freeBoardReadCnt}]]<br>
+    조회수 : [[${board.freeBoardReadCnt}]]<br>
+    <br>
+    <div>
+        <input type="button" value="뒤로가기" onclick="location.href='freeBoardList';">
+        <div th:if="${board.freeBoardWriter == session.loginInfo.memberId or session.loginInfo.memberRoll == 'ADMIN'}">
+            <input type="button" value="삭제" th:onclick="|location.href='@{/deleteFreeBoard(freeBoardNum=${board.freeBoardNum})}'|">
+            <input type="button" value="수정" th:onclick="|location.href='@{/updateFreeBoardForm(freeBoardNum=${board.freeBoardNum})}'|">
+        </div>
+    </div>
+</th:block>
+</body>
+</html>
