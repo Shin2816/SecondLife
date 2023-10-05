@@ -10,7 +10,7 @@
     <th:block layout:fragment="content">
         <div class="row">
             <div class="col">
-                <form action="/member/updateMember" method="POST" id="memberJoin">
+                <form action="/member/updateMember" method="POST" id="updateJoin">
                     <div class="row mb-3">
                         <div class="col-1">
                             아이디 : 
@@ -32,7 +32,7 @@
                             새로운 비밀번호 : 
                         </div>
                         <div class="col-2">
-                            <input type="password" class="form-control" required>
+                            <input type="password" class="form-control" id="newMemberPW" required>
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -40,7 +40,7 @@
                             비밀번호 확인 : 
                         </div>
                         <div class="col-2">
-                            <input type="password-" class="form-control" name="memberPW" id="newMemberPW" required>
+                            <input type="password-" class="form-control" name="memberPW" id="newMemberPW2" required>
                         </div>
                     </div>
                     <div class="row mb-3 error">
@@ -116,7 +116,7 @@
                     </div>
                     <div class="row">
                         <div class="col offset-3">
-                            <input type="button" class="btn btn-primary" id="join-btn" value="수정하기" onclick="joinValidate()">
+                            <input type="button" class="btn btn-primary" id="update-btn" value="수정하기" onclick="UpdateValidate()">
                         </div>
                     </div>
                 </form>

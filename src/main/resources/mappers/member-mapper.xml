@@ -57,7 +57,7 @@
 
     <update id="memberUpdate">
 
-        UPDATE TABLE MEMBER SET
+        UPDATE MEMBER SET
         MEMBER_PW = #{memberPW}
         , MEMBER_TEL = #{memberTel}
         , MEMBER_ADDR = #{memberAddr}

@@ -123,3 +123,52 @@ function resetMessage(){
     document.querySelector('.addr-error-div').style.display = 'none';
     document.querySelector('.email-error-div').style.display = 'none';
 }
+
+
+
+function UpdateValidate(){
+
+    //오류 메시지 리셋
+    updateresetMessage();
+
+
+    const updateJoin = document.querySelector('#updateJoin');
+
+    //pw 입력 여부 체크
+    if(updateJoin.memberPW.value == updateJoin.memberPW2){
+        inputInvalidate('.pw-error-div', '비밀번호가 같지 않습니다.');
+        return;
+    }
+
+
+    //휴대폰 정규식표현식
+    let telRegex = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
+    const tel = updateJoin.memberTel.value;
+    if(!telRegex.test(tel)){
+        inputInvalidate('.tel-error-div', '연락처의 형식을 지켜주세요. ex) 010-0000-0000');
+        return;
+    }
+
+    //addr 입력 여부 체크
+    if(updateJoin.memberAddr.value==''){
+        inputInvalidate('.addr-error-div', '주소는 필수 입력입니다.')
+        return;
+    }
+
+    //이메일 정규식표현식
+    let emailRegex = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+    const email = updateJoin.memberEmail.value;
+    if(!emailRegex.test(email)){
+        inputInvalidate('.email-error-div', '이메일의 형식을 지켜주세요 ex)aaa@aaa.com');
+        return;
+    }
+
+    //submit 실행
+    updateJoin.submit();
+}
+
+function updateresetMessage(){
+    document.querySelector('.tel-error-div').style.display = 'none';
+    document.querySelector('.addr-error-div').style.display = 'none';
+    document.querySelector('.email-error-div').style.display = 'none';
+}
