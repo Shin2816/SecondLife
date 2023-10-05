@@ -33,7 +33,7 @@ public class CommunityServiceImpl implements CommunityService{
         return sqlSession.delete("communityMapper.deleteFreeBoard", freeBoardNum);
 
     }
-
+    //자유게시판 글 수정
     @Override
     public int updateFreeBoard(BoardFreeListVO boardFreeListVO) {
         return sqlSession.update("communityMapper.updateFreeBoard", boardFreeListVO);

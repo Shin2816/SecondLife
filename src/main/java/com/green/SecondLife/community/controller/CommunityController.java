@@ -60,10 +60,11 @@ public class CommunityController {
         model.addAttribute("board", communityService.selectFreeBoardDetail(freeBoardNum));
         return "board/update_board";
     }
-    //
+    //수정페이지에서 수정 버튼을 눌렀을 때 수정 쿼리 실행
     @PostMapping("/updateBoard")
-    private String updateBoard(BoardFreeListVO boardFreeListVO, int boardNum){
+    private String updateBoard(BoardFreeListVO boardFreeListVO){
         communityService.updateFreeBoard(boardFreeListVO);
-        return "redirect:/freeBoardList";
+        //수정이 완료되면 게시글 상세페이지로 문자열+숫자열 freeBoardNum=숫자 데이터를 던질 수 있다.
+        return "redirect:/boardDetail?freeBoardNum=" + boardFreeListVO.getFreeBoardNum();
     }
 }

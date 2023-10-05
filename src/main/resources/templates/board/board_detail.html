@@ -15,8 +15,10 @@
     작성일 : [[${board.freeBoardReadCnt}]]<br>
     조회수 : [[${board.freeBoardReadCnt}]]<br>
     <br>
-    <div>
-        <input type="button" value="뒤로가기" onclick="location.href='freeBoardList';">
+    <input type="button" value="뒤로가기" onclick="location.href='freeBoardList';">
+    <!-- 로그인정보가 비어있지 않다면 버튼 보이게 -->
+    <div th:if="${session.loginInfo != null}">
+        <!-- 작성자가 같거나 관리자라면 -->
         <div th:if="${board.freeBoardWriter == session.loginInfo.memberId or session.loginInfo.memberRoll == 'ADMIN'}">
             <input type="button" value="삭제" th:onclick="|location.href='@{/deleteFreeBoard(freeBoardNum=${board.freeBoardNum})}'|">
             <input type="button" value="수정" th:onclick="|location.href='@{/updateFreeBoardForm(freeBoardNum=${board.freeBoardNum})}'|">
