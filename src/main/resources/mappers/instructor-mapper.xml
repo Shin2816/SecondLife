@@ -12,7 +12,7 @@
         <result column="INSTRUCTOR_GENDER"    property="instructorGender"/>
         <result column="INSTRUCTOR_PHONE"     property="instructorPhone"/>
         <result column="INSTRUCTOR_ADDR"      property="instructorAddr"/>
-        <result column="HIREDATE"             property="hiredate"/>
+        <result column="INSTRUCTOR_JOIN_DATE" property="instructorJoinDate"/>
     </resultMap>
     <!-- 강좌 과목 테이블 -->
     <resultMap id="subject" type="com.green.SecondLife.instructor.vo.SubjectVO">
@@ -41,7 +41,10 @@
             , #{instructorName}
             , #{instructorAge}
             , #{instructorGender}
-            , #{instructorPhone}
+            ,
+            <foreach collection="instructorPhones" item="phone" separator="||'-'||">
+                #{phone}
+            </foreach>
             , #{instructorAddr}
         )
     </insert>
@@ -54,6 +57,7 @@
             , INSTRUCTOR_GENDER
             , INSTRUCTOR_PHONE
             , INSTRUCTOR_ADDR
+            , INSTRUCTOR_JOIN_DATE
         FROM INSTRUCTOR
     </select>
 </mapper>
