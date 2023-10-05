@@ -25,8 +25,12 @@ public class InstructorController {
     //강사 등록 기능
     @PostMapping("/insertInstructor")
     public String insertInstructor(InstructorVO instructorVO, Model model){
-        System.out.println(instructorVO);
         instructorService.insertInstructor(instructorVO);
+        return "redirect:/selectInstructorList";
+    }
+    //강사 목록 페이지
+    @GetMapping("/selectInstructorList")
+    public String selectInstructorList(Model model){
         model.addAttribute("instructorList", instructorService.selectInstuctorList());
         return "admin/manage_instructor";
     }

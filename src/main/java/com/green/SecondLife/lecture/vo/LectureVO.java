@@ -11,5 +11,4 @@ public class LectureVO {
     private int lecturePrice;
     private String instructorCode;
     private String instructorName;
-
 }
