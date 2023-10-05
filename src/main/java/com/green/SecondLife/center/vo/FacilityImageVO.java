@@ -6,5 +6,6 @@ import lombok.Data;
 public class FacilityImageVO {
     private String facilityImageCode;
     private String facilityCode;
-    private String facilityImageFileName;
+    private String facilityOriginFileName;
+    private String facilityAttachedFileName;
 }

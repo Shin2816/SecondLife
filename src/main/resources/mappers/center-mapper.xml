@@ -12,9 +12,10 @@
     </resultMap>
 
     <resultMap id="facilityImage" type="com.green.SecondLife.center.vo.FacilityImageVO">
-        <id     column="FACILITY_IMAGE_CODE"      property="facilityImageCode"/>
-        <result column="FACILITY_CODE"            property="facilityCode"/>
-        <result column="FACILITY_IMAGE_FILE_NAME" property="facilityImageFileName"/>
+        <id     column="FACILITY_IMAGE_CODE"         property="facilityImageCode"/>
+        <result column="FACILITY_CODE"               property="facilityCode"/>
+        <result column="FACILITY_ORIGIN_FILE_NAME"   property="facilityOriginFileName"/>
+        <result column="FACILITY_ATTACHED_FILE_NAME" property="facilityAttachedFileName"/>
     </resultMap>
 
     <!--시설 등록-->
@@ -25,7 +26,7 @@
             , MAX_CLASS_CNT
             , RENTAL_AVAILABLE
         ) VALUES (
-            'sports_001'
+            'facility_001'
             , #{facilityName}
             , #{maxClassCnt}
             , #{rentalAvailable}
@@ -37,11 +38,13 @@
         INSERT INTO CENTER_FACILITY_IMAGE (
             FACILITY_IMAGE_CODE
             , FACILITY_CODE
-            , FACILITY_IMAGE_FILE_NAME
+            , FACILITY_ORIGIN_FILE_NAME
+            , FACILITY_ATTACHED_FILE_NAME
         ) VALUES (
-            #{facilityImageCode}
-            , #{facilityCode}
-            , #{facilityImageFileName}
+            'facility_001_img'
+            , 'facility_001'
+            , #{facilityImageVO.facilityOriginFileName}
+            , #{facilityImageVO.facilityAttachedFileName}
         )
     </insert>
 </mapper>
