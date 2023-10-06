@@ -8,6 +8,7 @@
         <result column="FACILITY_NAME"      property="facilityName"/>
         <result column="MAX_CLASS_CNT"      property="maxClassCnt"/>
         <result column="RENTAL_AVAILABLE"   property="rentalAvailable"/>
+        <result column="FACILITY_CONTENT"   property="facilityContent"/>
         <association property="facilityImageVO" resultMap="facilityImage"/>
     </resultMap>
 
@@ -25,11 +26,14 @@
             , FACILITY_NAME
             , MAX_CLASS_CNT
             , RENTAL_AVAILABLE
+            , FACILITY_CONTENT
         ) VALUES (
-            'facility_001'
+            (SELECT 'FACILITY_'||LPAD(NVL(MAX(TO_NUMBER(SUBSTR(FACILITY_CODE, 10))), 0) + 1, 3,'0')
+            FROM CENTER_FACILITY)
             , #{facilityName}
             , #{maxClassCnt}
             , #{rentalAvailable}
+            , #{facilityContent}
         )
     </insert>
 
@@ -41,12 +45,17 @@
             , FACILITY_ORIGIN_FILE_NAME
             , FACILITY_ATTACHED_FILE_NAME
         ) VALUES (
-            'facility_001_img'
-            , 'facility_001'
+            (SELECT 'FACILITY_'||LPAD(NVL(MAX(TO_NUMBER(SUBSTR(FACILITY_CODE, 10))), 0) + 1, 3,'0')||'_IMG'
+            FROM CENTER_FACILITY)
+            , #{facilityImageVO.facilityCode}
             , #{facilityImageVO.facilityOriginFileName}
             , #{facilityImageVO.facilityAttachedFileName}
         )
     </insert>
+
+    <!--시설관리_최대 강의 개수 변경-->
+    <!--시설관리_대관가능유무 상태변경(비동기통신)-->
+    <!--시설관리_삭제하기-->
 </mapper>
 
 

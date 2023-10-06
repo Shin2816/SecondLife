@@ -38,5 +38,8 @@ public class CenterController {
         return "redirect:/center/insertFacilityForm";
     }
 
+    // 시설 조회
+
+
 }
 
