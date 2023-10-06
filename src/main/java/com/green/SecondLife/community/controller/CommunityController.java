@@ -1,6 +1,7 @@
 package com.green.SecondLife.community.controller;
 
 import com.green.SecondLife.community.service.CommunityService;
+import com.green.SecondLife.community.vo.BoardCommentListVO;
 import com.green.SecondLife.community.vo.BoardFreeListVO;
 import com.green.SecondLife.member.vo.MemberVO;
 import jakarta.servlet.http.HttpSession;
@@ -23,7 +24,6 @@ public class CommunityController {
     //게시판 출력
     @RequestMapping("/freeBoardList")
     public String freeBoardList(Model model, BoardFreeListVO boardFreeListVO){
-        System.out.println(boardFreeListVO);
         List<BoardFreeListVO> freeBoardList = communityService.selectFreeBoardList(boardFreeListVO);
         model.addAttribute("freeBoardList", freeBoardList);
 
@@ -44,12 +44,13 @@ public class CommunityController {
         return "redirect:/freeBoardList";
     }
     //글 제목 클릭했을때 해당글의 상세페이지 이동
-    @GetMapping("/boardDetail")
+    @RequestMapping("/boardDetail")
     private String boardDetail(int freeBoardNum, Model model){
         model.addAttribute("board", communityService.selectFreeBoardDetail(freeBoardNum));
-
+        //조회수 증가
         communityService.updateFreeBoardCnt(freeBoardNum);
-
+        //댓글 조회해서 html로 던지기
+        model.addAttribute("comment", communityService.selectFreeBoardComment(freeBoardNum));
         return "board/board_detail";
     }
     //글 상세페이지에서 삭제버튼 클릭하였을 때

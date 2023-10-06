@@ -8,6 +8,7 @@
 </head>
 <body>
 <th:block layout:fragment="content">
+    <h1>게시글 등록 페이지</h1>
     <form action="/regBoard" method="post">
         제목 : <input type="text" name="freeBoardTitle" required><br>
         내용 : <textarea name="freeBoardContent" cols="30" rows="10"></textarea>
@@ -16,7 +17,7 @@
     <div class="input-group">
         <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
         <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">Button</button>
-      </div>
+    </div>
 </th:block>
 </body>
 </html>
