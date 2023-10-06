@@ -53,6 +53,11 @@
         FROM LECTURE
         WHERE LECTURE_CODE = #{lectureCode}
     </select>
+    <!-- 강좌 삭제 기능-->
+    <delete id="deleteLecture">
+        DELETE LECTURE
+        WHERE LECTURE_CODE = #{lectureCode}
+    </delete>
 </mapper>
 
 

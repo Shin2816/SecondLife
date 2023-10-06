@@ -27,4 +27,14 @@ public class InstructorServiceImpl implements InstructorService{
     public List<InstructorVO> selectInstuctorList() {
         return sqlSession.selectList("instructorMapper.selectInstructorList");
     }
+    //강사 상세 정보 조회 기능
+    @Override
+    public InstructorVO selectInstructorDetail(InstructorVO instructorVO) {
+        return sqlSession.selectOne("instructorMapper.selectInstructorDetail", instructorVO);
+    }
+    //강사 삭제 기능
+    @Override
+    public void deleteInstructor(InstructorVO instructorVO) {
+        sqlSession.delete("instructorMapper.deleteInstructor", instructorVO);
+    }
 }
