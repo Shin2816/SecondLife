@@ -19,6 +19,12 @@
         <result column="FACILITY_ATTACHED_FILE_NAME" property="facilityAttachedFileName"/>
     </resultMap>
 
+    <!--다음 시설코드 조회-->
+    <select id="selectNextFacilityCode" resultType="String">
+        SELECT 'FACILITY_'||LPAD(NVL(MAX(TO_NUMBER(SUBSTR(FACILITY_CODE, 10))), 0) + 1, 3,'0')
+        FROM CENTER_FACILITY
+    </select>
+
     <!--시설 등록-->
     <insert id="insertFacility">
         INSERT INTO CENTER_FACILITY (
@@ -28,8 +34,7 @@
             , RENTAL_AVAILABLE
             , FACILITY_CONTENT
         ) VALUES (
-            (SELECT 'FACILITY_'||LPAD(NVL(MAX(TO_NUMBER(SUBSTR(FACILITY_CODE, 10))), 0) + 1, 3,'0')
-            FROM CENTER_FACILITY)
+            #{facilityCode}
             , #{facilityName}
             , #{maxClassCnt}
             , #{rentalAvailable}
@@ -46,8 +51,8 @@
             , FACILITY_ATTACHED_FILE_NAME
         ) VALUES (
             (SELECT 'FACILITY_'||LPAD(NVL(MAX(TO_NUMBER(SUBSTR(FACILITY_CODE, 10))), 0) + 1, 3,'0')||'_IMG'
-            FROM CENTER_FACILITY)
-            , #{facilityImageVO.facilityCode}
+            FROM CENTER_FACILITY_IMAGE)
+            , #{facilityCode}
             , #{facilityImageVO.facilityOriginFileName}
             , #{facilityImageVO.facilityAttachedFileName}
         )

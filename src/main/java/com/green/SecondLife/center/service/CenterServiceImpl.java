@@ -12,6 +12,11 @@ public class CenterServiceImpl implements CenterService{
     private final SqlSessionTemplate sqlSession;
 
     @Override
+    public String selectNextFacilityCode() {
+        return sqlSession.selectOne("centerMapper.selectNextFacilityCode");
+    }
+
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public void insertFacility(CenterFacilityVO centerFacilityVO) {
         sqlSession.insert("centerMapper.insertFacility", centerFacilityVO);
