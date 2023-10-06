@@ -10,7 +10,8 @@
 <body>
     <th:block layout:fragment="content">
         <h1>강사등록페이지</h1>
-        <form action="/instructor/insertInstructor" method="post">
+        <form action="/instructor/insertInstructor" method="post" enctype="multipart/form-data">
+            사진 :  <input type="file" name="instructorImg">
             이 름 :
             <input type="text" name="instructorName"> <br><br>
             나 이 :
@@ -35,11 +36,12 @@
             <input type="text" name="instructorPhones">
             <input type="text" name="instructorPhones"> <br><br>
             주 소 :
-            <input type="text" name="instructorAddr"> <br><br>
+            <input type="text" name="instructorAddr" id="instructorAddr">
+            <input type="button" value="주소검색" onclick="openPost();"> <br><br>
+            나머지주소 : <input type="text" name="instructorAddr"> <br><br>
             <input type="submit" value="등록!!">
         </form>
-        </div>
-        </div>
+        <script src="/js/insert_instructor.js"></script>
     </th:block>
 </body>
 

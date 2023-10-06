@@ -1,14 +1,17 @@
 package com.green.SecondLife.instructor.controller;
 
 import com.green.SecondLife.instructor.service.InstructorService;
+import com.green.SecondLife.instructor.vo.InstructorImgVO;
 import com.green.SecondLife.instructor.vo.InstructorVO;
 import com.green.SecondLife.instructor.vo.SubjectVO;
+import com.green.SecondLife.util.UploadUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequiredArgsConstructor
@@ -22,10 +25,12 @@ public class InstructorController {
         model.addAttribute("subjectList", instructorService.selectSubjectList());
         return "admin/insert_instructor";
     }
-    //강사 등록 기능
+    //강사 등록 기능 + 이미지
     @PostMapping("/insertInstructor")
-    public String insertInstructor(InstructorVO instructorVO, Model model){
+    public String insertInstructor(InstructorVO instructorVO, Model model, MultipartFile instructorImg){
         System.out.println(instructorVO);
+        InstructorImgVO instructorImgVO = UploadUtil.uploadInstructorFile(instructorImg);
+        instructorVO.setInstructorImgVO(instructorImgVO);
         instructorService.insertInstructor(instructorVO);
         return "redirect:/instructor/selectInstructorList";
     }
