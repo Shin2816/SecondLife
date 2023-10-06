@@ -13,4 +13,5 @@ public class InstructorVO {
     private String[] instructorPhones;
     private String instructorAddr;
     private String instructorJoinDate;
+    private InstructorImgVO instructorImgVO;
 }
