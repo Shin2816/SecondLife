@@ -26,17 +26,28 @@ public class CenterController {
     // 시설 등록 + 시설 이미지 등록
     @PostMapping("/insertFacility")
     public String insertFacility(CenterFacilityVO centerFacilityVO, MultipartFile facilityImg){
-        //시설 이미지 등록
-        //이미지 정보 하나가 들어갈 수 있는 통
+        // 시설 이미지 등록
+        //1.다음에 들어가야할 FACILITY_CODE 조회
+        String facilityCode = centerService.selectNextFacilityCode();
+
+        //2.이미지 정보 하나가 들어갈 수 있는 통
         FacilityImageVO facilityImgVO = UploadUtil.uploadFile(facilityImg);
 
         centerFacilityVO.setFacilityImageVO(facilityImgVO);
-        System.out.println(centerFacilityVO);
+
+
         // 시설 등록 + 시설 이미지 등록 쿼리 (트랜젝션)
+        centerFacilityVO.setFacilityCode(facilityCode);
         centerService.insertFacility(centerFacilityVO);
+
+        System.out.println(centerFacilityVO);
+        System.out.println(facilityImgVO);
 
         return "redirect:/center/insertFacilityForm";
     }
+
+    // 시설 조회
+
 
 }
 

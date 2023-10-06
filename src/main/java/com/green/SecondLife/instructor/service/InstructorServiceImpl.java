@@ -5,6 +5,7 @@ import com.green.SecondLife.instructor.vo.SubjectVO;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,10 +18,12 @@ public class InstructorServiceImpl implements InstructorService{
     public List<SubjectVO> selectSubjectList() {
         return sqlSession.selectList("instructorMapper.selectSubjectList");
     }
-    //강사 등록 기능
+    //강사 등록 기능 + 이미지
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void insertInstructor(InstructorVO instructorVO) {
         sqlSession.insert("instructorMapper.insertInstructor", instructorVO);
+        sqlSession.insert("instructorMapper.insertInstructorImg", instructorVO);
     }
     //강사 목록 조회 기능
     @Override
