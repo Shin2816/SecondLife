@@ -60,6 +60,24 @@
             , INSTRUCTOR_JOIN_DATE
         FROM INSTRUCTOR
     </select>
+    <!-- 강사 상세 조회 쿼리 -->
+    <select id="selectInstructorDetail" resultMap="instructor">
+        SELECT INSTRUCTOR_CODE
+            , INSTRUCTOR_NAME
+            , INSTRUCTOR_MAJOR
+            , INSTRUCTOR_AGE
+            , INSTRUCTOR_GENDER
+            , INSTRUCTOR_PHONE
+            , INSTRUCTOR_ADDR
+            , INSTRUCTOR_JOIN_DATE
+        FROM INSTRUCTOR
+        WHERE INSTRUCTOR_CODE = #{instructorCode}
+    </select>
+    <!-- 강사 삭제 기능 -->
+    <delete id="deleteInstructor">
+        DELETE INSTRUCTOR
+        WHERE INSTRUCTOR_CODE = #{instructorCode}
+    </delete>
 </mapper>
 
 

@@ -26,4 +26,9 @@ public class LectureServiceImpl implements LectureService{
     public LectureVO selectLectureDetail(LectureVO lectureVO) {
         return sqlSession.selectOne("lectureMapper.selectLectureDetail", lectureVO);
     }
+    //강좌 삭제 기능
+    @Override
+    public void deleteLecture(LectureVO lectureVO) {
+        sqlSession.delete("lectureMapper.deleteLecture", lectureVO);
+    }
 }
