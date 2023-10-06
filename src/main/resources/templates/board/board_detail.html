@@ -24,6 +24,16 @@
             <input type="button" value="수정" th:onclick="|location.href='@{/updateFreeBoardForm(freeBoardNum=${board.freeBoardNum})}'|">
         </div>
     </div>
+    댓글작성
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="" aria-label="Recipient's username" aria-describedby="button-addon2">
+        <button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="">작성</button>
+    </div>
+    <div>
+        작성자 : [[${}]]
+    </div>
+    <hr>
+    <script src="/js/board.js"></script>
 </th:block>
 </body>
 </html>

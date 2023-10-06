@@ -14,8 +14,8 @@ public class CommunityServiceImpl implements CommunityService{
 
     //자유게시판 목록 조회
     @Override
-    public List<BoardFreeListVO> selectFreeBoardList() {
-        return sqlSession.selectList("communityMapper.selectFreeBoardList");
+    public List<BoardFreeListVO> selectFreeBoardList(BoardFreeListVO boardFreeListVO) {
+        return sqlSession.selectList("communityMapper.selectFreeBoardList", boardFreeListVO);
     }
     //자유게시판 글 등록
     @Override
@@ -42,5 +42,10 @@ public class CommunityServiceImpl implements CommunityService{
     @Override
     public int updateFreeBoardCnt(int freeBoardNum) {
         return sqlSession.update("communityMapper.updateFreeBoardCnt", freeBoardNum);
+    }
+
+    @Override
+    public List<BoardFreeListVO> selectFreeBoardComment() {
+        return sqlSession.selectList("communityMapper.selectFreeBoardComment");
     }
 }
