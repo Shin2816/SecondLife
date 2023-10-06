@@ -28,8 +28,11 @@ public class InstructorController {
     //강사 등록 기능 + 이미지
     @PostMapping("/insertInstructor")
     public String insertInstructor(InstructorVO instructorVO, Model model, MultipartFile instructorImg){
-        System.out.println(instructorVO);
+        //다음 강사 코드 조회 + 그걸 instructorVO에 넣기
+        instructorVO.setInstructorCode(instructorService.selectNextInstructorCode());
+        //강사 이미지가 들어갈 통 하나
         InstructorImgVO instructorImgVO = UploadUtil.uploadInstructorFile(instructorImg);
+        //강사VO에 강사이미지 넣기
         instructorVO.setInstructorImgVO(instructorImgVO);
         instructorService.insertInstructor(instructorVO);
         return "redirect:/instructor/selectInstructorList";

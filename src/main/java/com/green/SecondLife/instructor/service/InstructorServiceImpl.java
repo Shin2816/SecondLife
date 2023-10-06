@@ -18,6 +18,11 @@ public class InstructorServiceImpl implements InstructorService{
     public List<SubjectVO> selectSubjectList() {
         return sqlSession.selectList("instructorMapper.selectSubjectList");
     }
+    //다음 강사 코드 조회
+    @Override
+    public String selectNextInstructorCode() {
+        return sqlSession.selectOne("instructorMapper.selectNextInstructorCode");
+    }
     //강사 등록 기능 + 이미지
     @Override
     @Transactional(rollbackFor = Exception.class)
