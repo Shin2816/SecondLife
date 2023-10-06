@@ -11,4 +11,6 @@ public interface LectureService {
     public List<LectureVO> selectLectureList();
     //강좌 상세 정보 조회 기능
     public LectureVO selectLectureDetail(LectureVO lectureVO);
+    //강좌 삭제 기능
+    public void deleteLecture(LectureVO lectureVO);
 }

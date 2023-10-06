@@ -35,4 +35,17 @@ public class InstructorController {
         model.addAttribute("instructorList", instructorService.selectInstuctorList());
         return "admin/manage_instructor";
     }
+    //강사 상세 보기
+    @GetMapping("/selectInstructorDetail")
+    public String selectInstructorDetail(InstructorVO instructorVO, Model model){
+        System.out.println(instructorVO);
+        model.addAttribute("instructor", instructorService.selectInstructorDetail(instructorVO));
+        return "admin/instructor_detail";
+    }
+    //강사 삭제 기능
+    @GetMapping("/deleteInstructor")
+    public String deleteInstructor(InstructorVO instructorVO){
+        instructorService.deleteInstructor(instructorVO);
+        return "redirect:/instructor/selectInstructorList";
+    }
 }

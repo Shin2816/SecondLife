@@ -12,4 +12,8 @@ public interface InstructorService {
     public void insertInstructor(InstructorVO instructorVO);
     //강사 목록 조회 기능
     public List<InstructorVO> selectInstuctorList();
+    //강사 정보 상세 조회 기능
+    public InstructorVO selectInstructorDetail(InstructorVO instructorVO);
+    //강사 삭제 기능
+    public void deleteInstructor(InstructorVO instructorVO);
 }

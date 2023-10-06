@@ -39,4 +39,16 @@ public class LectureController {
         model.addAttribute("lectureList", lectureService.selectLectureList());
         return "admin/manage_lecture";
     }
+    //강좌 상세 정보 조회
+    @GetMapping("/selectLectureDetail")
+    public String selectLectureDetail(LectureVO lectureVO, Model model){
+        model.addAttribute("lecture", lectureService.selectLectureDetail(lectureVO));
+        return "admin/lecture_detail";
+    }
+    //강좌 삭제 기능
+    @GetMapping("/deleteLecture")
+    public String deleteLecture(LectureVO lectureVO){
+        lectureService.deleteLecture(lectureVO);
+        return "redirect:/lecture/selectLectureList";
+    }
 }

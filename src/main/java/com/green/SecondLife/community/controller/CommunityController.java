@@ -22,8 +22,9 @@ public class CommunityController {
 
     //게시판 출력
     @RequestMapping("/freeBoardList")
-    public String freeBoardList(Model model){
-        List<BoardFreeListVO> freeBoardList = communityService.selectFreeBoardList();
+    public String freeBoardList(Model model, BoardFreeListVO boardFreeListVO){
+        System.out.println(boardFreeListVO);
+        List<BoardFreeListVO> freeBoardList = communityService.selectFreeBoardList(boardFreeListVO);
         model.addAttribute("freeBoardList", freeBoardList);
 
         return "board/free_board";
