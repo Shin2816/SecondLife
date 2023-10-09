@@ -8,5 +8,6 @@ public class CenterFacilityVO {
     private String facilityName;
     private int maxClassCnt;
     private String rentalAvailable;
+    private String facilityContent;
     private FacilityImageVO facilityImageVO;
 }

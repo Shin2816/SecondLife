@@ -26,9 +26,12 @@
             <td>[[${lecture.lectureStudent}]]</td>
             <td>[[${lecture.lecturePeriod}]]</td>
             <td>[[${lecture.lecturePrice}]]</td>
+            <td><input type="submit" value="상세" th:onclick="|location.href='@{/lecture/selectLectureDetail(lectureCode=${lecture.lectureCode})}'|"></td>
+            <td><input type="submit" value="삭제" th:onclick="deleteLecture([[${lecture.lectureCode}]]);"></td>
         </tr>
     </tbody>
 </table>
+<script src="/js/manage_lecture.js"></script>
 </th:block>
 </body>
 </html>

@@ -8,8 +8,9 @@
 </head>
 <body>
 <th:block layout:fragment="content">
+    <h1>게시글 수정 페이지</h1>
     <form action="/updateBoard" method="post">
-        <input type="hidden" name="freeBoardNum" th:value="${freeBoardNum}">
+        <input type="hidden" name="freeBoardNum" th:value="${board.freeBoardNum}">
         제목 : <input type="text" name="freeBoardTitle" th:value="${board.freeBoardTitle}"><br>
         내용 : <textarea rows="5" cols="50" name="freeBoardContent">[[${board.freeBoardContent}]]</textarea><br>
         <input type="submit" value="수정">

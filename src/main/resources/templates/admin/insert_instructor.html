@@ -10,59 +10,38 @@
 <body>
     <th:block layout:fragment="content">
         <h1>강사등록페이지</h1>
-        <div class="row">
-            <div class="col">
-                <form action="/instructor/insertInstructor" method="post">
-                    <div class="row">
-                        <div class="col-1">이 름 : </div>
-                        <div class="col-2"><input class="form-control" type="text" name="instructorName"></div>
-                    </div>
-                    <div class="row">
-                        <div class="col-1">나 이 : </div>
-                        <div class="col-2"><input class="form-control" type="text" name="instructorAge"></div>
-                    </div>
-                    <div class="row">
-                        <div class="col-1">성 별 : </div>
-                        <div class="col-1">남 </div>
-                        <div class="col-1"><input type="radio" value="남" name="instructorGender" checked></div>
-                        <div class="col-1">여</div>
-                        <div class="col-1"><input type="radio" value="여" name="instructorGender"></div>
-                    </div>
-                    <div class="row">
-                        <div class="col-1">과 목 : </div>
-                        <div class="col-2">
-                            <select name="instructorMajor">
-                                <th:block th:each="subject : ${subjectList}">
-                                    <option th:value="${subject.subjectName}">[[${subject.subjectName}]]</option>
-                                </th:block>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-1">연락처 : </div>
-                        <div class="col-1">
-                            <select name="instructorPhones">
-                                <option value="010">010</option>
-                                <option value="011">011</option>
-                                <option value="012">012</option>
-                            </select>
-                        </div>
-                        <div class="col-2"><input class="form-control" type="text" name="instructorPhones"></div>
-                        <div class="col-1"><input class="form-control" type="text" name="instructorPhones"></div>
-                    </div>
-                    <div class="row">
-                        <div class="col-1">주 소 : </div>
-                        <div class="col-2"><input class="form-control" type="text" name="instructorAddr"
-                                onclick="openPost();"></div>
-                        <div class="col-1"><input class="btn btn-primary" value="주소검색" type="button"
-                                onclick="openPost();"></div>
-                    </div>
-                    <div class="row">
-                        <div class="col"><input type="submit" class="btn btn-primary" value="등록!!"></div>
-                    </div>
-                </form>
-            </div>
-        </div>
+        <form action="/instructor/insertInstructor" method="post" enctype="multipart/form-data">
+            사진 :  <input type="file" name="instructorImg">
+            이 름 :
+            <input type="text" name="instructorName"> <br><br>
+            나 이 :
+            <input type="text" name="instructorAge"> <br><br>
+            성 별 :
+            남
+            <input type="radio" value="남" name="instructorGender" checked>
+            여
+            <input type="radio" value="여" name="instructorGender"> <br><br>
+            과 목 :
+            <select name="instructorMajor">
+                <th:block th:each="subject : ${subjectList}">
+                    <option th:value="${subject.subjectName}">[[${subject.subjectName}]]</option>
+                </th:block>
+            </select> <br><br>
+            연락처 :
+            <select name="instructorPhones">
+                <option value="010">010</option>
+                <option value="011">011</option>
+                <option value="012">012</option>
+            </select>
+            <input type="text" name="instructorPhones">
+            <input type="text" name="instructorPhones"> <br><br>
+            주 소 :
+            <input type="text" name="instructorAddr" id="instructorAddr">
+            <input type="button" value="주소검색" onclick="openPost();"> <br><br>
+            나머지주소 : <input type="text" name="instructorAddr"> <br><br>
+            <input type="submit" value="등록!!">
+        </form>
+        <script src="/js/insert_instructor.js"></script>
     </th:block>
 </body>
 

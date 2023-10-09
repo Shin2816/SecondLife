@@ -10,7 +10,11 @@
 <th:block layout:fragment="content">
 <h1>강좌 상세페이지</h1>
     <div>
-        <p>강좌명 : <span></span></p>
+        <p>강좌명 : [[${lecture.lectureSubject}]]</p>
+        <p>강사명 : [[${lecture.instructorName}]]</p>
+        <p>강좌기간 : [[${lecture.lecturePeriod}]]</p>
+        <p>정원 : [[${lecture.lectureStudent}]]</p>
+        <p>수강료 : [[${lecture.lecturePrice}]]</p>
     </div>
 </th:block>
 </body>

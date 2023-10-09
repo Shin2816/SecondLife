@@ -30,9 +30,12 @@
             <td>[[${instructor.instructorPhone}]]</td>
             <td>[[${instructor.instructorAddr}]]</td>
             <td>[[${instructor.instructorJoinDate}]]</td>
+            <td><input type="button" value="상세" th:onclick="|location.href='@{/instructor/selectInstructorDetail(instructorCode=${instructor.instructorCode})}'|"></td>
+            <td><input type="button" value="삭제" th:onclick="deleteInstructor([[${instructor.instructorCode}]]);"></td>
         </tr>
     </tbody>
 </table>
+<script src="/js/manage_instructor.js"></script>
 </th:block>
 </body>
 </html>
