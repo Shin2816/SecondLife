@@ -125,7 +125,7 @@ function resetMessage(){
 }
 
 
-
+//계정 정보 수정 데이터 유효성 검사.
 function UpdateValidate(){
 
     //오류 메시지 리셋
@@ -167,6 +167,7 @@ function UpdateValidate(){
     updateJoin.submit();
 }
 
+//계정 정보 수정 오류 메시지 초기화.
 function updateresetMessage(){
     document.querySelector('.tel-error-div').style.display = 'none';
     document.querySelector('.addr-error-div').style.display = 'none';

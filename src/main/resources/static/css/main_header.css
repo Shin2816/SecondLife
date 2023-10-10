@@ -13,29 +13,36 @@
 }
 .facility{
     display: flex;
-    justify-content: space-evenly;
 }
-.facility_info{
-    padding: 0 0 0 0;
-    margin: 50px 0 20px 0;
-    width: 50px;
-    height: 50px;
-    background-image: url(../images/icons.png);
-    background-position: -369px -97px;
-    background-repeat: no-repeat;
+.facility .left{
+    position: relative;
+    width: 100%;
+    height: auto;
+    margin-right: 10px;
+    cursor: pointer;
+    background-color: antiquewhite;
 }
-.facility_reservation{
-    margin: 56px 0 20px 0;
-    width: 57px;
-    height: 44px;
-    background-image: url(../images/icons.png);
-    background-position: -96px -106px;
-    background-repeat: no-repeat;
+.left_info{
+    position: absolute;
+    width: 80px;
+    height: 120px;
+    top: 50px;
+    right: 55px;
 }
-
-
-
-
+.facility .right{
+    position: relative;
+    width: 100%;
+    height: auto;
+    cursor: pointer;
+    background-color: azure;
+}
+.right_info{
+    position: absolute;
+    width: 80px;
+    height: 120px;
+    top: 50px;
+    right: 55px;
+}
 
 .lecture{
     background-color: aqua;
