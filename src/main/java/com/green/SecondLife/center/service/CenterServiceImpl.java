@@ -6,6 +6,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class CenterServiceImpl implements CenterService{
@@ -21,5 +23,10 @@ public class CenterServiceImpl implements CenterService{
     public void insertFacility(CenterFacilityVO centerFacilityVO) {
         sqlSession.insert("centerMapper.insertFacility", centerFacilityVO);
         sqlSession.insert("centerMapper.insertFacilityImage" , centerFacilityVO);
+    }
+
+    @Override
+    public List<CenterFacilityVO> selectAllFacility() {
+        return sqlSession.selectList("centerMapper.selectAllFacility");
     }
 }

@@ -6,6 +6,7 @@ import com.green.SecondLife.center.vo.FacilityImageVO;
 import com.green.SecondLife.util.UploadUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,14 +41,15 @@ public class CenterController {
         centerFacilityVO.setFacilityCode(facilityCode);
         centerService.insertFacility(centerFacilityVO);
 
-        System.out.println(centerFacilityVO);
-        System.out.println(facilityImgVO);
-
         return "redirect:/center/insertFacilityForm";
     }
 
-    // 시설 조회
-
+    // 전체 시설 목록 조회
+    @GetMapping("/selectAllFacility")
+    public String selectAllFacility(Model model){
+        //model.addAttribute("facilityList", centerService.selectAllFacility());
+        return "admin/manage_facility";
+    }
 
 }
 

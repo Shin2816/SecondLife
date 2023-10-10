@@ -18,5 +18,7 @@ public interface CommunityService {
     //자유게시판 조회수 증가
     public int updateFreeBoardCnt(int freeBoardNum);
     //자유게시판 댓글 목록 조회
-    public List<BoardFreeListVO> selectFreeBoardComment();
+    public List<BoardFreeListVO> selectFreeBoardComment(int freeBoardNum);
+    //자유게시판 댓글 등록
+    public int insertFreeBoardComment(int freeBoardNum);
 }

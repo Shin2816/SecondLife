@@ -38,14 +38,19 @@ public class CommunityServiceImpl implements CommunityService{
     public int updateFreeBoard(BoardFreeListVO boardFreeListVO) {
         return sqlSession.update("communityMapper.updateFreeBoard", boardFreeListVO);
     }
-
+    //조회수 증가
     @Override
     public int updateFreeBoardCnt(int freeBoardNum) {
         return sqlSession.update("communityMapper.updateFreeBoardCnt", freeBoardNum);
     }
-
+    //댓글 조회
     @Override
-    public List<BoardFreeListVO> selectFreeBoardComment() {
-        return sqlSession.selectList("communityMapper.selectFreeBoardComment");
+    public List<BoardFreeListVO> selectFreeBoardComment(int freeBoardNum) {
+        return sqlSession.selectList("communityMapper.selectFreeBoardComment", freeBoardNum);
+    }
+    //댓글 작성
+    @Override
+    public int insertFreeBoardComment(int freeBoardNum) {
+        return sqlSession.insert("communityMapper.insertFreeBoardComment", freeBoardNum);
     }
 }

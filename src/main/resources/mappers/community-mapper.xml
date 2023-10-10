@@ -120,15 +120,31 @@
             FREE_BOARD_READ_CNT = FREE_BOARD_READ_CNT + 1
         WHERE FREE_BOARD_NUM = #{freeBoardNum}
     </update>
-    <!--자유게시판 댓글 작성-->
-    <select id="selectFreeBoardComment" resultMap="free">
+    <!--자유게시판 댓글 조회-->
+    <select id="selectFreeBoardComment" resultMap="comment">
         SELECT COMMENT_ID
             , COMMENT_CONTENT
             , COMMENT_WRITER
             , TO_CHAR(COMMENT_CREATE_DATE, 'YYYY-MM-DD') COMMENT_CREATE_DATE
         FROM BOARD_FREE_COMMENTS
-        WHERE COMMENT_NUM = #{FREE_BOARD_NUM}
+        WHERE COMMENT_NUM = #{freeBoardNum}
     </select>
+    <!--자유게시판 댓글 작성-->
+    <insert id="insertFreeBoardComment">
+        INSERT INTO BOARD_FREE_COMMENTS (
+            COMMENT_ID
+            , COMMENT_CONTENT
+            , COMMENT_WRITER
+            , COMMENT_CREATE_DATE
+            , COMMENT_NUM
+        ) VALUES (
+            (SELECT NVL(MAX(COMMENT_ID), 0) + 1 FROM BOARD_FREE_COMMENTS)
+            , #{commentContent}
+            , #{commentWriter}
+            , SYSDATE
+            , #{freeBoardNum}
+        );
+    </insert>
 </mapper>
 
 
