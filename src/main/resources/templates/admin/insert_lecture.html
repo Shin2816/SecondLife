@@ -13,6 +13,10 @@
     <div>
         <p>
             강좌명 : 
+            <input type="text" name="lectureTitle">
+        </p>
+        <p>
+            수강과목 : 
             <select name="lectureSubject">
                 <th:block th:each="subject : ${subjectList}">
                     <option th:value="${subject.subjectName}">[[${subject.subjectName}]]</option>
