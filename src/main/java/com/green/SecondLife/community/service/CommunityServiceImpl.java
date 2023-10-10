@@ -54,4 +54,17 @@ public class CommunityServiceImpl implements CommunityService{
     public int insertFreeBoardComment(BoardCommentListVO boardCommentListVO) {
         return sqlSession.insert("communityMapper.insertFreeBoardComment", boardCommentListVO);
     }
+
+    //댓글 삭제
+    @Override
+    public int deleteFreeBoardComment(int commentId) {
+        return sqlSession.delete("communityMapper.deleteFreeBoardComment", commentId);
+    }
+
+    //댓글 수정
+    @Override
+    public int updateFreeBoardComment(int commentId) {
+        return sqlSession.update("communityMapper.updateFreeBoardComment", commentId);
+    }
+
 }

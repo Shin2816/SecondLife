@@ -142,9 +142,22 @@
             , #{commentContent}
             , #{commentWriter}
             , SYSDATE
-            , #{freeBoardNum}
-        );
+            , #{commentNum}
+        )
     </insert>
+    <!--자유게시판 댓글 삭제-->
+    <delete id="deleteFreeBoardComment">
+        DELETE BOARD_FREE_COMMENTS
+        WHERE COMMENT_ID = #{commentId}
+    </delete>
+
+    <!--자유게시판 댓글 수정-->
+    <update id="updateFreeBoardComment">
+        UPDATE BOARD_FREE_COMMENTS
+        SET
+            COMMENT_CONTENT = #{commentContent}
+        WHERE COMMENT_ID = #{commentId}
+    </update>
 </mapper>
 
 

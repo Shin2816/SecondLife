@@ -22,4 +22,8 @@ public interface CommunityService {
     public List<BoardFreeListVO> selectFreeBoardComment(int freeBoardNum);
     //자유게시판 댓글 등록
     public int insertFreeBoardComment(BoardCommentListVO boardCommentListVO);
+    //자유게시판 댓글 삭제
+    public int deleteFreeBoardComment(int commentId);
+    //자유게시판 댓글 수정
+    public int updateFreeBoardComment(int commentId);
 }
