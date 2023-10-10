@@ -87,10 +87,10 @@
                         <td>[[${comment.commentWriter}]]</td>
                         <td>[[${comment.commentCreateDate}]]</td>
                         <!-- 관리자 이거나, 작성자라면-->
-                        <!-- <div th:if="${board.freeBoardWriter == session.loginInfo.memberId or session.loginInfo.memberRoll == 'ADMIN'}">
+                        <div th:if="${comment.commentWriter == session.loginInfo.memberId or session.loginInfo.memberRoll == 'ADMIN'}">
                             <td><input type="button" value="삭제" th:onclick="freeDeleteComment([[${comment.commentId}]])"></td>
-                            <td><input type="button" value="수정" th:onclick="freeUpdateComment([[${comment.commentId}]]);"></td>
-                        </div> -->
+                            <td><input type="button" value="수정" th:onclick="freeUpdateComment([[${comment.commentId}]], [[${comment.commentContent}]]);"></td>
+                        </div>
                     </tr>
                 </th:block>
             </div>
