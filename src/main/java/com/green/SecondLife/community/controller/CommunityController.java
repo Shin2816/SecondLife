@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -71,5 +72,12 @@ public class CommunityController {
         communityService.updateFreeBoard(boardFreeListVO);
         //수정이 완료되면 게시글 상세페이지로 문자열+숫자열 freeBoardNum=숫자 데이터를 던질 수 있다.
         return "redirect:/boardDetail?freeBoardNum=" + boardFreeListVO.getFreeBoardNum();
+    }
+    //상세 페이지에서 댓글 작성버튼 클릭하면 비동기로 insert 쿼리 실행
+    @ResponseBody
+    @PostMapping("/freeBoardComment")
+    private void freeBoardComment(BoardCommentListVO boardCommentListVO){
+        communityService.insertFreeBoardComment(boardCommentListVO);
+        System.out.println(boardCommentListVO);
     }
 }
