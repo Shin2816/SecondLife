@@ -1,10 +1,14 @@
 package com.green.SecondLife.center.service;
 
 import com.green.SecondLife.center.vo.CenterFacilityVO;
+import com.green.SecondLife.center.vo.CenterPlaceCategoryVO;
 
 import java.util.List;
 
 public interface CenterService {
+    // 시설 카테고리 조회
+    public List<CenterPlaceCategoryVO> selectCenterCategory();
+
     // 다음 시설 코드 조회
     public String selectNextFacilityCode();
 

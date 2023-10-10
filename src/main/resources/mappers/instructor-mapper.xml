@@ -33,6 +33,11 @@
             , SUBJECT_NAME
         FROM SUBJECT
     </select>
+    <!-- 다음 강사 코드 조회 -->
+    <select id="selectNextInstructorCode" resultType="String">
+        SELECT 'INSTRUCTOR_'||LPAD(NVL(MAX(TO_NUMBER(SUBSTR(INSTRUCTOR_CODE, 12))), 0) + 1, 3,'0')
+        FROM INSTRUCTOR
+    </select>
     <!-- 강사 등록 쿼리 -->
     <insert id="insertInstructor">
         INSERT INTO INSTRUCTOR (
@@ -44,7 +49,7 @@
             , INSTRUCTOR_PHONE
             , INSTRUCTOR_ADDR
         ) VALUES (
-            999
+            #{instructorCode}
             , #{instructorMajor}
             , #{instructorName}
             , #{instructorAge}
@@ -64,8 +69,9 @@
             , INSTRUCTOR_ORIGIN_FILE_NAME
             , INSTRUCTOR_ATTACHED_FILE_NAME
         ) VALUES (
-            1000
-            , 999
+            (SELECT 'INSTRUCTOR_'||LPAD(NVL(MAX(TO_NUMBER(SUBSTR(INSTRUCTOR_CODE, 12))), 0) + 1, 3,'0')||'_IMG'
+            FROM INSTRUCTOR_IMG)
+            , #{instructorCode}
             , #{instructorImgVO.instructorOriginFileName}
             , #{instructorImgVO.instructorAttachedFileName}
         )
@@ -84,7 +90,7 @@
     </select>
     <!-- 강사 상세 조회 쿼리 -->
     <select id="selectInstructorDetail" resultMap="instructor">
-        SELECT INSTRUCTOR_CODE
+        SELECT INSTRUCTOR.INSTRUCTOR_CODE
             , INSTRUCTOR_NAME
             , INSTRUCTOR_MAJOR
             , INSTRUCTOR_AGE
@@ -92,9 +98,22 @@
             , INSTRUCTOR_PHONE
             , INSTRUCTOR_ADDR
             , INSTRUCTOR_JOIN_DATE
-        FROM INSTRUCTOR
+            , INSTRUCTOR_ATTACHED_FILE_NAME
+        FROM INSTRUCTOR, INSTRUCTOR_IMG
+        WHERE INSTRUCTOR.INSTRUCTOR_CODE = #{instructorCode}
+        AND INSTRUCTOR.INSTRUCTOR_CODE = INSTRUCTOR_IMG.INSTRUCTOR_CODE
+    </select>
+    <!-- 강사 이미지 코드 조회 -->
+    <select id="selectInstructorImgCode" resultType="String">
+        SELECT INSTRUCTOR_IMG_CODE
+        FROM INSTRUCTOR_IMG
         WHERE INSTRUCTOR_CODE = #{instructorCode}
     </select>
+    <!-- 강사 이미지 삭제 기능 -->
+    <delete id="deleteInstructorImg">
+        DELETE INSTRUCTOR_IMG
+        WHERE INSTRUCTOR_IMG_CODE = #{instructorImgCode}
+    </delete>
     <!-- 강사 삭제 기능 -->
     <delete id="deleteInstructor">
         DELETE INSTRUCTOR

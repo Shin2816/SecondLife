@@ -1,5 +1,6 @@
 package com.green.SecondLife.instructor.service;
 
+import com.green.SecondLife.instructor.vo.InstructorImgVO;
 import com.green.SecondLife.instructor.vo.InstructorVO;
 import com.green.SecondLife.instructor.vo.SubjectVO;
 import lombok.RequiredArgsConstructor;
@@ -18,12 +19,18 @@ public class InstructorServiceImpl implements InstructorService{
     public List<SubjectVO> selectSubjectList() {
         return sqlSession.selectList("instructorMapper.selectSubjectList");
     }
+    //다음 강사 코드 조회
+    @Override
+    public String selectNextInstructorCode() {
+        return sqlSession.selectOne("instructorMapper.selectNextInstructorCode");
+    }
     //강사 등록 기능 + 이미지
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void insertInstructor(InstructorVO instructorVO) {
+    public Object insertInstructor(InstructorVO instructorVO) {
         sqlSession.insert("instructorMapper.insertInstructor", instructorVO);
         sqlSession.insert("instructorMapper.insertInstructorImg", instructorVO);
+        return null;
     }
     //강사 목록 조회 기능
     @Override
@@ -35,9 +42,16 @@ public class InstructorServiceImpl implements InstructorService{
     public InstructorVO selectInstructorDetail(InstructorVO instructorVO) {
         return sqlSession.selectOne("instructorMapper.selectInstructorDetail", instructorVO);
     }
+    //강사 이미지 코드 조회
+    @Override
+    public String selectInstructorImgCode(InstructorVO instructorVO) {
+        return sqlSession.selectOne("instructorMapper.selectInstructorImgCode", instructorVO);
+    }
     //강사 삭제 기능
     @Override
-    public void deleteInstructor(InstructorVO instructorVO) {
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteInstructor(InstructorVO instructorVO, InstructorImgVO instructorImgVO) {
+        sqlSession.delete("instructorMapper.deleteInstructorImg", instructorImgVO);
         sqlSession.delete("instructorMapper.deleteInstructor", instructorVO);
     }
 }

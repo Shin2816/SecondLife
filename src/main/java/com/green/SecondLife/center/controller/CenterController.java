@@ -2,6 +2,7 @@ package com.green.SecondLife.center.controller;
 
 import com.green.SecondLife.center.service.CenterService;
 import com.green.SecondLife.center.vo.CenterFacilityVO;
+import com.green.SecondLife.center.vo.CenterPlaceCategoryVO;
 import com.green.SecondLife.center.vo.FacilityImageVO;
 import com.green.SecondLife.util.UploadUtil;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/center")
 @RequiredArgsConstructor
@@ -20,7 +23,10 @@ public class CenterController {
 
     // 시설 등록 페이지로 이동
     @GetMapping("/insertFacilityForm")
-    public String insertFacilityForm(){
+    public String insertFacilityForm(Model model){
+        // 시설 카테고리 조회
+        model.addAttribute("centerCategoryList", centerService.selectCenterCategory());
+
         return "admin/insert_facility_form";
     }
 
@@ -36,7 +42,6 @@ public class CenterController {
 
         centerFacilityVO.setFacilityImageVO(facilityImgVO);
 
-
         // 시설 등록 + 시설 이미지 등록 쿼리 (트랜젝션)
         centerFacilityVO.setFacilityCode(facilityCode);
         centerService.insertFacility(centerFacilityVO);
@@ -47,7 +52,7 @@ public class CenterController {
     // 전체 시설 목록 조회
     @GetMapping("/selectAllFacility")
     public String selectAllFacility(Model model){
-        //model.addAttribute("facilityList", centerService.selectAllFacility());
+        model.addAttribute("facilityList", centerService.selectAllFacility());
         return "admin/manage_facility";
     }
 

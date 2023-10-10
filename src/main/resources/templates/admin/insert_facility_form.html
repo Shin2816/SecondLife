@@ -11,21 +11,29 @@
     <form action="/center/insertFacility" method="post" enctype="multipart/form-data">
         <h2>시설 등록</h2>
         <div class="row mb-3">
+            <div class="col-3">시설 카테고리</div>
+            <div class="col-5">
+                <select name="centerCateCode" class="form-select">
+                    <option th:each="centerCategory : ${centerCategoryList}" th:value="${centerCategory.centerCateCode}">[[${centerCategory.centerCateName}]]</option>
+                </select>
+            </div>
+        </div>
+        <div class="row mb-3">
             <div class="col-3">시설명</div>
             <div class="col-5">
                 <input class="form-control" type="text" name="facilityName">
             </div>
         </div>
         <div class="row mb-3">
-            <div class="col-3">시설 설명</div>
+            <div class="col-3">장소(층) 정보</div>
             <div class="col-5">
-                <textarea class="form-control" name="facilityContent" id="" cols="30" rows="10"></textarea>
+                <input class="form-control" type="text" name="facilityPlaceInfo">
             </div>
         </div>
         <div class="row mb-3">
-            <div class="col-3">최대 강의 개수</div>
+            <div class="col-3">시설 설명</div>
             <div class="col-5">
-                <input class="form-control" type="number" name="maxClassCnt" value="0">
+                <textarea class="form-control" name="facilityContent" id="" cols="30" rows="10"></textarea>
             </div>
         </div>
         <div class="row mb-3">
