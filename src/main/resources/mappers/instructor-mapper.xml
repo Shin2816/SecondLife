@@ -85,7 +85,7 @@
             , INSTRUCTOR_GENDER
             , INSTRUCTOR_PHONE
             , INSTRUCTOR_ADDR
-            , INSTRUCTOR_JOIN_DATE
+            , TO_CHAR (INSTRUCTOR_JOIN_DATE, 'YYYY-MM-DD') INSTRUCTOR_JOIN_DATE
         FROM INSTRUCTOR
     </select>
     <!-- 강사 상세 조회 쿼리 -->
@@ -97,7 +97,7 @@
             , INSTRUCTOR_GENDER
             , INSTRUCTOR_PHONE
             , INSTRUCTOR_ADDR
-            , INSTRUCTOR_JOIN_DATE
+            , TO_CHAR (INSTRUCTOR_JOIN_DATE, 'YYYY-MM-DD') INSTRUCTOR_JOIN_DATE
             , INSTRUCTOR_ATTACHED_FILE_NAME
         FROM INSTRUCTOR, INSTRUCTOR_IMG
         WHERE INSTRUCTOR.INSTRUCTOR_CODE = #{instructorCode}

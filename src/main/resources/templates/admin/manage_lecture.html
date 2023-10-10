@@ -13,7 +13,8 @@
     <thead>
         <tr>
             <td>강사</td>
-            <td>강좌</td>
+            <td>강좌명</td>
+            <td>수강과목</td>
             <td>정원</td>
             <td>기간</td>
             <td>수강료</td>
@@ -22,6 +23,7 @@
     <tbody>
         <tr th:each="lecture : ${lectureList}">
             <td>[[${lecture.instructorName}]]</td>
+            <td>[[${lecture.lectureTitle}]]</td>
             <td>[[${lecture.lectureSubject}]]</td>
             <td>[[${lecture.lectureStudent}]]</td>
             <td>[[${lecture.lecturePeriod}]]</td>

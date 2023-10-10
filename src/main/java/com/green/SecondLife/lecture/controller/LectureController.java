@@ -51,4 +51,9 @@ public class LectureController {
         lectureService.deleteLecture(lectureVO);
         return "redirect:/lecture/selectLectureList";
     }
+    //수강 신청 페이지로 이동
+    @GetMapping("/goLectureApplyForm")
+    public String goLectureApplyForm(){
+        return "lecture/lecture_apply_form";
+    }
 }

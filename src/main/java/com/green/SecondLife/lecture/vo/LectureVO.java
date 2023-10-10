@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class LectureVO {
     private String lectureCode;
+    private String lectureTitle;
     private String lectureSubject;
     private int lectureStudent;
     private String lecturePeriod;
