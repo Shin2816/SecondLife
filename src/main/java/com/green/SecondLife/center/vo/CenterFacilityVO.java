@@ -6,8 +6,9 @@ import lombok.Data;
 public class CenterFacilityVO {
     private String facilityCode;
     private String facilityName;
-    private int maxClassCnt;
-    private String rentalAvailable;
     private String facilityContent;
+    private String rentalAvailable;
+    private int centerCateCode;
+    private String facilityPlaceInfo;
     private FacilityImageVO facilityImageVO;
 }

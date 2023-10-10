@@ -1,6 +1,7 @@
 package com.green.SecondLife.center.service;
 
 import com.green.SecondLife.center.vo.CenterFacilityVO;
+import com.green.SecondLife.center.vo.CenterPlaceCategoryVO;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CenterServiceImpl implements CenterService{
     private final SqlSessionTemplate sqlSession;
+
+    @Override
+    public List<CenterPlaceCategoryVO> selectCenterCategory() {
+        return sqlSession.selectList("centerMapper.selectCenterCategory");
+    }
 
     @Override
     public String selectNextFacilityCode() {
