@@ -22,7 +22,8 @@
             , LECTURE_PRICE
             , INSTRUCTOR_NAME
         ) VALUES (
-            (SELECT NVL(MAX(LECTURE_CODE), 0) + 1 FROM LECTURE)
+            (SELECT 'LECTURE_'||LPAD(NVL(MAX(TO_NUMBER(SUBSTR(LECTURE_CODE, 9))), 0) + 1, 3,'0')
+            FROM LECTURE)
             , #{lectureSubject}
             , #{lectureStudent}
             , #{lecturePeriod}

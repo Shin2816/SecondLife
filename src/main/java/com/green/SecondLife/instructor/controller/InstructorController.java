@@ -28,10 +28,13 @@ public class InstructorController {
     //강사 등록 기능 + 이미지
     @PostMapping("/insertInstructor")
     public String insertInstructor(InstructorVO instructorVO, Model model, MultipartFile instructorImg){
-        System.out.println(instructorVO);
+        //다음 강사 코드 조회 + 그걸 instructorVO에 넣기
+        instructorVO.setInstructorCode(instructorService.selectNextInstructorCode());
+        //강사 이미지가 들어갈 통 하나
         InstructorImgVO instructorImgVO = UploadUtil.uploadInstructorFile(instructorImg);
+        //강사VO에 강사이미지 넣기
         instructorVO.setInstructorImgVO(instructorImgVO);
-        instructorService.insertInstructor(instructorVO);
+        model.addAttribute("instructor", instructorService.insertInstructor(instructorVO));
         return "redirect:/instructor/selectInstructorList";
     }
     //강사 목록 페이지
@@ -43,14 +46,14 @@ public class InstructorController {
     //강사 상세 보기
     @GetMapping("/selectInstructorDetail")
     public String selectInstructorDetail(InstructorVO instructorVO, Model model){
-        System.out.println(instructorVO);
         model.addAttribute("instructor", instructorService.selectInstructorDetail(instructorVO));
         return "admin/instructor_detail";
     }
     //강사 삭제 기능
     @GetMapping("/deleteInstructor")
-    public String deleteInstructor(InstructorVO instructorVO){
-        instructorService.deleteInstructor(instructorVO);
+    public String deleteInstructor(InstructorVO instructorVO, InstructorImgVO instructorImgVO){
+        instructorImgVO.setInstructorImgCode(instructorService.selectInstructorImgCode(instructorVO));
+        instructorService.deleteInstructor(instructorVO, instructorImgVO);
         return "redirect:/instructor/selectInstructorList";
     }
 }
