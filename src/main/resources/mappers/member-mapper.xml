@@ -55,36 +55,32 @@
         )
     </insert>
 
+    <update id="memberUpdate">
+
+        UPDATE MEMBER SET
+        MEMBER_PW = #{memberPW}
+        , MEMBER_TEL = #{memberTel}
+        , MEMBER_ADDR = #{memberAddr}
+        , ADDR_DETAIL = #{addrDetail}
+        , MEMBER_EMAIL = #{memberEmail}
+        WHERE MEMBER_ID = #{memberId}
+
+    </update>
+
+
+    <select id="memberSelectOne" resultMap="member">
+
+        SELECT MEMBER_ID
+            , MEMBER_PW
+            , MEMBER_NAME
+            , MEMBER_TEL
+            , MEMBER_ADDR
+            , ADDR_DETAIL
+            , MEMBER_EMAIL
+            , MEMBER_GENDER
+        FROM MEMBER
+        WHERE MEMBER_ID = #{memberId}
+
+    </select>
 
 </mapper>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

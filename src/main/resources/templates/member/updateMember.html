@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{fragment/main_layout}">
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+    <th:block layout:fragment="content">
+        <div class="row">
+            <div class="col">
+                <form action="/member/updateMember" method="POST" id="updateJoin">
+                    <div class="row mb-3">
+                        <div class="col-1">
+                            아이디 : 
+                        </div>
+                        <div class="col-2">
+                            <input type="text" class="form-control" name="memberId" id="memberId" th:value="${member.memberId}" readonly> 
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-1">
+                            현재 비밀번호 : 
+                        </div>
+                        <div class="col-2">
+                            <input type="password" class="form-control" id="nowMemberPW" th:value="${member.memberPW}" required>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-1">
+                            새로운 비밀번호 : 
+                        </div>
+                        <div class="col-2">
+                            <input type="password" class="form-control" id="newMemberPW" required>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-1">
+                            비밀번호 확인 : 
+                        </div>
+                        <div class="col-2">
+                            <input type="password-" class="form-control" name="memberPW" id="newMemberPW2" required>
+                        </div>
+                    </div>
+                    <div class="row mb-3 error">
+                        <div class="pw-error-div">
+
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-1">
+                            이름 : 
+                        </div>
+                        <div class="col-2">
+                            <input type="text" class="form-control" name="memberName" id="memberName" th:value="${member.memberName}" readonly>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-1">
+                            전화번호 : 
+                        </div>
+                        <div class="col-2">
+                            <input type="text" class="form-control" name="memberTel" placeholder="010-0000-0000" th:value="${member.memberTel}" required>
+                        </div>
+                    </div>
+                    <div class="row mb-3 error">
+                        <div class="tel-error-div">
+
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-1">
+                            주소 : 
+                        </div>
+                        <div class="col-2">
+                            <input type="text" class="form-control" name="memberAddr" id="memberAddr" th:value="${member.memberAddr}" onclick="openPost();" readonly required>
+                        </div>
+                        <div class="col-2">
+                            <input type="button" class="btn btn-primary" value="주소 검색" onclick="openPost();">
+                        </div>
+                    </div>
+                    <div class="row mb-3 error">
+                        <div class="addr-error-div">
+
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-1">
+                            상세주소 : 
+                        </div>
+                        <div class="col-2">
+                            <input type="text" class="form-control" name="addrDetail" id="addrDetail" th:value="${member.addrDetail}">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-1">
+                            이메일 : 
+                        </div>
+                        <div class="col-2">
+                            <input type="email" class="form-control" name="memberEmail" th:value="${member.memberEmail}">
+                        </div>
+                    </div>
+                    <div class="row mb-3 error">
+                        <div class="email-error-div">
+
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-1">
+                            성별
+                        </div>
+                        <div class="col-1">
+                            <input type="text" class="form-control" name="memberGender" id="memberGender" th:value="${member.memberGender}" readonly>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col offset-3">
+                            <input type="button" class="btn btn-primary" id="update-btn" value="수정하기" onclick="UpdateValidate()">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </th:block>
+</body>
+</html>
