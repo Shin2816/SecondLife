@@ -1,5 +1,7 @@
 package com.green.SecondLife.member.controller;
 
+import com.green.SecondLife.community.service.CommunityService;
+import com.green.SecondLife.community.vo.BoardFreeListVO;
 import com.green.SecondLife.member.service.MemberService;
 import com.green.SecondLife.member.vo.MemberVO;
 import jakarta.servlet.http.HttpSession;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.lang.reflect.Member;
+import java.util.List;
 
 @Controller
 @RequestMapping("/member")
@@ -20,6 +23,7 @@ import java.lang.reflect.Member;
 public class MemberController {
 
     private final MemberService memberService;
+    private final CommunityService communityService;
 
     //로그인 폼 화면으로 이동
     @GetMapping("/loginForm")
@@ -40,7 +44,10 @@ public class MemberController {
 
     //로그인 처리 후, 메인페이지로 이동.
     @PostMapping("/login")
-    public String login(MemberVO memberVO, HttpSession session){
+    public String login(MemberVO memberVO, HttpSession session, BoardFreeListVO boardFreeListVO, Model model){
+
+        List<BoardFreeListVO> freeList = communityService.selectFreeBoardList(boardFreeListVO);
+        model.addAttribute("freeBoardList", freeList);
 
         MemberVO loginInfo = memberService.selectlogin(memberVO);
         if(loginInfo != null){

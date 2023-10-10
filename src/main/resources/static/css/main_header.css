@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+th{
+    border-bottom: 1px solid black;
+}
+
 .login-span{
     cursor: pointer;
 }
@@ -48,7 +52,16 @@
     background-color: aqua;
 }
 .board-1{
-    background-color: burlywood;
+    text-align: center;
+}
+.board-1 .board_title{
+    display: block;
+    text-align: start;
+    margin-bottom: 40px;
+}
+.board-1-table{
+    width: 80%;
+    margin: 0 auto 0 auto;
 }
 .board-2{
     background-color: chocolate;
