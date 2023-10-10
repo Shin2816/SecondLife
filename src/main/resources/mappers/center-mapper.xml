@@ -85,8 +85,13 @@
         ORDER BY FACILITY_CODE DESC
     </select>
 
-    <!--시설관리_최대 강의 개수 변경-->
-    <!--시설관리_대관가능유무 상태변경(비동기통신)-->
+    <!--시설관리 - 대관가능유무 상태 변경(비동기통신)-->
+    <update id="updateRentalAvailable">
+        UPDATE CENTER_FACILITY
+        SET RENTAL_AVAILABLE = #{rentalAvailable}
+        WHERE FACILITY_CODE = #{facilityCode}
+    </update>
+
     <!--시설관리_삭제하기-->
 </mapper>
 

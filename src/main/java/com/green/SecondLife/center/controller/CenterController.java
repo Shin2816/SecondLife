@@ -8,9 +8,7 @@ import com.green.SecondLife.util.UploadUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -54,6 +52,13 @@ public class CenterController {
     public String selectAllFacility(Model model){
         model.addAttribute("facilityList", centerService.selectAllFacility());
         return "admin/manage_facility";
+    }
+
+    // 시설관리 - 대관가능유무 상태 변경
+    @ResponseBody
+    @PostMapping("/updateRentalAvailable")
+    public void updateRentalAvailable(CenterFacilityVO centerFacilityVO){
+        centerService.updateRentalAvailable(centerFacilityVO);
     }
 
 }
