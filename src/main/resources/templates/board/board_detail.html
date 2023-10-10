@@ -51,18 +51,51 @@
     <h1>댓글작성</h1>
     <div class="input-group mb-3">
         <input type="text" name="commentContent" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2">
-        <button class="btn btn-outline-secondary" type="submit" id="button-addon2" onclick="regComment()">작성</button>
+        <button class="btn btn-outline-secondary" type="button" id="button-addon2" th:onclick="freeRegComment([[${board.freeBoardWriter}]], this,[[${board.freeBoardNum}]]);">작성</button>
     </div>
     <hr>
-    <th:block th:if="${#lists.size(comment) != 0}">
-        <tr th:each="comment, state : ${comment}">
-            <td>댓글번호 : [[${comment.commentId}]]</td>
-            <td>내용 : [[${comment.commentContent}]]</td>
-            <td>작성자 : [[${comment.commentWriter}]]</td>
-            <td>작성일 : [[${comment.commentCreateDate}]]</td><br>
-            <hr>
+    <table border="1" class="text-center">
+        <colgroup>
+            <col width="5%">
+            <col width="*">
+            <col width="20%">
+            <col width="15%">
+            <col width="10%">
+            <col width="10%">
+        </colgroup>
+        <tr>
+            <td>번호</td>
+            <td>내용</td>
+            <td>작성자</td>
+            <td>작성일</td>
+            <td>삭제</td>
+            <td>수정</td>
         </tr>
-    </th:block>
+        <!-- 댓글이 존재하지 않을 때 -->
+        <th:block th:if="${#lists.size(comment) == 0}">
+            <tr>
+                <td colspan="5">조회된 댓글이 없습니다</td>
+            </tr>
+        </th:block>
+        <div class="row">
+            <div class="col-10">
+                <!-- 댓글이 존재 하면 -->
+                <th:block th:if="${#lists.size(comment) != 0}" class="row">
+                    <tr th:each="comment, state : ${comment}">
+                        <td>[[${comment.commentId}]]</td>
+                        <td>[[${comment.commentContent}]]</td>
+                        <td>[[${comment.commentWriter}]]</td>
+                        <td>[[${comment.commentCreateDate}]]</td>
+                        <!-- 관리자 이거나, 작성자라면-->
+                        <!-- <div th:if="${board.freeBoardWriter == session.loginInfo.memberId or session.loginInfo.memberRoll == 'ADMIN'}">
+                            <td><input type="button" value="삭제" th:onclick="freeDeleteComment([[${comment.commentId}]])"></td>
+                            <td><input type="button" value="수정" th:onclick="freeUpdateComment([[${comment.commentId}]]);"></td>
+                        </div> -->
+                    </tr>
+                </th:block>
+            </div>
+        </div>
+    </table>
     <script src="/js/board.js"></script>
 </th:block>
 </body>

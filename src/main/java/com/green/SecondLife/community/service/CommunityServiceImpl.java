@@ -1,5 +1,6 @@
 package com.green.SecondLife.community.service;
 
+import com.green.SecondLife.community.vo.BoardCommentListVO;
 import com.green.SecondLife.community.vo.BoardFreeListVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -50,7 +51,20 @@ public class CommunityServiceImpl implements CommunityService{
     }
     //댓글 작성
     @Override
-    public int insertFreeBoardComment(int freeBoardNum) {
-        return sqlSession.insert("communityMapper.insertFreeBoardComment", freeBoardNum);
+    public int insertFreeBoardComment(BoardCommentListVO boardCommentListVO) {
+        return sqlSession.insert("communityMapper.insertFreeBoardComment", boardCommentListVO);
     }
+
+    //댓글 삭제
+    @Override
+    public int deleteFreeBoardComment(int commentId) {
+        return sqlSession.delete("communityMapper.deleteFreeBoardComment", commentId);
+    }
+
+    //댓글 수정
+    @Override
+    public int updateFreeBoardComment(int commentId) {
+        return sqlSession.update("communityMapper.updateFreeBoardComment", commentId);
+    }
+
 }

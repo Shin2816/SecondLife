@@ -1,5 +1,6 @@
 package com.green.SecondLife.community.service;
 
+import com.green.SecondLife.community.vo.BoardCommentListVO;
 import com.green.SecondLife.community.vo.BoardFreeListVO;
 
 import java.util.List;
@@ -20,5 +21,9 @@ public interface CommunityService {
     //자유게시판 댓글 목록 조회
     public List<BoardFreeListVO> selectFreeBoardComment(int freeBoardNum);
     //자유게시판 댓글 등록
-    public int insertFreeBoardComment(int freeBoardNum);
+    public int insertFreeBoardComment(BoardCommentListVO boardCommentListVO);
+    //자유게시판 댓글 삭제
+    public int deleteFreeBoardComment(int commentId);
+    //자유게시판 댓글 수정
+    public int updateFreeBoardComment(int commentId);
 }
