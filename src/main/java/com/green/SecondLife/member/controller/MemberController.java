@@ -53,7 +53,7 @@ public class MemberController {
 
     //로그인 처리 후, 메인페이지로 이동.
     @PostMapping("/login")
-    public String login(MemberVO memberVO, HttpSession session, BoardFreeListVO BoardFreeListVO){
+    public String login(MemberVO memberVO, HttpSession session, BoardFreeListVO boardFreeListVO){
 
         MemberVO loginInfo = memberService.selectlogin(memberVO);
         if(loginInfo != null){
@@ -65,7 +65,7 @@ public class MemberController {
 
     //로그아웃 처리 후, 메인페이지로 이동
     @GetMapping("/logout")
-    public String logout(HttpSession session, BoardFreeListVO BoardFreeListVO){
+    public String logout(HttpSession session, BoardFreeListVO boardFreeListVO){
         session.removeAttribute("loginInfo");
         return "/main";
     }

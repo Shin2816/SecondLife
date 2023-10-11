@@ -15,13 +15,15 @@ public class InterceptorConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         //게시판 페이지 정보 출력하는 인터셉터의 실행 설정
         registry.addInterceptor(boardInterceptor)
-                .addPathPatterns("/","/main")
+                .addPathPatterns("/")
+                .addPathPatterns("/main", "/member/login", "/member/logout", "/member/insertMember", "/member/updateMember")
                 .excludePathPatterns("/**/**Fetch")
                 .excludePathPatterns("/images/**", "/js/**", "/css/**");
 
         //강좌 페이지 정보 출력하는 인터셉터의 실행 설정
         registry.addInterceptor(lectureServiceInterceptor)
                 .addPathPatterns("/")
+                .addPathPatterns("/main", "/member/login", "/member/logout", "/member/insertMember", "/member/updateMember")
                 .excludePathPatterns("/**/**Fetch")
                 .excludePathPatterns("/images/**", "/js/**", "/css/**");
     }
