@@ -29,6 +29,7 @@
                     <button th:if="${session.loginInfo.memberRoll == 'ADMIN'}" onclick="location.href='/instructor/selectInstructorList';">강사목록페이지</button>
                     <button th:if="${session.loginInfo.memberRoll == 'ADMIN'}" onclick="location.href='/lecture/selectLectureList';">강좌목록페이지</button>
                     <button th:if="${session.loginInfo.memberRoll == 'ADMIN'}" onclick="location.href='/center/insertFacilityForm';">시설등록페이지</button>
+                    <button th:if="${session.loginInfo.memberRoll == 'ADMIN'}" onclick="location.href='/center/selectAllFacility';">시설현황관리</button>
                 </p>
             </div>
         </div>
