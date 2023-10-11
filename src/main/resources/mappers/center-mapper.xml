@@ -93,6 +93,10 @@
     </update>
 
     <!--시설관리_삭제하기-->
+    <delete id="deleteFacility">
+        DELETE CENTER_FACILITY
+        WHERE FACILITY_CODE = #{facilityCode}
+    </delete>
 </mapper>
 
 
