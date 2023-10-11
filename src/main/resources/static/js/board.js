@@ -69,9 +69,14 @@ function freeDeleteComment(commentId){
         console.log(err);
     });
 }
+///////////////////////////////////////////////////////////////////댓글 수정
+function freeUpdateModal(freeUpdateCommentContent){//실제 데이터value
+    const freeCommentInput = document.querySelector('#freeCommentInput'); //input 지정해서 저장
+    freeCommentInput.value = freeUpdateCommentContent;//input안에 내용 넣기
+}
 ///////////////////////////////////////////////////////////////////댓글 수정(비동기)
 function freeUpdateComment(commentId, commentContent){//수정버튼을 누르면 도착, div id : freeCommentInput 안에 데이터 넣기
-    const updateComment = doucment.querySelector('#freeCommentInput').value;
+    const freeCommentInput = document.querySelector('#freeCommentInput').value;
 
     fetch('/freeUpdateComment', { //요청경로
         method: 'POST',
@@ -83,7 +88,7 @@ function freeUpdateComment(commentId, commentContent){//수정버튼을 누르�
         body: new URLSearchParams({
             // 데이터명 : 데이터값
             'commentId' : commentId,
-            'commentContent' : commentContent
+            'commentContent' : freeCommentInput
         })
     })
     .then((response) => {

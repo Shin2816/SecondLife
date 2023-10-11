@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class BoardFreeListVO {
+public class BoardFreeListVO extends PageVO{// 자식은 부모 필드 사용가능
     private int freeBoardNum;
     private String freeBoardTitle;
     private String freeBoardContent;

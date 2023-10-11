@@ -61,11 +61,16 @@ public class CenterController {
         centerService.updateRentalAvailable(centerFacilityVO);
     }
 
+    // 시설관리 - 수정하기 페이지로 이동
+    @GetMapping("/updateFacilityForm")
+    public String updateFacilityForm(String facilityCode){
+        return "admin/update_facility_form";
+    }
+
     // 시설관리 - 삭제하기
     @GetMapping("/deleteFacility")
     public String deleteFacility(String facilityCode){
         centerService.deleteFacility(facilityCode);
-
         return "redirect:/center/selectAllFacility";
     }
 }

@@ -1,6 +1,7 @@
 package com.green.SecondLife.lecture.service;
 
 import com.green.SecondLife.lecture.vo.LectureVO;
+import com.green.SecondLife.lecture.vo.StudentVO;
 
 import java.util.List;
 
@@ -13,4 +14,10 @@ public interface LectureService {
     public LectureVO selectLectureDetail(LectureVO lectureVO);
     //강좌 삭제 기능
     public void deleteLecture(LectureVO lectureVO);
+    //수강 신청 기능
+    public void insertStudent(StudentVO studentVO);
+    //수강생 목록 조회
+    public List<StudentVO> selectStudentList(StudentVO studentVO);
+    //수강생 삭제 기능
+    public void deleteStudent(StudentVO studentVO);
 }

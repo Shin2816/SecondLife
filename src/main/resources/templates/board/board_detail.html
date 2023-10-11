@@ -83,6 +83,7 @@
                 <th:block th:if="${#lists.size(comment) != 0}" class="row">
                     <tr th:each="comment, state : ${comment}">
                         <td>[[${comment.commentId}]]</td>
+                        <!-- 실제 댓글 내용 수정 -->
                         <td>[[${comment.commentContent}]]</td>
                         <td>[[${comment.commentWriter}]]</td>
                         <td>[[${comment.commentCreateDate}]]</td>
@@ -91,8 +92,8 @@
                             <div th:if="${comment.commentWriter == session.loginInfo.memberId or session.loginInfo.memberRoll == 'ADMIN'}">
                                 <td><input type="button" value="삭제" th:onclick="freeDeleteComment([[${comment.commentId}]])"></td>
                                 <td>
-                                    <!-- Button trigger modal -->
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">수정</button>
+                                    <!-- 수정버튼누르면 div안에 내용 저장 -->
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" th:onclick="freeUpdateModal([[${comment.commentContent}]]);">수정</button>
                                     <!-- Modal -->
                                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
@@ -101,8 +102,9 @@
                                                     <h1 class="modal-title fs-5" id="exampleModalLabel">수정할 내용을 입력해주세요.</h1>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
-                                                <div class="modal-body" id="freeCommentInput">
-                                                    ...
+                                                <div class="modal-body">
+                                                    <!-- 내용 -->
+                                                    <input type="text" class="form-control" aria-describedby="addon-wrapping" id="freeCommentInput">
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
