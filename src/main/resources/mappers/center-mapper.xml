@@ -92,7 +92,9 @@
         WHERE FACILITY_CODE = #{facilityCode}
     </update>
 
-    <!--시설관리_삭제하기-->
+    <!--시설관리 - 수정하기-->
+
+    <!--시설관리 - 삭제하기-->
     <delete id="deleteFacility">
         DELETE CENTER_FACILITY
         WHERE FACILITY_CODE = #{facilityCode}

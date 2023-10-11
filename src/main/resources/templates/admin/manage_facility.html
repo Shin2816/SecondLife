@@ -30,36 +30,61 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="facility, state : ${facilityList}">
-                    <td>[[${#lists.size(facilityList)- state.index}]]</td>
-                    <td class="text-start">
-                        <img width="100px" height="80px" th:src="@{|/images/center/${facility.facilityImageVO.facilityAttachedFileName}|}" alt="">
-                        [[${facility.facilityName}]]
-                    </td>
-                    <td>[[${facility.facilityPlaceInfo}]]</td>
-                    <td>
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="form-check form-check-inline">
-                                    <!-- 반복문 실행시 name값을 반복문 돌 때마다 다르게 주고 싶을때는 
-                                        th:name = ${}  'itemStatus'는 문자, state.count는 변수로 주고싶을 때 
-                                        + 연산자로 연결시켜주면 됨. -->
-                                    <!-- th:checked="상태" => 상태가 참(true)일 때 checked 실행 -->
-                                    <input class="form-check-input" type="radio" th:name="${'rentalAvailable' + state.count}" th:checked="${facility.rentalAvailable == 'YES'}" th:onchange="updateRentalAvailable([[facility.facilityCode]], 'YES')">
-                                    <label class="form-check-label">유</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" th:name="${'rentalAvailable' + state.count}" th:checked="${facility.rentalAvailable == 'NO'}" th:onchange="updateRentalAvailable([[facility.facilityCode]], 'NO')">
-                                    <label class="form-check-label">무</label>
+                <th:block th:if="${#lists.size(facilityList) == 0}">
+                    <tr>
+                        <td colspan="5">조회된 시설이 없습니다.</td>
+                    </tr>
+                </th:block>
+                <th:block th:unless="${#lists.size(facilityList) == 0}">
+                    <tr th:each="facility, state : ${facilityList}">
+                        <td>[[${#lists.size(facilityList)- state.index}]]</td>
+                        <td class="text-start">
+                            <img width="120px" height="100px" th:src="@{|/images/center/${facility.facilityImageVO.facilityAttachedFileName}|}" alt="">
+                            [[${facility.facilityName}]]
+                        </td>
+                        <td>[[${facility.facilityPlaceInfo}]]</td>
+                        <td>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" th:name="${'rentalAvailable' + state.count}" th:checked="${facility.rentalAvailable == 'YES'}" th:onchange="updateRentalAvailable([[facility.facilityCode]], 'YES')">
+                                        <label class="form-check-label">유</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" th:name="${'rentalAvailable' + state.count}" th:checked="${facility.rentalAvailable == 'NO'}" th:onchange="updateRentalAvailable([[facility.facilityCode]], 'NO')">
+                                        <label class="form-check-label">무</label>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </td>
-                    <td>
-                        <button type="button" class="btn btn-outline-secondary btn-sm">수정</button>
-                        <button type="button" class="btn btn-outline-secondary btn-sm" th:onclick="|location.href='@{/center/deleteFacility(facilityCode=${facility.facilityCode})}'|">삭제</button>
-                    </td>
-                </tr>
+                        </td>
+                        <td>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                수정
+                            </button>
+                            
+                            <!-- Modal -->
+                            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">수정하기</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                    시설 등록 시 내용 조회
+                                    </div>
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary">수정하기</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            <input type="button" value="삭제" class="btn btn-outline-secondary btn-sm" th:onclick="|location.href='@{/center/deleteFacility(facilityCode=${facility.facilityCode})}'|">
+                        </td>
+                    </tr>
+                </th:block>
             </tbody>
         </table>
     </div>
