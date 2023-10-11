@@ -90,8 +90,8 @@ public class CommunityController {
     //상세 페이지에서 댓글 수정 버튼 클릭하면 update 쿼리 실행
     @ResponseBody
     @PostMapping("/freeUpdateComment")
-    private void freeDeleteComment(int commentId){
-        System.out.println(commentId);
-        communityService.updateFreeBoardComment(commentId);
+    private void freeDeleteComment(BoardCommentListVO boardCommentListVO){
+        System.out.println(boardCommentListVO);
+        communityService.updateFreeBoardComment(boardCommentListVO);
     }
 }

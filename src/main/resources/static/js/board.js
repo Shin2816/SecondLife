@@ -69,8 +69,15 @@ function freeDeleteComment(commentId){
         console.log(err);
     });
 }
+///////////////////////////////////////////////////////////////////댓글 수정
+function freeUpdateModal(freeUpdateCommentContent){//실제 데이터value
+    const freeCommentInput = document.querySelector('#freeCommentInput'); //input 지정해서 저장
+    freeCommentInput.value = freeUpdateCommentContent;//input안에 내용 넣기
+}
 ///////////////////////////////////////////////////////////////////댓글 수정(비동기)
-function freeUpdateComment(commentId){
+function freeUpdateComment(commentId, commentContent){//수정버튼을 누르면 도착, div id : freeCommentInput 안에 데이터 넣기
+    const freeCommentInput = document.querySelector('#freeCommentInput').value;
+
     fetch('/freeUpdateComment', { //요청경로
         method: 'POST',
         cache: 'no-cache',
@@ -80,7 +87,8 @@ function freeUpdateComment(commentId){
         //컨트롤러로 전달할 데이터
         body: new URLSearchParams({
             // 데이터명 : 데이터값
-            'commentId' : commentId
+            'commentId' : commentId,
+            'commentContent' : freeCommentInput
         })
     })
     .then((response) => {
@@ -94,7 +102,7 @@ function freeUpdateComment(commentId){
     })
     //fetch 통신 후 실행 영역
     .then((data) => {//data -> controller에서 리턴되는 데이터!
-        alert('댓글 삭제가 완료 되었습니다.');
+        alert('댓글 수정이 완료 되었습니다.');
     })
     //fetch 통신 실패 시 실행 영역
     .catch(err=>{

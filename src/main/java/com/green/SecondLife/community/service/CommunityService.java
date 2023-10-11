@@ -25,5 +25,5 @@ public interface CommunityService {
     //자유게시판 댓글 삭제
     public int deleteFreeBoardComment(int commentId);
     //자유게시판 댓글 수정
-    public int updateFreeBoardComment(int commentId);
+    public int updateFreeBoardComment(BoardCommentListVO boardCommentListVO);
 }
