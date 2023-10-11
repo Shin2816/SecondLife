@@ -1,6 +1,7 @@
 package com.green.SecondLife.lecture.service;
 
 import com.green.SecondLife.lecture.vo.LectureVO;
+import com.green.SecondLife.lecture.vo.StudentVO;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
@@ -30,5 +31,20 @@ public class LectureServiceImpl implements LectureService{
     @Override
     public void deleteLecture(LectureVO lectureVO) {
         sqlSession.delete("lectureMapper.deleteLecture", lectureVO);
+    }
+    //수강 신청 기능
+    @Override
+    public void insertStudent(StudentVO studentVO) {
+        sqlSession.insert("lectureMapper.insertStudent", studentVO);
+    }
+    //수강생 목록 조회
+    @Override
+    public List<StudentVO> selectStudentList(StudentVO studentVO) {
+        return sqlSession.selectList("lectureMapper.selectStudentList", studentVO);
+    }
+    //수강생 삭제 기능
+    @Override
+    public void deleteStudent(StudentVO studentVO) {
+        sqlSession.delete("lectureMapper.deleteStudent", studentVO);
     }
 }

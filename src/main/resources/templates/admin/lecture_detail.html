@@ -18,7 +18,8 @@
         <p>수강료 : [[${lecture.lecturePrice}]]</p>
     </div>
     <div>
-        <p><input type="button" value="수강신청" onclick="location.href='/lecture/goLectureApplyForm'"></p>
+        <p><input type="button" value="수강신청" th:onclick="|location.href='@{/lecture/goLectureApplyForm(lectureCode=${lecture.lectureCode})}'|"></p>
+        <p><input type="button" value="수강생목록" th:onclick="|location.href='@{/lecture/selectStudentList(lectureCode=${lecture.lectureCode})}'|"></p>
     </div>
 </th:block>
 </body>

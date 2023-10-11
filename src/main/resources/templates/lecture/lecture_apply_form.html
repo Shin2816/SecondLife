@@ -8,7 +8,23 @@
 </head>
 <body>
 <th:block layout:fragment="content">
-<h1>수강 신청 페이지</h1>
+<h1>수강 신청 페이지</h1> <br>
+<form action="/lecture/insertStudent" method="post">
+    <h3>강좌 정보</h3> <br>
+    강좌명 : <input type="text" th:value="${lectureInfo.lectureTitle}" readonly> <br><br>
+    강좌과목 : <input type="text" th:value="${lectureInfo.lectureSubject}" readonly> <br><br>
+    강사 : <input type="text" th:value="${lectureInfo.instructorName}" readonly> <br><br>
+    수강료 : <input type="text" th:value="${lectureInfo.lecturePrice}" readonly>원 <br><br>
+    <h3>수강생 정보</h3> <br>
+    이름 : <input type="text" name="studentName" th:value="${memberInfo.memberName}" readonly> <br><br>
+    연락처 : <input type="text" name="studentTel" th:value="${memberInfo.memberTel}" readonly> <br><br>
+    주소 : <input type="text" name="studentAddr" th:value="${memberInfo.memberAddr}" readonly>
+     - <input type="text" name="studentAddr" th:value="${memberInfo.addrDetail}" readonly> <br><br>
+     <input type="hidden" name="studentGender" th:value="${memberInfo.memberGender}">
+     <input type="hidden" name="memberId" th:value="${memberInfo.memberId}">
+     <input type="hidden" name="lectureCode" th:value="${lectureInfo.lectureCode}">
+    <input type="submit" value="신청하기">
+</form>
 </th:block>
 </body>
 </html>
