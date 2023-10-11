@@ -94,6 +94,15 @@
     </update>
 
     <!--시설관리 - 수정하기-->
+    <update id="updateFacility">
+        UPDATE CENTER_FACILITY
+        SET
+            FACILITY_NAME = #{facilityName}
+            , FACILITY_CONTENT = #{facilityContent}
+            , FACILITY_PLACE_INFO = #{facilityPlaceInfo}
+            , CENTER_CATE_CODE = #{centerCateCode}
+        WHERE FACILITY_CODE = #{facilityCode}
+    </update>
 
     <!--시설관리 - 삭제하기-->
     <delete id="deleteFacility">
