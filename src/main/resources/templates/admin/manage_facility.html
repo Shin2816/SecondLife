@@ -58,29 +58,66 @@
                             </div>
                         </td>
                         <td>
-                            <!-- Button trigger modal -->
                             <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                                 수정
                             </button>
                             
-                            <!-- Modal -->
+                            <!-- 수정버튼 Modal -->
                             <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">수정하기</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">수정하기</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                    <div class="modal-body">
-                                    시설 등록 시 내용 조회
-                                    </div>
-                                    <div class="modal-footer">
-                                    <button type="button" class="btn btn-primary">수정하기</button>
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                                    </div>
+                                    <form action="/center/updateFacility" method="post">
+                                        <div class="modal-body">
+                                            <div class="row mb-3">
+                                                <div class="col-4">시설 카테고리</div>
+                                                <div class="col-8">
+                                                    <select name="centerCateCode" class="form-select">
+                                                        <option th:each="centerCategory : ${centerCategoryList}" th:value="${centerCategory.centerCateCode}">[[${centerCategory.centerCateName}]]</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-4">시설명</div>
+                                                <div class="col-8">
+                                                    <input class="form-control" type="text" name="facilityName" th:value="${facility.facilityName}">
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-4">장소(층) 정보</div>
+                                                <div class="col-8">
+                                                    <input class="form-control" type="text" name="facilityPlaceInfo" th:value="${facility.facilityPlaceInfo}">
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-4">시설 설명</div>
+                                                <div class="col-8">
+                                                    <textarea class="form-control" name="facilityContent" id="" cols="30" rows="10">[[${facility.facilityContent}]]</textarea>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-4">대관 가능 유무</div>
+                                                <div class="col-8">[[${facility.rentalAvailable}]]</div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-4">사진 파일 첨부 </div>
+                                                <div class="col-8">
+                                                    <input class="form-control" type="file" id="formFile" name="facilityImg" th:value="${facility.facilityImageVO.facilityAttachedFileName}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary">수정하기</button>
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                                        </div>        
+                                    </form>
                                 </div>
                                 </div>
                             </div>
+
                             <input type="button" value="삭제" class="btn btn-outline-secondary btn-sm" th:onclick="|location.href='@{/center/deleteFacility(facilityCode=${facility.facilityCode})}'|">
                         </td>
                     </tr>

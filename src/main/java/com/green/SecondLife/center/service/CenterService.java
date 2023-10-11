@@ -24,4 +24,7 @@ public interface CenterService {
     // 시설관리 - 삭제하기
     public void deleteFacility(String facilityCode);
 
+    // 시설관리 - 수정하기
+    public void updateFacility(CenterFacilityVO centerFacilityVO);
+
 }

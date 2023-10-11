@@ -13,6 +13,16 @@
         <result column="INSTRUCTOR_CODE"    property="instructorCode"/>
         <result column="INSTRUCTOR_NAME"    property="instructorName"/>
     </resultMap>
+    <resultMap id="student" type="com.green.SecondLife.lecture.vo.StudentVO">
+        <id column="STUDENT_CODE"       property="studentCode"/>
+        <result column="STUDENT_NAME"       property="studentName"/>
+        <result column="STUDENT_AGE"        property="studentAge"/>
+        <result column="STUDENT_GENDER"     property="studentGender"/>
+        <result column="STUDENT_TEL"        property="studentTel"/>
+        <result column="STUDENT_ADDR"       property="studentAddr"/>
+        <result column="MEMBER_ID"          property="memberId"/>
+        <result column="LECTURE_CODE"       property="lectureCode"/>
+    </resultMap>
     <!-- 강좌 등록 쿼리 -->
     <insert id="insertLecture">
         INSERT INTO LECTURE (
@@ -63,6 +73,47 @@
     <delete id="deleteLecture">
         DELETE LECTURE
         WHERE LECTURE_CODE = #{lectureCode}
+    </delete>
+    <!-- 강좌 수강신청 -->
+    <insert id="insertStudent">
+        INSERT INTO STUDENT (
+            STUDENT_CODE
+            , STUDENT_NAME
+            , STUDENT_AGE
+            , STUDENT_GENDER
+            , STUDENT_TEL
+            , STUDENT_ADDR
+            , MEMBER_ID
+            , LECTURE_CODE
+        ) VALUES (
+            (SELECT 'STUDENT_'||LPAD(NVL(MAX(TO_NUMBER(SUBSTR(STUDENT_CODE, 9))), 0) + 1, 3,'0')
+            FROM STUDENT)
+            , #{studentName}
+            , #{studentAge}
+            , #{studentGender}
+            , #{studentTel}
+            , #{studentAddr}
+            , #{memberId}
+            , #{lectureCode}
+        )
+    </insert>
+    <!-- 수강생 목록 조회 -->
+    <select id="selectStudentList" resultMap="student">
+        SELECT STUDENT_CODE
+            , STUDENT_NAME
+            , STUDENT_AGE
+            , STUDENT_GENDER
+            , STUDENT_TEL
+            , STUDENT_ADDR
+            , MEMBER_ID
+            , LECTURE_CODE
+        FROM STUDENT
+        WHERE LECTURE_CODE = #{lectureCode}
+    </select>
+    <!-- 수강생 삭제 기능 -->
+    <delete id="deleteStudent">
+        DELETE STUDENT
+        WHERE STUDENT_CODE = #{studentCode}
     </delete>
 </mapper>
 

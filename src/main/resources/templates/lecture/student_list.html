@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{fragment/main_layout}">
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+<th:block layout:fragment="content">
+<h1>수강생 목록 페이지</h1>
+<div>
+    <table>
+        <thead>
+            <tr>
+                <td>강좌명</td>
+                <td>과목</td>
+                <td>이름</td>
+                <td>나이</td>
+                <td>성별</td>
+                <td>수업코드</td>
+            </tr>
+        </thead>
+        <tbody>
+            <th:block th:each="student : ${studentList}">
+            <tr>
+                <td>[[${lectureInfo.lectureTitle}]]</td>
+                <td>[[${lectureInfo.lectureSubject}]]</td>
+                <td>[[${student.studentName}]]</td>
+                <td>[[${student.studentAge}]]</td>
+                <td>[[${student.studentGender}]]</td>
+                <td>[[${student.lectureCode}]]</td>
+                <td><input type="button" value="삭제" th:onclick="deleteStudent([[${lectureInfo.lectureCode}]], [[${student.studentCode}]]);"></td>
+            </tr>
+            </th:block>
+        </tbody>
+    </table>
+</div>
+<script src="/js/lecture/student.js"></script>
+</th:block>
+</body>
+</html>

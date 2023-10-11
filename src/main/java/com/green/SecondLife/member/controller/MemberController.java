@@ -30,8 +30,6 @@ import java.util.List;
 public class MemberController {
 
     private final MemberService memberService;
-    private final CommunityService communityService;
-    private final LectureService lectureService;
 
     //로그인 폼 화면으로 이동
     @GetMapping("/loginForm")
@@ -48,21 +46,14 @@ public class MemberController {
 
     //회원가입 처리 후, 메인페이지로 이동
     @PostMapping("/insertMember")
-    public String insertMember(MemberVO memberVO,BoardFreeListVO boardFreeListVO, Model model){
+    public String insertMember(MemberVO memberVO){
         memberService.insertMember(memberVO);
-        List<BoardFreeListVO> freeList = communityService.selectFreeBoardList(boardFreeListVO);
-        model.addAttribute("freeBoardList", freeList);
-        model.addAttribute("lectureList", lectureService.selectLectureList());
         return "/main";
     }
 
     //로그인 처리 후, 메인페이지로 이동.
     @PostMapping("/login")
-    public String login(MemberVO memberVO, HttpSession session, BoardFreeListVO boardFreeListVO, Model model){
-
-        List<BoardFreeListVO> freeList = communityService.selectFreeBoardList(boardFreeListVO);
-        model.addAttribute("freeBoardList", freeList);
-        model.addAttribute("lectureList", lectureService.selectLectureList());
+    public String login(MemberVO memberVO, HttpSession session){
 
         MemberVO loginInfo = memberService.selectlogin(memberVO);
         if(loginInfo != null){
