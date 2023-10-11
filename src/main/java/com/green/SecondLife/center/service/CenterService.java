@@ -18,7 +18,10 @@ public interface CenterService {
     // 전체 시설 목록 조회
     public List<CenterFacilityVO> selectAllFacility();
 
-    // 시설관리_대관가능유무 변경 (비동기통신)
+    // 시설관리 - 대관가능유무 변경 (비동기통신)
     public void updateRentalAvailable(CenterFacilityVO centerFacilityVO);
+
+    // 시설관리 - 삭제하기
+    public void deleteFacility(String FacilityCode);
 
 }

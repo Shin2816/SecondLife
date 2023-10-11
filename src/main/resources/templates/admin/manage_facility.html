@@ -57,7 +57,7 @@
                     </td>
                     <td>
                         <button type="button" class="btn btn-outline-secondary btn-sm">수정</button>
-                        <button type="button" class="btn btn-outline-secondary btn-sm">삭제</button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm" th:onclick="|location.href='@{/center/deleteFacility(facilityCode=${facility.facilityCode})}'|">삭제</button>
                     </td>
                 </tr>
             </tbody>
