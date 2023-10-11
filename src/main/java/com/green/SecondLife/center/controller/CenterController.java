@@ -61,5 +61,12 @@ public class CenterController {
         centerService.updateRentalAvailable(centerFacilityVO);
     }
 
+    // 시설관리 - 삭제하기
+    @GetMapping("/deleteFacility")
+    public String deleteFacility(String facilityCode){
+        centerService.deleteFacility(facilityCode);
+
+        return "redirect:/center/selectAllFacility";
+    }
 }
 

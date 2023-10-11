@@ -40,4 +40,9 @@ public class CenterServiceImpl implements CenterService{
     public void updateRentalAvailable(CenterFacilityVO centerFacilityVO) {
         sqlSession.update("centerMapper.updateRentalAvailable", centerFacilityVO);
     }
+
+    @Override
+    public void deleteFacility(String FacilityCode) {
+        sqlSession.delete("centerMapper.deleteFacility", FacilityCode);
+    }
 }
