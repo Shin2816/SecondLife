@@ -11,25 +11,32 @@
         <div class="row mb-3 main">
             <div class="col">
                 <div class="row mb-3 first">
-                    <div class="col-8 lecture">
-                    <table>
-                        <tr>
-                            <th>강사</th>
-                            <th>강좌</th>
-                            <th>정원</th>
-                            <th>기간</th>
-                            <th>수강료</th>
-                        </tr>
-                        <tr th:each="lecture : ${lectureList}">
-                            <td>[[${lecture.instructorName}]]</td>
-                            <td>[[${lecture.lectureSubject}]]</td>
-                            <td>[[${lecture.lectureStudent}]]</td>
-                            <td>[[${lecture.lecturePeriod}]]</td>
-                            <td>[[${lecture.lecturePrice}]]</td>
-                            <td><input type="submit" value="상세" th:onclick="|location.href='@{/lecture/selectLectureDetail(lectureCode=${lecture.lectureCode})}'|"></td>
-                            <td><input type="submit" value="삭제" th:onclick="deleteLecture([[${lecture.lectureCode}]]);"></td>
-                        </tr>
-                    </table>
+                    <div class="col-8 board">
+                        <span class="board_title"> 현재 신청 가능한 강좌 </span>
+                        <table class="board-table">
+                            <colgroup>
+                                <col width="10%">
+                                <col width="*">
+                                <col width="15%">
+                                <col width="20%">
+                                <col width="15%">
+                            </colgroup>
+                            <tr>
+                                <th>강사</th>
+                                <th>강좌</th>
+                                <th>정원</th>
+                                <th>기간</th>
+                                <th>수강료</th>
+                            </tr>
+                            <tr th:each="lecture : ${lectureList}">
+                                <td>[[${lecture.instructorName}]]</td>
+                                <td>[[${lecture.lectureSubject}]]</td>
+                                <td>[[${lecture.lectureStudent}]]</td>
+                                <td>[[${lecture.lecturePeriod}]]</td>
+                                <td>[[${lecture.lecturePrice}]]</td>
+                                <td><input type="submit" value="상세" th:onclick="|location.href='@{/lecture/selectLectureDetail(lectureCode=${lecture.lectureCode})}'|"></td>
+                            </tr>
+                        </table>
                     </div>
                     <div class="col-4 facility">
                         <div class="left">
@@ -41,15 +48,15 @@
                         <div class="right">
                             <p class="right_info">
                                 <img src="/images/icons/buildings.png" alt="">
-                                <span>시설 등록</span>
+                                <span>시설</span>
                             </p>
                         </div>
                     </div>
                 </div>
                 <div class="row mb-3 second">
-                    <div class="col-6 board-1">
+                    <div class="col-6 board">
                         <span class="board_title"> 자유 게시판 </span>
-                        <table class="board-1-table">
+                        <table class="board-table">
                             <colgroup>
                                 <col width="10%">
                                 <col width="*">
