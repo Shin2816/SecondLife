@@ -33,27 +33,27 @@ public class MemberController {
 
     //로그인 폼 화면으로 이동
     @GetMapping("/loginForm")
-    public String loginForm(){
+    public String loginForm(BoardFreeListVO boardFreeListVO){
         return "/member/login";
     }
 
     //회원가입 폼 화면으로 이동
     @GetMapping("/insertMemberForm")
-    public String insertMemberForm() {
+    public String insertMemberForm(BoardFreeListVO boardFreeListVO) {
 
         return "/member/insertMember";
     }
 
     //회원가입 처리 후, 메인페이지로 이동
     @PostMapping("/insertMember")
-    public String insertMember(MemberVO memberVO){
+    public String insertMember(BoardFreeListVO boardFreeListVO, MemberVO memberVO){
         memberService.insertMember(memberVO);
         return "/main";
     }
 
     //로그인 처리 후, 메인페이지로 이동.
     @PostMapping("/login")
-    public String login(MemberVO memberVO, HttpSession session){
+    public String login(BoardFreeListVO boardFreeListVO, MemberVO memberVO, HttpSession session){
 
         MemberVO loginInfo = memberService.selectlogin(memberVO);
         if(loginInfo != null){
@@ -65,7 +65,7 @@ public class MemberController {
 
     //로그아웃 처리 후, 메인페이지로 이동
     @GetMapping("/logout")
-    public String logout(HttpSession session){
+    public String logout(BoardFreeListVO boardFreeListVO, HttpSession session){
         session.removeAttribute("loginInfo");
         return "/main";
     }
@@ -119,14 +119,14 @@ public class MemberController {
 
     //회원 정보 수정폼으로 이동
     @GetMapping("/updateMemberForm")
-    public String updateMemberForm(MemberVO memberVO, Model model){
+    public String updateMemberForm(BoardFreeListVO boardFreeListVO, MemberVO memberVO, Model model){
         model.addAttribute("member", memberService.selectMember(memberVO));
         return "/member/updateMember";
     }
 
     //회원정보 수정
     @PostMapping("/updateMember")
-    public String updateMember(MemberVO memberVO){
+    public String updateMember(BoardFreeListVO boardFreeListVO, MemberVO memberVO){
         memberService.memberUpdate(memberVO);
         return "/main";
     }
