@@ -11,6 +11,16 @@ th{
     display: flex;
     justify-content: space-between;
 }
+
+.main-header-menu{
+    position: relative;
+}
+.nav-underline{
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
 .error div{
     color:red;
     font-size: 0.8rem;
@@ -51,15 +61,15 @@ th{
 .lecture{
     background-color: aqua;
 }
-.board-1{
+.board{
     text-align: center;
 }
-.board-1 .board_title{
+.board .board_title{
     display: block;
     text-align: start;
     margin-bottom: 40px;
 }
-.board-1-table{
+.board-table{
     width: 80%;
     margin: 0 auto 0 auto;
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+
 import java.lang.reflect.Member;
 import java.util.List;
 
@@ -70,6 +71,19 @@ public class MemberController {
     public boolean idFetch(MemberVO memberVO){
         return memberService.selectId(memberVO);
     }
+
+    //휴대폰 인증처리 비동기 통신
+    @ResponseBody
+    @PostMapping("/phoneFetch")
+    public boolean phoneFetch(String tel){
+
+
+
+
+        return true;
+    }
+
+
 
     //회원 정보 수정폼으로 이동
     @GetMapping("/updateMemberForm")
