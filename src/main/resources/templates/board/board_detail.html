@@ -87,9 +87,33 @@
                         <td>[[${comment.commentWriter}]]</td>
                         <td>[[${comment.commentCreateDate}]]</td>
                         <!-- 관리자 이거나, 작성자라면-->
-                        <div th:if="${comment.commentWriter == session.loginInfo.memberId or session.loginInfo.memberRoll == 'ADMIN'}">
-                            <td><input type="button" value="삭제" th:onclick="freeDeleteComment([[${comment.commentId}]])"></td>
-                            <td><input type="button" value="수정" th:onclick="freeUpdateComment([[${comment.commentId}]], [[${comment.commentContent}]]);"></td>
+                        <div th:if="${session.loginInfo != null}">
+                            <div th:if="${comment.commentWriter == session.loginInfo.memberId or session.loginInfo.memberRoll == 'ADMIN'}">
+                                <td><input type="button" value="삭제" th:onclick="freeDeleteComment([[${comment.commentId}]])"></td>
+                                <td>
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">수정</button>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">수정할 내용을 입력해주세요.</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body" id="freeCommentInput">
+                                                    ...
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                                                    <button type="button" class="btn btn-primary" th:onclick="freeUpdateComment([[${comment.commentId}]], [[${comment.commentContent}]]);">수정하기</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <!-- <td><input type="button" value="수정" th:onclick="freeUpdateComment([[${comment.commentId}]], [[${comment.commentContent}]]);"></td> -->
+                            </div>
                         </div>
                     </tr>
                 </th:block>
