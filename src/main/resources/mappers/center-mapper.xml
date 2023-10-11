@@ -77,6 +77,7 @@
     <select id="selectAllFacility" resultMap="facility">
         SELECT CENTER_FACILITY.FACILITY_CODE
             , FACILITY_NAME
+            , FACILITY_CONTENT
             , FACILITY_PLACE_INFO
             , RENTAL_AVAILABLE
             , FACILITY_ATTACHED_FILE_NAME

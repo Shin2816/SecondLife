@@ -50,6 +50,10 @@ public class CenterController {
     // 전체 시설 목록 조회
     @GetMapping("/selectAllFacility")
     public String selectAllFacility(Model model){
+        // 시설 카테고리 조회
+        model.addAttribute("centerCategoryList", centerService.selectCenterCategory());
+
+        // 시설 목록 조회
         model.addAttribute("facilityList", centerService.selectAllFacility());
         return "admin/manage_facility";
     }
@@ -61,10 +65,11 @@ public class CenterController {
         centerService.updateRentalAvailable(centerFacilityVO);
     }
 
-    // 시설관리 - 수정하기 페이지로 이동
-    @GetMapping("/updateFacilityForm")
-    public String updateFacilityForm(String facilityCode){
-        return "admin/update_facility_form";
+    // 시설관리 - 수정하기
+    @PostMapping("/updateFacility")
+    public String updateFacility(String facilityCode){
+
+        return "redirect:/center/selectAllFacility";
     }
 
     // 시설관리 - 삭제하기
