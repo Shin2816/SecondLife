@@ -5,13 +5,14 @@ import com.green.SecondLife.instructor.vo.InstructorImgVO;
 import com.green.SecondLife.instructor.vo.InstructorVO;
 import com.green.SecondLife.instructor.vo.SubjectVO;
 import com.green.SecondLife.util.UploadUtil;
+import com.sun.tools.javac.Main;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.HashMap;
 
 @Controller
 @RequiredArgsConstructor
@@ -55,5 +56,12 @@ public class InstructorController {
         instructorImgVO.setInstructorImgCode(instructorService.selectInstructorImgCode(instructorVO));
         instructorService.deleteInstructor(instructorVO, instructorImgVO);
         return "redirect:/instructor/selectInstructorList";
+    }
+    //강사 요약 정보 조회 페치
+    @ResponseBody
+    @PostMapping("/showInstructorSimpleInfo")
+    public InstructorVO showInstructorSimpleInfo(InstructorVO instructorVO){
+        System.out.println(instructorService.selectInstructorDetail(instructorVO));
+        return instructorService.selectInstructorDetail(instructorVO);
     }
 }
