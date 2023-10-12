@@ -42,8 +42,8 @@
         <div th:if="${session.loginInfo != null}">
             <!-- 작성자가 같거나 관리자라면 -->
             <div th:if="${board.freeBoardWriter == session.loginInfo.memberId or session.loginInfo.memberRoll == 'ADMIN'}">
-                <input type="button" value="삭제" th:onclick="|location.href='@{/deleteFreeBoard(freeBoardNum=${board.freeBoardNum})}'|">
-                <input type="button" value="수정" th:onclick="|location.href='@{/updateFreeBoardForm(freeBoardNum=${board.freeBoardNum})}'|">
+                <input type="button" value="삭제" th:onclick="|location.href='@{/board/deleteFreeBoard(freeBoardNum=${board.freeBoardNum})}'|">
+                <input type="button" value="수정" th:onclick="|location.href='@{/board/updateFreeBoardForm(freeBoardNum=${board.freeBoardNum})}'|">
             </div>
         </div>
     </div>
