@@ -118,6 +118,7 @@
     <!--메인페이지 강좌 목록-->
     <select id="selectMainLectureList" resultMap="lecture">
         SELECT ROWNUM
+            , LECTURE_CODE
             , LECTURE_TITLE
             , LECTURE_SUBJECT
             , LECTURE_STUDENT
@@ -126,6 +127,7 @@
             , INSTRUCTOR_NAME
         FROM (
             SELECT ROWNUM AS ROW_NUM
+                , LECTURE_CODE
                 , LECTURE_TITLE
                 , LECTURE_SUBJECT
                 , LECTURE_STUDENT
