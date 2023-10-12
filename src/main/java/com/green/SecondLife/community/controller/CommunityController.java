@@ -95,8 +95,4 @@ public class CommunityController {
         communityService.updateFreeBoardComment(boardCommentListVO);
     }
 
-
-
-
-
 }

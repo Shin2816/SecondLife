@@ -23,9 +23,8 @@ public class BoardInterceptor implements HandlerInterceptor {
         Map<String, Object> data = modelAndView.getModel();
         BoardFreeListVO boardFreeListVO = (BoardFreeListVO)data.get("boardFreeListVO");
 
-        List<BoardFreeListVO> freeBoardList = communityService.selectFreeBoardList(boardFreeListVO);
 
-        modelAndView.addObject("freeBoardList", freeBoardList);
+        modelAndView.addObject("freeBoardList", communityService.selectMainFreeBoardList());
 
 
     }

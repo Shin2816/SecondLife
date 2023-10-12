@@ -159,6 +159,31 @@
             COMMENT_CONTENT = #{commentContent}
         WHERE COMMENT_ID = #{commentId}
     </update>
+
+    <select id="selectMainFreeBoardList" resultMap="free">
+        SELECT ROW_NUM
+        , FREE_BOARD_NUM
+        , FREE_BOARD_TITLE
+        , FREE_BOARD_WRITER
+        , TO_CHAR(FREE_CREATE_DATE, 'YYYY-MM-DD') FREE_CREATE_DATE
+        , FREE_BOARD_READ_CNT
+        FROM (
+            SELECT ROWNUM AS ROW_NUM
+            , FREE_BOARD_NUM
+            , FREE_BOARD_TITLE
+            , FREE_BOARD_WRITER
+            , FREE_CREATE_DATE
+            , FREE_BOARD_READ_CNT
+            FROM (
+                SELECT *
+                FROM BOARD_FREE_LIST
+                ORDER BY FREE_CREATE_DATE DESC
+            )
+        )
+        WHERE ROWNUM &lt;= 5
+    </select>
+
+
 </mapper>
 
 

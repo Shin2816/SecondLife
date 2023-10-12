@@ -67,4 +67,10 @@ public class CommunityServiceImpl implements CommunityService{
         return sqlSession.update("communityMapper.updateFreeBoardComment", boardCommentListVO);
     }
 
+    @Override
+    public List<BoardFreeListVO> selectMainFreeBoardList() {
+        return sqlSession.selectList("communityMapper.selectMainFreeBoardList");
+    }
+
+
 }

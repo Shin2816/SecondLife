@@ -8,11 +8,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Optional;
-
 @Component
 @RequiredArgsConstructor
-public class LectureServiceInterceptor implements HandlerInterceptor {
+public class LectureInterceptor implements HandlerInterceptor {
     private final LectureService lectureService;
 
     @Override
