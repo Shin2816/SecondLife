@@ -43,7 +43,7 @@ th{
     position: relative;
     width: 100%;
     height: auto;
-    margin-right: 10px;
+    margin : 25px 10px 15px 0;
     cursor: pointer;
     background-color: antiquewhite;
 }
@@ -58,6 +58,7 @@ th{
     position: relative;
     width: 100%;
     height: auto;
+    margin : 25px 0 15px 0;
     cursor: pointer;
     background-color: azure;
 }
@@ -105,14 +106,18 @@ th{
     height: 15rem;
 }
 .first{
-    height: 12rem;
+    height: 15rem;
+    margin-bottom: 10px;
 }
 .second{
-    height: 12rem;
+    height: 15rem;
+    margin-bottom: 10px;
 }
 .thrid{
-    height: 12rem;
+    height: 15rem;
+    margin-bottom: 10px;
 }
 .forth{
-    height: 12rem;
+    height: 15rem;
+    margin-bottom: 10px;
 }
