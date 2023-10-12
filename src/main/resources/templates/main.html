@@ -82,7 +82,7 @@
                                 <tr th:each="freeBoard, state : ${freeBoardList}">
                                     <td>[[${#lists.size(freeBoardList) - state.index}]]</td>
                                     <td>
-                                        <a th:href="@{/boardDetail?(freeBoardNum=${freeBoard.freeBoardNum})}">[[${freeBoard.freeBoardTitle}]]</a>
+                                        <a th:href="@{/board/boardDetail?(freeBoardNum=${freeBoard.freeBoardNum})}">[[${freeBoard.freeBoardTitle}]]</a>
                                     </td>
                                     <td>[[${freeBoard.freeBoardWriter}]]</td>
                                     <td>[[${freeBoard.freeCreateDate}]]</td>
@@ -109,11 +109,6 @@
                 </div>
 
             </div>
-        </div>
-        <div>
-            <form action="/freeBoardList" method="post">
-                <input type="submit" value="황태현">
-            </form>
         </div>
     </th:block> 
 </body>

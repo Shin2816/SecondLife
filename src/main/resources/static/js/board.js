@@ -29,6 +29,7 @@ function freeRegComment(freeBoardWriter, selectedTag, freeBoardNum){
     //fetch 통신 후 실행 영역
     .then((data) => {//data -> controller에서 리턴되는 데이터!
         alert('등록이 완료 되었습니다.');
+        location.href='/board/boardDetail';
     })
     //fetch 통신 실패 시 실행 영역
     .catch(err=>{
