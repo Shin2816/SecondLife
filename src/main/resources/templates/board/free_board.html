@@ -8,7 +8,8 @@
 </head>
 <body>
     <th:block layout:fragment="content">
-        <h1>게시글 목록</h1>
+        <h1>자유게시판</h1>
+        <hr>
         <!-- 검색 영역 -->
         <div>
             <form action="/freeBoardList" method="post">
@@ -20,6 +21,7 @@
                 <input type="submit" value="검색">
             </form>
         </div>
+        <hr>
         <table border="1">
             <tr>
                 <td>번호</td>
