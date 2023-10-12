@@ -21,10 +21,12 @@ public interface CenterService {
     // 시설관리 - 대관가능유무 변경 (비동기통신)
     public void updateRentalAvailable(CenterFacilityVO centerFacilityVO);
 
-    // 시설관리 - 삭제하기
-    public void deleteFacility(String facilityCode);
-
     // 시설관리 - 수정하기
     public void updateFacility(CenterFacilityVO centerFacilityVO);
 
+    // 시설관리 - 삭제하기
+    public void deleteFacility(String facilityCode);
+
+    // 첨부파일 이름 조회
+    public String selectCenterImgFileName(String facilityCode);
 }

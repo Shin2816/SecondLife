@@ -4,6 +4,7 @@ import com.green.SecondLife.center.service.CenterService;
 import com.green.SecondLife.center.vo.CenterFacilityVO;
 import com.green.SecondLife.center.vo.CenterPlaceCategoryVO;
 import com.green.SecondLife.center.vo.FacilityImageVO;
+import com.green.SecondLife.util.ConstantVariable;
 import com.green.SecondLife.util.UploadUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.List;
 
 @Controller
@@ -68,6 +70,7 @@ public class CenterController {
     // 시설관리 - 수정하기
     @PostMapping("/updateFacility")
     public String updateFacility(CenterFacilityVO centerFacilityVO){
+        System.out.println(centerFacilityVO);
         centerService.updateFacility(centerFacilityVO);
         return "redirect:/center/selectAllFacility";
     }
@@ -75,7 +78,14 @@ public class CenterController {
     // 시설관리 - 삭제하기
     @GetMapping("/deleteFacility")
     public String deleteFacility(String facilityCode){
+        // 해당 게시물의 첨부파일 삭제
+        String fileName = centerService.selectCenterImgFileName(facilityCode);
+        File file = new File(ConstantVariable.UPLOAD_PATH_CENTER + fileName);
+        file.delete();
+
+        // 게시글 삭제
         centerService.deleteFacility(facilityCode);
+
         return "redirect:/center/selectAllFacility";
     }
 }

@@ -109,6 +109,14 @@
         DELETE CENTER_FACILITY
         WHERE FACILITY_CODE = #{facilityCode}
     </delete>
+
+    <!--첨부파일 이름 조회-->
+    <select id="selectCenterImgFileName" resultType="String">
+        SELECT FACILITY_ATTACHED_FILE_NAME
+        FROM CENTER_FACILITY_IMAGE
+        WHERE FACILITY_CODE = #{facilityCode}
+    </select>
+
 </mapper>
 
 
