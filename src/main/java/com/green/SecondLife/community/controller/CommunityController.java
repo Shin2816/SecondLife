@@ -19,6 +19,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/board")
 public class CommunityController {
     private final CommunityService communityService;
 
@@ -42,7 +43,7 @@ public class CommunityController {
         MemberVO loginInfo = (MemberVO)session.getAttribute("loginInfo");
         boardFreeListVO.setFreeBoardWriter(loginInfo.getMemberId());
         communityService.insertFreeBoard(boardFreeListVO);
-        return "redirect:/freeBoardList";
+        return "redirect:/board/freeBoardList";
     }
     //글 제목 클릭했을때 해당글의 상세페이지 이동
     @RequestMapping("/boardDetail")
@@ -58,7 +59,7 @@ public class CommunityController {
     @GetMapping("/deleteFreeBoard")
     public String deleteFreeBoard(int freeBoardNum){
         communityService.deleteFreeBoard(freeBoardNum);
-        return "redirect:/freeBoardList";
+        return "redirect:/board/freeBoardList";
     }
     //글 상세페이지에서 수정 버튼을 클릭하였을때 수정페이지로 이동
     @GetMapping("/updateFreeBoardForm")
@@ -71,7 +72,7 @@ public class CommunityController {
     public String updateBoard(BoardFreeListVO boardFreeListVO){
         communityService.updateFreeBoard(boardFreeListVO);
         //수정이 완료되면 게시글 상세페이지로 문자열+숫자열 freeBoardNum=숫자 데이터를 던질 수 있다.
-        return "redirect:/boardDetail?freeBoardNum=" + boardFreeListVO.getFreeBoardNum();
+        return "redirect:/board/boardDetail?freeBoardNum=" + boardFreeListVO.getFreeBoardNum();
     }
     //상세 페이지에서 댓글 작성버튼 클릭하면 비동기로 insert 쿼리 실행
     @ResponseBody

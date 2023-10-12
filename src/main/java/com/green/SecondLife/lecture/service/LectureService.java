@@ -20,4 +20,6 @@ public interface LectureService {
     public List<StudentVO> selectStudentList(StudentVO studentVO);
     //수강생 삭제 기능
     public void deleteStudent(StudentVO studentVO);
+    //강좌 목록 메인페이지 조회
+    public List<LectureVO> selectMainLectureList();
 }

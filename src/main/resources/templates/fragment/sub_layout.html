@@ -19,7 +19,10 @@
     </div>
     <div class="row mb-4">
         <!-- 컨텐츠 영역 -->
-        <div class="col">
+        <div class="col-4">
+            <th:block th:replace="~{fragment/sub_side :: subsideFragment}"></th:block>
+        </div>
+        <div class="col-8">
             <th:block layout:fragment="content"></th:block>
         </div>
     </div>

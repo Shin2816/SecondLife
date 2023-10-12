@@ -20,12 +20,7 @@ public class BoardInterceptor implements HandlerInterceptor {
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
 
-        Map<String, Object> data = modelAndView.getModel();
-        BoardFreeListVO boardFreeListVO = (BoardFreeListVO)data.get("boardFreeListVO");
-
-
         modelAndView.addObject("freeBoardList", communityService.selectMainFreeBoardList());
-
 
     }
 }
