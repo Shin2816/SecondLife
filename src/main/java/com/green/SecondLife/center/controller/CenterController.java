@@ -70,6 +70,7 @@ public class CenterController {
     // 시설관리 - 수정하기
     @PostMapping("/updateFacility")
     public String updateFacility(CenterFacilityVO centerFacilityVO){
+
         System.out.println(centerFacilityVO);
         centerService.updateFacility(centerFacilityVO);
         return "redirect:/center/selectAllFacility";
@@ -87,6 +88,16 @@ public class CenterController {
         centerService.deleteFacility(facilityCode);
 
         return "redirect:/center/selectAllFacility";
+    }
+
+    // 시설관리 - 첨부파일 삭제하기
+    @ResponseBody
+    @PostMapping("/deleteFile")
+    public void deleteFile(String facilityCode){
+        // 해당 게시물의 첨부파일 삭제
+        String fileName = centerService.selectCenterImgFileName(facilityCode);
+        File file = new File(ConstantVariable.UPLOAD_PATH_CENTER + fileName);
+        file.delete();
     }
 }
 
