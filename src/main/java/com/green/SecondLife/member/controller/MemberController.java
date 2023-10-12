@@ -46,14 +46,14 @@ public class MemberController {
 
     //회원가입 처리 후, 메인페이지로 이동
     @PostMapping("/insertMember")
-    public String insertMember(MemberVO memberVO, BoardFreeListVO BoardFreeListVO){
+    public String insertMember(MemberVO memberVO){
         memberService.insertMember(memberVO);
         return "/main";
     }
 
     //로그인 처리 후, 메인페이지로 이동.
     @PostMapping("/login")
-    public String login(MemberVO memberVO, HttpSession session, BoardFreeListVO boardFreeListVO){
+    public String login(MemberVO memberVO, HttpSession session){
 
         MemberVO loginInfo = memberService.selectlogin(memberVO);
         if(loginInfo != null){
@@ -65,7 +65,7 @@ public class MemberController {
 
     //로그아웃 처리 후, 메인페이지로 이동
     @GetMapping("/logout")
-    public String logout(HttpSession session, BoardFreeListVO boardFreeListVO){
+    public String logout(HttpSession session){
         session.removeAttribute("loginInfo");
         return "/main";
     }
@@ -126,7 +126,7 @@ public class MemberController {
 
     //회원정보 수정
     @PostMapping("/updateMember")
-    public String updateMember(MemberVO memberVO, BoardFreeListVO BoardFreeListVO){
+    public String updateMember(MemberVO memberVO){
         memberService.memberUpdate(memberVO);
         return "/main";
     }
