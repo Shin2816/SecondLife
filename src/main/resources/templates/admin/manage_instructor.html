@@ -16,25 +16,50 @@
             <td>나이</td>
             <td>성별</td>
             <td>과목</td>
-            <td>휴대폰</td>
-            <td>주소</td>
-            <td>입사일</td>
         </tr>
     </thead>
     <tbody>
         <tr th:each="instructor : ${instructorList}">
             <td>[[${instructor.instructorName}]]</td>
             <td>[[${instructor.instructorAge}]]</td>
-            <td>[[${instructor.instructorGender}]]</td>
             <td>[[${instructor.instructorMajor}]]</td>
-            <td>[[${instructor.instructorPhone}]]</td>
-            <td>[[${instructor.instructorAddr}]]</td>
-            <td>[[${instructor.instructorJoinDate}]]</td>
+            <td>[[${instructor.instructorGender}]]</td>
             <td><input type="button" value="상세" th:onclick="|location.href='@{/instructor/selectInstructorDetail(instructorCode=${instructor.instructorCode})}'|"></td>
             <td><input type="button" value="삭제" th:onclick="deleteInstructor([[${instructor.instructorCode}]]);"></td>
+            <td><input type="button" value="확인용" th:onclick="showInstructorSimpleInfo([[${instructor.instructorCode}]]);">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Launch demo modal
+                </button>
+            </td>
         </tr>
     </tbody>
 </table>
+  <!-- 강사 간략한 정보 모달 -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div>
+                <img id="instructor_img">
+            </div>
+            <div>
+                <p id="instructor_name"></p>
+                <p id="instructor_age"></p>
+                <p id="instructor_gender"></p>
+                <p id="instructor_subject"></p>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
 <script src="/js/manage_instructor.js"></script>
 </th:block>
 </body>

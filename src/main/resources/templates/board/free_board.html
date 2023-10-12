@@ -8,10 +8,13 @@
 </head>
 <body>
     <th:block layout:fragment="content">
+        <!--부트스트랩 css-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+        <link rel="stylesheet" href="/css/board/free_board.css">
         <h1>자유게시판</h1>
         <hr>
         <!-- 검색 영역 -->
-        <div>
+        <div class="row-12 justify-content-end">
             <form action="/board/freeBoardList" method="post">
                 <select name="searchType">
                     <option value="FREE_BOARD_TITLE">제목</option>
@@ -22,7 +25,7 @@
             </form>
         </div>
         <hr>
-        <table border="1">
+        <table border="1" class="row-12 text-center col-12">
             <tr>
                 <td>번호</td>
                 <td>제목</td>
@@ -38,19 +41,17 @@
             </th:block>
             <!-- 게시글 있을 때 -->
             <th:block th:unless="${#lists.size(freeBoardList) == 0}">
-                <tr th:each="freeBoard, state : ${freeBoardList}">
+                <tr class="board-tr" th:each="freeBoard, state : ${freeBoardList}" th:onclick="|location.href='@{/board/boardDetail(freeBoardNum=${freeBoard.freeBoardNum})}'|">
                     <td>[[${#lists.size(freeBoardList) - state.index}]]</td>
-                    <td>
-                        <a th:href="@{/board/boardDetail?(freeBoardNum=${freeBoard.freeBoardNum})}">[[${freeBoard.freeBoardTitle}]]</a>
-                    </td>
+                    <td>[[${freeBoard.freeBoardTitle}]]</td>
                     <td>[[${freeBoard.freeBoardWriter}]]</td>
                     <td>[[${freeBoard.freeCreateDate}]]</td>
                     <td>[[${freeBoard.freeBoardReadCnt}]]</td>
                 </tr>
             </th:block>
-            <input th:if="${session.loginInfo != null}" type="button" value="등록하기" onclick="location.href='regBoardForm';">
+            <input th:if="${session.loginInfo != null}" class="btn btn-primary" type="button" value="등록하기" onclick="location.href='regBoardForm';">
         </table>
-        <div>
+        <div class="row-12 justify-content-center">
             <!-- 예) 이전 1 2 3 4 5 다음 / 이전 페이지 누르면 현재 페이지 -1 -->
             <a th:href="@{/board/freeBoardList(nowPage=${boardFreeListVO.beginPage - 1})}"><span th:if="${boardFreeListVO.prev}">이전</span></a>
             <!-- 시작번호부터 끝 번호까지 반복한 것을 pageNum으로 지정-->
@@ -60,6 +61,8 @@
             </th:block>
             <a th:href="@{/board/freeBoardList(nowPage=${boardFreeListVO.endPage + 1})}"><span th:if="${boardFreeListVO.next}">다음</span></a>
         </div>
+        <!--부트스트랩 js-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
     </th:block>
 </body>
 </html>
