@@ -71,6 +71,7 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <form action="/center/updateFacility" method="post">
+                                        <input type="hidden" name="facilityCode" th:value="${facility.facilityCode}">
                                         <div class="modal-body">
                                             <div class="row mb-3">
                                                 <div class="col-4">시설 카테고리</div>
@@ -110,8 +111,8 @@
                                             </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-primary">수정하기</button>
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                                            <input type="submit" class="btn btn-primary" value="수정하기">
+                                            <input type="button" class="btn btn-secondary" data-bs-dismiss="modal" value="닫기">
                                         </div>        
                                     </form>
                                 </div>

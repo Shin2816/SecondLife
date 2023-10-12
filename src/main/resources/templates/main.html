@@ -30,7 +30,7 @@
                                 <th>기간</th>
                                 <th>수강료</th>
                             </tr>
-                            <tr th:each="lecture : ${lectureList}">
+                            <tr class="board-tr" th:onclick="|location.href='@{/lecture/selectLectureDetail(lectureCode=${lecture.lectureCode})}'|" th:each="lecture : ${lectureList}">
                                 <td>[[${lecture.instructorName}]]</td>
                                 <td>[[${lecture.lectureSubject}]]</td>
                                 <td>[[${lecture.lectureTitle}]]</td>
@@ -60,19 +60,10 @@
                         <span class="board_title"> 자유 게시판 </span>
                         <table class="board-table">
                             <colgroup>
-                                <col width="10%">
                                 <col width="*">
-                                <col width="15%">
+                                <col width="10%">
                                 <col width="20%">
-                                <col width="15%">
                             </colgroup>
-                            <tr>
-                                <th>번호</th>
-                                <th>제목</th>
-                                <th>작성자</th>
-                                <th>작성일</th>
-                                <th>조회수</th>
-                            </tr>
                             <!-- 게시글 없을 때 -->
                             <th:block th:if="${#lists.size(freeBoardList) == 0}">
                                 <tr>
@@ -81,14 +72,12 @@
                             </th:block>
                             <!-- 게시글 있을 때 -->
                             <th:block th:unless="${#lists.size(freeBoardList) == 0}">
-                                <tr th:each="freeBoard, state : ${freeBoardList}">
-                                    <td>[[${#lists.size(freeBoardList) - state.index}]]</td>
-                                    <td>
+                                <tr class="board-tr" th:each="freeBoard : ${freeBoardList}">
+                                    <td class="board_td_title">
                                         <a th:href="@{/board/boardDetail?(freeBoardNum=${freeBoard.freeBoardNum})}">[[${freeBoard.freeBoardTitle}]]</a>
                                     </td>
                                     <td>[[${freeBoard.freeBoardWriter}]]</td>
                                     <td>[[${freeBoard.freeCreateDate}]]</td>
-                                    <td>[[${freeBoard.freeBoardReadCnt}]]</td>
                                 </tr>
                             </th:block>
                         </table>

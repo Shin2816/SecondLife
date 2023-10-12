@@ -3,6 +3,7 @@
 th{
     border-bottom: 1px solid black;
 }
+
 .link-main{
     display: block;
     cursor: pointer;
@@ -82,6 +83,13 @@ th{
 .board-table{
     width: 80%;
     margin: 0 auto 0 auto;
+}
+.board .board_td_title{
+    text-align: start;
+}
+.board .board-tr{
+    cursor: pointer;
+    border-bottom: 1px dotted black;
 }
 .board-2{
     background-color: chocolate;
