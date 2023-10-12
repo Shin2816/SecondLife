@@ -38,7 +38,7 @@ function freeRegComment(freeBoardWriter, selectedTag, freeBoardNum){
     });
 }
 ////////////////////////////////////////////////////////삭제(비동기)
-function freeDeleteComment(commentId){
+function freeDeleteComment(commentId, freeBoardNum){
     fetch('/board/freeDeleteComment', { //요청경로
         method: 'POST',
         cache: 'no-cache',
@@ -63,6 +63,7 @@ function freeDeleteComment(commentId){
     //fetch 통신 후 실행 영역
     .then((data) => {//data -> controller에서 리턴되는 데이터!
         alert('댓글 삭제가 완료 되었습니다.');
+        location.href=`/board/boardDetail?freeBoardNum=${freeBoardNum}`;
     })
     //fetch 통신 실패 시 실행 영역
     .catch(err=>{
@@ -76,7 +77,7 @@ function freeUpdateModal(freeUpdateCommentContent){//실제 데이터value
     freeCommentInput.value = freeUpdateCommentContent;//input안에 내용 넣기
 }
 ///////////////////////////////////////////////////////////////////댓글 수정(비동기)
-function freeUpdateComment(commentId, commentContent){//수정버튼을 누르면 도착, div id : freeCommentInput 안에 데이터 넣기
+function freeUpdateComment(commentId, freeBoardNum){//수정버튼을 누르면 도착, div id : freeCommentInput 안에 데이터 넣기
     const freeCommentInput = document.querySelector('#freeCommentInput').value;
 
     fetch('/board/freeUpdateComment', { //요청경로
@@ -104,6 +105,7 @@ function freeUpdateComment(commentId, commentContent){//수정버튼을 누르�
     //fetch 통신 후 실행 영역
     .then((data) => {//data -> controller에서 리턴되는 데이터!
         alert('댓글 수정이 완료 되었습니다.');
+        location.href=`/board/boardDetail?freeBoardNum=${freeBoardNum}`;
     })
     //fetch 통신 실패 시 실행 영역
     .catch(err=>{

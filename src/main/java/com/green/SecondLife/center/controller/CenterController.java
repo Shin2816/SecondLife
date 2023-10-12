@@ -69,8 +69,32 @@ public class CenterController {
 
     // 시설관리 - 수정하기
     @PostMapping("/updateFacility")
-    public String updateFacility(CenterFacilityVO centerFacilityVO){
-        System.out.println(centerFacilityVO);
+    public String updateFacility(CenterFacilityVO centerFacilityVO, MultipartFile facilityImg){
+        //수정하려는 시설 정보에 첨부파일이 있는지 확인
+
+
+        //원래 첨부가 있었다면
+        //첨부된 파일 삭제 + 새로 등록
+        //디비 수정
+
+
+        //원래 첨부가 없었다면
+        //첨부된 새로 등록
+        //디비 수정
+
+
+
+
+
+        // 첨부파일 수정하기
+        // DB에 저장되어 있는 파일
+
+
+
+        // 첨부파일이 없다면 파일업로드
+        // 첨부파일이 있다면 같은파일인지 return / 다른파일이면 현재 파일 삭제 후 파일업로드
+
+        // 수정하기
         centerService.updateFacility(centerFacilityVO);
         return "redirect:/center/selectAllFacility";
     }
