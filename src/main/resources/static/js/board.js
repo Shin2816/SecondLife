@@ -2,7 +2,7 @@
 function freeRegComment(freeBoardWriter, selectedTag, freeBoardNum){
     const commentContent = selectedTag.closest('div').querySelector('input[type="text"]').value;
 
-    fetch('/freeBoardComment', { //요청경로
+    fetch('/board/freeBoardComment', { //요청경로
 
         method: 'POST',
         cache: 'no-cache',
@@ -29,7 +29,7 @@ function freeRegComment(freeBoardWriter, selectedTag, freeBoardNum){
     //fetch 통신 후 실행 영역
     .then((data) => {//data -> controller에서 리턴되는 데이터!
         alert('등록이 완료 되었습니다.');
-        location.href='/board/boardDetail';
+        location.href=`/board/boardDetail?freeBoardNum=${freeBoardNum}`;
     })
     //fetch 통신 실패 시 실행 영역
     .catch(err=>{
@@ -39,7 +39,7 @@ function freeRegComment(freeBoardWriter, selectedTag, freeBoardNum){
 }
 ////////////////////////////////////////////////////////삭제(비동기)
 function freeDeleteComment(commentId){
-    fetch('/freeDeleteComment', { //요청경로
+    fetch('/board/freeDeleteComment', { //요청경로
         method: 'POST',
         cache: 'no-cache',
         headers: {
@@ -79,7 +79,7 @@ function freeUpdateModal(freeUpdateCommentContent){//실제 데이터value
 function freeUpdateComment(commentId, commentContent){//수정버튼을 누르면 도착, div id : freeCommentInput 안에 데이터 넣기
     const freeCommentInput = document.querySelector('#freeCommentInput').value;
 
-    fetch('/freeUpdateComment', { //요청경로
+    fetch('/board/freeUpdateComment', { //요청경로
         method: 'POST',
         cache: 'no-cache',
         headers: {
