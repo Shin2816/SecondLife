@@ -14,6 +14,7 @@
             <div class="col-3">시설 카테고리</div>
             <div class="col-5">
                 <select name="centerCateCode" class="form-select">
+                    <option selected>카테고리를 선택해주세요.</option>
                     <option th:each="centerCategory : ${centerCategoryList}" th:value="${centerCategory.centerCateCode}">[[${centerCategory.centerCateName}]]</option>
                 </select>
             </div>

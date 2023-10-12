@@ -69,8 +69,10 @@ public class CenterController {
 
     // 시설관리 - 수정하기
     @PostMapping("/updateFacility")
-    public String updateFacility(CenterFacilityVO centerFacilityVO){
-        System.out.println(centerFacilityVO);
+    public String updateFacility(CenterFacilityVO centerFacilityVO, MultipartFile facilityImg){
+        // 첨부파일 수정하기
+
+        // 수정하기
         centerService.updateFacility(centerFacilityVO);
         return "redirect:/center/selectAllFacility";
     }
