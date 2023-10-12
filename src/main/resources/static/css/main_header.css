@@ -88,6 +88,7 @@ th{
     text-align: start;
 }
 .board .board-tr{
+    cursor: pointer;
     border-bottom: 1px dotted black;
 }
 .board-2{
