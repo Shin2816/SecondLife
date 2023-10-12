@@ -68,6 +68,7 @@ public class CenterController {
     // 시설관리 - 수정하기
     @PostMapping("/updateFacility")
     public String updateFacility(CenterFacilityVO centerFacilityVO){
+        System.out.println(centerFacilityVO);
         centerService.updateFacility(centerFacilityVO);
         return "redirect:/center/selectAllFacility";
     }
