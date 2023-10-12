@@ -18,7 +18,7 @@ public class PageVO {
 
     //페이징 처리하기위해 변수값 세팅 + - * /
     public void setPageInfo(){//                                                    0.8
-        endPage = (int)Math.ceil(nowPage / diaplayPageCnt) * diaplayPageCnt; //만약 현재 4페이지라면 4/5*5=4
+        endPage = (int)Math.ceil(nowPage / (double)diaplayPageCnt) * diaplayPageCnt; //만약 현재 4페이지라면 4/5*5=4
         beginPage = endPage - diaplayPageCnt + 1;//첫번째 페이지 = 5 - 5 + 1;
 
         //전체 페이지 수
@@ -40,12 +40,10 @@ public class PageVO {
             prev = true;
         }
     }
-
     //전체 데이터 수 setter
     public void setTotalPageCnt(int totalDataCnt){
         this.totalDataCnt = totalDataCnt;
     }
-
     // 현재 페이지 getter
     public int getNowPage() {
         return nowPage;
@@ -70,6 +68,4 @@ public class PageVO {
     public boolean getNext() {
         return next;
     }
-
-
 }

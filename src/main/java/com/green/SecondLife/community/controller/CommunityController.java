@@ -26,6 +26,13 @@ public class CommunityController {
     //게시판 출력
     @RequestMapping("/freeBoardList")
     public String freeBoardList(Model model, BoardFreeListVO boardFreeListVO){
+        //페이지 정보 세팅
+        System.out.println(boardFreeListVO);
+        int totalDataCnt = communityService.selectBoardCnt(); //전체 게시글 갯수 조회해서
+        boardFreeListVO.setTotalPageCnt(totalDataCnt);//세터 호출해서 전체 게시글 갯수 전달
+        boardFreeListVO.setPageInfo();//변수값 설정한 메소드 호출(상속관계라 사용가능)
+
+        //게시글 목록 조회
         List<BoardFreeListVO> freeBoardList = communityService.selectFreeBoardList(boardFreeListVO);
         model.addAttribute("freeBoardList", freeBoardList);
 

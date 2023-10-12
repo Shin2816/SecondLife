@@ -28,4 +28,6 @@ public interface CommunityService {
     public int updateFreeBoardComment(BoardCommentListVO boardCommentListVO);
     //자유게시판 메인페이지 출력
     public List<BoardFreeListVO> selectMainFreeBoardList();
+    //게시글 갯수 조회
+    public int selectBoardCnt();
 }

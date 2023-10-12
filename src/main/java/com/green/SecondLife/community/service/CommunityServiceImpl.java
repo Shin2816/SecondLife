@@ -71,6 +71,11 @@ public class CommunityServiceImpl implements CommunityService{
     public List<BoardFreeListVO> selectMainFreeBoardList() {
         return sqlSession.selectList("communityMapper.selectMainFreeBoardList");
     }
+    //게시글 갯수 조회
+    @Override
+    public int selectBoardCnt() {
+        return sqlSession.selectOne("communityMapper.selectBoardCnt");
+    }
 
 
 }
