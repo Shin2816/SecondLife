@@ -15,15 +15,17 @@
                         <span class="board_title"> 현재 신청 가능한 강좌 </span>
                         <table class="board-table">
                             <colgroup>
+                                <col width="15%">
                                 <col width="10%">
                                 <col width="*">
-                                <col width="15%">
-                                <col width="20%">
-                                <col width="15%">
+                                <col width="5%">
+                                <col width="28%">
+                                <col width="10%">
                             </colgroup>
                             <tr>
                                 <th>강사</th>
                                 <th>강좌</th>
+                                <th>강좌명</th>
                                 <th>정원</th>
                                 <th>기간</th>
                                 <th>수강료</th>
@@ -31,10 +33,10 @@
                             <tr th:each="lecture : ${lectureList}">
                                 <td>[[${lecture.instructorName}]]</td>
                                 <td>[[${lecture.lectureSubject}]]</td>
+                                <td>[[${lecture.lectureTitle}]]</td>
                                 <td>[[${lecture.lectureStudent}]]</td>
                                 <td>[[${lecture.lecturePeriod}]]</td>
                                 <td>[[${lecture.lecturePrice}]]</td>
-                                <td><input type="submit" value="상세" th:onclick="|location.href='@{/lecture/selectLectureDetail(lectureCode=${lecture.lectureCode})}'|"></td>
                             </tr>
                         </table>
                     </div>

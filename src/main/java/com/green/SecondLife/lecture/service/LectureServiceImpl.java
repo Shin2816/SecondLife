@@ -47,4 +47,10 @@ public class LectureServiceImpl implements LectureService{
     public void deleteStudent(StudentVO studentVO) {
         sqlSession.delete("lectureMapper.deleteStudent", studentVO);
     }
+
+    @Override
+    public List<LectureVO> selectMainLectureList() {
+        return sqlSession.selectList("lectureMapper.selectMainLectureList");
+    }
+
 }
