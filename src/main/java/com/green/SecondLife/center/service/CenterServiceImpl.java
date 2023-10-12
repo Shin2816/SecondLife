@@ -42,12 +42,18 @@ public class CenterServiceImpl implements CenterService{
     }
 
     @Override
+    public void updateFacility(CenterFacilityVO centerFacilityVO) {
+        sqlSession.update("centerMapper.updateFacility", centerFacilityVO);
+    }
+
+    @Override
     public void deleteFacility(String facilityCode) {
         sqlSession.delete("centerMapper.deleteFacility", facilityCode);
     }
 
     @Override
-    public void updateFacility(CenterFacilityVO centerFacilityVO) {
-        sqlSession.update("centerMapper.updateFacility", centerFacilityVO);
+    public String selectCenterImgFileName(String facilityCode) {
+        return sqlSession.selectOne("centerMapper.selectCenterImgFileName", facilityCode);
     }
+
 }
