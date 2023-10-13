@@ -84,8 +84,14 @@ public class CommunityController {
     //상세 페이지에서 댓글 작성버튼 클릭하면 비동기로 insert 쿼리 실행
     @ResponseBody
     @PostMapping("/freeBoardComment")
-    public void freeBoardComment(BoardCommentListVO boardCommentListVO){
+    public boolean freeBoardComment(BoardCommentListVO boardCommentListVO, HttpSession session){
+        //로그인 정보가 없다면 댓글 작성하지 못하게
+        if (session.getAttribute("loginInfo") == null){//로그인 정보가 없을 때
+            return false;//board.js로 false리턴
+        }
+        //로그인 정보가 있다면 if문 실행되지않고 쿼리가 실행된 후 true 리턴
         communityService.insertFreeBoardComment(boardCommentListVO);
+        return true;//board.js로 true리턴
     }
 
     //상세 페이지에서 댓글 삭제버튼 클릭하면 delete 쿼리 실행

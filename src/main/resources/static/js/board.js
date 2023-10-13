@@ -23,13 +23,20 @@ function freeRegComment(freeBoardWriter, selectedTag, freeBoardNum){
             return ;
         }
     
-        return response.text(); //컨트롤러에서 return하는 데이터가 없거나 int, String 일 때 사용
-        //return response.json(); //나머지 경우에 사용
+        //return response.text(); //컨트롤러에서 return하는 데이터가 없거나 int, String 일 때 사용
+        return response.json(); //나머지 경우에 사용
     })
     //fetch 통신 후 실행 영역
     .then((data) => {//data -> controller에서 리턴되는 데이터!
-        alert('등록이 완료 되었습니다.');
-        location.href=`/board/boardDetail?freeBoardNum=${freeBoardNum}`;
+        if(data == true){//로그인 정보가 있다면
+            alert('등록이 완료 되었습니다.');
+            location.href=`/board/boardDetail?freeBoardNum=${freeBoardNum}`;//등록이 완료되고 해당 게시글 상세페이지로 이동
+        }
+        else{//로그인 정보가 없다면
+            if(confirm('로그인이 필요한 서비스입니다.\n로그인 페이지로 이동하시겠습니까?')){//알람 띄운 후 확인버튼 누르면
+                location.href='/member/loginForm';//로그인 페이지로 이동
+            }
+        }
     })
     //fetch 통신 실패 시 실행 영역
     .catch(err=>{
