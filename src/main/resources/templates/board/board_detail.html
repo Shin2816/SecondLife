@@ -9,7 +9,7 @@
 </head>
 <body>
 <th:block layout:fragment="content">
-    <h1>게시글 상세 페이지</h1>
+    <h1>자유게시판</h1>
     <div class="container text-center">
         <div class="row">
             <div class="col">
@@ -36,12 +36,12 @@
         </div>
     </div>
     <br>
-    <div class="detail_btn">
+    <div class="d-flex justify-content-between">
         <input type="button" class="btn btn-primary" value="목록으로" onclick="location.href='freeBoardList';">
         <!-- 로그인정보가 비어있지 않다면 버튼 보이게 -->
         <div th:if="${session.loginInfo != null}">
             <!-- 작성자가 같거나 관리자라면 -->
-            <div th:if="${board.freeBoardWriter == session.loginInfo.memberId or session.loginInfo.memberRoll == 'ADMIN'}">
+            <div class="btn-group" th:if="${board.freeBoardWriter == session.loginInfo.memberId or session.loginInfo.memberRoll == 'ADMIN'}">
                 <input type="button" class="btn btn-primary" value="삭제" th:onclick="|location.href='@{/board/deleteFreeBoard(freeBoardNum=${board.freeBoardNum})}'|">
                 <input type="button" class="btn btn-primary" value="수정" th:onclick="|location.href='@{/board/updateFreeBoardForm(freeBoardNum=${board.freeBoardNum})}'|">
             </div>
