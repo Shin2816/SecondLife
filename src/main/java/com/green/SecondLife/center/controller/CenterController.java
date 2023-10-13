@@ -4,6 +4,7 @@ import com.green.SecondLife.center.service.CenterService;
 import com.green.SecondLife.center.vo.CenterFacilityVO;
 import com.green.SecondLife.center.vo.CenterPlaceCategoryVO;
 import com.green.SecondLife.center.vo.FacilityImageVO;
+import com.green.SecondLife.member.vo.SubMenuVO;
 import com.green.SecondLife.util.ConstantVariable;
 import com.green.SecondLife.util.UploadUtil;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +24,7 @@ public class CenterController {
 
     // 시설 등록 페이지로 이동
     @GetMapping("/insertFacilityForm")
-    public String insertFacilityForm(Model model){
+    public String insertFacilityForm(Model model, SubMenuVO subMenuVO){
         // 시설 카테고리 조회
         model.addAttribute("centerCategoryList", centerService.selectCenterCategory());
 
@@ -51,7 +52,7 @@ public class CenterController {
 
     // 전체 시설 목록 조회
     @GetMapping("/selectAllFacility")
-    public String selectAllFacility(Model model){
+    public String selectAllFacility(Model model, SubMenuVO subMenuVO){
         // 시설 카테고리 조회
         model.addAttribute("centerCategoryList", centerService.selectCenterCategory());
 

@@ -8,7 +8,9 @@
 <body>
     <th:block th:fragment="subsideFragment">
         <div class="side">
-            사이드 영역입니다.
+            <div class="list-group">
+                <a th:href="@{${subMenu.subMenuUrl}(menuCode=${subMenu.menuCode})}" class="list-group-item list-group-item-action" th:each="subMenu : ${subMenuList}">[[${subMenu.subMenuName}]]</a>
+              </div>
         </div>
     </th:block>
 </body>

@@ -101,7 +101,7 @@
         FROM BOARD_FREE_LIST
         WHERE FREE_BOARD_NUM = #{freeBoardNum}
     </select>
-    <!--자유게시판 글 삭제-->
+    <!--자유게시판 글 삭제, 댓글이 먼저 삭제되고 게시글 삭제 되도록(외래키 오류)-->
     <delete id="deleteFreeBoard">
         DELETE BOARD_FREE_LIST
         WHERE FREE_BOARD_NUM = #{freeBoardNum}
@@ -126,7 +126,7 @@
         SELECT COMMENT_ID
             , COMMENT_CONTENT
             , COMMENT_WRITER
-            , TO_CHAR(COMMENT_CREATE_DATE, 'YYYY-MM-DD') COMMENT_CREATE_DATE
+            , TO_CHAR(COMMENT_CREATE_DATE, 'YYYY.MM.DD. HH24:MI') COMMENT_CREATE_DATE
         FROM BOARD_FREE_COMMENTS
         WHERE COMMENT_NUM = #{freeBoardNum}
     </select>
