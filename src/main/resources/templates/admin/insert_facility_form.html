@@ -8,7 +8,7 @@
 </head>
 <body>
 <th:block layout:fragment ="content">
-    <form action="/center/insertFacility" method="post" enctype="multipart/form-data">
+    <form action="/center/insertFacility" method="post" enctype="multipart/form-data" id="insertFacilityForm">
         <h2>시설 등록</h2>
         <div class="row mb-3">
             <div class="col-3">시설 카테고리</div>
@@ -56,6 +56,7 @@
             </div>
         </div>
     </form>
+    <script src="/js/admin/insert_facility_form.js"></script>
 </th:block>
 </body>
 </html>
