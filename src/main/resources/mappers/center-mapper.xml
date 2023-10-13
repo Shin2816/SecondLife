@@ -73,6 +73,12 @@
         )
     </insert>
 
+    <!--시설 이미지 삭제-->
+    <delete id="deleteFacilityImg">
+        DELETE CENTER_FACILITY_IMAGE
+        WHERE FACILITY_CODE = #{facilityCode}
+    </delete>
+
     <!--시설관리_시설 조회-->
     <select id="selectAllFacility" resultMap="facility">
         SELECT CENTER_FACILITY.FACILITY_CODE

@@ -70,28 +70,21 @@ public class CenterController {
 
     // 시설관리 - 수정하기
     @PostMapping("/updateFacility")
-    public String updateFacility(CenterFacilityVO centerFacilityVO, MultipartFile facilityImg){
-        String facilityCode = centerFacilityVO.getFacilityCode();
-        //디비에서 첨부파일 이름 조회
-       // String attachedFile = centerService.selectCenterImgFileName(facilityCode);
+    public String updateFacility(CenterFacilityVO centerFacilityVO, MultipartFile facilityImg, SubMenuVO subMenuVO){
 
         //이미지 정보 하나가 들어갈 수 있는 통
         FacilityImageVO facilityImgVO = UploadUtil.uploadFile(facilityImg);
 
-        //수정하려는 시설 정보에 첨부파일이 있는지 확인
+        if(facilityImgVO != null){
+            // 해당 게시물의 첨부파일 삭제
+            String fileName = centerService.selectCenterImgFileName(centerFacilityVO.getFacilityCode());
+            File file = new File(ConstantVariable.UPLOAD_PATH_CENTER + fileName);
+            file.delete();
 
-        // 해당 게시물의 첨부파일 삭제
-        String fileName = centerService.selectCenterImgFileName(facilityCode);
-        File file = new File(ConstantVariable.UPLOAD_PATH_CENTER + fileName);
-        file.delete();
-
-        //새로운 첨부파일 등록
-        centerFacilityVO.setFacilityImageVO(facilityImgVO);
-        centerService.insertFacilityImage(centerFacilityVO.getFacilityImageVO());
-
-        //디비수정
-
-
+            //새로운 첨부파일 등록
+            centerFacilityVO.setFacilityImageVO(facilityImgVO);
+            centerService.insertFacilityImage(centerFacilityVO);
+        }
 
         // 수정하기
         centerService.updateFacility(centerFacilityVO);
