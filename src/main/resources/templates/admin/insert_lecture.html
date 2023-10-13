@@ -25,12 +25,16 @@
         </p>
         <p>
             강사 : 
-            <select name="instructorName">
+            <select name="instructorName" th:onchange="sendInstructorCode([[${instructorList}]]);">
                 <th:block th:each="instructor : ${instructorList}">
                     <option th:value="${instructor.instructorName}">[[${instructor.instructorName}]]</option>
                 </th:block>
+                <th:block th:each="instructor : ${instructorList}">
+                    <input type="hidden" value="${instructor.instructorCode}">
+                </th:block>
             </select>
         </p>
+        <input id="hiddenCode" type="hidden" name="instructorCode">
         <p>
             수강생 정원 : 
             <select name="lectureStudent">
@@ -44,6 +48,7 @@
         <p><input type="submit" value="등록!!"></p>
     </div>
 </form>
+<script src="/js/lecture/insert_lecture.js"></script>
 </th:block>
 </body>
 </html>
