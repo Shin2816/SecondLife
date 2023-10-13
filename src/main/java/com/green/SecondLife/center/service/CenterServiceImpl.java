@@ -2,6 +2,7 @@ package com.green.SecondLife.center.service;
 
 import com.green.SecondLife.center.vo.CenterFacilityVO;
 import com.green.SecondLife.center.vo.CenterPlaceCategoryVO;
+import com.green.SecondLife.center.vo.FacilityImageVO;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
@@ -24,11 +25,18 @@ public class CenterServiceImpl implements CenterService{
         return sqlSession.selectOne("centerMapper.selectNextFacilityCode");
     }
 
+    // 시설 등록 + 시설 이미지 등록(트랜젝션)
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void insertFacility(CenterFacilityVO centerFacilityVO) {
         sqlSession.insert("centerMapper.insertFacility", centerFacilityVO);
         sqlSession.insert("centerMapper.insertFacilityImage" , centerFacilityVO);
+    }
+
+    // 시설 이미지 등록
+    @Override
+    public void insertFacilityImage(FacilityImageVO facilityImageVO) {
+        sqlSession.insert("centerMapper.insertFacilityImage", facilityImageVO);
     }
 
     @Override

@@ -106,7 +106,7 @@
                                             <div class="row mb-3">
                                                 <div class="col-4">사진 파일 첨부 </div>
                                                 <div class="col-8">
-                                                    <input class="form-control" type="file" id="formFile" name="facilityImg">
+                                                    <input class="form-control" type="file" id="formFile" name="facilityImg" onchange="updateImg()">
                                                 </div>
                                                 <div class="col-12">
                                                     <span style="cursor: pointer;" data-bs-toggle="modal" th:data-bs-target="${'#img_modal_' + state.count}">[[${facility.facilityImageVO.facilityOriginFileName}]]</span>
@@ -123,7 +123,6 @@
                             </div>
 
 
-
                             <!-- 이미지 팝업 Modal -->
                             <div class="modal fade" th:id="${'img_modal_' + state.count}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
@@ -137,7 +136,7 @@
                                         <div class="modal-body">
                                             <div class="row">
                                                 <div class="col">
-                                                    <img th:src="${'/images/center/' + facility.facilityImageVO.facilityAttachedFileName}" alt="" width="100%;">
+                                                    <img th:src="${'/images/center/' + facility.facilityImageVO.facilityAttachedFileName}" alt="" class="img-fluid">
                                                 </div>
                                             </div>
                                         </div>
