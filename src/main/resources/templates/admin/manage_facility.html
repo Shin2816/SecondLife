@@ -70,7 +70,7 @@
                                         <h1 class="modal-title fs-5" id="staticBackdropLabel">수정하기</h1>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                    <form action="/center/updateFacility" method="post">
+                                    <form action="/center/updateFacility" method="post" enctype="multipart/form-data">
                                         <input type="hidden" name="facilityCode" th:value="${facility.facilityCode}">
                                         <div class="modal-body">
                                             <div class="row mb-3">

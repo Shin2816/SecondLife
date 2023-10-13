@@ -33,10 +33,12 @@ public class CenterServiceImpl implements CenterService{
         sqlSession.insert("centerMapper.insertFacilityImage" , centerFacilityVO);
     }
 
-    // 시설 이미지 등록
+    // 시설 이미지 삭제 + 등록(트랜젝션)
     @Override
-    public void insertFacilityImage(FacilityImageVO facilityImageVO) {
-        sqlSession.insert("centerMapper.insertFacilityImage", facilityImageVO);
+    @Transactional(rollbackFor = Exception.class)
+    public void insertFacilityImage(CenterFacilityVO centerFacilityVO) {
+        sqlSession.delete("centerMapper.deleteFacilityImg", centerFacilityVO);
+        sqlSession.insert("centerMapper.insertFacilityImage", centerFacilityVO);
     }
 
     @Override
