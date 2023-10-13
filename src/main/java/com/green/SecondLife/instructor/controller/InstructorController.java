@@ -4,6 +4,7 @@ import com.green.SecondLife.instructor.service.InstructorService;
 import com.green.SecondLife.instructor.vo.InstructorImgVO;
 import com.green.SecondLife.instructor.vo.InstructorVO;
 import com.green.SecondLife.instructor.vo.SubjectVO;
+import com.green.SecondLife.member.vo.SubMenuVO;
 import com.green.SecondLife.util.UploadUtil;
 import com.sun.tools.javac.Main;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +22,7 @@ public class InstructorController {
     private final InstructorService instructorService;
     //강사등록 페이지로 이동
     @GetMapping("/insertInstructorForm")
-    public String insertInstructorForm(Model model){
+    public String insertInstructorForm(Model model, SubMenuVO subMenuVO){
         //강사 전공 카테고리 조회
         model.addAttribute("subjectList", instructorService.selectSubjectList());
         return "admin/insert_instructor";

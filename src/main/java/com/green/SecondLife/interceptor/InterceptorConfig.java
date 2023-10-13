@@ -10,6 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class InterceptorConfig implements WebMvcConfigurer {
     private final BoardInterceptor boardInterceptor;
     private final LectureInterceptor lectureServiceInterceptor;
+    private final AdminMenuInterceptor menuInterceptor;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -24,6 +25,12 @@ public class InterceptorConfig implements WebMvcConfigurer {
         registry.addInterceptor(lectureServiceInterceptor)
                 .addPathPatterns("/")
                 .addPathPatterns("/main", "/member/login", "/member/logout", "/member/insertMember", "/member/updateMember")
+                .excludePathPatterns("/**/**Fetch")
+                .excludePathPatterns("/images/**", "/js/**", "/css/**");
+
+        //메뉴 정보 출력 인터셉터 실행 설정
+        registry.addInterceptor(menuInterceptor)
+                .addPathPatterns("/admin/**","/instructor/insertInstructorForm", "/lecture/insertLectureForm","/center/insertFacilityForm", "/center/selectAllFacility")
                 .excludePathPatterns("/**/**Fetch")
                 .excludePathPatterns("/images/**", "/js/**", "/css/**");
     }
