@@ -53,6 +53,8 @@ public class CenterController {
     // 전체 시설 목록 조회
     @GetMapping("/selectAllFacility")
     public String selectAllFacility(Model model, SubMenuVO subMenuVO){
+        if(subMenuVO == null)
+            subMenuVO.setMenuCode("MENU_001");
         // 시설 카테고리 조회
         model.addAttribute("centerCategoryList", centerService.selectCenterCategory());
 
@@ -70,7 +72,7 @@ public class CenterController {
 
     // 시설관리 - 수정하기
     @PostMapping("/updateFacility")
-    public String updateFacility(CenterFacilityVO centerFacilityVO, MultipartFile facilityImg, SubMenuVO subMenuVO){
+    public String updateFacility(CenterFacilityVO centerFacilityVO, MultipartFile facilityImg){
 
         //이미지 정보 하나가 들어갈 수 있는 통
         FacilityImageVO facilityImgVO = UploadUtil.uploadFile(facilityImg);
