@@ -8,6 +8,9 @@
 <body>
 <th:block th:fragment="mainHeaderFragment">
     <link rel="stylesheet" href="/css/main_header.css">
+    <!-- slick 슬라이드 -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />  
     <div class="header">
         <div class="menu">
             <div class="left-menu">
@@ -37,6 +40,10 @@
             </ul>
         </div>
     </div>
+    <!-- slick 슬라이드 -->
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script> 
+    <!-- 카카오 주소 api -->
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script src="/js/main_header.js"></script>
 </th:block>

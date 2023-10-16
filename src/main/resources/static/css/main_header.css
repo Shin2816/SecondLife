@@ -3,7 +3,6 @@
 th{
     border-bottom: 1px solid black;
 }
-
 .link-main{
     display: block;
     cursor: pointer;
@@ -22,8 +21,8 @@ th{
 
 .login-area{
     position: relative;
-    margin: 20px 0;
-    padding: 25px 20px;
+    margin: 40px 10px 40px 0;
+    padding: 25px 15px;
     border: 1px solid black;
     border-radius: 10px;
 }
@@ -66,6 +65,7 @@ th{
     color:red;
     font-size: 0.8rem;
 }
+
 .facility{
     display: flex;
 }
@@ -122,8 +122,26 @@ th{
     cursor: pointer;
     border-bottom: 1px dotted black;
 }
-.board-2{
-    background-color: chocolate;
+.main-slide{
+    position: relative;
+}
+.top_banner_prev, .top_banner_next{
+    position: absolute;
+    top: 60px;
+    width: 60px;
+    height: 60px;
+}
+.top_banner_prev{
+    left: 0;
+    background-image: url(../images/icons/icon-prev.png);
+    cursor: pointer;
+    opacity: 0.6;
+}
+.top_banner_next{
+    right: 0;
+    background-image: url(../images/icons/icon-next.png);
+    cursor: pointer;
+    opacity: 0.6;
 }
 .board-photo{
     background-color: blueviolet;
