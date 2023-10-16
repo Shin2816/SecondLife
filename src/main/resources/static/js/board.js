@@ -122,3 +122,24 @@ function freeUpdateComment(commentId, freeBoardNum){//수정버튼을 누르면 
         console.log(err);
     });
 }
+//////////////////////////////////////////자유게시판 글 등록//////////////////////////////////////
+function freeRegValidate(){
+    //form태그 id값 가져오기
+    const freeRegBoard = document.querySelector('#freeRegBoard');
+    //제목 입력 여부 체크
+    if(freeRegBoard.freeTitle.value == ''){
+        inputInvalidate('.title-error-div', '제목은 필수 입력입니다.');
+        return;
+    }
+    //내용 입력 여부 체크
+    if(freeRegBoard.freeText.value == ''){
+        inputInvalidate('.text-error-div', '내용을 입력해주세요.');
+        return;
+    }
+    //제목 정규식 체크
+    let titleRegex = /^.{0,74}$/;        //모든글자 74글자 이하로
+    const title = freeRegBoard.freeText.value; //제목 input값 가져오기
+    if(!titleRegex.test(title)){
+        inputInvalidate('.title-error-div', '제목은 74글자 내로 작성해주세요.');
+    }
+}

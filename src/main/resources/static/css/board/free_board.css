@@ -8,3 +8,6 @@
 .free-table-head{
     border-bottom: 1px solid black;
 }
+.list-select{
+    width: 120px;
+}

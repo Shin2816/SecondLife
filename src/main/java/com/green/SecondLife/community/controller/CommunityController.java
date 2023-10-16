@@ -108,5 +108,6 @@ public class CommunityController {
         System.out.println(boardCommentListVO);
         communityService.updateFreeBoardComment(boardCommentListVO);
     }
+    ////////////////////////////////////////// Q&A게시판 /////////////////////////////////////////////////
 
 }
