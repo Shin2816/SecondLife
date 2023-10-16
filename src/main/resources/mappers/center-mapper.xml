@@ -106,7 +106,7 @@
         SET
             FACILITY_NAME = #{facilityName}
             , FACILITY_CONTENT = #{facilityContent}
-            , FACILITY_PLACE_INFO = #{facilityPlaceInfo}
+            , FACILITY_PLACE_INFO = #{facilityPlaceInfo}ak
             , CENTER_CATE_CODE = #{centerCateCode}
         WHERE FACILITY_CODE = #{facilityCode}
     </update>

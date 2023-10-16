@@ -8,17 +8,31 @@ function insertFacilityValidate(){
     const insertFacilityForm = document.querySelector('#insertFacilityForm');
 
     // form 태그 안 name속성이 memberId인 태그의 value
-    if(insertFacilityForm.centerCateCode.value == ''){   
-        inputInvalidate('#id-error-div', '시설 카테고리는 필수로 선택해주셔야 합니다.');
+    if(insertFacilityForm.centerCateCode.value == '카테고리를 선택해주세요.'){   
+        inputInvalidate('#category-error-div', '시설 카테고리는 필수로 선택해주셔야 합니다.');
         return;  // 함수 실행 종료
     }
 
     // 시설명은 __자 이하로 작성
-    if(insertFacilityForm.facilityName.value.length < 10){
-        inputInvalidate('#id-error-div', '10자 이하로 작성해주셔야 합니다.');
+    if(insertFacilityForm.facilityName.value.length >= 10){
+        inputInvalidate('#name-error-div', '10자 이하로 작성해주세요.');
+        return;
+    }
+
+    // 첨부파일 필수
+    if(insertFacilityForm.facilityImg.value == 'null'){
+        inputInvalidate('#file-error-div', '사진파일을 첨부해주세요.');
+        return;
     }
 
     // 2. 데이터 가져가기 - submit 실행
     // form태그 선택 -> submit()함수 실행
-    document.querySelector('#insertFacilityForm').submit();
+    insertFacilityForm.submit();
+}
+
+
+// validate 실패 시 메세지 설정
+function inputInvalidate(tagId, message){
+    document.querySelector(tagId).style.display = 'block';
+    document.querySelector(tagId).textContent = message;
 }

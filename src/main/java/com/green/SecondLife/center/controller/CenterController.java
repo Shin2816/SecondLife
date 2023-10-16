@@ -47,6 +47,8 @@ public class CenterController {
         centerFacilityVO.setFacilityCode(facilityCode);
         centerService.insertFacility(centerFacilityVO);
 
+        System.out.println(centerFacilityVO);
+
         return "redirect:/center/insertFacilityForm";
     }
 
