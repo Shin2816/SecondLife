@@ -25,12 +25,9 @@
         </p>
         <p>
             강사 : 
-            <select name="instructorName" th:onchange="sendInstructorCode([[${instructorList}]]);">
+            <select name="instructorCode">
                 <th:block th:each="instructor : ${instructorList}">
-                    <option th:value="${instructor.instructorName}">[[${instructor.instructorName}]]</option>
-                </th:block>
-                <th:block th:each="instructor : ${instructorList}">
-                    <input type="hidden" value="${instructor.instructorCode}">
+                    <option th:value="${instructor.instructorCode}">[[${instructor.instructorName}]]</option>
                 </th:block>
             </select>
         </p>

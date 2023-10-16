@@ -1,4 +1,4 @@
 // insert_lecture.js
-function sendInstructorCode(instructorList){
-    console.log(instructorList);
+function sendInstructorCode(instructorCode){
+    document.getElementById('hiddenCode').value = instructorCode;
 }
