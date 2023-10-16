@@ -1,6 +1,7 @@
 package com.green.SecondLife.instructor.service;
 
 import com.green.SecondLife.instructor.vo.InstructorImgVO;
+import com.green.SecondLife.instructor.vo.InstructorReviewVO;
 import com.green.SecondLife.instructor.vo.InstructorVO;
 import com.green.SecondLife.instructor.vo.SubjectVO;
 
@@ -21,4 +22,6 @@ public interface InstructorService {
     public String selectInstructorImgCode(InstructorVO instructorVO);
     //강사 삭제 기능 이미지부터 삭제
     public void deleteInstructor(InstructorVO instructorVO, InstructorImgVO instructorImgVO);
+    //강사 리뷰 목록 조회
+    public List<InstructorReviewVO> selectInstructorReviewList();
 }

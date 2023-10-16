@@ -46,6 +46,7 @@ public class LectureController {
     //강좌 목록 조회
     @GetMapping("/selectLectureList")
     public String selectLectureList(Model model, String instructorCode){
+        System.out.println("@@@@@@@@@@@@@" + lectureService.selectLectureList(instructorCode));
         model.addAttribute("lectureList", lectureService.selectLectureList(instructorCode));
         return "admin/manage_lecture";
     }

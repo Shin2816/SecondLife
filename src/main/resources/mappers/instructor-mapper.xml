@@ -27,6 +27,15 @@
         <result column="INSTRUCTOR_ORIGIN_FILE_NAME"    property="instructorOriginFileName"/>
         <result column="INSTRUCTOR_ATTACHED_FILE_NAME"  property="instructorAttachedFileName"/>
     </resultMap>
+    <!-- 강사 리뷰 테이블 -->
+    <resultMap id="instructorReview" type="com.green.SecondLife.instructor.vo.InstructorReviewVO">
+        <id column="INSTRUCTOR_REVIEW_CODE"         property="instructorReviewCode"/>
+        <result column="INSTRUCTOR_CODE"            property="instructorCode"/>
+        <result column="MEMBER_ID"                  property="memberId"/>
+        <result column="INSTRUCTOR_STAR_POINT"      property="instructorStarPoint"/>
+        <result column="INSTRUCTOR_REVIEW_CONTENT"  property="instructorReviewContent"/>
+        <result column="INSTRUCTOR_REVIEW_DATE"     property="instructorReviewDate"/>
+    </resultMap>
     <!-- 강사 등록 화면에서 전공 카테고리 조회 -->
     <select id="selectSubjectList" resultMap="subject">
         SELECT SUBJECT_CODE
@@ -119,6 +128,16 @@
         DELETE INSTRUCTOR
         WHERE INSTRUCTOR_CODE = #{instructorCode}
     </delete>
+    <!-- 강사 리뷰 목록 조회 -->
+    <select id="selectInstructorReviewList" resultMap="instructorReview">
+        SELECT INSTRUCTOR_REVIEW_CODE
+            , INSTRUCTOR_CODE
+            , MEMBER_ID
+            , INSTRUCTOR_REVIEW_CONTENT
+            , INSTRUCTOR_STAR_POINT
+            , INSTRUCTOR_REVIEW_DATE
+        FROM INSTRUCTOR_REVIEW
+    </select>
 </mapper>
 
 
