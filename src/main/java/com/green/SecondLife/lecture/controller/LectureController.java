@@ -6,6 +6,7 @@ import com.green.SecondLife.lecture.vo.LectureVO;
 import com.green.SecondLife.lecture.vo.StudentVO;
 import com.green.SecondLife.member.service.MemberService;
 import com.green.SecondLife.member.vo.MemberVO;
+import com.green.SecondLife.member.vo.SubMenuVO;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -28,7 +29,7 @@ public class LectureController {
 
     //강좌등록 페이지로 이동
     @GetMapping("/insertLectureForm")
-    public String insertLectureForm(Model model){
+    public String insertLectureForm(Model model, SubMenuVO subMenuVO){
         //강좌과목 조회
         model.addAttribute("subjectList",instructorService.selectSubjectList());
         //강사목록 조회

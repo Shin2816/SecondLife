@@ -4,6 +4,7 @@ import com.green.SecondLife.center.service.CenterService;
 import com.green.SecondLife.center.vo.CenterFacilityVO;
 import com.green.SecondLife.center.vo.CenterPlaceCategoryVO;
 import com.green.SecondLife.center.vo.FacilityImageVO;
+import com.green.SecondLife.member.vo.SubMenuVO;
 import com.green.SecondLife.util.ConstantVariable;
 import com.green.SecondLife.util.UploadUtil;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +24,7 @@ public class CenterController {
 
     // 시설 등록 페이지로 이동
     @GetMapping("/insertFacilityForm")
-    public String insertFacilityForm(Model model){
+    public String insertFacilityForm(Model model, SubMenuVO subMenuVO){
         // 시설 카테고리 조회
         model.addAttribute("centerCategoryList", centerService.selectCenterCategory());
 
@@ -51,7 +52,8 @@ public class CenterController {
 
     // 전체 시설 목록 조회
     @GetMapping("/selectAllFacility")
-    public String selectAllFacility(Model model){
+    public String selectAllFacility(Model model, SubMenuVO subMenuVO){
+           subMenuVO.setMenuCode("MENU_001");
         // 시설 카테고리 조회
         model.addAttribute("centerCategoryList", centerService.selectCenterCategory());
 
@@ -70,29 +72,20 @@ public class CenterController {
     // 시설관리 - 수정하기
     @PostMapping("/updateFacility")
     public String updateFacility(CenterFacilityVO centerFacilityVO, MultipartFile facilityImg){
-        //수정하려는 시설 정보에 첨부파일이 있는지 확인
 
+        //이미지 정보 하나가 들어갈 수 있는 통
+        FacilityImageVO facilityImgVO = UploadUtil.uploadFile(facilityImg);
 
-        //원래 첨부가 있었다면
-        //첨부된 파일 삭제 + 새로 등록
-        //디비 수정
+        if(facilityImgVO != null){
+            // 해당 게시물의 첨부파일 삭제
+            String fileName = centerService.selectCenterImgFileName(centerFacilityVO.getFacilityCode());
+            File file = new File(ConstantVariable.UPLOAD_PATH_CENTER + fileName);
+            file.delete();
 
-
-        //원래 첨부가 없었다면
-        //첨부된 새로 등록
-        //디비 수정
-
-
-
-
-
-        // 첨부파일 수정하기
-        // DB에 저장되어 있는 파일
-
-
-
-        // 첨부파일이 없다면 파일업로드
-        // 첨부파일이 있다면 같은파일인지 return / 다른파일이면 현재 파일 삭제 후 파일업로드
+            //새로운 첨부파일 등록
+            centerFacilityVO.setFacilityImageVO(facilityImgVO);
+            centerService.insertFacilityImage(centerFacilityVO);
+        }
 
         // 수정하기
         centerService.updateFacility(centerFacilityVO);

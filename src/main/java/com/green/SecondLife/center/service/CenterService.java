@@ -2,6 +2,7 @@ package com.green.SecondLife.center.service;
 
 import com.green.SecondLife.center.vo.CenterFacilityVO;
 import com.green.SecondLife.center.vo.CenterPlaceCategoryVO;
+import com.green.SecondLife.center.vo.FacilityImageVO;
 
 import java.util.List;
 
@@ -14,6 +15,9 @@ public interface CenterService {
 
     // 시설 등록 + 시설 이미지 등록(트랜젝션)
     public void insertFacility(CenterFacilityVO centerFacilityVO);
+
+    // 시설 이미지 삭제 + 등록(트랜젝션)
+    public void insertFacilityImage(CenterFacilityVO centerFacilityVO);
 
     // 전체 시설 목록 조회
     public List<CenterFacilityVO> selectAllFacility();

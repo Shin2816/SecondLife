@@ -36,3 +36,4 @@ function updateRentalAvailable(facilityCode, rentalAvailable){
         console.log(err);
     });
 }
+
