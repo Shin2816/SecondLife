@@ -8,16 +8,41 @@
 </head>
 <body>
 <th:block layout:fragment="content">
-    <h1>게시글 등록 페이지</h1>
-    <form action="/board/regBoard" method="post">
-        제목 : <input type="text" name="freeBoardTitle" required><br>
-        내용 : <textarea name="freeBoardContent" cols="30" rows="10"></textarea>
-        <input type="submit" value="등록하기">
+    <form action="/board/regBoard" method="post" id="freeRegBoard" class="text-center">
+        <div class="row mb-3">
+            <div class="col-12">
+                <input type="text" class="form-control text-center" id="freeTitle" name="freeBoardTitle" placeholder="제목을 입력해 주세요." required>
+            </div>
+        </div>
+        <hr>
+        <!-- 에러 출력될 태그 -->
+        <div class="row mb-3 error">
+            <div class="title-error-div">
+
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-2">
+                <h1>내용</h1>
+            </div>
+        </div>
+        <div class="col-12">
+            <textarea name="freeBoardContent" class="form-control" id="freeText" cols="30" rows="10"></textarea>
+        </div>
+        <!-- 에러 출력될 태그 -->
+        <div class="row mb-3 error">
+            <div class="text-error-div">
+
+            </div>
+        </div>
+        <input type="submit" class="btn btn-primary" value="등록하기" onclick="freeRegValidate()">
     </form>
     <div class="input-group">
         <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
         <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">Button</button>
     </div>
+    <script src="../../static/js/board.js"></script>
 </th:block>
 </body>
 </html>
