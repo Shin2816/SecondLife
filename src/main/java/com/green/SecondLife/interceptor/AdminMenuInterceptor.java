@@ -24,7 +24,7 @@ public class AdminMenuInterceptor implements HandlerInterceptor {
         //model에 담겨서 넘어오는 데이터 받기
         Map<String, Object> data = modelAndView.getModel();
         SubMenuVO subMenuVO = (SubMenuVO)data.get("subMenuVO");
-        System.out.println(subMenuVO);
+
         //메뉴 목록 조회
         List<MenuVO> menuList = menuService.selectMenuList();
 

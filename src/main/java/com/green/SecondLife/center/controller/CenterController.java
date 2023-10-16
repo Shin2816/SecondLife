@@ -53,8 +53,7 @@ public class CenterController {
     // 전체 시설 목록 조회
     @GetMapping("/selectAllFacility")
     public String selectAllFacility(Model model, SubMenuVO subMenuVO){
-        if(subMenuVO == null)
-            subMenuVO.setMenuCode("MENU_001");
+           subMenuVO.setMenuCode("MENU_001");
         // 시설 카테고리 조회
         model.addAttribute("centerCategoryList", centerService.selectCenterCategory());
 
