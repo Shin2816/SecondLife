@@ -67,12 +67,9 @@ public class InstructorController {
     @PostMapping("/showInstructorSimpleInfo")
     public Map<String, Object> showInstructorSimpleInfo(InstructorVO instructorVO, String instructorCode){
         Map<String, Object> simpleInfo = new HashMap<>();
-        List<LectureVO> lectureList = lectureService.selectLectureList(instructorCode);
-
-        simpleInfo.put("instructorVO", instructorService.selectInstructorDetail(instructorVO));
-        simpleInfo.put("lectureList", lectureList);
-        System.out.println(simpleInfo);
-        System.out.println(lectureList);
+        simpleInfo.put("instructor", instructorService.selectInstructorDetail(instructorVO));
+        simpleInfo.put("lectureList", lectureService.selectLectureList(instructorCode));
+        System.out.println("여기" + simpleInfo);
 
 
         return simpleInfo;

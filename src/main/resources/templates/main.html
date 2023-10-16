@@ -31,7 +31,7 @@
                                 <th>수강료</th>
                             </tr>
                             <tr class="board-tr" th:onclick="|location.href='@{/lecture/selectLectureDetail(lectureCode=${lecture.lectureCode})}'|" th:each="lecture : ${lectureList}">
-                                <td>[[${lecture.instructorName}]]</td>
+                                <td></td>
                                 <td>[[${lecture.lectureSubject}]]</td>
                                 <td>[[${lecture.lectureTitle}]]</td>
                                 <td>[[${lecture.lectureStudent}]]</td>
