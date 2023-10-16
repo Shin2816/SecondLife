@@ -4,6 +4,8 @@ import com.green.SecondLife.instructor.service.InstructorService;
 import com.green.SecondLife.instructor.vo.InstructorImgVO;
 import com.green.SecondLife.instructor.vo.InstructorVO;
 import com.green.SecondLife.instructor.vo.SubjectVO;
+import com.green.SecondLife.lecture.service.LectureService;
+import com.green.SecondLife.lecture.vo.LectureVO;
 import com.green.SecondLife.member.vo.SubMenuVO;
 import com.green.SecondLife.util.UploadUtil;
 import com.sun.tools.javac.Main;
@@ -13,13 +15,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.HashMap;
+import java.util.*;
+import java.util.stream.Stream;
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/instructor")
 public class InstructorController {
     private final InstructorService instructorService;
+    private final LectureService lectureService;
     //강사등록 페이지로 이동
     @GetMapping("/insertInstructorForm")
     public String insertInstructorForm(Model model, SubMenuVO subMenuVO){
@@ -61,8 +65,16 @@ public class InstructorController {
     //강사 요약 정보 조회 페치
     @ResponseBody
     @PostMapping("/showInstructorSimpleInfo")
-    public InstructorVO showInstructorSimpleInfo(InstructorVO instructorVO){
-        System.out.println(instructorService.selectInstructorDetail(instructorVO));
-        return instructorService.selectInstructorDetail(instructorVO);
+    public Map<String, Object> showInstructorSimpleInfo(InstructorVO instructorVO, String instructorCode){
+        Map<String, Object> simpleInfo = new HashMap<>();
+        List<LectureVO> lectureList = lectureService.selectLectureList(instructorCode);
+
+        simpleInfo.put("instructorVO", instructorService.selectInstructorDetail(instructorVO));
+        simpleInfo.put("lectureList", lectureList);
+        System.out.println(simpleInfo);
+        System.out.println(lectureList);
+
+
+        return simpleInfo;
     }
 }

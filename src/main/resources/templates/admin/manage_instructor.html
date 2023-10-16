@@ -8,6 +8,7 @@
 </head>
 <body>
 <th:block layout:fragment="content">
+  <link rel="stylesheet" href="/css/instructor/manage_instructor.css">
 <h1>강사관리 페이지</h1>
 <table>
     <thead>
@@ -26,9 +27,9 @@
             <td>[[${instructor.instructorGender}]]</td>
             <td><input type="button" value="상세" th:onclick="|location.href='@{/instructor/selectInstructorDetail(instructorCode=${instructor.instructorCode})}'|"></td>
             <td><input type="button" value="삭제" th:onclick="deleteInstructor([[${instructor.instructorCode}]]);"></td>
-            <td><input type="button" value="확인용" th:onclick="showInstructorSimpleInfo([[${instructor.instructorCode}]]);">
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+             <td>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"  th:onclick="showInstructorSimpleInfo([[${instructor.instructorCode}]]);">
                     Launch demo modal
                 </button>
             </td>
@@ -37,25 +38,30 @@
 </table>
   <!-- 강사 간략한 정보 모달 -->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+          <h1 class="modal-title fs-5" id="simple_profil_title"></h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <div>
-                <img id="instructor_img">
+          <div class="instructor_profil">
+            <div class="instructor_img">
+                <p><img id="instructor_img" width="150px" height="200px"></p>
             </div>
-            <div>
+            <div class="instructor_simple_info">
                 <p id="instructor_name"></p>
                 <p id="instructor_age"></p>
                 <p id="instructor_gender"></p>
-                <p id="instructor_subject"></p>
+                <p id="instructor_major"></p>
             </div>
+          </div>
+          <div>
+            <h1>현재 진행중인 강좌정보</h1>
+          </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
         </div>
       </div>
     </div>
