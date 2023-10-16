@@ -130,4 +130,10 @@ public class MemberController {
         memberService.memberUpdate(memberVO);
         return "/main";
     }
+
+    //테스트
+    @GetMapping("/test")
+    public String test(){
+        return "/member/test";
+    }
 }
