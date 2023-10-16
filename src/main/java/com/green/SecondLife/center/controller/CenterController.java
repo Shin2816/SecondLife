@@ -25,6 +25,7 @@ public class CenterController {
     // 시설 등록 페이지로 이동
     @GetMapping("/insertFacilityForm")
     public String insertFacilityForm(Model model, SubMenuVO subMenuVO){
+        subMenuVO.setMenuCode("MENU_001");
         // 시설 카테고리 조회
         model.addAttribute("centerCategoryList", centerService.selectCenterCategory());
 
@@ -46,6 +47,8 @@ public class CenterController {
         // 시설 등록 + 시설 이미지 등록 쿼리 (트랜젝션)
         centerFacilityVO.setFacilityCode(facilityCode);
         centerService.insertFacility(centerFacilityVO);
+
+        System.out.println(centerFacilityVO);
 
         return "redirect:/center/insertFacilityForm";
     }
