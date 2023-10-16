@@ -3,7 +3,6 @@
 th{
     border-bottom: 1px solid black;
 }
-
 .link-main{
     display: block;
     cursor: pointer;
@@ -20,6 +19,36 @@ th{
     justify-content: space-between;
 }
 
+.login-area{
+    position: relative;
+    margin: 40px 10px 40px 0;
+    padding: 25px 15px;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+.main-login-id{
+    display: flex;
+}
+.login-id{
+    margin-right: 20px;
+}
+.login-btn{
+    position: absolute;
+    top: 25px;
+    right: 50px;
+    line-height: 4rem;
+}
+.insert-member{
+    display: block;
+    margin-left: 10px;
+}
+.login-name{
+    margin: 15px 0;
+}
+.login-menu{
+    display: flex;
+    margin: 15px 0;
+}
 .main-header-menu{
     position: relative;
 }
@@ -36,6 +65,7 @@ th{
     color:red;
     font-size: 0.8rem;
 }
+
 .facility{
     display: flex;
 }
@@ -92,8 +122,26 @@ th{
     cursor: pointer;
     border-bottom: 1px dotted black;
 }
-.board-2{
-    background-color: chocolate;
+.main-slide{
+    position: relative;
+}
+.top_banner_prev, .top_banner_next{
+    position: absolute;
+    top: 60px;
+    width: 60px;
+    height: 60px;
+}
+.top_banner_prev{
+    left: 0;
+    background-image: url(../images/icons/icon-prev.png);
+    cursor: pointer;
+    opacity: 0.6;
+}
+.top_banner_next{
+    right: 0;
+    background-image: url(../images/icons/icon-next.png);
+    cursor: pointer;
+    opacity: 0.6;
 }
 .board-photo{
     background-color: blueviolet;

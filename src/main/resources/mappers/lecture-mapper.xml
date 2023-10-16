@@ -11,7 +11,6 @@
         <result column="LECTURE_PERIOD"     property="lecturePeriod"/>
         <result column="LECTURE_PRICE"      property="lecturePrice"/>
         <result column="INSTRUCTOR_CODE"    property="instructorCode"/>
-        <result column="INSTRUCTOR_NAME"    property="instructorName"/>
     </resultMap>
     <resultMap id="student" type="com.green.SecondLife.lecture.vo.StudentVO">
         <id column="STUDENT_CODE"       property="studentCode"/>
@@ -32,7 +31,6 @@
             , LECTURE_STUDENT
             , LECTURE_PERIOD
             , LECTURE_PRICE
-            , INSTRUCTOR_NAME
             , INSTRUCTOR_CODE
         ) VALUES (
             (SELECT 'LECTURE_'||LPAD(NVL(MAX(TO_NUMBER(SUBSTR(LECTURE_CODE, 9))), 0) + 1, 3,'0')
@@ -42,7 +40,6 @@
             , #{lectureStudent}
             , #{lecturePeriod}
             , #{lecturePrice}
-            , #{instructorName}
             , #{instructorCode}
         )
     </insert>
@@ -55,7 +52,6 @@
             , LECTURE_PERIOD
             , LECTURE_PRICE
             , INSTRUCTOR_CODE
-            , INSTRUCTOR_NAME
         FROM LECTURE
         <if test="instructorCode != null">
             WHERE INSTRUCTOR_CODE = #{instructorCode}
@@ -70,7 +66,6 @@
             , LECTURE_PERIOD
             , LECTURE_PRICE
             , INSTRUCTOR_CODE
-            , INSTRUCTOR_NAME
         FROM LECTURE
         WHERE LECTURE_CODE = #{lectureCode}
     </select>
@@ -129,7 +124,6 @@
             , LECTURE_STUDENT
             , LECTURE_PERIOD
             , LECTURE_PRICE
-            , INSTRUCTOR_NAME
         FROM (
             SELECT ROWNUM AS ROW_NUM
                 , LECTURE_CODE
@@ -138,7 +132,6 @@
                 , LECTURE_STUDENT
                 , LECTURE_PERIOD
                 , LECTURE_PRICE
-                , INSTRUCTOR_NAME
             FROM (
                 SELECT *
                 FROM LECTURE

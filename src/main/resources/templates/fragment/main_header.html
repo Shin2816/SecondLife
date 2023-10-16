@@ -8,23 +8,16 @@
 <body>
 <th:block th:fragment="mainHeaderFragment">
     <link rel="stylesheet" href="/css/main_header.css">
+    <!-- slick 슬라이드 -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />  
     <div class="header">
         <div class="menu">
             <div class="left-menu">
                 <span class="link-main" onclick="location.href='/'"></span>
             </div>
             <div class="login-menu">
-                <p th:if="${session.loginInfo == null}"> 
-                    <span class="login-span" onclick="location.href='/member/loginForm'">로그인</span> 
-                    / 
-                    <span class="login-span" onclick="location.href='/member/insertMemberForm'">회원가입</span> 
-                </p>
                 <p th:unless="${session.loginInfo == null}"> 
-                    [[${session.loginInfo.memberName}]]님 어서오세요 
-                    <span class="login-span" onclick="location.href='/member/logout'">로그아웃</span> 
-                    / 
-                    <span class="login-span" th:if="${session.loginInfo.memberRoll == 'ADMIN'}" th:onclick="|location.href='@{/admin/admin_main(menuCode=MENU_001)}'|">관리하기</span>
-                    <span class="login-span" th:unless="${session.loginInfo.memberRoll == 'ADMIN'}" th:onclick="|location.href='@{/member/updateMemberForm(memberId=${session.loginInfo.memberId})}'|">내 정보</span>
                     <button th:if="${session.loginInfo.memberRoll == 'ADMIN'}" onclick="location.href='/instructor/selectInstructorList';">강사목록페이지</button>
                     <button th:if="${session.loginInfo.memberRoll == 'ADMIN'}" onclick="location.href='/lecture/selectLectureList';">강좌목록페이지</button>
                 </p>
@@ -47,6 +40,10 @@
             </ul>
         </div>
     </div>
+    <!-- slick 슬라이드 -->
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script> 
+    <!-- 카카오 주소 api -->
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script src="/js/main_header.js"></script>
 </th:block>

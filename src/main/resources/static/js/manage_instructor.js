@@ -28,13 +28,14 @@ function showInstructorSimpleInfo(instructorCode){
     })
     //fetch 통신 후 실행 영역
     .then((data) => {//data -> controller에서 리턴되는 데이터!
-        console.log(data);
-        document.querySelector('#simple_profil_title').innerHTML=`${data.instructorName}강사 프로필`;
-        document.getElementById('instructor_img').src=`/images/instructor/${data.instructorImgVO.instructorAttachedFileName}`;
-        document.querySelector('#instructor_name').innerHTML=`이름 : ${data.instructorName}`;
-        document.querySelector('#instructor_age').innerHTML=`나이 : ${data.instructorAge}`;
-        document.querySelector('#instructor_gender').innerHTML=`성별 : ${data.instructorGender}`;
-        document.querySelector('#instructor_major').innerHTML=`수업과목 : ${data.instructorMajor}`;
+        document.querySelector('#simple_profil_title').innerHTML=`${data.instructor.instructorName}강사 프로필`;
+        document.getElementById('instructor_img').src=`/images/instructor/${data.instructor.instructorImgVO.instructorAttachedFileName}`;
+        document.querySelector('#instructor_name').innerHTML=`이름 : ${data.instructor.instructorName}`;
+        document.querySelector('#instructor_age').innerHTML=`나이 : ${data.instructor.instructorAge}`;
+        document.querySelector('#instructor_gender').innerHTML=`성별 : ${data.instructor.instructorGender}`;
+        document.querySelector('#instructor_major').innerHTML=`수업과목 : ${data.instructor.instructorMajor}`;
+        
+
     })
     //fetch 통신 실패 시 실행 영역
     .catch(err=>{
