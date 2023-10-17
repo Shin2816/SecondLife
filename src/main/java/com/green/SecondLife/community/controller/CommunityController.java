@@ -75,10 +75,13 @@ public class CommunityController {
         return "board/update_board";
     }
     //수정페이지에서 수정 버튼을 눌렀을 때 수정 쿼리 실행
-    @PostMapping("/updateBoard")
-    public String updateBoard(BoardFreeListVO boardFreeListVO){
+    @GetMapping("/updateFreeBoard")
+    public String updateFreeBoard(BoardFreeListVO boardFreeListVO){
+        System.out.println(boardFreeListVO);//title content null????
+
+        //수정 쿼리
         communityService.updateFreeBoard(boardFreeListVO);
-        //수정이 완료되면 게시글 상세페이지로 문자열+숫자열 freeBoardNum=숫자 데이터를 던질 수 있다.
+        //수정이 완료되면 해당 게시글 상세페이지로 freeBoardNum=숫자 데이터를 던질 수 있다.
         return "redirect:/board/boardDetail?freeBoardNum=" + boardFreeListVO.getFreeBoardNum();
     }
     //상세 페이지에서 댓글 작성버튼 클릭하면 비동기로 insert 쿼리 실행

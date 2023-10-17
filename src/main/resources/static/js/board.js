@@ -1,6 +1,27 @@
 ///////////////////////////////////////////////////댓글작성(비동기)
-function freeRegComment(freeBoardWriter, selectedTag, freeBoardNum){
+function freeRegComment(freeBoardWriter, selectedTag, freeBoardNum, loginInfo){
     const commentContent = selectedTag.closest('div').querySelector('input[type="text"]').value;
+
+    //댓글 입력 여부 체크
+    if(loginInfo == null){//로그인을 하지 않았다면
+        if(confirm('로그인이 필요한 서비스입니다.\n로그인 페이지로 이동하시겠습니까?')){//알람 띄운 후 확인버튼 누르면
+            location.href='/member/loginForm';//로그인 페이지로 이동
+        }
+    }
+    else{//로그인을 했다면
+        if(commentContent == ''){
+            alert('내용을 입력해주십시요.');
+            return;
+        }
+    
+        //댓글 정규식 체크
+        let textRegex = /^.{0,99}$/;         //모든 글자 99글자 이하로
+        const text = commentContent;
+        if(!textRegex.test(text)){
+            alert('내용은 300글자 이내로 작성해주세요.');
+            return;
+        }
+    }
 
     fetch('/board/freeBoardComment', { //요청경로
 
@@ -32,11 +53,6 @@ function freeRegComment(freeBoardWriter, selectedTag, freeBoardNum){
             alert('등록이 완료 되었습니다.');
             location.href=`/board/boardDetail?freeBoardNum=${freeBoardNum}`;//등록이 완료되고 해당 게시글 상세페이지로 이동
         }
-        else{//로그인 정보가 없다면
-            if(confirm('로그인이 필요한 서비스입니다.\n로그인 페이지로 이동하시겠습니까?')){//알람 띄운 후 확인버튼 누르면
-                location.href='/member/loginForm';//로그인 페이지로 이동
-            }
-        }
     })
     //fetch 통신 실패 시 실행 영역
     .catch(err=>{
@@ -44,7 +60,8 @@ function freeRegComment(freeBoardWriter, selectedTag, freeBoardNum){
         console.log(err);
     });
 }
-////////////////////////////////////////////////////////삭제(비동기)
+
+////////////////////////////////////////////////////////댓글 삭제(비동기)
 function freeDeleteComment(commentId, freeBoardNum){
     if(confirm('삭제하시면 되돌릴 수 없습니다.\n삭제 하시겠습니까?')){
         fetch('/board/freeDeleteComment', { //요청경로
@@ -124,8 +141,6 @@ function freeUpdateComment(commentId, freeBoardNum){//수정버튼을 누르면 
 }
 ////////////////////////////////자유게시판 글 등록 유효성 정규식//////////////////////////////////////
 function freeRegValidate(){
-    //테스트
-    alert(111);
 
     //오류 메세지 리셋
     resetMessage();
@@ -146,14 +161,14 @@ function freeRegValidate(){
     let titleRegex = /^.{0,49}$/;        //모든글자 50글자 이하로
     const title = freeRegBoard.freeBoardTitle.value; //제목 input값 가져오기
     if(!titleRegex.test(title)){
-        inputInvalidate('.title-error-div', '제목은 100글자 내로 작성해주세요.');
+        inputInvalidate('.title-error-div', '제목은 100글자 이내로 작성해주세요.');
         return;
     }
     //내용 정규식 체크
     let textRegex = /^.{0,299}$/;         //모든 글자 300글자 이하로
     const text = freeRegBoard.freeBoardContent.value;
     if(!textRegex.test(text)){
-        inputInvalidate('.text-error-div', '내용은 300글자 내로 작성해주세요.');
+        inputInvalidate('.text-error-div', '내용은 300글자 이내로 작성해주세요.');
         return;
     }
 
@@ -171,4 +186,10 @@ function inputInvalidate(tagid, content){
 function resetMessage(){
     document.querySelector('.title-error-div').style.display = 'none';
     document.querySelector('.text-error-div').style.display = 'none';
+}
+/////////////////////////////////////////////////////////////////////////////자유게시판 글 삭제
+function deleteboard(freeBoardNum){
+    if(confirm('삭제하실면 되돌릴 수 없습니다 \n삭제 하시겠습니까?')){
+        location.href=`/board/deleteFreeBoard?freeBoardNum=${freeBoardNum}`;
+    }
 }
