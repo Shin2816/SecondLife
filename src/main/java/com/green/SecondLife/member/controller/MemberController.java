@@ -132,18 +132,4 @@ public class MemberController {
         return "/main";
     }
 
-    //테스트
-    @GetMapping("/test")
-    public String test(){
-        return "/member/test";
-    }
-
-    //테스트 비동기
-    @ResponseBody
-    @PostMapping("/calTest")
-    public String calTest(String facilityCode, String clickDate){
-        System.out.println(facilityCode);
-        System.out.println(clickDate);
-        return clickDate;
-    }
 }

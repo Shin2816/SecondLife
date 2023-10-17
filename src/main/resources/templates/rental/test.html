@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{fragment/main_layout}">
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+    <th:block layout:fragment="content">
+        <link rel="stylesheet" href="/css/test.css">
+
+        <div id='calendar'></div>
+
+        <div>
+            <table class="table table-bordered table-hover text-center">
+                <colgroup>
+                    <col width="7%">
+                    <col width="*">
+                    <col width="20%">
+                    <col width="15%">
+                    <col width="20%">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <td>선택</td>
+                        <td>시간</td>
+                        <td>요금</td>
+                        <td>상태</td>
+                        <td>예약자</td>
+                    </tr>
+                </thead>
+               <tbody>
+                    <th:block th:if="${rentalDate == null}">
+                        <tr>
+                            <td colspan="5">대관 예약을 진행할 센터와 시설, 장소를 선택하세요.</td>
+                        </tr>
+                    </th:block>
+                    <th:block th:unless="${rentalDate == null}">
+                        <tr th:each="rentalTime : ${rentaTimelList}">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </th:block>
+               </tbody>
+            </table>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js"></script>
+        <script src="/js/test.js"></script>
+    </th:block>
+</body>
+</html>
