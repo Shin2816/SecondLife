@@ -35,6 +35,22 @@ function showInstructorSimpleInfo(instructorCode){
         document.querySelector('#instructor_gender').innerHTML=`성별 : ${data.instructor.instructorGender}`;
         document.querySelector('#instructor_major').innerHTML=`수업과목 : ${data.instructor.instructorMajor}`;
         
+        console.log(data.lectureList);
+        
+        let str = '';
+        data.lectureList.forEach(lecture => {
+            str += `<tr>`;
+            str += `<td>${lecture.lectureTitle}</td>`;
+            str += `<td>${lecture.lectureSubject}</td>`;
+            str += `<td>${lecture.lecturePeriod}</td>`;
+            str += `</tr>`;
+        });
+
+        document.querySelector('#lecture-table tbody').textContent = '';
+        document.querySelector('#lecture-table tbody').insertAdjacentHTML('afterbegin', str);
+
+
+
 
     })
     //fetch 통신 실패 시 실행 영역

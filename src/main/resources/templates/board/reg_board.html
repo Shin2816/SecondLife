@@ -8,15 +8,36 @@
 </head>
 <body>
 <th:block layout:fragment="content">
-    <h1>게시글 등록 페이지</h1>
-    <form action="/board/regBoard" method="post">
-        제목 : <input type="text" name="freeBoardTitle" required><br>
-        내용 : <textarea name="freeBoardContent" cols="30" rows="10"></textarea>
-        <input type="submit" value="등록하기">
+    <form action="/board/regBoard" method="post" id="freeRegBoard" class="text-center">
+        <div class="row mb-3">
+            <div class="col-12">
+                <input type="text" class="form-control text-center" id="freeBoardTitle" name="freeBoardTitle" placeholder="제목을 입력해 주세요." required>
+            </div>
+        </div>
+        <div class="row mb-3 error">
+            <div class="title-error-div">
+                <!-- 에러 출력 -->
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-2">
+                <h1>내용</h1>
+            </div>
+        </div>
+        <div class="col-12">
+            <textarea name="freeBoardContent" class="form-control" id="freeBoardContent" cols="30" rows="10"></textarea>
+        </div>
+        <div class="row mb-3 error">
+            <div class="text-error-div">
+                <!-- 에러 출력 -->
+            </div>
+        </div>
+        <input type="button" class="btn btn-primary mb-3" id="regBoardBtn" value="등록하기" onclick="freeRegValidate()">
     </form>
     <div class="input-group">
         <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
-        <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">Button</button>
+        <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">첨부</button>
     </div>
 </th:block>
 </body>

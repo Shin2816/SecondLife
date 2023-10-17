@@ -2,6 +2,7 @@ package com.green.SecondLife.instructor.controller;
 
 import com.green.SecondLife.instructor.service.InstructorService;
 import com.green.SecondLife.instructor.vo.InstructorImgVO;
+import com.green.SecondLife.instructor.vo.InstructorReviewVO;
 import com.green.SecondLife.instructor.vo.InstructorVO;
 import com.green.SecondLife.instructor.vo.SubjectVO;
 import com.green.SecondLife.lecture.service.LectureService;
@@ -71,7 +72,12 @@ public class InstructorController {
         simpleInfo.put("lectureList", lectureService.selectLectureList(instructorCode));
         System.out.println("여기" + simpleInfo);
 
-
         return simpleInfo;
+    }
+    //강사 리뷰페이지 이동
+    @GetMapping("/goInstructorReviewList")
+    public String goInstructorReviewList(Model model){
+        model.addAttribute("instructorReviewList", instructorService.selectInstructorReviewList());
+        return "instructor/instructor_review_list";
     }
 }

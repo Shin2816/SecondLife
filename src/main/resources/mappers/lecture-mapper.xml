@@ -11,6 +11,7 @@
         <result column="LECTURE_PERIOD"     property="lecturePeriod"/>
         <result column="LECTURE_PRICE"      property="lecturePrice"/>
         <result column="INSTRUCTOR_CODE"    property="instructorCode"/>
+        <result column="INSTRUCTOR_NAME"    property="instructorName"/>
     </resultMap>
     <resultMap id="student" type="com.green.SecondLife.lecture.vo.StudentVO">
         <id column="STUDENT_CODE"       property="studentCode"/>
@@ -51,10 +52,12 @@
             , LECTURE_STUDENT
             , LECTURE_PERIOD
             , LECTURE_PRICE
-            , INSTRUCTOR_CODE
-        FROM LECTURE
+            , L.INSTRUCTOR_CODE
+            , INSTRUCTOR_NAME
+        FROM LECTURE L, INSTRUCTOR I
+        WHERE L.INSTRUCTOR_CODE = I.INSTRUCTOR_CODE
         <if test="instructorCode != null">
-            WHERE INSTRUCTOR_CODE = #{instructorCode}
+            AND L.INSTRUCTOR_CODE = #{instructorCode}
         </if>
     </select>
     <!-- 강좌 상세 정보 조회 쿼리-->
@@ -65,9 +68,11 @@
             , LECTURE_STUDENT
             , LECTURE_PERIOD
             , LECTURE_PRICE
-            , INSTRUCTOR_CODE
-        FROM LECTURE
+            , L.INSTRUCTOR_CODE
+            , INSTRUCTOR_NAME
+        FROM LECTURE L, INSTRUCTOR I
         WHERE LECTURE_CODE = #{lectureCode}
+        AND L.INSTRUCTOR_CODE = I.INSTRUCTOR_CODE
     </select>
     <!-- 강좌 삭제 기능-->
     <delete id="deleteLecture">
