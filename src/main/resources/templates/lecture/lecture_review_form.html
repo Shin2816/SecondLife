@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{fragment/main_layout}">
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+<th:block layout:fragment="content">
+<h1>강좌 리뷰 폼</h1>
+<form action="/lecture/insertLectureReview" method="post">
+별점 : 
+<select name="lectureStarPoint">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+</select> <br><br>
+후기를 자유롭게 작성해주세요 <br><br>
+<textarea name="lectureReviewContent" cols="30" rows="5"></textarea> <br><br>
+<input type="hidden" name="studentCode" th:value="${student.studentCode}">
+<input type="hidden" name="lectureCode" th:value="${student.lectureCode}">
+<input type="hidden" name="instructorCode" th:value="${lecture.instructorCode}">
+<input type="submit" value="리뷰등록">
+</form>
+</th:block>
+</body>
+</html>

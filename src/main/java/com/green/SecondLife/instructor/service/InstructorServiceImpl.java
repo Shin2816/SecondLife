@@ -1,7 +1,6 @@
 package com.green.SecondLife.instructor.service;
 
 import com.green.SecondLife.instructor.vo.InstructorImgVO;
-import com.green.SecondLife.instructor.vo.InstructorReviewVO;
 import com.green.SecondLife.instructor.vo.InstructorVO;
 import com.green.SecondLife.instructor.vo.SubjectVO;
 import lombok.RequiredArgsConstructor;
@@ -54,10 +53,5 @@ public class InstructorServiceImpl implements InstructorService{
     public void deleteInstructor(InstructorVO instructorVO, InstructorImgVO instructorImgVO) {
         sqlSession.delete("instructorMapper.deleteInstructorImg", instructorImgVO);
         sqlSession.delete("instructorMapper.deleteInstructor", instructorVO);
-    }
-    //강사 리뷰 목록 조회
-    @Override
-    public List<InstructorReviewVO> selectInstructorReviewList() {
-        return sqlSession.selectList("instructorMapper.selectInstructoreReviewList");
     }
 }
