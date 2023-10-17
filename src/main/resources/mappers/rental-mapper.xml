@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 해당 파일에 모든 쿼리문을 작성 -->
+<mapper namespace="rentalMapper">
+	<resultMap id="rentalFacility" type="com.green.SecondLife.rental.vo.RentalFacilityVO">
+        <id column="RENTAL_CODE"            property="rentalCode"/>
+        <result column="FACILITY_CODE"      property="facilityCode"/>
+        <result column="RENTAL_DATE"        property="rentalDate"/>
+        <result column="RENTAL_TIME_CODE"   property="rentalTimeCode"/>
+        <result column="RENTAL_CHARGE"      property="rentalCharge"/>
+        <result column="RENTAL_USER"        property="rentalUser"/>
+        <result column="RENTAL_STATUS"      property="rentalStatus"/>
+    </resultMap>
+
+    <resultMap id="rentalTime" type="com.green.SecondLife.rental.vo.RentalTimeVO">
+        <id column="RENTAL_TIME_CODE"       property="rentalTimeCode"/>
+        <result column="RENTAL_START_TIME"  property="rentalStartTime"/>
+        <result column="RENTAL_END_TIME"    property="rentalEndTime"/>
+    </resultMap>
+
+    <select id="selectRentalFacility">
+    </select>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   function calendarCheck(date){
-    fetch('/member/calTest', { //요청경로
+    fetch('/rental/calTest', { //요청경로
         method: 'POST',
         cache: 'no-cache',
         headers: {
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
         //컨트롤러로 전달할 데이터
         body: new URLSearchParams({
             'facilityCode' : 'FACILITY_001',
-            'clickDate' : date
+            'rentalDate' : date
         })
     })
     .then((response) => {
