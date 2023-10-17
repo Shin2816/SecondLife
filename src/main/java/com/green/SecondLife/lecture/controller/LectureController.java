@@ -2,6 +2,7 @@ package com.green.SecondLife.lecture.controller;
 
 import com.green.SecondLife.instructor.service.InstructorService;
 import com.green.SecondLife.lecture.service.LectureService;
+import com.green.SecondLife.lecture.vo.LectureReviewVO;
 import com.green.SecondLife.lecture.vo.LectureVO;
 import com.green.SecondLife.lecture.vo.StudentVO;
 import com.green.SecondLife.member.service.MemberService;
@@ -93,5 +94,21 @@ public class LectureController {
         System.out.println(lectureVO);
         redirect.addAttribute("lectureCode", lectureVO.getLectureCode());
         return "redirect:/lecture/selectStudentList";
+    }
+    //강좌 리뷰 폼으로 이동
+    @GetMapping("/goLectureReviewForm")
+    public String goLectureReviewForm(Model model, StudentVO studentVO, HttpSession session, LectureVO lectureVO){
+        MemberVO loginInfo = (MemberVO) session.getAttribute("loginInfo");
+        studentVO.setMemberId(loginInfo.getMemberId());
+        System.out.println(studentVO);
+        model.addAttribute("lecture", lectureService.selectLectureDetail(lectureVO));
+        model.addAttribute("student", lectureService.selectTheStudent(studentVO));
+        return "lecture/lecture_review_form";
+    }
+    //강좌 리뷰 등록
+    @PostMapping("/insertLectureReview")
+    public String insertLectureReview(LectureReviewVO lectureReviewVO){
+        lectureService.insertLectureReview(lectureReviewVO);
+        return "redirect:/lecture/selectLectureList";
     }
 }

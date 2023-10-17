@@ -15,10 +15,9 @@
             <tr>
                 <td>강좌명</td>
                 <td>과목</td>
-                <td>이름</td>
-                <td>나이</td>
-                <td>성별</td>
                 <td>수업코드</td>
+                <td>아이디</td>
+                <td>수강생코드</td>
             </tr>
         </thead>
         <tbody>
@@ -26,10 +25,9 @@
             <tr>
                 <td>[[${lectureInfo.lectureTitle}]]</td>
                 <td>[[${lectureInfo.lectureSubject}]]</td>
-                <td>[[${student.studentName}]]</td>
-                <td>[[${student.studentAge}]]</td>
-                <td>[[${student.studentGender}]]</td>
                 <td>[[${student.lectureCode}]]</td>
+                <td>[[${student.memberId}]]</td>
+                <td>[[${student.studentCode}]]</td>
                 <td><input type="button" value="삭제" th:onclick="deleteStudent([[${lectureInfo.lectureCode}]], [[${student.studentCode}]]);"></td>
             </tr>
             </th:block>

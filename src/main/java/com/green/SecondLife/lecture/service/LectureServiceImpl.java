@@ -1,5 +1,7 @@
 package com.green.SecondLife.lecture.service;
 
+import com.green.SecondLife.instructor.vo.InstructorVO;
+import com.green.SecondLife.lecture.vo.LectureReviewVO;
 import com.green.SecondLife.lecture.vo.LectureVO;
 import com.green.SecondLife.lecture.vo.StudentVO;
 import lombok.RequiredArgsConstructor;
@@ -51,6 +53,21 @@ public class LectureServiceImpl implements LectureService{
     @Override
     public List<LectureVO> selectMainLectureList() {
         return sqlSession.selectList("lectureMapper.selectMainLectureList");
+    }
+    //강좌 리뷰 등록 기능
+    @Override
+    public void insertLectureReview(LectureReviewVO lectureReviewVO) {
+        sqlSession.insert("lectureMapper.insertLectureReview", lectureReviewVO);
+    }
+    //리뷰 작성을 하려는 수강생 정보 조회
+    @Override
+    public StudentVO selectTheStudent(StudentVO studentVO) {
+        return sqlSession.selectOne("lectureMapper.selectTheStudent", studentVO);
+    }
+    //강좌 리뷰 목록 조회
+    @Override
+    public List<LectureReviewVO> selectLectureReviewList(InstructorVO instructorVO) {
+        return sqlSession.selectList("lectureMapper.selectLectureReviewList", instructorVO);
     }
 
 }
