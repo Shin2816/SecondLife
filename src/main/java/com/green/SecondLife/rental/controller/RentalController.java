@@ -1,12 +1,17 @@
 package com.green.SecondLife.rental.controller;
 
 import com.green.SecondLife.rental.service.RentalService;
+import com.green.SecondLife.rental.vo.RentalFacilityVO;
 import lombok.RequiredArgsConstructor;
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/rental")
@@ -24,9 +29,10 @@ public class RentalController {
     //테스트 비동기
     @ResponseBody
     @PostMapping("/calTest")
-    public String calTest(String facilityCode, String rentalDate){
-        System.out.println(facilityCode);
-        System.out.println(rentalDate);
-        return rentalDate;
+    public List<RentalFacilityVO> calTest(RentalFacilityVO rentalFacilityVO){
+        System.out.println(rentalFacilityVO.getFacilityCode());
+        System.out.println(rentalFacilityVO.getRentalDate());
+        List<RentalFacilityVO> rentaTimelList = rentalService.selectRentalFacility(rentalFacilityVO);
+        return rentaTimelList;
     }
 }

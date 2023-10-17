@@ -37,7 +37,7 @@
                         </tr>
                     </th:block>
                     <th:block th:unless="${rentalDate == null}">
-                        <tr>
+                        <tr th:each="rentalTime : ${rentaTimelList}">
                             <td></td>
                             <td></td>
                             <td></td>
