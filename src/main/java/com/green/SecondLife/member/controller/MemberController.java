@@ -30,6 +30,7 @@ import java.util.List;
 public class MemberController {
 
     private final MemberService memberService;
+    private final CommunityService communityService;
 
     //로그인 폼 화면으로 이동
     @GetMapping("/loginForm")
@@ -135,5 +136,14 @@ public class MemberController {
     @GetMapping("/test")
     public String test(){
         return "/member/test";
+    }
+
+    //테스트 비동기
+    @ResponseBody
+    @PostMapping("/calTest")
+    public String calTest(String facilityCode, String clickDate){
+        System.out.println(facilityCode);
+        System.out.println(clickDate);
+        return clickDate;
     }
 }
