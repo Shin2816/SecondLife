@@ -122,24 +122,53 @@ function freeUpdateComment(commentId, freeBoardNum){//수정버튼을 누르면 
         console.log(err);
     });
 }
-//////////////////////////////////////////자유게시판 글 등록//////////////////////////////////////
+////////////////////////////////자유게시판 글 등록 유효성 정규식//////////////////////////////////////
 function freeRegValidate(){
+    //테스트
+    alert(111);
+
+    //오류 메세지 리셋
+    resetMessage();
+
     //form태그 id값 가져오기
     const freeRegBoard = document.querySelector('#freeRegBoard');
     //제목 입력 여부 체크
-    if(freeRegBoard.freeTitle.value == ''){
+    if(freeRegBoard.freeBoardTitle.value == ''){
         inputInvalidate('.title-error-div', '제목은 필수 입력입니다.');
         return;
     }
     //내용 입력 여부 체크
-    if(freeRegBoard.freeText.value == ''){
+    if(freeRegBoard.freeBoardContent.value == ''){
         inputInvalidate('.text-error-div', '내용을 입력해주세요.');
         return;
     }
     //제목 정규식 체크
-    let titleRegex = /^.{0,74}$/;        //모든글자 74글자 이하로
-    const title = freeRegBoard.freeText.value; //제목 input값 가져오기
+    let titleRegex = /^.{0,49}$/;        //모든글자 50글자 이하로
+    const title = freeRegBoard.freeBoardTitle.value; //제목 input값 가져오기
     if(!titleRegex.test(title)){
-        inputInvalidate('.title-error-div', '제목은 74글자 내로 작성해주세요.');
+        inputInvalidate('.title-error-div', '제목은 100글자 내로 작성해주세요.');
+        return;
     }
+    //내용 정규식 체크
+    let textRegex = /^.{0,299}$/;         //모든 글자 300글자 이하로
+    const text = freeRegBoard.freeBoardContent.value;
+    if(!textRegex.test(text)){
+        inputInvalidate('.text-error-div', '내용은 300글자 내로 작성해주세요.');
+        return;
+    }
+
+    //submit 실행
+    freeRegBoard.submit();
+}
+
+//validate 실패 시 메세지 설정
+function inputInvalidate(tagid, content){
+    document.querySelector(tagid).style.display = 'block';
+    document.querySelector(tagid).textContent = content;
+}
+
+//글 등록 오류 메세지 초기화
+function resetMessage(){
+    document.querySelector('.title-error-div').style.display = 'none';
+    document.querySelector('.text-error-div').style.display = 'none';
 }
