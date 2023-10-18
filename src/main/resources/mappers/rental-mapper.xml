@@ -27,10 +27,10 @@
             , RENTAL_CHARGE
             , RENTAL_USER
             , RENTAL_STATUS
-            , RENTAL_AVAILABLE_TIME.RENTAL_TIME_CODE
+            , RENTAL_TIME_CODE
             , RENTAL_START_TIME
             , RENTAL_END_TIME
-        FROM RENTAL_FACILITY, RENTAL_AVAILABLE_TIME
+        FROM RENTAL_FACILITY
         WHERE FACILITY_CODE = #{facilityCode}
         AND RENTAL_DATE = #{rentalDate}
     </select>
