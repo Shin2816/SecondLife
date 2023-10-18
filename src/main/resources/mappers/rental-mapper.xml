@@ -10,6 +10,8 @@
         <result column="RENTAL_TIME_CODE"   property="rentalTimeCode"/>
         <result column="RENTAL_CHARGE"      property="rentalCharge"/>
         <result column="RENTAL_USER"        property="rentalUser"/>
+        <result column="RENTAL_TEAM"        property="rentalTeam"/>
+        <result column="RENTAL_PURPOSE"     property="rentalPurpose"/>
         <result column="RENTAL_STATUS"      property="rentalStatus"/>
     </resultMap>
 
@@ -21,18 +23,35 @@
 
     <!-- 대관 가능 정보 조회 -->
     <select id="selectRentalFacility" resultMap="rentalFacility">
-        SELECT RENTAL_CODE
-            , FACILITY_CODE
-            , RENTAL_DATE
-            , RENTAL_CHARGE
-            , RENTAL_USER
-            , RENTAL_STATUS
-            , RENTAL_TIME_CODE
-            , RENTAL_START_TIME
-            , RENTAL_END_TIME
-        FROM RENTAL_FACILITY
-        WHERE FACILITY_CODE = #{facilityCode}
-        AND RENTAL_DATE = #{rentalDate}
+        SELECT RENTAL_TIME_CODE
+                , RENTAL_START_TIME
+                , RENTAL_END_TIME
+                , (SELECT RENTAL_CODE
+                    FROM RENTAL_FACILITY
+                    WHERE RENTAL_TIME_CODE = TIME.RENTAL_TIME_CODE
+                    AND RENTAL_DATE = #{rentalDate}
+                    AND FACILITY_CODE = #{facilityCode}) RENTAL_CODE
+                , (SELECT RENTAL_CHARGE
+                    FROM RENTAL_FACILITY
+                    WHERE RENTAL_TIME_CODE = TIME.RENTAL_TIME_CODE
+                    AND RENTAL_DATE = #{rentalDate}
+                    AND FACILITY_CODE = #{facilityCode}) RENTAL_CHARGE
+                , NVL((SELECT RENTAL_USER
+                        FROM RENTAL_FACILITY
+                        WHERE RENTAL_TIME_CODE = TIME.RENTAL_TIME_CODE
+                        AND RENTAL_DATE = #{rentalDate}
+                        AND FACILITY_CODE = #{facilityCode}), '-') RENTAL_USER
+                , NVL((SELECT RENTAL_TEAM
+                        FROM RENTAL_FACILITY
+                        WHERE RENTAL_TIME_CODE = TIME.RENTAL_TIME_CODE
+                        AND RENTAL_DATE = #{rentalDate}
+                        AND FACILITY_CODE = #{facilityCode}), '-') RENTAL_TEAM
+                , NVL((SELECT RENTAL_STATUS
+                        FROM RENTAL_FACILITY
+                        WHERE RENTAL_TIME_CODE = TIME.RENTAL_TIME_CODE
+                        AND RENTAL_DATE = #{rentalDate}
+                        AND FACILITY_CODE = #{facilityCode}), '0') RENTAL_STATUS
+        FROM RENTAL_AVAILABLE_TIME TIME
     </select>
 
 </mapper>

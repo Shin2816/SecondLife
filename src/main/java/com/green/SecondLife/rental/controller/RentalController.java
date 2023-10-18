@@ -32,7 +32,9 @@ public class RentalController {
     public List<RentalFacilityVO> calTest(RentalFacilityVO rentalFacilityVO){
         System.out.println(rentalFacilityVO.getFacilityCode());
         System.out.println(rentalFacilityVO.getRentalDate());
+
         List<RentalFacilityVO> rentalTimelList = rentalService.selectRentalFacility(rentalFacilityVO);
+        System.out.println(rentalTimelList);
         return rentalTimelList;
     }
 }

@@ -10,5 +10,7 @@ public class RentalFacilityVO {
     private String rentalTimeCode;
     private int rentalCharge;
     private String rentalUser;
+    private String rentalTeam;
+    private String rentalPurpose;
     private String rentalStatus;
 }
