@@ -152,6 +152,15 @@ function freeUpdateComment(commentId, freeBoardNum){//수정버튼을 누르면 
         console.log(err);
     });
 }
+////////////////////////////////자유게시판 글 등록 썸머노트//////////////////////////////////////////
+//썸머노트 활성화
+$(document).ready(function () {
+    $('.summernote').summernote({
+       placeholder: '내용을 작성하세요',
+       height: 400,
+       maxHeight: 400
+   }); 
+});
 ////////////////////////////////자유게시판 글 등록 유효성 정규식//////////////////////////////////////
 function freeRegValidate(){
 
