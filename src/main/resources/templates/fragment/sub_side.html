@@ -10,7 +10,7 @@
         <div class="side">
             <div class="list-group">
                 <a th:href="@{${subMenu.subMenuUrl}(menuCode=${subMenu.menuCode})}" class="list-group-item list-group-item-action" th:each="subMenu : ${subMenuList}">[[${subMenu.subMenuName}]]</a>
-              </div>
+            </div>
         </div>
     </th:block>
 </body>
