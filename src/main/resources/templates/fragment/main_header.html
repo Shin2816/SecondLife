@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="/css/main_header.css">
     <!-- slick 슬라이드 -->
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />  
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" /> 
     <div class="header">
         <div class="menu">
             <div class="left-menu">
@@ -27,7 +27,7 @@
                 </p>
             </div>
         </div>
-        <div class="main-header-menu">
+        <div class="main-header-menu" th:if="${subMenuVO == null}">
             <div class="banner">
                 <img src="/images/head.jpg" alt="">
             </div>
@@ -42,6 +42,24 @@
                     <a class="nav-link" href="#">3번메뉴</a>
                 </li>
             </ul>
+        </div>
+        <div class="row admin-main" th:if="${subMenuVO != null}">
+            <div class="col-3" th:onclick="|location.href='@{/instructor/insertInstructorForm(menuCode=MENU_001)}'|">
+                <img src="/images/icons/gymnastics.png" alt="" class="mx-auto d-block">
+                <span class="admin-img-info"> 강사관리 </span>
+            </div>
+            <div class="col-3" th:onclick="|location.href='@{/lecture/insertLectureForm(menuCode=MENU_001)}'|">
+                <img src="/images/icons/book.png" alt="" class="mx-auto d-block">
+                <span class="admin-img-info"> 강좌관리 </span>
+            </div>
+            <div class="col-3" th:onclick="|location.href='@{/center/insertFacilityForm(menuCode=MENU_001)}'|">
+                <img src="/images/icons/town-hall.png" alt="" class="mx-auto d-block">
+                <span class="admin-img-info"> 시설관리 </span>
+            </div>
+            <div class="col-3" th:onclick="|location.href='@{#(menuCode=MENU_001)}'|">
+                <img src="/images/icons/board-bold.png" alt="" class="mx-auto d-block">
+                <span class="admin-img-info"> 게시판관리 </span>
+            </div>
         </div>
     </div>
     <!-- slick 슬라이드 -->
