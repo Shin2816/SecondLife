@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
       locale: 'ko', //달력 한국어
       editable : true, //이벤트 위치 변경 가능 여부
       selectable: true, //달력 클릭 여부
+      height: 1000,
       dateClick: function(info) { //달력을 클릭 했을 때, 함수 호출
         calendarCheck(info.dateStr); //비동기 통신, 매개변수는 클릭한 날짜
       },
