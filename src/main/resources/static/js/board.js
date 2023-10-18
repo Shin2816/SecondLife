@@ -18,7 +18,7 @@ function freeRegComment(freeBoardWriter, selectedTag, freeBoardNum, loginInfo){
         let textRegex = /^.{0,99}$/;         //모든 글자 99글자 이하로
         const text = commentContent;
         if(!textRegex.test(text)){
-            alert('내용은 300글자 이내로 작성해주세요.');
+            alert('내용은 100글자 이내로 작성해주세요.');
             return;
         }
     }
@@ -99,12 +99,25 @@ function freeDeleteComment(commentId, freeBoardNum){
 }
 ///////////////////////////////////////////////////////////////////댓글 수정
 function freeUpdateModal(freeUpdateCommentContent){//실제 데이터value
-    const freeCommentInput = document.querySelector('#freeCommentInput'); //input 지정해서 저장
+    const freeCommentInput = document.querySelector('#freeCommentInput'); //input 지정해서 변수로
     freeCommentInput.value = freeUpdateCommentContent;//input안에 내용 넣기
 }
 ///////////////////////////////////////////////////////////////////댓글 수정(비동기)
 function freeUpdateComment(commentId, freeBoardNum){//수정버튼을 누르면 도착, div id : freeCommentInput 안에 데이터 넣기
     const freeCommentInput = document.querySelector('#freeCommentInput').value;
+
+    if(freeCommentInput == ''){
+        alert('내용을 입력해주십시요.');
+        return;
+    }
+
+    //댓글 정규식 체크
+    let textRegex = /^.{0,99}$/;         //모든 글자 99글자 이하로
+    const text = freeCommentInput;
+    if(!textRegex.test(text)){
+        alert('내용은 100글자 이내로 작성해주세요.');
+        return;
+    }
 
     fetch('/board/freeUpdateComment', { //요청경로
         method: 'POST',
@@ -187,9 +200,57 @@ function resetMessage(){
     document.querySelector('.title-error-div').style.display = 'none';
     document.querySelector('.text-error-div').style.display = 'none';
 }
+/////////////////////////////////////////////////////////////////////////////자유게시판 글 수정 유효성 검사
+function freeUpdateValidate(){
+    //오류 메세지 리셋
+    resetBoardMessage();
+    
+    //form태그 id값 가져오기
+    const freeUpdateBoardForm = document.querySelector('#freeUpdateBoardForm');
+    //제목 입력 여부 체크
+    if(freeUpdateBoardForm.freeBoardTitle.value == ''){
+        boardInvalidate('.title-error-div', '제목은 필수 입력입니다.');
+        return;
+    }
+    //내용 입력 여부 체크
+    if(freeUpdateBoardForm.freeBoardContent.value == ''){
+        boardInvalidate('.text-error-div', '내용을 입력해주세요.');
+        return;
+    }
+    //제목 정규식 체크
+    let titleRegex = /^.{0,49}$/;        //모든글자 50글자 이하로
+    const title = freeUpdateBoardForm.freeBoardTitle.value; //제목 input값 가져오기
+    if(!titleRegex.test(title)){
+        boardInvalidate('.title-error-div', '제목은 100글자 이내로 작성해주세요.');
+        return;
+    }
+    //내용 정규식 체크
+    let textRegex = /^.{0,299}$/;         //모든 글자 300글자 이하로
+    const text = freeUpdateBoardForm.freeBoardContent.value;
+    if(!textRegex.test(text)){
+        boardInvalidate('.text-error-div', '내용은 300글자 이내로 작성해주세요.');
+        return;
+    }
+
+    //submit 실행
+    freeUpdateBoardForm.submit();
+}
+
+//validate 실패 시 메세지 설정
+function boardInvalidate(tagid, content){
+    document.querySelector(tagid).style.display = 'block';
+    document.querySelector(tagid).textContent = content;
+}
+
+//글 등록 오류 메세지 초기화
+function resetBoardMessage(){
+    document.querySelector('.title-error-div').style.display = 'none';
+    document.querySelector('.text-error-div').style.display = 'none';
+}
+
 /////////////////////////////////////////////////////////////////////////////자유게시판 글 삭제
 function deleteboard(freeBoardNum){
-    if(confirm('삭제하실면 되돌릴 수 없습니다 \n삭제 하시겠습니까?')){
+    if(confirm('삭제하시면 되돌릴 수 없습니다 \n삭제 하시겠습니까?')){
         location.href=`/board/deleteFreeBoard?freeBoardNum=${freeBoardNum}`;
     }
 }
