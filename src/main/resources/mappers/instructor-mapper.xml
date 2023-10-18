@@ -5,15 +5,15 @@
 <mapper namespace="instructorMapper">
     <!-- 강사 테이블 -->
 	<resultMap id="instructor" type="com.green.SecondLife.instructor.vo.InstructorVO">
-        <id column="INSTRUCTOR_CODE"      property="instructorCode"/>
-        <result column="INSTRUCTOR_MAJOR"     property="instructorMajor"/>
-        <result column="INSTRUCTOR_NAME"      property="instructorName"/>
-        <result column="INSTRUCTOR_AGE"       property="instructorAge"/>
-        <result column="INSTRUCTOR_GENDER"    property="instructorGender"/>
-        <result column="INSTRUCTOR_PHONE"     property="instructorPhone"/>
-        <result column="INSTRUCTOR_ADDR"      property="instructorAddr"/>
-        <result column="INSTRUCTOR_JOIN_DATE" property="instructorJoinDate"/>
-        <association property="instructorImgVO" resultMap="instructorImg"/>
+        <id column="INSTRUCTOR_CODE"              property="instructorCode"/>
+        <result column="INSTRUCTOR_MAJOR"         property="instructorMajor"/>
+        <result column="INSTRUCTOR_NAME"          property="instructorName"/>
+        <result column="INSTRUCTOR_AGE"           property="instructorAge"/>
+        <result column="INSTRUCTOR_GENDER"        property="instructorGender"/>
+        <result column="INSTRUCTOR_PHONE"         property="instructorPhone"/>
+        <result column="INSTRUCTOR_ADDR"          property="instructorAddr"/>
+        <result column="INSTRUCTOR_JOIN_DATE"     property="instructorJoinDate"/>
+        <association property="instructorImgVO"   resultMap="instructorImg"/>
     </resultMap>
     <!-- 강좌 과목 테이블 -->
     <resultMap id="subject" type="com.green.SecondLife.instructor.vo.SubjectVO">
@@ -26,15 +26,6 @@
         <result column="INSTRUCTOR_CODE"                property="instructorCode"/>
         <result column="INSTRUCTOR_ORIGIN_FILE_NAME"    property="instructorOriginFileName"/>
         <result column="INSTRUCTOR_ATTACHED_FILE_NAME"  property="instructorAttachedFileName"/>
-    </resultMap>
-    <!-- 강사 리뷰 테이블 -->
-    <resultMap id="instructorReview" type="com.green.SecondLife.instructor.vo.InstructorReviewVO">
-        <id column="INSTRUCTOR_REVIEW_CODE"         property="instructorReviewCode"/>
-        <result column="INSTRUCTOR_CODE"            property="instructorCode"/>
-        <result column="MEMBER_ID"                  property="memberId"/>
-        <result column="INSTRUCTOR_STAR_POINT"      property="instructorStarPoint"/>
-        <result column="INSTRUCTOR_REVIEW_CONTENT"  property="instructorReviewContent"/>
-        <result column="INSTRUCTOR_REVIEW_DATE"     property="instructorReviewDate"/>
     </resultMap>
     <!-- 강사 등록 화면에서 전공 카테고리 조회 -->
     <select id="selectSubjectList" resultMap="subject">
@@ -128,16 +119,6 @@
         DELETE INSTRUCTOR
         WHERE INSTRUCTOR_CODE = #{instructorCode}
     </delete>
-    <!-- 강사 리뷰 목록 조회 -->
-    <select id="selectInstructorReviewList" resultMap="instructorReview">
-        SELECT INSTRUCTOR_REVIEW_CODE
-            , INSTRUCTOR_CODE
-            , MEMBER_ID
-            , INSTRUCTOR_REVIEW_CONTENT
-            , INSTRUCTOR_STAR_POINT
-            , INSTRUCTOR_REVIEW_DATE
-        FROM INSTRUCTOR_REVIEW
-    </select>
 </mapper>
 
 

@@ -20,6 +20,7 @@
     <div>
         <p><input type="button" value="수강신청" th:onclick="|location.href='@{/lecture/goLectureApplyForm(lectureCode=${lecture.lectureCode})}'|"></p>
         <p><input type="button" value="수강생목록" th:onclick="|location.href='@{/lecture/selectStudentList(lectureCode=${lecture.lectureCode})}'|"></p>
+        <p><button th:onclick="|location.href='@{/lecture/goLectureReviewForm(lectureCode=${lecture.lectureCode})}'|">리뷰쓰기</button></p>
     </div>
 </th:block>
 </body>

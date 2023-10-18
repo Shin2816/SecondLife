@@ -42,16 +42,43 @@
         <div th:if="${session.loginInfo != null}">
             <!-- 작성자가 같거나 관리자라면 -->
             <div class="btn-group" th:if="${board.freeBoardWriter == session.loginInfo.memberId or session.loginInfo.memberRoll == 'ADMIN'}">
-                <input type="button" class="btn btn-primary" value="삭제" th:onclick="|location.href='@{/board/deleteFreeBoard(freeBoardNum=${board.freeBoardNum})}'|">
+                <input type="button" class="btn btn-primary" value="삭제" th:onclick="deleteboard([[${board.freeBoardNum}]])">
                 <input type="button" class="btn btn-primary" value="수정" th:onclick="|location.href='@{/board/updateFreeBoardForm(freeBoardNum=${board.freeBoardNum})}'|">
+                <input type="button" class="btn btn-primary" value="수정" data-bs-target="#freeUpdateBoard" data-bs-toggle="modal">
             </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="freeUpdateBoard" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">수정할 내용을 입력해주세요.</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div>
+                                <input type="text" name="freeBoardTitle" class="form-control" th:value="${board.freeBoardTitle}">
+                            </div>
+                            <div>
+                                <textarea rows="5" cols="50" name="freeBoardContent" class="form-control">[[${board.freeBoardContent}]]</textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                            <!-- 폼태그를 사용하지않고 title content 데이터 넘겨보기 -->
+                            <button type="button" class="btn btn-primary" th:onclick="|location.href='@{/board/updateFreeBoard(freeBoardNum=${board.freeBoardNum})}'|">수정하기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
     <hr>
     <h1>댓글작성</h1>
-    <div class="input-group mb-3">
+    <div class="input-group mb-3" id="freeRegDiv">
         <input type="text" name="commentContent" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2">
-        <button class="btn btn-outline-secondary" type="button" id="button-addon2" th:onclick="freeRegComment([[${board.freeBoardWriter}]], this, [[${board.freeBoardNum}]]);">작성</button>
+        <button class="btn btn-outline-secondary" type="button" id="button-addon2" th:onclick="freeRegComment([[${board.freeBoardWriter}]], this, [[${board.freeBoardNum}]], [[${session.loginInfo}]]);">작성</button>
     </div>
     <hr>
     <table border="1" class="text-center col-12">
@@ -72,6 +99,7 @@
                             <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 더보기
                             </a>
+                            <!-- 삭제,수정버튼 -->
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" th:onclick="freeDeleteComment([[${comment.commentId}]], [[${board.freeBoardNum}]])">삭제</a></li>
                                 <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" th:onclick="freeUpdateModal([[${comment.commentContent}]]);">수정</a></li>
@@ -100,7 +128,7 @@
                 </div>
                 <div class="row space-between">
                     <span class="col-10">[[${comment.commentContent}]]</span>
-                    <span class="col-2">[[${comment.commentCreateDate}]]</span>
+                    <span class="col-2 text-end">[[${comment.commentCreateDate}]]</span>
                 </div>
                 <hr>
             </div>

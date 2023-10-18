@@ -36,6 +36,7 @@ function showInstructorSimpleInfo(instructorCode){
         document.querySelector('#instructor_major').innerHTML=`수업과목 : ${data.instructor.instructorMajor}`;
         
         console.log(data.lectureList);
+        console.log(data.reviewList);
         
         let str = '';
         data.lectureList.forEach(lecture => {
@@ -49,7 +50,17 @@ function showInstructorSimpleInfo(instructorCode){
         document.querySelector('#lecture-table tbody').textContent = '';
         document.querySelector('#lecture-table tbody').insertAdjacentHTML('afterbegin', str);
 
+        let str2 = '';
+        data.reviewList.forEach(review => {
+            str2 += `<tr>`;
+            str2 += `<td>${review.lectureStarPoint}</td>`;
+            str2 += `<td>${review.lectureReviewContent}</td>`;
+            str2 += `</td>`;
+        });
 
+        document.querySelector('#lecture-review-table tbody').textContent = '';
+        document.querySelector('#lecture-review-table tbody').insertAdjacentHTML('afterbegin', str2);
+        
 
 
     })
