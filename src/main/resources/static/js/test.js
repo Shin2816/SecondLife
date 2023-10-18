@@ -2,7 +2,13 @@ document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
     var list = [{title : '테스트', start : '2023-10-16'}, {title : '테스트2', start : '2023-10-18', end : '2023-10-22'}, {title : '테스트3', start : '2023-10-22T12:35:00', allDay : false}];
     var calendar = new FullCalendar.Calendar(calendarEl, {
+      headerToolbar: {
+        left: 'prev',
+        center: 'title',
+        right: 'next'
+      },
       initialView: 'dayGridMonth',
+      initailDate: 'default', // 달력 처음 로드될때 표시되는 날짜. default는 현재 날짜
       locale: 'ko', //달력 한국어
       editable : true, //이벤트 위치 변경 가능 여부
       selectable: true, //달력 클릭 여부
@@ -35,24 +41,46 @@ document.addEventListener('DOMContentLoaded', function() {
             return ;
         }
 
-        return response.text(); //컨트롤러에서 return하는 데이터가 없거나 int, String 일 때 사용
-        //return response.json(); //나머지 경우에 사용
+        //return response.text(); //컨트롤러에서 return하는 데이터가 없거나 int, String 일 때 사용
+        return response.json(); //나머지 경우에 사용
     })
     //fetch 통신 후 실행 영역
     .then((data) => {//data -> controller에서 리턴되는 데이터!
       // data = rentalTimeList
-      alert('intelliJ 콘솔 확인.');
+      let inputTr = document.querySelector('#input-tr');
+      console.log(`${data.rentalDate}`);
 
       let str ='';
-      str += '<table>';
-      str += '';
-      str += '';
-      str += '';
-      str += '';
-      str += '</.t';
+      str += `
+      <th:block th:if="${data.rentalDate != null}" >
+        <tr th:each="`+rentalTime+` : ${data}">
+            <td>
+                <th:block th:if="${rentalTime.rentalStatus == 0}">
+                    <input type="selectbox">
+                </th:block>
+                <th:block th:unless="${rentalTime.rentalStatus == 0}">
+                    <input type="selectbox" disabled>
+                </th:block>
+            </td>
+            <td>[[${rentalDate.rentalStartTime}]] ~ [[${rentalDate.rentalEndTime}]]</td>
+            <td>
+                <th:block th:if="${rentalTime.rentalStatus == 0}">
+                    [[${rentalTime.rentalCharge}]]
+                </th:block>
+                <th:block th:if="${rentalTime.rentalStatus == 1}">
+                    <p style="color: blue;">승인대기중</p>
+                </th:block>
+                <th:block th:if="${rentalTime.rentalStatus == 2}">
+                    <p style="color: red;">예약불가</p>
+                </th:block>
+            </td>
+            <td>[[${rentalTime.rentalTeam}]]</td>
+            <td>[[${rentalTime.rentalUser}]]</td>
+          </tr>
+      </th:block>
+      `;
 
-      aaa.insertAdjacentHtml('', str);
-
+      inputTr.insertAdjacentHTML('afterbegin', str);
 
     })
     //fetch 통신 실패 시 실행 영역
