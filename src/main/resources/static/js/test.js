@@ -41,6 +41,18 @@ document.addEventListener('DOMContentLoaded', function() {
     .then((data) => {//data -> controller에서 리턴되는 데이터!
       // data = rentalTimeList
       alert('intelliJ 콘솔 확인.');
+
+      let str ='';
+      str += '<table>';
+      str += '';
+      str += '';
+      str += '';
+      str += '';
+      str += '</.t';
+
+      aaa.insertAdjacentHtml('', str);
+
+
     })
     //fetch 통신 실패 시 실행 영역
     .catch(err=>{
