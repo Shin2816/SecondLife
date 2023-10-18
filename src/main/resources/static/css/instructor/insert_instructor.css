@@ -1,0 +1,45 @@
+@charset "utf-8";
+/* 강사 등록*/
+
+#form{
+    position: relative;
+}
+#form::after{
+    clear: both;
+    display: block;
+    content: "";
+}
+.box.gender div{
+    border: 1px solid #555;
+    background-color: #fff;
+    width: 190px;
+    padding: 4px 5px;
+}
+.wrap{
+    float: left;
+    position: relative;
+}
+.wrap.img{
+    position: absolute;
+    top: 0;
+    left: 300px;
+}
+.wrap.button{
+    position: absolute;
+    bottom: -40px;
+    left: 370px;
+}
+.img-file{
+    cursor: pointer;
+    border: 1px solid #555;
+    text-align: center;
+    width: 120px;
+    height: 150px;
+    background-color: #fff;
+}
+.img-file p{
+    margin-top: 60px;
+}
+#file{
+    display: none;
+}

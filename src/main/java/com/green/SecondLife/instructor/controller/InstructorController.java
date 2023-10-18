@@ -45,6 +45,12 @@ public class InstructorController {
         model.addAttribute("instructorList", instructorService.selectInstuctorList());
         return "admin/manage_instructor";
     }
+    //관리자용 강사 목록 페이지
+    @GetMapping("/adminInstructorList")
+    public String adminInstructorList(Model model){
+        model.addAttribute("instructorList", instructorService.selectInstuctorList());
+        return "admin/admin_instructor_list";
+    }
     //강사 상세 보기
     @GetMapping("/selectInstructorDetail")
     public String selectInstructorDetail(InstructorVO instructorVO, Model model){

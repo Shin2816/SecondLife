@@ -8,38 +8,56 @@
 </head>
 
 <body>
-    <th:block layout:fragment="content">
+    <th:block layout:fragment="content" id="block">
+        <link rel="stylesheet" href="/css/instructor/insert_instructor.css">
         <h1>강사등록페이지</h1>
-        <form action="/instructor/insertInstructor" method="post" enctype="multipart/form-data">
-            사진 :  <input type="file" name="instructorImg"> <br><br>
-            이 름 :
-            <input type="text" name="instructorName"> <br><br>
-            나 이 :
-            <input type="text" name="instructorAge"> <br><br>
-            성 별 :
-            남
-            <input type="radio" value="남" name="instructorGender" checked>
-            여
-            <input type="radio" value="여" name="instructorGender"> <br><br>
-            과 목 :
-            <select name="instructorMajor">
-                <th:block th:each="subject : ${subjectList}">
-                    <option th:value="${subject.subjectName}">[[${subject.subjectName}]]</option>
-                </th:block>
-            </select> <br><br>
-            연락처 :
-            <select name="instructorPhones">
-                <option value="010">010</option>
-                <option value="011">011</option>
-                <option value="012">012</option>
-            </select>
-            <input type="text" name="instructorPhones">
-            <input type="text" name="instructorPhones"> <br><br>
-            주 소 :
-            <input type="text" name="instructorAddr" id="instructorAddr" onclick="openPost();" readonly>
-            <input type="button" value="주소검색" onclick="openPost();"> <br><br>
-            나머지주소 : <input type="text" name="instructorAddr"> <br><br>
-            <input type="submit" value="등록!!">
+        <form action="/instructor/insertInstructor" method="post" enctype="multipart/form-data" id="form">
+        <div class="wrap info">
+            <div>
+                <p>이름<p>
+                <span><input type="text" name="instructorName"></span>
+            </div>
+            <div>
+                <p>나이</p>
+                <span><input type="text" name="instructorAge"></span>
+            </div>
+            <div class="box gender">
+                <p>성별</p>
+                <div>
+                    <label><input type="radio" value="남자" name="instructorGender">남자</label>
+                    <label><input type="radio" value="여자" name="instructorGender">여자</label>
+                </div>
+            </div>
+            <div>
+                <p>연락처</p>
+                <label><input type="text" placeholder=" - 없이 숫자만 입력 "></label>
+            </div>
+            <div>
+                <p>주소</p>
+                <input type="text" name="instructorAddr" id="instructorAddr" onclick="openPost();" readonly>
+                <input type="button" value="주소검색" onclick="openPost();"> <br><br>
+                <p>나머지주소</p>
+                <input type="text" name="instructorAddr"> 
+            </div>
+        </div>
+        <div class="wrap img">
+            <p>사진</p>
+            <div onclick="file();" class="img-file">
+                <p>클릭</p>
+                <input type="file" id="file" name="instructorImg">
+            </div>
+            <div>
+                <p>과목</p>
+                <select name="instructorMajor">
+                    <th:block th:each="subject : ${subjectList}">
+                        <option th:value="${subject.subjectName}">[[${subject.subjectName}]]</option>
+                    </th:block>
+                </select>
+            </div>
+        </div>
+        <div class="wrap button">
+            <p><input type="submit" value="등록"></p>
+        </div>
         </form>
         <script src="/js/insert_instructor.js"></script>
     </th:block>
