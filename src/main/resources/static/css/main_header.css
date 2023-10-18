@@ -3,6 +3,14 @@
 th{
     border-bottom: 1px solid black;
 }
+.admin-main{
+    cursor: pointer;
+    margin: 40px 0;
+}
+.admin-img-info{
+    display: block;
+    text-align: center;
+}
 .link-main{
     display: block;
     cursor: pointer;

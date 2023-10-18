@@ -1,5 +1,5 @@
 // 시설 등록 시 데이터 유효성 검사(벨리데이트)
-function insertFacilityValidate(){
+function insertFacilityValidate(facilityCode){
     // 오류메세지 초기화
     resetMessage();
 
