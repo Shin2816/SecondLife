@@ -7,7 +7,7 @@
 </head>
 <body>
     <th:block th:fragment="mainFooterFragment">
-        <div class="footer">
+        <div th:if="${subMenuVO == null}" class="footer">
             푸터 영역입니다.
         </div>
     </th:block>
