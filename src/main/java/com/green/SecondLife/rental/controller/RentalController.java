@@ -38,7 +38,6 @@ public class RentalController {
 
         //세션 사용자이름 불러오기
         MemberVO member = (MemberVO)session.getAttribute("loginInfo");
-        rentalFacilityVO.setRentalUser(member.getMemberName());
 
         List<RentalFacilityVO> rentalTimelList = rentalService.selectRentalFacility(rentalFacilityVO);
         return rentalTimelList;
