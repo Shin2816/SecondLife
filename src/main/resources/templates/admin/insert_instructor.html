@@ -28,9 +28,16 @@
                     <label><input type="radio" value="여자" name="instructorGender">여자</label>
                 </div>
             </div>
-            <div>
+            <div class="box tel">
                 <p>연락처</p>
-                <label><input type="text" placeholder=" - 없이 숫자만 입력 "></label>
+                <select name="instructorPhones">
+                    <option value="010">010</option>
+                    <option value="011">011</option>
+                    <option value="012">012</option>
+                    <option value="013">013</option>
+                </select>
+                <label><input type="text" name="instructorPhones"></label>
+                <label><input type="text" name="instructorPhones"></label>
             </div>
             <div>
                 <p>주소</p>
@@ -45,14 +52,6 @@
             <div onclick="file();" class="img-file">
                 <p>클릭</p>
                 <input type="file" id="file" name="instructorImg">
-            </div>
-            <div>
-                <p>과목</p>
-                <select name="instructorMajor">
-                    <th:block th:each="subject : ${subjectList}">
-                        <option th:value="${subject.subjectName}">[[${subject.subjectName}]]</option>
-                    </th:block>
-                </select>
             </div>
         </div>
         <div class="wrap button">

@@ -16,14 +16,12 @@
             <td>이름</td>
             <td>나이</td>
             <td>성별</td>
-            <td>과목</td>
         </tr>
     </thead>
     <tbody>
         <tr th:each="instructor : ${instructorList}">
             <td>[[${instructor.instructorName}]]</td>
             <td>[[${instructor.instructorAge}]]</td>
-            <td>[[${instructor.instructorMajor}]]</td>
             <td>[[${instructor.instructorGender}]]</td>
             <td><input type="button" value="상세" th:onclick="|location.href='@{/instructor/selectInstructorDetail(instructorCode=${instructor.instructorCode})}'|"></td>
             <td><input type="button" value="삭제" th:onclick="deleteInstructor([[${instructor.instructorCode}]]);"></td>
@@ -53,7 +51,6 @@
                 <p id="instructor_name"></p>
                 <p id="instructor_age"></p>
                 <p id="instructor_gender"></p>
-                <p id="instructor_major"></p>
             </div>
           </div>
           <div class="instructor_simple_lecture_list">

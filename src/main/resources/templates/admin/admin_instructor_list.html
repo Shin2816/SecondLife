@@ -16,10 +16,12 @@
         <p><img th:src="${'/images/instructor/' + instructor.instructorImgVO.instructorAttachedFileName}"></p>
     </div>
     <div>
-        <p><span>이름</span><span>[[${instructor.instructorName}]]</span></p>
-        <p><span>나이</span><span>[[${instructor.instructorAge}]]</span></p>
-        <p><span>성별</span><span>[[${instructor.instructorGender}]]</span></p>
-        <p><span>주소</span><span>[[${instructor.instructorAddr}]]</span></p>
+        <p>
+            <span>이름 : </span><span>[[${instructor.instructorName}]] </span>
+            <span>나이 : </span><span> [[${instructor.instructorAge}]] </span>
+            <span>성별 : </span><span>[[${instructor.instructorGender}]]</span> <br>
+            <span>주소 : </span><span>[[${instructor.instructorAddr}]]</span>
+        </p>
     </div>
     </div>
 </div>

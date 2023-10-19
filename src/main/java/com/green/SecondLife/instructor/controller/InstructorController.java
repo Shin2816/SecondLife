@@ -39,23 +39,11 @@ public class InstructorController {
         model.addAttribute("instructor", instructorService.insertInstructor(instructorVO));
         return "redirect:/instructor/selectInstructorList";
     }
-    //강사 목록 페이지
-    @GetMapping("/selectInstructorList")
-    public String selectInstructorList(Model model){
-        model.addAttribute("instructorList", instructorService.selectInstuctorList());
-        return "admin/manage_instructor";
-    }
     //관리자용 강사 목록 페이지
     @GetMapping("/adminInstructorList")
     public String adminInstructorList(Model model, SubMenuVO subMenuVO){
         model.addAttribute("instructorList", instructorService.selectInstuctorList());
         return "admin/admin_instructor_list";
-    }
-    //강사 상세 보기
-    @GetMapping("/selectInstructorDetail")
-    public String selectInstructorDetail(InstructorVO instructorVO, Model model){
-        model.addAttribute("instructor", instructorService.selectInstructorDetail(instructorVO));
-        return "admin/instructor_detail";
     }
     //강사 삭제 기능
     @GetMapping("/deleteInstructor")
@@ -64,6 +52,27 @@ public class InstructorController {
         instructorService.deleteInstructor(instructorVO, instructorImgVO);
         return "redirect:/instructor/selectInstructorList";
     }
+
+    //↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ //
+    //관리자//관리자//관리자//관리자//관리자//관리자//관리자//관리자//관리자//관리자//관리자//관리자//관리자//관리자//관리자//관리자//
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//
+    //↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ //
+
+    //강사 목록 페이지
+    @GetMapping("/selectInstructorList")
+    public String selectInstructorList(Model model){
+        model.addAttribute("instructorList", instructorService.selectInstuctorList());
+        return "admin/manage_instructor";
+    }
+    //강사 상세 보기
+    @GetMapping("/selectInstructorDetail")
+    public String selectInstructorDetail(InstructorVO instructorVO, Model model){
+        model.addAttribute("instructor", instructorService.selectInstructorDetail(instructorVO));
+        return "admin/instructor_detail";
+    }
+
     //강사 요약 정보 조회 페치
     @ResponseBody
     @PostMapping("/showInstructorSimpleInfo")

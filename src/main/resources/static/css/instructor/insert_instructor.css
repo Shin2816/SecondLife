@@ -43,3 +43,7 @@
 #file{
     display: none;
 }
+.box.tel input{
+    width: 65px;
+    height: 25px;
+}

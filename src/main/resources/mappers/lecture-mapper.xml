@@ -19,7 +19,7 @@
         <result column="MEMBER_ID"          property="memberId"/>
         <result column="LECTURE_CODE"       property="lectureCode"/>
     </resultMap>
-    <!-- 강사 리뷰 테이블 -->
+    <!-- 강좌 리뷰 테이블 -->
     <resultMap id="lectureReview" type="com.green.SecondLife.lecture.vo.LectureReviewVO">
         <id column="LECTURE_REVIEW_CODE"         property="lectureReviewCode"/>
         <result column="LECTURE_CODE"            property="lectureCode"/>
@@ -29,6 +29,52 @@
         <result column="LECTURE_REVIEW_CONTENT"  property="lectureReviewContent"/>
         <result column="LECTURE_REVIEW_DATE"     property="lectureReviewDate"/>
     </resultMap>
+    <!-- 강좌 종목 테이블 -->
+    <resultMap id="lectureEvent" type="com.green.SecondLife.lecture.vo.LectureEventVO">
+        <id column="LECTURE_EVENT_CODE"         property="lectureEventCode"/>
+        <result column="LECTURE_EVENT_NAME"     property="lectureEventName"/>
+        <result column="LECTURE_EVENT_CONTENT"     property="lectureEventContent"/>
+    </resultMap>
+    <!-- 강좌 종목 이미지 테이블 -->
+    <resultMap id="lectureEventImg" type="com.green.SecondLife.lecture.vo.LectureEventImgVO">
+        <id column="LECTURE_EVENT_IMG_CODE"                 property="lectureEventImgCode"/>
+        <result column="LECTURE_EVENT_CODE"                 property="lectureEventCode"/>
+        <result column="LECTURE_EVENT_ORIGIN_FILE_NAME"     property="lectureEventOriginFileName"/>
+        <result column="LECTURE_EVENT_ATTACHED_FILE_NAME"   property="lectureEventAttachedFileName"/>
+    </resultMap>
+    <!-- 관리자용 다음 강좌 종목 코드 조회 -->
+    <select id="adminSelectNextLectureEventCode" resultMap="lectureEvent">
+        SELECT 'LECTURE_EVENT_'||LPAD(NVL(MAX(TO_NUMBER(SUBSTR(LECTURE_EVENT_CODE, 15))), 0) + 1, 3,'0')
+        FROM LECTURE_EVENT
+    </select>
+    <!-- 관리자용 강좌 종목 생성 쿼리 -->
+    <insert id="adminCreateLectureEvent">
+        INSERT INTO LECTURE_EVENT (
+            LECTURE_EVENT_CODE
+            , LECTURE_EVENT_NAME
+            , LECTURE_EVENT_CONTENT
+        ) VALUES (
+            #{lectureEventCode}
+            , #{lectureEventName}
+            , #{lectureEventContent}
+        )
+    </insert>
+    <!-- 관리자용 강좌 종목 이미지 등록 쿼리 -->
+    <insert id="adminInsertLectureEventImg">
+        INSERT INTO LECTURE_EVENT_IMG (
+            LECTURE_EVENT_IMG_CODE
+            , LECTURE_EVENT_CODE
+            , LECTURE_EVENT_ORIGIN_FILE_NAME
+            , LECTURE_EVENT_ATTACHED_FILE_NAME
+        ) VALUES (
+            (SELECT 'LECTURE_EVENT_'||LPAD(NVL(MAX(TO_NUMBER(SUBSTR(INSTRUCTOR_CODE, 15))), 0) + 1, 3,'0')||'_IMG'
+            FROM LECTURE_EVENT_IMG)
+            , #{lectureEventCode}
+            , #{lectureEventOriginFileName}
+            , #{lectureEventAttachedFileName}
+        )
+    </insert>
+
     <!-- 강좌 등록 쿼리 -->
     <insert id="insertLecture">
         INSERT INTO LECTURE (

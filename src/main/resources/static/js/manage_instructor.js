@@ -33,7 +33,6 @@ function showInstructorSimpleInfo(instructorCode){
         document.querySelector('#instructor_name').innerHTML=`이름 : ${data.instructor.instructorName}`;
         document.querySelector('#instructor_age').innerHTML=`나이 : ${data.instructor.instructorAge}`;
         document.querySelector('#instructor_gender').innerHTML=`성별 : ${data.instructor.instructorGender}`;
-        document.querySelector('#instructor_major').innerHTML=`수업과목 : ${data.instructor.instructorMajor}`;
         
         console.log(data.lectureList);
         console.log(data.reviewList);
