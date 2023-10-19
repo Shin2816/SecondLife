@@ -30,6 +30,8 @@ public interface CommunityService {
     public List<BoardFreeListVO> selectMainFreeBoardList();
     //게시글 갯수 조회
     public int selectBoardCnt();
+    //내가 쓴 글 조회
+    public List<BoardFreeListVO> selectFreeMyBoard()
     ///////////////////////////////////// Q&A ////////////////////////////////////////////
 
 }

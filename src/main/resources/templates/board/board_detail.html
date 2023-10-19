@@ -29,9 +29,8 @@
         </div>
         <hr>
         <div class="row">
-            <div class="col">
-                [[${board.freeBoardContent}]]
-            </div>
+            <!-- 섬머노트 p태그를 html에서 읽을 수 있도록-->
+            <div class="col" th:utext="${board.freeBoardContent}"></div>
         </div>
     </div>
     <br>
