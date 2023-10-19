@@ -158,7 +158,9 @@ $(document).ready(function () {
     $('.summernote').summernote({
        placeholder: '내용을 작성하세요',
        height: 400,
-       maxHeight: 400
+       maxHeight: 400,
+       lang: 'ko-KR',
+       focus: true
    }); 
 });
 ////////////////////////////////자유게시판 글 등록 유효성 정규식//////////////////////////////////////
