@@ -47,7 +47,7 @@ public class InstructorController {
     }
     //관리자용 강사 목록 페이지
     @GetMapping("/adminInstructorList")
-    public String adminInstructorList(Model model){
+    public String adminInstructorList(Model model, SubMenuVO subMenuVO){
         model.addAttribute("instructorList", instructorService.selectInstuctorList());
         return "admin/admin_instructor_list";
     }

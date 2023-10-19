@@ -18,7 +18,12 @@
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
     <!-- css 충돌 테스트 -->
 
-    <form action="/board/regBoard" method="post" id="freeRegBoard" class="text-center">
+    <form action="/board/regBoard" method="post" id="freeRegBoard">        
+        <div class="row mb-3">
+            <div class="text-center">
+                <h1>자유게시판 등록</h1>
+            </div>
+        </div>
         <div class="row mb-3">
             <div class="col-12">
                 <input type="text" class="form-control text-center" id="freeBoardTitle" name="freeBoardTitle" placeholder="제목을 입력해 주세요." required>
@@ -30,13 +35,8 @@
             </div>
         </div>
 
-        <div class="row mb-3">
-            <div class="col-2">
-                <h1>내용</h1>
-            </div>
-        </div>
         <div class="col-12">
-            <textarea name="freeBoardContent" class="form-control summernote" id="freeBoardContent" cols="30" rows="10"></textarea>
+            <textarea name="freeBoardContent" class="form-control summernote text-left" id="freeBoardContent" cols="30" rows="10"></textarea>
         </div>
         <div class="row mb-3 error">
             <div class="text-error-div">
