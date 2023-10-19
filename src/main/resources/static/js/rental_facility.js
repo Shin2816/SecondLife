@@ -20,7 +20,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     calendar.render();
-    $(".fc-daygrid-day-number").each(function(){
+
+    $(".fc-daygrid-day-number").each(function(){ // 캘린더 랜더 후 '일'자 없애기.
         var day = $(this).text();
         day = day.replace("일","");
         $(this).text(day);
@@ -84,6 +85,29 @@ document.addEventListener('DOMContentLoaded', function() {
                             str += '</tr>';
                         }
                     });
+        str += `
+                <button id=sign-btn type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">신청하기</button>
+                                    
+                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="offset-2 col-10 text-start mb-2">시설명 : </div>
+                                    <div class="offset-2 col-10 text-start mb-2">대관타임 : </div>
+                                    <div class="offset-2 col-10 text-start mb-2">사용자 : </div>
+                                    <div class="offset-2 col-10 text-start mb-2">단체명 : <input class=input-box type="text" name="rentalTeam"></div>
+                                    <div class="offset-2 col-10 text-start mb-2">사용목적 : <input class=input-box type="text" name="rentalPurpose"></div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                                <button type="button" class="btn btn-primary">신청하기</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        `;
         inputTr.innerHTML = str;
     })
     //fetch 통신 실패 시 실행 영역

@@ -6,6 +6,11 @@
   margin-top: 65px;
 }
 
+#input-tr{
+  width: 100%;
+  margin: 0 auto;
+}
+
 /* 헤더셀 요일표시 - 검정색 */
 .fc-col-header-cell-cushion {
   color: black;
@@ -31,3 +36,16 @@
   text-decoration: none;
 }
 
+#sign-btn{
+  width: 100px;
+  margin-top: 30px;
+  margin-left: 50%;
+}
+
+.input-box{
+  border: none;
+  border-bottom: 1px solid #000;
+}
+.input-box:focus{
+  outline: none;
+}
