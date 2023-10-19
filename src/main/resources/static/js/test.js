@@ -47,41 +47,39 @@ document.addEventListener('DOMContentLoaded', function() {
     //fetch 통신 후 실행 영역
     .then((data) => {//data -> controller에서 리턴되는 데이터!
       // data = rentalTimeList
-      let inputTr = document.querySelector('#input-tr');
-      console.log(`${data.rentalDate}`);
+        let inputTr = document.querySelector('#input-tr');
 
-      let str ='';
-      str += `
-      <th:block th:if="${data.rentalDate != null}" >
-        <tr th:each="`+rentalTime+` : ${data}">
-            <td>
-                <th:block th:if="${rentalTime.rentalStatus == 0}">
-                    <input type="selectbox">
-                </th:block>
-                <th:block th:unless="${rentalTime.rentalStatus == 0}">
-                    <input type="selectbox" disabled>
-                </th:block>
-            </td>
-            <td>[[${rentalDate.rentalStartTime}]] ~ [[${rentalDate.rentalEndTime}]]</td>
-            <td>
-                <th:block th:if="${rentalTime.rentalStatus == 0}">
-                    [[${rentalTime.rentalCharge}]]
-                </th:block>
-                <th:block th:if="${rentalTime.rentalStatus == 1}">
-                    <p style="color: blue;">승인대기중</p>
-                </th:block>
-                <th:block th:if="${rentalTime.rentalStatus == 2}">
-                    <p style="color: red;">예약불가</p>
-                </th:block>
-            </td>
-            <td>[[${rentalTime.rentalTeam}]]</td>
-            <td>[[${rentalTime.rentalUser}]]</td>
-          </tr>
-      </th:block>
-      `;
+        let str ='';
+        data.forEach(rentalTime => {
+                        if (rentalTime.rentalFacilityList.rentalDate != null) {
+                            str += '<tr>';
+                            str += '<td>';
 
-      inputTr.insertAdjacentHTML('afterbegin', str);
+                            if (rentalTime.rentalFacilityList.rentalStatus == 0) {
+                                str += '<input type="checkbox" class="rental-time">';
+                            } else {
+                                str += '<input type="checkbox" disabled>';
+                            }
 
+                            str += '</td>';
+                            str += '<td>' + rentalTime.rentalStartTime + ' ~ ' + rentalTime.rentalEndTime + '</td>';
+                            str += '<td>';
+
+                            if (rentalTime.rentalFacilityList.rentalStatus == 0) {
+                                str += rentalTime.rentalFacilityList.rentalCharge;
+                            } else if (rentalTime.rentalFacilityList.rentalStatus == 1) {
+                                str += '<span style="color: blue;">승인 대기중</span>';
+                            } else if (rentalTime.rentalFacilityList.rentalStatus == 2) {
+                                str += '<span style="color: red;">예약 불가</span>';
+                            }
+
+                            str += '</td>';
+                            str += '<td>' + rentalTime.rentalFacilityList.rentalTeam + '</td>';
+                            str += '<td>' + rentalTime.rentalFacilityList.rentalUser + '</td>';
+                            str += '</tr>';
+                        }
+                    });
+        inputTr.innerHTML = str;
     })
     //fetch 통신 실패 시 실행 영역
     .catch(err=>{

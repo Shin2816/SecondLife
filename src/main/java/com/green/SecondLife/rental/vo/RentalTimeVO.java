@@ -7,4 +7,5 @@ public class RentalTimeVO {
     private String rentalTimeCode;
     private String rentalStartTime;
     private String rentalEndTime;
+    private RentalFacilityVO rentalFacilityList;
 }
