@@ -56,35 +56,36 @@ document.addEventListener('DOMContentLoaded', function() {
         let inputTr = document.querySelector('#input-tr');
 
         let str ='';
-        data.forEach(rentalTime, index => {
-                        if (rentalTime.rentalFacilityList.rentalDate != null) {
-                            str += '<tr>';
-                            str += '<td>';
+        data.forEach(rentalTime => {
+            if (rentalTime.rentalFacilityList.rentalDate != null) {
+                str += '<tr>';
+                str += '<td>';
 
-                            if (rentalTime.rentalFacilityList.rentalStatus == 0) {
-                                str += '<input type="checkbox" class="rental-time">';
-                            } else {
-                                str += '<input type="checkbox" disabled>';
-                            }
+                if (rentalTime.rentalFacilityList.rentalStatus == 0) {
+                    str += '<input type="checkbox" class="rental-checkboxes">';
+                } else {
+                    str += '<input type="checkbox" disabled>';
+                }
 
-                            str += '</td>';
-                            str += '<td>' + rentalTime.rentalStartTime + ' ~ ' + rentalTime.rentalEndTime + '</td>';
-                            str += '<td>';
+                str += '</td>';
+                str += '<td>' + rentalTime.rentalStartTime + ' ~ ' + rentalTime.rentalEndTime + '</td>';
+                str += '<td>';
 
-                            if (rentalTime.rentalFacilityList.rentalStatus == 0) {
-                                str += rentalTime.rentalFacilityList.rentalCharge;
-                            } else if (rentalTime.rentalFacilityList.rentalStatus == 1) {
-                                str += '<span style="color: blue;">승인 대기중</span>';
-                            } else if (rentalTime.rentalFacilityList.rentalStatus == 2) {
-                                str += '<span style="color: red;">예약 불가</span>';
-                            }
+                if (rentalTime.rentalFacilityList.rentalStatus == 0) {
+                    str += rentalTime.rentalFacilityList.rentalCharge;
+                } else if (rentalTime.rentalFacilityList.rentalStatus == 1) {
+                    str += '<span style="color: blue;">승인 대기중</span>';
+                } else if (rentalTime.rentalFacilityList.rentalStatus == 2) {
+                    str += '<span style="color: red;">예약 불가</span>';
+                }
 
-                            str += '</td>';
-                            str += '<td>' + rentalTime.rentalFacilityList.rentalTeam + '</td>';
-                            str += '<td>' + rentalTime.rentalFacilityList.rentalUser + '</td>';
-                            str += '</tr>';
-                        }
-                    });
+                str += '</td>';
+                str += '<td>' + rentalTime.rentalFacilityList.rentalTeam + '</td>';
+                str += '<td>' + rentalTime.rentalFacilityList.rentalUser + '</td>';
+                str += '</tr>';
+            }
+        });
+        
         str += `
                 <button id=sign-btn type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">신청하기</button>
                                     
@@ -95,6 +96,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <div class="row">
                                     <div class="offset-2 col-10 text-start mb-2">시설명 : </div>
                                     <div class="offset-2 col-10 text-start mb-2">대관타임 : </div>
+                                    <div class="offset-2 col-10 text-start mb-2">대관요금 : </div>
                                     <div class="offset-2 col-10 text-start mb-2">사용자 : </div>
                                     <div class="offset-2 col-10 text-start mb-2">단체명 : <input class=input-box type="text" name="rentalTeam"></div>
                                     <div class="offset-2 col-10 text-start mb-2">사용목적 : <input class=input-box type="text" name="rentalPurpose"></div>
