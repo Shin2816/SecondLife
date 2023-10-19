@@ -23,7 +23,7 @@ public class RentalController {
     //테스트
     @GetMapping("/test")
     public String test(){
-        return "/rental/test";
+        return "/rental/rental_facility";
     }
 
     //테스트 비동기
