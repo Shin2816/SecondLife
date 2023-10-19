@@ -88,28 +88,38 @@
                 </div>
                 <div class="row second">
                     <div class="col-6 board">
-                        <span class="board_title"> 자유 게시판 </span>
-                        <table class="board-table">
-                            <colgroup>
-                                <col width="*">
-                                <col width="10%">
-                                <col width="20%">
-                            </colgroup>
-                            <!-- 게시글 없을 때 -->
-                            <th:block th:if="${#lists.size(freeBoardList) == 0}">
-                                <tr>
-                                    <td colspan="5">조회된 게시글이 없습니다</td>
-                                </tr>
-                            </th:block>
-                            <!-- 게시글 있을 때 -->
-                            <th:block th:unless="${#lists.size(freeBoardList) == 0}">
-                                <tr class="board-tr" th:onclick="|location.href='@{/board/boardDetail(freeBoardNum=${freeBoard.freeBoardNum})}'|" th:each="freeBoard : ${freeBoardList}">
-                                    <td class="board_td_title">[[${freeBoard.freeBoardTitle}]]</td>
-                                    <td>[[${freeBoard.freeBoardWriter}]]</td>
-                                    <td>[[${freeBoard.freeCreateDate}]]</td>
-                                </tr>
-                            </th:block>
-                        </table>
+                        <nav>
+                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                              <button class="nav-link active" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab">자유 게시판</button>
+                              <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab">QnA 게시판</button>
+                            </div>
+                        </nav>
+                        <div class="tab-content" id="nav-tabContent">
+                            <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
+                                <table class="board-table">
+                                    <colgroup>
+                                        <col width="*">
+                                        <col width="10%">
+                                        <col width="20%">
+                                    </colgroup>
+                                    <!-- 게시글 없을 때 -->
+                                    <th:block th:if="${#lists.size(freeBoardList) == 0}">
+                                        <tr>
+                                            <td colspan="5">조회된 게시글이 없습니다</td>
+                                        </tr>
+                                    </th:block>
+                                    <!-- 게시글 있을 때 -->
+                                    <th:block th:unless="${#lists.size(freeBoardList) == 0}">
+                                        <tr class="board-tr" th:onclick="|location.href='@{/board/boardDetail(freeBoardNum=${freeBoard.freeBoardNum})}'|" th:each="freeBoard : ${freeBoardList}">
+                                            <td class="board_td_title">[[${freeBoard.freeBoardTitle}]]</td>
+                                            <td>[[${freeBoard.freeBoardWriter}]]</td>
+                                            <td>[[${freeBoard.freeCreateDate}]]</td>
+                                        </tr>
+                                    </th:block>
+                                </table>
+                            </div>
+                            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">...</div>
+                        </div>
                     </div>
                     <div class="col-6 main-slide">
                         <div class="slide">

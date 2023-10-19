@@ -55,8 +55,9 @@ document.addEventListener('DOMContentLoaded', function() {
       // data = rentalTimeList
         let inputTr = document.querySelector('#input-tr');
 
-        let str ='';
-        data.forEach(rentalTime, index => {
+        let str ='';   
+        console.log(data[0]);
+        data.forEach(rentalTime => {
                         if (rentalTime.rentalFacilityList.rentalDate != null) {
                             str += '<tr>';
                             str += '<td>';
