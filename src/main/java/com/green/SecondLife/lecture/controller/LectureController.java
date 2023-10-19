@@ -28,6 +28,17 @@ public class LectureController {
     private final InstructorService instructorService;
     private final MemberService memberService;
 
+    //관리자용 강좌 종목 개설 페이지
+    @GetMapping("/adminCreateLectureEventForm")
+    public String adminCreateLectureEvent(SubMenuVO subMenuVO){
+        return "admin/admin_create_lecture_event_form";
+    }
+    //관리자용 강좌 종목 개설 기능
+    @PostMapping("/adminCreateLectureEvent")
+    public String adminCreateLectureEvent(){
+        return "";
+    }
+
     //강좌등록 페이지로 이동
     @GetMapping("/insertLectureForm")
     public String insertLectureForm(Model model, SubMenuVO subMenuVO){
@@ -63,6 +74,14 @@ public class LectureController {
         lectureService.deleteLecture(lectureVO);
         return "redirect:/lecture/selectLectureList";
     }
+
+    //↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ //
+    //관리자//관리자//관리자//관리자//관리자//관리자//관리자//관리자//관리자//관리자//관리자//관리자//관리자//관리자//관리자//관리자//
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//
+    //↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ //
+
     //수강 신청 페이지로 이동
     @GetMapping("/goLectureApplyForm")
     public String goLectureApplyForm(LectureVO lectureVO, Model model, HttpSession session){

@@ -6,7 +6,6 @@
     <!-- 강사 테이블 -->
 	<resultMap id="instructor" type="com.green.SecondLife.instructor.vo.InstructorVO">
         <id column="INSTRUCTOR_CODE"              property="instructorCode"/>
-        <result column="INSTRUCTOR_MAJOR"         property="instructorMajor"/>
         <result column="INSTRUCTOR_NAME"          property="instructorName"/>
         <result column="INSTRUCTOR_AGE"           property="instructorAge"/>
         <result column="INSTRUCTOR_GENDER"        property="instructorGender"/>
@@ -42,7 +41,6 @@
     <insert id="insertInstructor">
         INSERT INTO INSTRUCTOR (
             INSTRUCTOR_CODE
-            , INSTRUCTOR_MAJOR
             , INSTRUCTOR_NAME
             , INSTRUCTOR_AGE
             , INSTRUCTOR_GENDER
@@ -50,7 +48,6 @@
             , INSTRUCTOR_ADDR
         ) VALUES (
             #{instructorCode}
-            , #{instructorMajor}
             , #{instructorName}
             , #{instructorAge}
             , #{instructorGender}
@@ -80,7 +77,6 @@
     <select id="selectInstructorList" resultMap="instructor">
         SELECT INS.INSTRUCTOR_CODE
             , INSTRUCTOR_NAME
-            , INSTRUCTOR_MAJOR
             , INSTRUCTOR_AGE
             , INSTRUCTOR_GENDER
             , INSTRUCTOR_PHONE
@@ -94,7 +90,6 @@
     <select id="selectInstructorDetail" resultMap="instructor">
         SELECT INSTRUCTOR.INSTRUCTOR_CODE
             , INSTRUCTOR_NAME
-            , INSTRUCTOR_MAJOR
             , INSTRUCTOR_AGE
             , INSTRUCTOR_GENDER
             , INSTRUCTOR_PHONE
