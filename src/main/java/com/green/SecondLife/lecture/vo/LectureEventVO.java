@@ -7,4 +7,5 @@ public class LectureEventVO {
     private String lectureEventCode;
     private String lectureEventName;
     private String lectureEventContent;
+    private LectureEventImgVO lectureEventImgVO;
 }

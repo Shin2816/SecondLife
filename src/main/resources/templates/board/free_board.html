@@ -15,7 +15,7 @@
         <!-- 검색 영역 -->
         <div class="row-12 d-flex justify-content-between">
             <input th:if="${session.loginInfo != null}" class="btn btn-primary" type="button" value="등록하기" onclick="location.href='regBoardForm';">
-            <button class="btn btn-primary" onclick="">내글 찾기</button>
+            <button th:if="${session.loginInfo != null}" class="btn btn-primary" onclick="freeMyBoard()">내글 찾기</button>
             <form action="/board/freeBoardList" method="post" class="col-5 d-flex">
                 <select name="searchType" class="form-select list-select" aria-label="Default select example">
                     <option value="FREE_BOARD_TITLE" selected>제목</option>
@@ -41,7 +41,7 @@
                 </tr>
             </th:block>
             <!-- 게시글 있을 때 -->
-            <th:block th:unless="${#lists.size(freeBoardList) == 0}">
+            <th:block th:unless="${#lists.size(freeBoardList) == 0}" id="board-list-block">
                 <tr class="board-tr" th:each="freeBoard, state : ${freeBoardList}" th:onclick="|location.href='@{/board/boardDetail(freeBoardNum=${freeBoard.freeBoardNum})}'|">
                     <td>[[${freeBoard.freeBoardNum}]]</td>
                     <td>[[${freeBoard.freeBoardTitle}]]</td>

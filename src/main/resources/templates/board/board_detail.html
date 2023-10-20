@@ -41,7 +41,6 @@
             <!-- 작성자가 같거나 관리자라면 -->
             <div class="btn-group" th:if="${board.freeBoardWriter == session.loginInfo.memberId or session.loginInfo.memberRoll == 'ADMIN'}">
                 <input type="button" class="btn btn-primary" value="삭제" th:onclick="deleteboard([[${board.freeBoardNum}]])">
-                <!-- <input type="button" class="btn btn-primary" value="수정" th:onclick="|location.href='@{/board/updateFreeBoardForm(freeBoardNum=${board.freeBoardNum})}'|"> -->
                 <input type="button" class="btn btn-primary" value="수정" data-bs-target="#freeUpdateBoard" data-bs-toggle="modal">
             </div>
 

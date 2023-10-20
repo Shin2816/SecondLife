@@ -3,6 +3,7 @@ package com.green.SecondLife.util;
 import com.green.SecondLife.center.vo.FacilityImageVO;
 import com.green.SecondLife.instructor.vo.InstructorImgVO;
 import com.green.SecondLife.lecture.vo.LectureEventImgVO;
+import com.sun.tools.javac.Main;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -105,8 +106,34 @@ public class UploadUtil {
             //첨부파일은 원본파일이 또 한번 저장될 때 덮어써짐 => 파일명을 바꿔주면 저장됨
             //랜덤한 파일이름으로 만들어주기
             String uuid = UUID.randomUUID().toString();
+
+            //첨부할 파일의 확장자 추출
+            int dotIndex = lectureEventOriginFileName.lastIndexOf('.');
+            String extension = lectureEventOriginFileName.substring(dotIndex);
+            //첨부할 파일의 첨부파일명 만들기
+            String lectureEventAttachedFileName = uuid + extension;
+
+            //파일 첨부
+            //간단하게 기능만 구현하려고 하지만
+            //파일 첨부 기능 자체가 예외처리를 하지않으면 구현할 수 없기때문에
+            //try catch문으로 예외처리를 해주고
+            //예외처리는 에러가 나는걸 막아주려고하는거지만
+            //기능을 구현하기위한 목적으로만 썼기때문에 catch문으로 넘어갔을떄에는 의도적으로 에러를 내준다
+            //catch문으로 넘어가서 코드가 계속 진행되기때문에
+            try {
+                //파일 첨부 하기
+                File file = new File(ConstantVariable.UPLOAD_PATH_LECTURE_EVENT + lectureEventAttachedFileName);
+                multipartImgFile.transferTo(file);
+                //imgVO 에 원본파일명, 첨부파일명값 넣어주기
+                lectureEventImgVO.setLectureEventOriginFileName(lectureEventOriginFileName);
+                lectureEventImgVO.setLectureEventAttachedFileName(lectureEventAttachedFileName);
+            } catch (IOException e){
+                //예외발생시 그냥 에러 내버리기
+                throw new RuntimeException(e);
+            }
         }
-        return null;
+        // 원본파일명, 첨부파일명이 들어간 VO 리턴 해주기
+        return lectureEventImgVO;
     }
 
 
