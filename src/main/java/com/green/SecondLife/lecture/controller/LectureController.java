@@ -66,8 +66,6 @@ public class LectureController {
     //강좌등록 페이지로 이동
     @GetMapping("/insertLectureForm")
     public String insertLectureForm(Model model, SubMenuVO subMenuVO){
-        //강좌과목 조회
-        model.addAttribute("subjectList",instructorService.selectSubjectList());
         //강사목록 조회
         model.addAttribute("instructorList", instructorService.selectInstuctorList());
         return "admin/insert_lecture";
@@ -79,12 +77,11 @@ public class LectureController {
         lectureService.insertLecture(lectureVO);
         return "redirect:/lecture/selectLectureList";
     }
-    //강좌 목록 조회
-    @GetMapping("/selectLectureList")
-    public String selectLectureList(Model model, String instructorCode){
-        System.out.println("@@@@@@@@@@@@@" + lectureService.selectLectureList(instructorCode));
+    //관리자용 강좌 목록 조회 페이지
+    @GetMapping("/adminSelectLectureList")
+    public String adminSelectLectureList(Model model, String instructorCode, SubMenuVO subMenuVO){
         model.addAttribute("lectureList", lectureService.selectLectureList(instructorCode));
-        return "admin/manage_lecture";
+        return "admin/admin_lecture_list";
     }
     //강좌 상세 정보 조회
     @GetMapping("/selectLectureDetail")
