@@ -23,8 +23,6 @@ public class InstructorController {
     //강사등록 페이지로 이동
     @GetMapping("/insertInstructorForm")
     public String insertInstructorForm(Model model, SubMenuVO subMenuVO){
-        //강사 전공 카테고리 조회
-        model.addAttribute("subjectList", instructorService.selectSubjectList());
         return "admin/insert_instructor";
     }
     //강사 등록 기능 + 이미지
