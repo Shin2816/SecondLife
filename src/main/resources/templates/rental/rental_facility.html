@@ -48,6 +48,27 @@
             </div>
         </div>
         
+        <!-- 모달창 -->
+        <div class="modal fade" id="signUpModal"tabindex="-1" aria-labelledby="signUpModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="offset-2 col-10 text-start mb-2">시설명 : <span id="facility-name-span"></span></div>
+                            <div class="offset-2 col-10 text-start mb-2">대관타임 : <span id="rental-time-span"></span></div>
+                            <div class="offset-2 col-10 text-start mb-2">대관요금 : <span id="rental-charge-span"></span></div>
+                            <div class="offset-2 col-10 text-start mb-2">사용자 : <span id="user-name-span"></span></div>
+                            <div class="offset-2 col-10 text-start mb-2">단체명 : <input class=input-box type="text" name="rentalTeam"></div>
+                            <div class="offset-2 col-10 text-start mb-2">사용목적 : <input class=input-box type="text" name="rentalPurpose"></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                        <button type="button" class="btn btn-primary">신청하기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js"></script>
         <script src="/js/rental_facility.js"></script>

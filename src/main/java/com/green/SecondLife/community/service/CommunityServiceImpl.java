@@ -78,8 +78,8 @@ public class CommunityServiceImpl implements CommunityService{
     }
     //내글 찾기 조회
     @Override
-    public List<BoardFreeListVO> selectFreeMyBoard(String freeBoardWriter) {
-        return sqlSession.selectList("communityMapper.selectFreeMyBoard", freeBoardWriter);
+    public List<BoardFreeListVO> selectFreeMyBoard(BoardFreeListVO boardFreeListVO) {
+        return sqlSession.selectList("communityMapper.selectFreeMyBoard", boardFreeListVO);
     }
 
 }

@@ -265,3 +265,74 @@ function deleteboard(freeBoardNum){
         location.href=`/board/deleteFreeBoard?freeBoardNum=${freeBoardNum}`;
     }
 }
+//////////////////////////////////////////////////////////////////////////////내글 찾기 비동기
+function freeMyBoard(){
+    fetch('/board/freeMyBoard', { //요청경로
+        method: 'POST',
+        cache: 'no-cache',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        },
+        //컨트롤러로 전달할 데이터
+        body: new URLSearchParams({
+            // 데이터명 : 데이터값
+        })
+    })
+    .then((response) => {
+        if(!response.ok){
+            alert('fetch error!\n컨트롤러로 통신중에 오류가 발생했습니다.');
+            return ;
+        }
+    
+        //return response.text(); //컨트롤러에서 return하는 데이터가 없거나 int, String 일 때 사용
+        return response.json(); //나머지 경우에 사용
+    })
+    //fetch 통신 후 실행 영역
+    .then((data) => {//data -> controller에서 리턴되는 데이터!
+        console.log(data);
+        //컨트롤러에서 데이터 조회 후 조회한 데이터를 표로 다시 그려준다.
+        //1. 다시 그래주기위해 표를 우선 지운다!
+        const boardList = document.querySelector('#board-list-block');
+        boardList.innerHTML = ''; //초기화
+
+        data.forEach((element) => {//하나씩 뺏을 때 element
+            const row = document.createElement('tr');
+            row.classList.add('board-tr'); //tr태그에 class board-tr 스타일적용
+            //내용 변경
+            row.innerHTML = ` 
+                <td>${element.freeBoardNum}</td>
+                <td>${element.freeBoardTitle}</td>
+                <td>${element.freeBoardWriter}</td>
+                <td>${element.freeCreateDate}</td>
+                <td>${element.freeBoardReadCnt}</td>
+            `;
+            boardList.appendChild(row); //<th:block></th:block>안에 tr태그 넣기
+        });
+
+        //boardList.textContent = '';
+
+        //2. 조회한 데이터로 표를 다시 그려준다!
+        //let tag = '';
+
+        //html의 반복문 인식 못하는듯
+
+        // //element : 리스트에서 하나씩 뺀 데이터의 이름
+        // data.map(function(element, index){
+        //     tag = `<tr class="board-tr" th:each="freeBoard, state : ${freeBoardList}" th:onclick="|location.href='@{/board/boardDetail(freeBoardNum=${freeBoard.freeBoardNum})}'|">;
+        //                 <td>${element.freeBoardNum}</td>
+        //                 <td>${element.freeBoardTitle}</td>
+        //                 <td>${element.freeBoardWriter}</td>
+        //                 <td>${element.freeCreateDate}</td>
+        //                 <td>${element.freeBoardReadCnt}</td>
+        //             <tr>`;
+        // });
+
+        //3. 새로 만든 html을 원하는 위치에 붙여 넣어야한다!
+        //boardList.insertAdjacentHTML('afterbegin', tag);
+    })
+    //fetch 통신 실패 시 실행 영역
+    .catch(err=>{
+        alert('fetch error!\nthen 구문에서 오류가 발생했습니다.\n콘솔창을 확인하세요!');
+        console.log(err);
+    });
+}

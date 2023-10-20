@@ -200,6 +200,7 @@
         WHERE FREE_BOARD_WRITER = #{freeBoardWriter}
         ORDER BY FREE_BOARD_NUM DESC
     </select>
+    <!--화면에 어떻게 뿌려야할지-->
     <!--////////////////////////////////////////////Q&A게시판/////////////////////////////////////-->
     <!--Q&A 게시판 목록 조회-->
     <select id="selectQaBoardList" resultMap="qaList">
