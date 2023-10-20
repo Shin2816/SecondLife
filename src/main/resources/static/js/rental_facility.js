@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 str += `<td>`;
 
                 if (rentalTime.rentalFacilityList.rentalStatus == 0) {
-                    str += rentalTime.rentalFacilityList.rentalCharge;
+                    str += rentalTime.rentalFacilityList.rentalCharge.toLocaleString('ko-KR');
                 } else if (rentalTime.rentalFacilityList.rentalStatus == 1) {
                     str += '<span style="color: blue;">승인 대기중</span>';
                 } else if (rentalTime.rentalFacilityList.rentalStatus == 2) {
@@ -116,33 +116,41 @@ function signBtn(){
     let rentCharge = 0;   //
     let facilityName = '';
     let rentTimes = [];
-    let renTimeObject = {};
-    renTimeObject['startTime'] = '';
-    renTimeObject['endTime'] = '';
-    let startTime = '';
-    let endTime = '';
+    rentalTimeSpan.innerHTML = '';
+
+    //renTimeObject['startTime'] = '';
+    //renTimeObject['endTime'] = '';
+    //let startTime = '';
+    //let endTime = '';
 
     checkBoxes.forEach(function(checkBox, idx){
         if(checkBox.checked == true){
             ++checkBoxCnt; //체크된 체크박스 개수 증가
             rentCharge = checkBox.dataset.rentalCharge; //요금 dataset들고오기
             facilityName = checkBox.dataset.facilityName; //시설이름 들고오기
-            startTime = checkBox.dataset.startTime;
-            endTime = checkBox.dataset.endTime;
+            let renTimeObject = {'startTime' : checkBox.dataset.startTime, 'endTime' : checkBox.dataset.endTime};
+            // startTime = checkBox.dataset.startTime;
+            // endTime = checkBox.dataset.endTime;
             
-            renTimeObject.startTime = startTime;
-            renTimeObject.endTime = endTime;
+            // renTimeObject.startTime = startTime;
+            // renTimeObject.endTime = endTime;
             rentTimes.push(renTimeObject);
         }
     });
     
     
     console.log(rentTimes);
-    console.log(renTimeObject);
+    // console.log(renTimeObject);
 
     console.log(rentTimes.map(rentTime => rentTime.startTime));
-    
 
+    rentTimes.forEach(rentTime => {
+        rentTime.startTime +' ~ '+rentTime.endTime+'\n'
+    });
+
+    rentTimes.forEach(rentTime => {
+        console.log(rentTime.startTime +' ~ '+rentTime.endTime);
+    });
 
     //로그인체크
     // if(memberName == 'null'){
@@ -158,6 +166,11 @@ function signBtn(){
         facilityNameSpan.textContent = facilityName;
         rentalChargeSpan.textContent = (rentCharge*checkBoxCnt).toLocaleString('ko-KR') + '원';
         userNameSpan.innerHTML = memberName;
+        rentTimes.forEach(rentTime => {
+            let rent = '<div>'+rentTime.startTime +' ~ '+rentTime.endTime+'</div>';
+            rentalTimeSpan.innerHTML += rent;
+        });
+        //rentalTimeSpan.innerHTML;
 
         const myModal = new bootstrap.Modal('#signUpModal');
         myModal.show();
