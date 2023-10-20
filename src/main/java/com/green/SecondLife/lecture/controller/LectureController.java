@@ -31,13 +31,12 @@ public class LectureController {
     //관리자용 강좌 종목 개설 페이지
     @GetMapping("/adminInsertLectureEventForm")
     public String adminInsertLectureEventForm(SubMenuVO subMenuVO){
-        subMenuVO.setMenuCode("MENU_002");
+        System.out.println("aaaaa");
         return "admin/admin_insert_lecture_event_form";
     }
     //관리자용 강좌 종목 개설 기능 (이미지 등록 기능도 포함)
     @PostMapping("/adminInsertLectureEvent")
-    public String adminInsertLectureEvent(LectureEventVO lectureEventVO, MultipartFile multipartImgFile, SubMenuVO subMenuVO){
-        System.out.println(subMenuVO);
+    public String adminInsertLectureEvent(LectureEventVO lectureEventVO, MultipartFile multipartImgFile){
         //인서트할 다음 강좌 종목 코드 조회
         System.out.println(multipartImgFile);
         String lectureEventCode = lectureService.adminSelectNextLectureEventCode();

@@ -247,6 +247,7 @@ function updateresetMessage(){
     document.querySelector('.email-error-div').style.display = 'none';
 }
 
+
 //메인페이지 slick 슬라이드
 $(function(){
     $('.slide').slick({

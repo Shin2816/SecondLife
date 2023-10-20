@@ -9,7 +9,7 @@
 <body>
 <th:block layout:fragment="content">
 <h1>관리자용 강좌 종목 생성 페이지</h1>
-<form action="/admin/adminInsertLectureEvent" method="post" enctype="multipart/form-data">
+<form action="/lecture/adminInsertLectureEvent" method="post" enctype="multipart/form-data">
     <div>
         <p>강좌 종목 이름</p>
         <span><input type="text" name="lectureEventName"></span>
@@ -22,7 +22,6 @@
         <p>강좌 종목 이미지</p>
         <span><input type="file" name="lectureEventImg"></span>
     </div>
-    <input type="hidden" name="menuCode" value="MENU_002">
     <input type="submit" value="생성">
 </form>
 </th:block>
