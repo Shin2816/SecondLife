@@ -4,10 +4,13 @@
 .board-tr{
     cursor: pointer;
     border-bottom: 1px dotted black;
+    line-height: 2;
 }
 .free-table{
     border-bottom: 1px solid black;
 }
 .free-table-head{
     border-bottom: 1px solid black;
+    line-height: 2;
+    background-color: rgb(206, 226, 243);
 }

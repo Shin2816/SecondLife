@@ -10,5 +10,5 @@ public class BoardQaListVO {
     private String qaBoardWriter;
     private String qaCreateDate;
     private int qaBoardReadCnt;
-    private String qaBoardIsOpen; // Q&A 공개 여부, 기본값 'OPEN'
+    private String qaBoardIsClose; // Q&A 공개 여부, 기본값 'OPEN'
 }
