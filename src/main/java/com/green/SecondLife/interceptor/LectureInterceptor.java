@@ -16,7 +16,9 @@ public class LectureInterceptor implements HandlerInterceptor {
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
 
-        modelAndView.addObject("lectureList", lectureService.selectMainLectureList());
+        if(modelAndView != null){
+            modelAndView.addObject("lectureList", lectureService.selectMainLectureList());
+        }
 
     }
 }
