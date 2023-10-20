@@ -56,6 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let inputTr = document.querySelector('#input-tr');
         let memberName = document.querySelector('#memberName').value;
         console.log(memberName);
+        console.log(data.map(d => d.rentalCharge));
 
         let str ='';
         data.forEach(rentalTime => {
@@ -63,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 str += '<tr>';
                 str += '<td>';
                 if (rentalTime.rentalFacilityList.rentalStatus == 0) {
-                    str += '<input type="checkbox" class="rental-checkboxes">';
+                    str += '<input type="checkbox">';
                 } else {
                     str += '<input type="checkbox" disabled>';
                 }
@@ -86,31 +87,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 str += '</tr>';
             }
         });
-        
-        str += `
-                <button id=sign-btn type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">신청하기</button>
-                                    
-                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-body">
-                                <div class="row">
-                                    <div class="offset-2 col-10 text-start mb-2">시설명 : </div>
-                                    <div class="offset-2 col-10 text-start mb-2">대관타임 : </div>
-                                    <div class="offset-2 col-10 text-start mb-2">대관요금 : </div>
-                                    <div class="offset-2 col-10 text-start mb-2">사용자 : </div>
-                                    <div class="offset-2 col-10 text-start mb-2">단체명 : <input class=input-box type="text" name="rentalTeam"></div>
-                                    <div class="offset-2 col-10 text-start mb-2">사용목적 : <input class=input-box type="text" name="rentalPurpose"></div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                                <button type="button" class="btn btn-primary">신청하기</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-        `;
+
+        str += `<button id=sign-btn type="button" class="btn btn-primary" onclick="signBtn('${memberName}')">신청하기</button>`;     
+       
         inputTr.innerHTML = str;
     })
     //fetch 통신 실패 시 실행 영역
@@ -120,3 +99,45 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 }
 
+function signBtn(memberName, rentalCharge){
+    const checkBoxes = document.querySelectorAll('input[type=checkbox]');
+    const facilityCodeSpan = document.querySelector('#facility-name-span');
+    const rentalTimeSpan = document.querySelector('#rental-time-span');
+    const rentalChargeSpan = document.querySelector('#rental-charge-span');
+    const userNameSpan = document.querySelector('#user-name-span');
+
+
+    // 체크박스의 개수
+    let checkBoxCnt = 0;
+
+    //체크한다면 checkBoxCnt ++;
+    checkBoxes.forEach(function(checkBox){
+        if(checkBox.checked == true){
+            ++checkBoxCnt;
+        }
+    });
+
+    if(memberName == 'null'){
+        alert('로그인 후 이용 가능 합니다');
+        location.href = '/member/loginForm';
+    } else {
+        if(checkBoxCnt == 0){
+            alert('신청할 시간대를 체크해주세요.');
+        } else{
+            //데이터 조회
+            //데이터를 모달에 세팅
+            //모달창 띄우기
+            rentalChargeSpan.textContent = (rentalCharge * checkBoxCnt).toLocaleString('ko-KR') + '원';
+            userNameSpan.innerHTML = memberName;
+
+
+            const myModal = new bootstrap.Modal('#signUpModal');
+            myModal.show();
+
+            // setTimeout(() => {
+            //     myModal.hide();
+            // }, 2000);
+        }
+    };
+    
+}
