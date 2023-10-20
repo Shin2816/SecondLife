@@ -54,6 +54,8 @@ document.addEventListener('DOMContentLoaded', function() {
     .then((data) => {//data -> controller에서 리턴되는 데이터!
       // data = rentalTimeList
         let inputTr = document.querySelector('#input-tr');
+        let memberName = document.querySelector('#memberName').value;
+        console.log(memberName);
 
         let str ='';
         data.forEach(rentalTime => {
@@ -117,3 +119,4 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log(err);
     });
 }
+

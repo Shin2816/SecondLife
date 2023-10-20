@@ -10,6 +10,12 @@
     <th:block layout:fragment="content">
         <link rel="stylesheet" href="/css/rental_facility.css">
         <div class="row">
+            <th:block th:if="${session.loginInfo == null}">
+                <input type="hidden" id="memberName" value="null">
+            </th:block>
+            <th:block th:unless="${session.loginInfo == null}">
+                <input type="hidden" id="memberName" th:value="${session.loginInfo.memberName}">
+            </th:block>
             <div class="col-6">
                 <div id='calendar'></div>
             </div>
