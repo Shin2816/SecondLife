@@ -6,7 +6,6 @@ import com.green.SecondLife.community.vo.BoardFreeListVO;
 import com.green.SecondLife.member.vo.MemberVO;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.ListableBeanFactoryExtensionsKt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,26 +19,17 @@ import java.util.List;
 public class CommunityController {
     private final CommunityService communityService;
 
-    //게시판 출력
+    //자유 게시판 출력
     @RequestMapping("/freeBoardList")
     public String freeBoardList(Model model, BoardFreeListVO boardFreeListVO){
-
-        //세션에 저장된 memberID를 VO에 넣기
-        //MemberVO loginInfo = (MemberVO)session.getAttribute("loginInfo");
-        //boardFreeListVO.setFreeBoardWriter(loginInfo.getMemberId());
-
         //페이지 정보 세팅
         int totalDataCnt = communityService.selectBoardCnt(); //전체 게시글 갯수 조회해서
         boardFreeListVO.setTotalPageCnt(totalDataCnt);//세터 호출해서 전체 게시글 갯수 전달
         boardFreeListVO.setPageInfo();//변수값 설정한 메소드 호출(상속관계라 사용가능)
 
-
         //게시글 목록 조회
         List<BoardFreeListVO> freeBoardList = communityService.selectFreeBoardList(boardFreeListVO);
         model.addAttribute("freeBoardList", freeBoardList);
-
-        //내글 찾기 조회
-        //model.addAttribute("freeMyBoard", communityService.selectFreeMyBoard(boardFreeListVO));
 
         return "board/free_board";
     }
@@ -126,6 +116,4 @@ public class CommunityController {
         System.out.println(boardCommentListVO);
         communityService.updateFreeBoardComment(boardCommentListVO);
     }
-    ////////////////////////////////////////// Q&A게시판 /////////////////////////////////////////////////
-
 }

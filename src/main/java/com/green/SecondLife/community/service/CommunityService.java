@@ -2,6 +2,7 @@ package com.green.SecondLife.community.service;
 
 import com.green.SecondLife.community.vo.BoardCommentListVO;
 import com.green.SecondLife.community.vo.BoardFreeListVO;
+import com.green.SecondLife.community.vo.BoardQaListVO;
 
 import java.util.List;
 
@@ -30,12 +31,8 @@ public interface CommunityService {
     public List<BoardFreeListVO> selectMainFreeBoardList();
     //게시글 갯수 조회
     public int selectBoardCnt();
-    //내가 쓴 게시글 갯수 조회
-    public int selectMyBoardCnt(BoardFreeListVO boardFreeListVO);
     //내가 쓴 글 조회
-    public List<BoardFreeListVO> selectFreeMyBoard(BoardFreeListVO boardFreeListVO);
+    //public List<BoardFreeListVO> selectFreeMyBoard(BoardFreeListVO boardFreeListVO);
 
-
-    ///////////////////////////////////// Q&A ////////////////////////////////////////////
 
 }

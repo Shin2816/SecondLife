@@ -2,6 +2,7 @@ package com.green.SecondLife.community.service;
 
 import com.green.SecondLife.community.vo.BoardCommentListVO;
 import com.green.SecondLife.community.vo.BoardFreeListVO;
+import com.green.SecondLife.community.vo.BoardQaListVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -54,13 +55,11 @@ public class CommunityServiceImpl implements CommunityService{
     public int insertFreeBoardComment(BoardCommentListVO boardCommentListVO) {
         return sqlSession.insert("communityMapper.insertFreeBoardComment", boardCommentListVO);
     }
-
     //댓글 삭제
     @Override
     public int deleteFreeBoardComment(int commentId) {
         return sqlSession.delete("communityMapper.deleteFreeBoardComment", commentId);
     }
-
     //댓글 수정
     @Override
     public int updateFreeBoardComment(BoardCommentListVO boardCommentListVO) {
@@ -77,15 +76,10 @@ public class CommunityServiceImpl implements CommunityService{
         return sqlSession.selectOne("communityMapper.selectBoardCnt");
     }
 
-    @Override
-    public int selectMyBoardCnt(BoardFreeListVO boardFreeListVO) {
-        return sqlSession.selectOne("communityMapper.selectMyBoardCnt", boardFreeListVO);
-    }
-
     //내글 찾기 조회
-    @Override
-    public List<BoardFreeListVO> selectFreeMyBoard(BoardFreeListVO boardFreeListVO) {
-        return sqlSession.selectList("communityMapper.selectFreeMyBoard", boardFreeListVO);
-    }
+//    @Override
+//    public List<BoardFreeListVO> selectFreeMyBoard(BoardFreeListVO boardFreeListVO) {
+//        return sqlSession.selectList("communityMapper.selectFreeMyBoard", boardFreeListVO);
+//    }
 
 }
