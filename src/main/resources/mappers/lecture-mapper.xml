@@ -44,7 +44,7 @@
         <result column="LECTURE_EVENT_ATTACHED_FILE_NAME"   property="lectureEventAttachedFileName"/>
     </resultMap>
     <!-- 관리자용 다음 강좌 종목 코드 조회 쿼리 -->
-    <select id="adminSelectNextLectureEventCode" resultMap="lectureEvent">
+    <select id="adminSelectNextLectureEventCode" resultType="String">
         SELECT 'LECTURE_EVENT_'||LPAD(NVL(MAX(TO_NUMBER(SUBSTR(LECTURE_EVENT_CODE, 15))), 0) + 1, 3,'0')
         FROM LECTURE_EVENT
     </select>
@@ -68,11 +68,11 @@
             , LECTURE_EVENT_ORIGIN_FILE_NAME
             , LECTURE_EVENT_ATTACHED_FILE_NAME
         ) VALUES (
-            (SELECT 'LECTURE_EVENT_'||LPAD(NVL(MAX(TO_NUMBER(SUBSTR(INSTRUCTOR_CODE, 15))), 0) + 1, 3,'0')||'_IMG'
+            (SELECT 'LECTURE_EVENT_IMG_'||LPAD(NVL(MAX(TO_NUMBER(SUBSTR(LECTURE_EVENT_IMG_CODE, 19))), 0) + 1, 3,'0')
             FROM LECTURE_EVENT_IMG)
             , #{lectureEventCode}
-            , #{lectureEventOriginFileName}
-            , #{lectureEventAttachedFileName}
+            , #{lectureEventImgVO.lectureEventOriginFileName}
+            , #{lectureEventImgVO.lectureEventAttachedFileName}
         )
     </insert>
     <!-- 관리자용 강좌 종목 리스트 조회 쿼리 -->
@@ -84,6 +84,17 @@
             , LECTURE_EVENT_ATTACHED_FILE_NAME
         FROM LECTURE_EVENT EVENT, LECTURE_EVENT_IMG IMG
         WHERE EVENT.LECTURE_EVENT_CODE = IMG.LECTURE_EVENT_CODE
+    </select>
+    <!-- 관리자용 강좌 리뷰 리스트 조회 쿼리 -->
+    <select id="adminSelectLectureReviewList" resultMap="lectureReview">
+        SELECT LECTURE_REVIEW_CODE
+            , LECTURE_CODE
+            , INSTRUCTOR_CODE
+            , STUDENT_CODE
+            , LECTURE_STAR_POINT
+            , LECTURE_REVIEW_CONTENT
+            , TO_CHAR (LECTURE_REVIEW_DATE, 'YYYY-MM-DD') LECTURE_REVIEW_DATE
+        FROM LECTURE_REVIEW
     </select>
 
 
