@@ -8,8 +8,15 @@
 </head>
 <body>
 <th:block layout:fragment="content">
+    <link rel="stylesheet" href="/css/admin_lecture_event_list.css">
 <h1>관리자용 강좌 종목 현황</h1>
-
+<div>
+    <div th:each="lectureEvent : ${lectureEventList}" class="box">
+        <p class="event-img"><img th:src="${'/images/lectureEvent/' + lectureEvent.lectureEventImgVO.lectureEventAttachedFileName}"></p>
+        <p>[[${lectureEvent.lectureEventName}]]</p>
+        <p>[[${lectureEvent.lectureEventContent}]]</p>
+    </div>
+</div>
 </th:block>
 </body>
 </html>

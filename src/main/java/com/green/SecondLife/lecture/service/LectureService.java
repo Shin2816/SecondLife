@@ -17,6 +17,8 @@ public interface LectureService {
 
     //관리자용 강좌 종목 리스트 조회 기능
     public List<LectureEventVO> adminSelectLectureEventList();
+    //관리자용 강좌 리뷰 리스트 조회 기능
+    public List<LectureReviewVO> adminSelectLectureReviewList();
 
 
     //강좌 등록 기능

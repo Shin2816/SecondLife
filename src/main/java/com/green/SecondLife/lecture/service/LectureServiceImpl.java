@@ -31,11 +31,15 @@ public class LectureServiceImpl implements LectureService{
         sqlSession.insert("lectureMapper.adminInsertLectureEvent", lectureEventVO);
         sqlSession.insert("lectureMapper.adminInsertLectureEventImg", lectureEventVO);
     }
-
     //관리자용 강좌 종목 리스트 조회 기능
     @Override
     public List<LectureEventVO> adminSelectLectureEventList() {
         return sqlSession.selectList("lectureMapper.adminSelectLectureEventList");
+    }
+    //관리자용 강좌 리뷰 리스트 조회 기능
+    @Override
+    public List<LectureReviewVO> adminSelectLectureReviewList() {
+        return sqlSession.selectList("lectureMapper.adminSelectLectureReviewList");
     }
 
     //강좌 등록 기능

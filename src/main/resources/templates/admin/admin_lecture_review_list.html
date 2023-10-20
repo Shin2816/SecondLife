@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{fragment/sub_layout}">
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+<th:block layout:fragment="content">
+<h1>관리자용 수업 리뷰 목록 페이지</h1>
+<div>
+    <div th:each="lectureReview : ${lectureReviewList}">
+        <span>별점(5점만점)</span><p>[[${lectureReview.lectureStarPoint}]]</p>
+        <span>내용</span><p>[[${lectureReview.lectureReviewContent}]]</p>
+        <span>작성일</span><p>[[${lectureReview.lectureReviewDate}]]</p>
+    </div>
+</div>
+</th:block>
+</body>
+</html>
