@@ -76,6 +76,10 @@ public class CommunityServiceImpl implements CommunityService{
     public int selectBoardCnt() {
         return sqlSession.selectOne("communityMapper.selectBoardCnt");
     }
-
+    //내글 찾기 조회
+    @Override
+    public List<BoardFreeListVO> selectFreeMyBoard(String freeBoardWriter) {
+        return sqlSession.selectList("communityMapper.selectFreeMyBoard", freeBoardWriter);
+    }
 
 }

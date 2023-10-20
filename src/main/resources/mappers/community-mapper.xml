@@ -196,8 +196,8 @@
             , FREE_BOARD_WRITER
             , TO_CHAR(FREE_CREATE_DATE, 'YYYY-MM-DD') FREE_CREATE_DATE
             , FREE_BOARD_READ_CNT
-        FROM BOARD_FREE_LIST F, MEMBER M
-        WHERE F.FREE_BOARD_WRITER = M.MEMBER_ID
+        FROM BOARD_FREE_LIST
+        WHERE FREE_BOARD_WRITER = #{freeBoardWriter}
         ORDER BY FREE_BOARD_NUM DESC
     </select>
     <!--////////////////////////////////////////////Q&A게시판/////////////////////////////////////-->
