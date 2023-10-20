@@ -19,8 +19,10 @@ public class BoardInterceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+        if(modelAndView != null){
+            modelAndView.addObject("freeBoardList", communityService.selectMainFreeBoardList());
 
-        modelAndView.addObject("freeBoardList", communityService.selectMainFreeBoardList());
+        }
 
     }
 }

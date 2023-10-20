@@ -54,7 +54,6 @@ document.addEventListener('DOMContentLoaded', function() {
     .then((data) => {//data -> controller에서 리턴되는 데이터!
       // data = rentalTimeList
         let inputTr = document.querySelector('#input-tr');
-        let memberName = document.querySelector('#memberName').value;
         console.log(memberName);
 
         let str ='';
@@ -63,14 +62,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 str += '<tr>';
                 str += '<td>';
                 if (rentalTime.rentalFacilityList.rentalStatus == 0) {
-                    str += '<input type="checkbox" class="rental-checkboxes">';
+                    str += `<input type="checkbox" 
+                            data-rental-charge='${rentalTime.rentalFacilityList.rentalCharge}'
+                            data-facility-name='${rentalTime.rentalFacilityList.facilityName}'>`;
                 } else {
                     str += '<input type="checkbox" disabled>';
                 }
 
                 str += '</td>';
-                str += '<td>' + rentalTime.rentalStartTime + ' ~ ' + rentalTime.rentalEndTime + '</td>';
-                str += '<td>';
+                str += '<td class="rental-time">' + rentalTime.rentalStartTime + ' ~ ' + rentalTime.rentalEndTime + '</td>';
+                str += `<td class="rental-charge">`;
 
                 if (rentalTime.rentalFacilityList.rentalStatus == 0) {
                     str += rentalTime.rentalFacilityList.rentalCharge;
@@ -86,31 +87,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 str += '</tr>';
             }
         });
-        
-        str += `
-                <button id=sign-btn type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">신청하기</button>
-                                    
-                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-body">
-                                <div class="row">
-                                    <div class="offset-2 col-10 text-start mb-2">시설명 : </div>
-                                    <div class="offset-2 col-10 text-start mb-2">대관타임 : </div>
-                                    <div class="offset-2 col-10 text-start mb-2">대관요금 : </div>
-                                    <div class="offset-2 col-10 text-start mb-2">사용자 : </div>
-                                    <div class="offset-2 col-10 text-start mb-2">단체명 : <input class=input-box type="text" name="rentalTeam"></div>
-                                    <div class="offset-2 col-10 text-start mb-2">사용목적 : <input class=input-box type="text" name="rentalPurpose"></div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                                <button type="button" class="btn btn-primary">신청하기</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-        `;
+
+        str += `<button id=sign-btn type="button" class="btn btn-primary" onclick="signBtn()">신청하기</button>`;     
+       
         inputTr.innerHTML = str;
     })
     //fetch 통신 실패 시 실행 영역
@@ -120,3 +99,50 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 }
 
+function signBtn(){
+    //사용자
+    let memberName = document.querySelector('#memberName').value;
+    const checkBoxes = document.querySelectorAll('input[type=checkbox]');
+    const rentTimes = document.querySelectorAll('.rental-time');
+
+    const facilityNameSpan = document.querySelector('#facility-name-span');
+    const rentalTimeSpan = document.querySelector('#rental-time-span');
+    const rentalChargeSpan = document.querySelector('#rental-charge-span');
+    const userNameSpan = document.querySelector('#user-name-span');
+
+    // 체크박스의 개수, 요금 금액
+    let checkBoxCnt = 0;
+    let rentCharge = 0;
+    let facilityName = '';
+    checkBoxes.forEach(function(checkBox){
+        if(checkBox.checked == true){
+            ++checkBoxCnt; //체크박스 개수 
+            rentCharge = checkBox.dataset.rentalCharge; //요금 dataset들고오기
+            facilityName = checkBox.dataset.facilityName; //시설이름 들고오기
+        }
+    });
+
+    //로그인체크
+    // if(memberName == 'null'){
+    //     alert('로그인 후 이용 가능 합니다');
+    //     location.href = '/member/loginForm';
+    // } else {
+        
+    // };
+
+    if(checkBoxCnt == 0){
+        alert('신청할 시간대를 체크해주세요.');
+    } else{
+        facilityNameSpan.textContent = facilityName;
+        rentalChargeSpan.textContent = (rentCharge*checkBoxCnt).toLocaleString('ko-KR') + '원';
+        userNameSpan.innerHTML = memberName;
+
+        const myModal = new bootstrap.Modal('#signUpModal');
+        myModal.show();
+
+        // setTimeout(() => {
+        //     myModal.hide();
+        // }, 2000);
+    }
+    
+}

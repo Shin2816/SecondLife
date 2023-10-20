@@ -6,6 +6,7 @@
 	<resultMap id="rentalFacility" type="com.green.SecondLife.rental.vo.RentalFacilityVO">
         <id column="RENTAL_CODE"            property="rentalCode"/>
         <result column="FACILITY_CODE"      property="facilityCode"/>
+        <result column="FACILITY_NAME"      property="facilityName"/>
         <result column="RENTAL_DATE"        property="rentalDate"/>
         <result column="RENTAL_TIME_CODE"   property="rentalTimeCode"/>
         <result column="RENTAL_CHARGE"      property="rentalCharge"/>
@@ -39,7 +40,7 @@
             AND FACILITY_CODE = #{facilityCode}), '-') RENTAL_DATE
         , (SELECT FACILITY_NAME
             FROM CENTER_FACILITY
-            WHERE FACILITY_CODE = 'FACILITY_001') FACILITY_NAME
+            WHERE FACILITY_CODE = #{facilityCode}) FACILITY_NAME
         , NVL((SELECT RENTAL_CHARGE
             FROM RENTAL_FACILITY
             WHERE RENTAL_TIME_CODE = TIME.RENTAL_TIME_CODE

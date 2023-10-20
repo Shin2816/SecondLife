@@ -2,12 +2,11 @@ package com.green.SecondLife.lecture.controller;
 
 import com.green.SecondLife.instructor.service.InstructorService;
 import com.green.SecondLife.lecture.service.LectureService;
-import com.green.SecondLife.lecture.vo.LectureReviewVO;
-import com.green.SecondLife.lecture.vo.LectureVO;
-import com.green.SecondLife.lecture.vo.StudentVO;
+import com.green.SecondLife.lecture.vo.*;
 import com.green.SecondLife.member.service.MemberService;
 import com.green.SecondLife.member.vo.MemberVO;
 import com.green.SecondLife.member.vo.SubMenuVO;
+import com.green.SecondLife.util.UploadUtil;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Optional;
@@ -29,14 +29,34 @@ public class LectureController {
     private final MemberService memberService;
 
     //관리자용 강좌 종목 개설 페이지
-    @GetMapping("/adminCreateLectureEventForm")
-    public String adminCreateLectureEvent(SubMenuVO subMenuVO){
-        return "admin/admin_create_lecture_event_form";
+    @GetMapping("/adminInsertLectureEventForm")
+    public String adminInsertLectureEventForm(SubMenuVO subMenuVO){
+        subMenuVO.setMenuCode("MENU_002");
+        return "admin/admin_insert_lecture_event_form";
     }
-    //관리자용 강좌 종목 개설 기능
-    @PostMapping("/adminCreateLectureEvent")
-    public String adminCreateLectureEvent(){
-        return "";
+    //관리자용 강좌 종목 개설 기능 (이미지 등록 기능도 포함)
+    @PostMapping("/adminInsertLectureEvent")
+    public String adminInsertLectureEvent(LectureEventVO lectureEventVO, MultipartFile multipartImgFile, SubMenuVO subMenuVO){
+        System.out.println(subMenuVO);
+        //인서트할 다음 강좌 종목 코드 조회
+        System.out.println(multipartImgFile);
+        String lectureEventCode = lectureService.adminSelectNextLectureEventCode();
+        // lectureEventImgVO에 원본파일명 + 첨부파일명 set하기
+        LectureEventImgVO lectureEventImgVO = UploadUtil.uploadLectureEventImgFile(multipartImgFile);
+        // lectureEventVO에 위 데이터들 set 하기 (다음 강좌 종목 코드 + ImgVO)
+        // 나머지는 input 태그를 통해 넘어올 예정
+        lectureEventVO.setLectureEventCode(lectureEventCode);
+        lectureEventVO.setLectureEventImgVO(lectureEventImgVO);
+        lectureService.adminInsertLectureEventAndImg(lectureEventVO);
+        return "redirect:/admin/adminLectureEventList";
+    }
+    //관리자용 강좌 종목 리스트 페이지
+    @GetMapping("/adminLectureEventList")
+    public String adminLectureEventList(Model model, SubMenuVO subMenuVO){
+        subMenuVO.setMenuCode("MENU_002");
+        //관리자용 강좌 종목 리스트 조회 + 보내기 기능
+        model.addAttribute("lectureEventList", lectureService.adminSelectLectureEventList());
+        return "admin/admin_lecture_event_list";
     }
 
     //강좌등록 페이지로 이동

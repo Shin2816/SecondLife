@@ -33,7 +33,9 @@ public class AdminMenuInterceptor implements HandlerInterceptor {
 
 
         //조회한 데이터를 html로 전달
-        modelAndView.addObject("menuList", menuList);
-        modelAndView.addObject("subMenuList", subMenuList);
+
+            modelAndView.addObject("menuList", menuList);
+            modelAndView.addObject("subMenuList", subMenuList);
+
     }
 }

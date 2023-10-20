@@ -1,6 +1,7 @@
 package com.green.SecondLife.lecture.service;
 
 import com.green.SecondLife.instructor.vo.InstructorVO;
+import com.green.SecondLife.lecture.vo.LectureEventVO;
 import com.green.SecondLife.lecture.vo.LectureReviewVO;
 import com.green.SecondLife.lecture.vo.LectureVO;
 import com.green.SecondLife.lecture.vo.StudentVO;
@@ -8,6 +9,16 @@ import com.green.SecondLife.lecture.vo.StudentVO;
 import java.util.List;
 
 public interface LectureService {
+    //관리자용 강좌 종목 개설 기능
+    // 1. 우선 다음 강좌 종목의 코드를 조회
+    public String adminSelectNextLectureEventCode();
+    // 2. 강좌 종목 insert + 강좌 종목 이미지 insert
+    public void adminInsertLectureEventAndImg(LectureEventVO lectureEventVO);
+
+    //관리자용 강좌 종목 리스트 조회 기능
+    public List<LectureEventVO> adminSelectLectureEventList();
+
+
     //강좌 등록 기능
     public void insertLecture(LectureVO lectureVO);
     //강좌 목록 조회 기능
