@@ -64,14 +64,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (rentalTime.rentalFacilityList.rentalStatus == 0) {
                     str += `<input type="checkbox" 
                             data-rental-charge='${rentalTime.rentalFacilityList.rentalCharge}'
-                            data-facility-name='${rentalTime.rentalFacilityList.facilityName}'>`;
+                            data-facility-name='${rentalTime.rentalFacilityList.facilityName}'
+                            data-start-time='${rentalTime.rentalStartTime}'
+                            data-end-time='${rentalTime.rentalEndTime}'>`;
                 } else {
                     str += '<input type="checkbox" disabled>';
                 }
 
                 str += '</td>';
-                str += '<td class="rental-time">' + rentalTime.rentalStartTime + ' ~ ' + rentalTime.rentalEndTime + '</td>';
-                str += `<td class="rental-charge">`;
+                str += '<td>' + rentalTime.rentalStartTime + ' ~ ' + rentalTime.rentalEndTime + '</td>';
+                str += `<td>`;
 
                 if (rentalTime.rentalFacilityList.rentalStatus == 0) {
                     str += rentalTime.rentalFacilityList.rentalCharge;
@@ -103,24 +105,44 @@ function signBtn(){
     //사용자
     let memberName = document.querySelector('#memberName').value;
     const checkBoxes = document.querySelectorAll('input[type=checkbox]');
-    const rentTimes = document.querySelectorAll('.rental-time');
 
     const facilityNameSpan = document.querySelector('#facility-name-span');
     const rentalTimeSpan = document.querySelector('#rental-time-span');
     const rentalChargeSpan = document.querySelector('#rental-charge-span');
     const userNameSpan = document.querySelector('#user-name-span');
 
-    // 체크박스의 개수, 요금 금액
-    let checkBoxCnt = 0;
-    let rentCharge = 0;
+   
+    let checkBoxCnt = 0;  //체크박스 개수
+    let rentCharge = 0;   //
     let facilityName = '';
-    checkBoxes.forEach(function(checkBox){
+    let rentTimes = [];
+    let renTimeObject = {};
+    renTimeObject['startTime'] = '';
+    renTimeObject['endTime'] = '';
+    let startTime = '';
+    let endTime = '';
+
+    checkBoxes.forEach(function(checkBox, idx){
         if(checkBox.checked == true){
-            ++checkBoxCnt; //체크박스 개수 
+            ++checkBoxCnt; //체크된 체크박스 개수 증가
             rentCharge = checkBox.dataset.rentalCharge; //요금 dataset들고오기
             facilityName = checkBox.dataset.facilityName; //시설이름 들고오기
+            startTime = checkBox.dataset.startTime;
+            endTime = checkBox.dataset.endTime;
+            
+            renTimeObject.startTime = startTime;
+            renTimeObject.endTime = endTime;
+            rentTimes.push(renTimeObject);
         }
     });
+    
+    
+    console.log(rentTimes);
+    console.log(renTimeObject);
+
+    console.log(rentTimes.map(rentTime => rentTime.startTime));
+    
+
 
     //로그인체크
     // if(memberName == 'null'){
