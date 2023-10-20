@@ -28,7 +28,7 @@
                 </p>
             </div>
         </div>
-        <div class="main-header-menu" th:if="${subMenuVO == null}">
+        <div class="main-header-menu" th:if="${subMenuVO} == null">
             <div class="banner">
                 <img src="/images/head.jpg" alt="">
             </div>
@@ -44,7 +44,7 @@
                 </li>
             </ul>
         </div>
-        <div class="row admin-main" th:if="${subMenuVO != null}">
+        <div class="row admin-main" th:if="${subMenuVO} != null">
             <div class="col-3" th:onclick="|location.href='@{/instructor/insertInstructorForm(menuCode=MENU_001)}'|">
                 <img src="/images/icons/gymnastics.png" alt="" class="mx-auto d-block">
                 <span class="admin-img-info"> 강사관리 </span>
