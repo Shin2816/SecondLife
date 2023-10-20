@@ -6,6 +6,7 @@
 	<resultMap id="rentalFacility" type="com.green.SecondLife.rental.vo.RentalFacilityVO">
         <id column="RENTAL_CODE"            property="rentalCode"/>
         <result column="FACILITY_CODE"      property="facilityCode"/>
+        <result column="FACILITY_NAME"      property="facilityName"/>
         <result column="RENTAL_DATE"        property="rentalDate"/>
         <result column="RENTAL_TIME_CODE"   property="rentalTimeCode"/>
         <result column="RENTAL_CHARGE"      property="rentalCharge"/>
