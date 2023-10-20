@@ -188,6 +188,12 @@
         SELECT COUNT(FREE_BOARD_NUM)
         FROM BOARD_FREE_LIST
     </select>
+    <!--내가 쓴 게시글 갯수 조회-->
+    <select id="selectMyBoardCnt" resultType="int">
+        SELECT COUNT(FREE_BOARD_NUM)
+        FROM BOARD_FREE_LIST
+        WHERE FREE_BOARD_WRITER = #{freeBoardWriter}
+    </select>
     <!--내글 찾기 조회-->
     <select id="selectFreeMyBoard" resultMap="free">
         SELECT FREE_BOARD_NUM
