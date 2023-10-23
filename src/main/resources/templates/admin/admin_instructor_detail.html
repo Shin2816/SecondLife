@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{fragment/main_layout}">
+    layout:decorate="~{fragment/sub_layout}">
 <head>
 <meta charset="UTF-8">
 <title></title>
 </head>
 <body>
 <th:block layout:fragment="content">
+    <link rel="stylesheet" href="/css/instructor/admin_instructor_detail.css">
 <h1>강사 상세 페이지</h1>
 <div class="instructor_info">
     <div>
@@ -18,15 +19,11 @@
         <p>주소 : [[${instructor.instructorAddr}]]</p>
         <p>입사일 : [[${instructor.instructorJoinDate}]]</p>
     </div>
-    <div>
+    <div class="instructor_info_img">
         <img th:src="${'/images/instructor/' + instructor.instructorImgVO.instructorAttachedFileName}">
     </div>
 </div>
-<style>
-    .instructor_info{
-        display: flex;
-    }
-</style>
+<input type="button" value="수정" th:onclick="|location.href='@{/instructor/adminUpdateInstructorInfoForm(instructorCode=${instructor.instructorCode}, menuCode=MENU_001)}'|">
 </th:block>
 </body>
 </html>
