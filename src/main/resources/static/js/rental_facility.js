@@ -68,7 +68,8 @@ function calendarCheck(date){
                             data-facility-name='${rentalTime.rentalFacilityList.facilityName}'
                             data-start-time='${rentalTime.rentalStartTime}'
                             data-end-time='${rentalTime.rentalEndTime}'
-                            data-time-code='${rentalTime.rentalTimeCode}'>`;
+                            data-time-code='${rentalTime.rentalTimeCode}'
+                            data-rental-date='${rentalTime.rentalFacilityList.rentalDate}'>`;
                 } else {
                     str += '<input type="checkbox" disabled>';
                 }
@@ -106,6 +107,7 @@ function calendarCheck(date){
 //신청하기 버튼 클릭 시 실행되는 함수(모달창 열리기)
 function signBtn(memberName){
     const facilityNameTag = document.querySelector('#facility-name-tag');
+    const rentalDateTag = document.querySelector('#rental-date-tag');
     const rentalTimeTag = document.querySelector('#rental-time-tag');
     const rentalChargeTag = document.querySelector('#rental-charge-tag');
     const totalRentalChargeTag = document.querySelector('#total-rental-charge-tag');
@@ -117,6 +119,7 @@ function signBtn(memberName){
     let checkBoxCnt = 0;  //체크박스 개수
     let rentCharge = 0;   
     let facilityName = '';
+    let rentalDate = '';
     let rentTimeCodes = [];
     let rentTimes = [];
     rentalTimeTag.innerHTML = '';
@@ -126,6 +129,7 @@ function signBtn(memberName){
             ++checkBoxCnt; //체크된 체크박스 개수 증가
             rentCharge = checkBox.dataset.rentalCharge; //요금 dataset들고오기
             facilityName = checkBox.dataset.facilityName; //시설이름 들고오기
+            rentalDate = checkBox.dataset.rentalDate; //대관날짜 들고오기
             let rentTimeCode = checkBox.dataset.timeCode; //타임코드 들고오기
             rentTimeCodes.push(rentTimeCode);
             let renTimeObject = {'startTime' : checkBox.dataset.startTime, 'endTime' : checkBox.dataset.endTime};
@@ -134,35 +138,32 @@ function signBtn(memberName){
     });
 
     //로그인체크
-    // if(memberName == 'null'){
-    //     alert('로그인 후 이용 가능 합니다');
-    //     location.href = '/member/loginForm';
-    // } else {
-        
-    // };
-
-    if(checkBoxCnt == 0){
-        alert('신청할 시간대를 체크해주세요.');
-    } else{
-        facilityNameTag.value = facilityName;
-        rentalChargeTag.value = rentCharge;
-        totalRentalChargeTag.innerHTML = (rentCharge*checkBoxCnt).toLocaleString('ko-KR') + '원';
-        userNameTag.value = memberName;
-        rentTimeCodes.forEach((rentTimeCode) => {
-            insertTimeCodeTag.insertAdjacentHTML('afterbegin', `<input type="hidden" name="rentalTimeCode" value="${rentTimeCode}" class="rental-time-code-tag"></input>`);
-        });
-        rentTimes.forEach(rentTime => {
-            let rent = '<div>'+rentTime.startTime +' ~ '+rentTime.endTime+'</div>';
-            rentalTimeTag.innerHTML += rent;
-        });
-
-        const myModal = new bootstrap.Modal('#signUpModal');
-        myModal.show();
-
-        // setTimeout(() => {
-        //     myModal.hide(); //모달창 닫기
-        // }, 2000);
-    }
+    if(memberName == 'null'){
+        alert('로그인 후 이용 가능 합니다');
+        location.href = '/member/loginForm';
+    } else {
+        if(checkBoxCnt == 0){
+            alert('신청할 시간대를 체크해주세요.');
+        } else{
+            facilityNameTag.value = facilityName;
+            rentalDateTag.value = rentalDate;
+            rentalChargeTag.value = rentCharge;
+            totalRentalChargeTag.innerHTML = (rentCharge*checkBoxCnt).toLocaleString('ko-KR') + '원';
+            userNameTag.value = memberName;
+            rentTimeCodes.forEach((rentTimeCode) => {
+                insertTimeCodeTag.insertAdjacentHTML('afterbegin', `<input type="hidden" name="rentalTimeCode" value="${rentTimeCode}" class="rental-time-code-tag"></input>`);
+            });
+            rentTimes.forEach(rentTime => {
+                let rent = '<div>'+rentTime.startTime +' ~ '+rentTime.endTime+'</div>';
+                rentalTimeTag.innerHTML += rent;
+            });
     
+            const myModal = new bootstrap.Modal('#signUpModal');
+            myModal.show();
     
+            // setTimeout(() => {
+            //     myModal.hide(); //모달창 닫기
+            // }, 2000);
+        }
+    };
 }
