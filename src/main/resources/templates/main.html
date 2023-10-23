@@ -32,7 +32,7 @@
                             </tr>
                             <tr class="board-tr" th:onclick="|location.href='@{/lecture/selectLectureDetail(lectureCode=${lecture.lectureCode})}'|" th:each="lecture : ${lectureList}">
                                 <td></td>
-                                <td>[[${lecture.lectureEventCode}]]</td>
+                                <td>[[${lecture.lectureEventCod}]]</td>
                                 <td>[[${lecture.lectureTitle}]]</td>
                                 <td>[[${lecture.lectureStudent}]]</td>
                                 <td>[[${lecture.lecturePeriod}]]</td>
@@ -108,7 +108,7 @@
                                             <td colspan="5">조회된 게시글이 없습니다</td>
                                         </tr>
                                     </th:block>
-                                    <!-- 게시글 있을 때 -->
+                                    <!-- 게시글 있을 때 --> 
                                     <th:block th:unless="${#lists.size(freeBoardList) == 0}">
                                         <tr class="board-tr" th:onclick="|location.href='@{/board/boardDetail(freeBoardNum=${freeBoard.freeBoardNum})}'|" th:each="freeBoard : ${freeBoardList}">
                                             <td class="board_td_title">[[${freeBoard.freeBoardTitle}]]</td>
