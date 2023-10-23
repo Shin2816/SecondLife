@@ -12,7 +12,7 @@
         <hr>
         <!-- 검색 영역 -->
         <div class="row-12 d-flex justify-content-between">
-            <input th:if="${session.loginInfo != null}" class="btn btn-primary" type="button" value="등록하기" onclick="location.href='regBoardForm';">
+            <input th:if="${session.loginInfo != null}" class="btn btn-primary" type="button" value="등록하기" onclick="location.href='/board/regBoardForm';">
             <form action="/board/freeBoardList" method="post" class="col-5 d-flex">
                 <select name="searchType" class="form-select list-select" aria-label="Default select example">
                     <option value="FREE_BOARD_TITLE" selected>제목</option>

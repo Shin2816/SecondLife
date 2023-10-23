@@ -66,7 +66,7 @@ public class LectureController {
     @GetMapping("/adminInsertLectureForm")
     public String insertLectureForm(Model model, SubMenuVO subMenuVO){
         //강사목록 조회
-        model.addAttribute("instructorList", instructorService.selectInstuctorList());
+        model.addAttribute("instructorList", instructorService.adminSelectInstuctorList());
         //강좌 종목 조회
         model.addAttribute("lectureEventList", lectureService.adminSelectLectureEventList());
         return "admin/admin_insert_lecture_form";

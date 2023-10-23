@@ -14,6 +14,16 @@ public class QaServiceImpl implements QaService{
 
     @Override
     public List<BoardQaListVO> selectQaBoardList(BoardQaListVO boardQaListVO) {
-        return sqlSession.selectOne("communityMapper.selectQaBoardList", boardQaListVO);
+        return sqlSession.selectList("qaMapper.selectQaBoardList", boardQaListVO);
+    }
+
+    @Override
+    public int selectBoardCnt() {
+        return sqlSession.selectOne("qaMapper.selectBoardCnt");
+    }
+
+    @Override
+    public int insertQaBoard(BoardQaListVO boardQaListVO) {
+        return sqlSession.insert("qaMapper.insertQaBoard", boardQaListVO);
     }
 }

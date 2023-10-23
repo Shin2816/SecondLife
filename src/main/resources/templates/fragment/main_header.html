@@ -44,6 +44,24 @@
                 </li>
             </ul>
         </div>
+        <div class="row admin-main" th:if="${subMenuVO} != null">
+            <div class="col-3" th:onclick="|location.href='@{/instructor/adminInsertInstructorForm(menuCode=MENU_001)}'|">
+                <img src="/images/icons/gymnastics.png" alt="" class="mx-auto d-block">
+                <span class="admin-img-info"> 강사관리 </span>
+            </div>
+            <div class="col-3" th:onclick="|location.href='@{/lecture/adminInsertLectureEventForm(menuCode=MENU_002)}'|">
+                <img src="/images/icons/book.png" alt="" class="mx-auto d-block">
+                <span class="admin-img-info"> 강좌관리 </span>
+            </div>
+            <div class="col-3" th:onclick="|location.href='@{/center/insertFacilityForm(menuCode=MENU_003)}'|">
+                <img src="/images/icons/town-hall.png" alt="" class="mx-auto d-block">
+                <span class="admin-img-info"> 시설관리 </span>
+            </div>
+            <div class="col-3" th:onclick="|location.href='@{/admin/admin_main(menuCode=MENU_004)}'|">
+                <img src="/images/icons/board-bold.png" alt="" class="mx-auto d-block">
+                <span class="admin-img-info"> 게시판관리 </span>
+            </div>
+        </div>
     </div>
     <!-- slick 슬라이드 -->
     <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
