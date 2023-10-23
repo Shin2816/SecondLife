@@ -64,6 +64,9 @@ th{
     width: 1295px;
     height: auto;
 }
+.slide{
+    cursor: pointer;
+}
 .nav-underline{
     position: absolute;
     padding: 10px 0 10px 0;
