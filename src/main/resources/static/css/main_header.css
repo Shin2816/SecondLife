@@ -64,6 +64,9 @@ th{
     width: 1295px;
     height: auto;
 }
+.slide{
+    cursor: pointer;
+}
 .nav-underline{
     position: absolute;
     padding: 10px 0 10px 0;
@@ -77,7 +80,23 @@ th{
     color:red;
     font-size: 0.8rem;
 }
-
+.link-area{
+    display: flex;
+    text-align: center;
+    margin: 30px 0;
+}
+.link-area div{
+    padding: 37px 46px;
+    margin: 20px 12px;
+    background-color: rgb(211, 253, 211);
+}
+.link-area div:nth-child(even){
+    background-color: lightyellow;
+}
+.link-area div img {
+    display: block;
+    align-items: center;
+}
 .facility{
     display: flex;
 }
@@ -157,9 +176,6 @@ th{
 }
 .board-photo{
     background-color: blueviolet;
-}
-.link{
-    background-color: chartreuse;
 }
 .footer{
     background-color: lightgrey;

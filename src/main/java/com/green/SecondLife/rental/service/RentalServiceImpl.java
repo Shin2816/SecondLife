@@ -16,4 +16,9 @@ public class RentalServiceImpl implements RentalService{
     public List<RentalFacilityVO> selectRentalFacility(RentalFacilityVO rentalFacilityVO) {
         return sqlSession.selectList("rentalMapper.selectRentalFacility", rentalFacilityVO);
     }
+
+    @Override
+    public void insertRentalInfo(RentalFacilityVO rentalFacilityVO) {
+        sqlSession.insert("rentalMapper.insertRentalInfo", rentalFacilityVO);
+    }
 }

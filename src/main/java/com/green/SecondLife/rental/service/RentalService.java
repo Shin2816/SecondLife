@@ -7,4 +7,7 @@ import java.util.List;
 public interface RentalService {
     // 대관 가능 정보 조회
     public List<RentalFacilityVO> selectRentalFacility(RentalFacilityVO rentalFacilityVO);
+
+    // 대관 신청하기
+    public void insertRentalInfo(RentalFacilityVO rentalFacilityVO);
 }

@@ -75,23 +75,24 @@
         , RENTAL_USER
         , RENTAL_TEAM
         , RENTAL_PURPOSE
+        , RENTAL_STATUS
         )
-        <foreach collection="" item="" separator="UNION ALL">
+        <foreach collection="facilityList" item="facility" separator="UNION ALL">
             SELECT 'RENTAL_FACILITY_'||LPAD(NVL(MAX(TO_NUMBER(SUBSTR(RENTAL_CODE, 18))), 0) + 1, 3, '0')
-                , #{facilityCode}
-                , #{rentalDate}
-                , #{rentalTimeCode}
-                , #{rentalCharge}
-                , #{rentalUser}
-                , #{rentalTeam}
-                , #{rentalPurpose}
+            , #{facility.facilityCode}
+            , #{facility.rentalDate}
+                , #{facility.rentalTimeCode}
+                , #{facility.rentalCharge}
+                , #{facility.rentalUser}
+                , #{facility.rentalTeam}
+                , #{facility.rentalPurpose}
+                , 1
             FROM DUAL
         </foreach>
-
     </insert>
 
     <!--대관 신청하기 시 예약상태 1 로 변경-->
-    <update id="updateRentalStatus1">
+    <update id="updateRentalStatus">
         UPDATE RENTAL_FACILITY
         SET RENTAL_STATUS = 1
         WHERE RENTAL_CODE = #{rentalCode}

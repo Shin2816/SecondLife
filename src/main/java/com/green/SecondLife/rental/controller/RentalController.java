@@ -39,12 +39,15 @@ public class RentalController {
         //세션 사용자이름 불러오기
         MemberVO member = (MemberVO)session.getAttribute("loginInfo");
 
-        List<RentalFacilityVO> rentalTimelList = rentalService.selectRentalFacility(rentalFacilityVO);
-        return rentalTimelList;
+        List<RentalFacilityVO> rentalTimeList = rentalService.selectRentalFacility(rentalFacilityVO);
+        return rentalTimeList;
     }
 
+    // 대관예약 신청하기
     @PostMapping("/signUpRentalFacility")
-    public void insertRentalInfo(){
-
+    public String insertRentalInfo(RentalFacilityVO rentalFacilityVO){
+        System.out.println(rentalFacilityVO);
+        rentalService.insertRentalInfo(rentalFacilityVO);
+        return "redirect:/rental/test";
     }
 }

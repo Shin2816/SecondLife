@@ -32,7 +32,7 @@
                             </tr>
                             <tr class="board-tr" th:onclick="|location.href='@{/lecture/selectLectureDetail(lectureCode=${lecture.lectureCode})}'|" th:each="lecture : ${lectureList}">
                                 <td></td>
-                                <td>[[${lecture.lectureEventCode}]]</td>
+                                <td>[[${lecture.lectureEventCod}]]</td>
                                 <td>[[${lecture.lectureTitle}]]</td>
                                 <td>[[${lecture.lectureStudent}]]</td>
                                 <td>[[${lecture.lecturePeriod}]]</td>
@@ -108,7 +108,7 @@
                                             <td colspan="5">조회된 게시글이 없습니다</td>
                                         </tr>
                                     </th:block>
-                                    <!-- 게시글 있을 때 -->
+                                    <!-- 게시글 있을 때 --> 
                                     <th:block th:unless="${#lists.size(freeBoardList) == 0}">
                                         <tr class="board-tr" th:onclick="|location.href='@{/board/boardDetail(freeBoardNum=${freeBoard.freeBoardNum})}'|" th:each="freeBoard : ${freeBoardList}">
                                             <td class="board_td_title">[[${freeBoard.freeBoardTitle}]]</td>
@@ -118,25 +118,44 @@
                                     </th:block>
                                 </table>
                             </div>
-                            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">...</div>
+                            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">
+                                <table class="board-table">
+                                    <colgroup>
+                                        <col width="*">
+                                        <col width="10%">
+                                        <col width="20%">
+                                    </colgroup>
+                                    <!-- 게시글 없을 때 -->
+                                    <th:block th:if="${#lists.size(qaBoardList) == 0}">
+                                        <tr>
+                                            <td colspan="5">조회된 게시글이 없습니다</td>
+                                        </tr>
+                                    </th:block>
+                                    <!-- 게시글 있을 때 -->
+                                    <th:block th:unless="${#lists.size(qaBoardList) == 0}" >
+                                        <tr class="board-tr" th:each="qaBoard : ${qaBoardList}" th:onclick="|location.href='@{/qa/boardDetail(qaBoardNum=${qaBoard.qaBoardNum})}'|">
+                                            <td class="board_td_title">[[${qaBoard.qaBoardTitle}]]</td>
+                                            <td>[[${qaBoard.qaBoardWriter}]]</td>
+                                            <td>[[${qaBoard.qaCreateDate}]]</td>
+                                        </tr>
+                                    </th:block>
+                                </table>
+                            </div>
                         </div>
                     </div>
                     <div class="col-6 main-slide">
                         <div class="slide">
-                            <div class="slide-1">
-                                <img src="/images/banner_test1.jpg" alt="">
+                            <div class="slide-1" onclick="location.href='/board/freeBoardList'">
+                                <img src="/images/main_banner/board.jpg" alt="">
                             </div>
-                            <div class="slide-2">
-                                <img src="/images/banner_test1.jpg" alt="">
+                            <div class="slide-2" onclick="location.href='/rental/test'">
+                                <img src="/images/main_banner/facility.jpg" alt="">
                             </div>
                             <div class="slide-3">
-                                <img src="/images/banner_test1.jpg" alt="">
+                                <img src="/images/main_banner/instructor.jpg" alt="">
                             </div>
                             <div class="slide-4">
-                                <img src="/images/banner_test1.jpg" alt="">
-                            </div>
-                            <div class="slide-5">
-                                <img src="/images/banner_test1.jpg" alt="">
+                                <img src="/images/main_banner/lecture.jpg" alt="">
                             </div>
                         </div>
                         <p class="top_banner_prev"></p>
@@ -146,7 +165,7 @@
     
                 <div class="row thrid">
                     <div class="col-8 board-photo">
-                        사진 게시글 영역
+                        사진 게시판 영역
                     </div>
                     <div class="col-4 facility">
                         <div class="left">
@@ -166,7 +185,36 @@
     
                 <div class="row forth">
                     <div class="col-12 link">
-                        각 페이지별 링크 영역
+                        <div class="link-area">
+                            <div>
+                                <img src="/images/icons/running.png" alt="">
+                                강사 소개
+                            </div>
+                            <div>
+                                <img src="/images/icons/book.png" alt="">
+                                수업 신청
+                            </div>
+                            <div>
+                                <img src="/images/icons/buildings.png" alt="">
+                                시설 대관
+                            </div>
+                            <div>
+                                <img src="/images/icons/board.png" alt="">
+                                센터 소개
+                            </div>
+                            <div>
+                                <img src="/images/icons/community.png" alt="">
+                                커뮤니티
+                            </div>
+                            <div>
+                                <img src="/images/icons/warning.png" alt="">
+                                고객센터
+                            </div>
+                            <div>
+                                <img src="/images/icons/hire.png" alt="">
+                                채용 공고
+                            </div>
+                        </div>
                     </div>
                 </div>
 

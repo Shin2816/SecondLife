@@ -16,7 +16,7 @@
     <form action="/qa/regBoard" method="post" id="qaRegBoard">        
         <div class="row mb-3">
             <div class="text-center">
-                <h1>자유게시판 등록</h1>
+                <h1>QnA게시판 등록</h1>
             </div>
         </div>
         <div class="row mb-3">
@@ -31,12 +31,38 @@
         </div>
 
         <div class="col-12">
-            <textarea name="qaBoardContent" class="form-control summernote text-left" id="qaBoardContent" cols="30" rows="10"></textarea>
+            <textarea name="qaBoardContent" class="form-control summernote text-left s-note mb-1" id="qaBoardContent" cols="30" rows="10" style="resize: none;"></textarea>
         </div>
         <div class="row mb-3 error">
             <div class="text-error-div">
                 <!-- 에러 출력 -->
             </div>
+        </div>
+        <div class="row form-check">
+            <div class="col">
+                <div class="form-check form-check-inline col-1">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" onclick="openAndClose()">
+                    <label class="form-check-label" for="inlineRadio1">공개</label>
+                </div>
+                <div class="form-check form-check-inline col-1">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" onclick="openAndClose()">
+                    <label class="form-check-label" for="inlineRadio2">비공개</label>
+                </div>
+            </div>
+            <!-- 비밀번호 input -->
+            <div class="row g-3 align-items-center">
+                <div class="col-auto">
+                    <label for="inputPassword6" class="col-form-label">비밀번호 설정</label>
+                </div>
+                <div class="col-auto">
+                    <input type="password" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
+                </div>
+                <div class="col-auto">
+                    <span id="passwordHelpInline" class="form-text">
+                        24글자 이내로 입력 해 주세요
+                    </span>
+                </div>
+              </div>
         </div>
         <div class="row justify-content-center">
             <div class="col-1">
