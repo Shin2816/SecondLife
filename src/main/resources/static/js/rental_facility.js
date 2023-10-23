@@ -67,7 +67,8 @@ function calendarCheck(date){
                             data-rental-charge='${rentalTime.rentalFacilityList.rentalCharge}'
                             data-facility-name='${rentalTime.rentalFacilityList.facilityName}'
                             data-start-time='${rentalTime.rentalStartTime}'
-                            data-end-time='${rentalTime.rentalEndTime}'>`;
+                            data-end-time='${rentalTime.rentalEndTime}'
+                            data-time-code='${rentalTime.rentalTimeCode}'>`;
                 } else {
                     str += '<input type="checkbox" disabled>';
                 }
@@ -105,56 +106,63 @@ function calendarCheck(date){
 //신청하기 버튼 클릭 시 실행되는 함수(모달창 열리기)
 function signBtn(memberName){
     const facilityNameTag = document.querySelector('#facility-name-tag');
-    const rentalTimeSpan = document.querySelector('#rental-time-span');
-    const rentalChargeSpan = document.querySelector('#rental-charge-span');
-    const userNameSpan = document.querySelector('#user-name-span');
+    const rentalTimeTag = document.querySelector('#rental-time-tag');
+    const rentalChargeTag = document.querySelector('#rental-charge-tag');
+    const totalRentalChargeTag = document.querySelector('#total-rental-charge-tag');
+    const userNameTag = document.querySelector('#user-name-tag');
+    const insertTimeCodeTag = rentalChargeTag.closest('.row');
     
     const checkBoxes = document.querySelectorAll('input[type=checkbox]');
    
     let checkBoxCnt = 0;  //체크박스 개수
     let rentCharge = 0;   
     let facilityName = '';
+    let rentTimeCodes = [];
     let rentTimes = [];
-    rentalTimeSpan.innerHTML = '';
+    rentalTimeTag.innerHTML = '';
 
     checkBoxes.forEach(function(checkBox){
         if(checkBox.checked == true){
             ++checkBoxCnt; //체크된 체크박스 개수 증가
             rentCharge = checkBox.dataset.rentalCharge; //요금 dataset들고오기
             facilityName = checkBox.dataset.facilityName; //시설이름 들고오기
+            let rentTimeCode = checkBox.dataset.timeCode; //타임코드 들고오기
+            rentTimeCodes.push(rentTimeCode);
             let renTimeObject = {'startTime' : checkBox.dataset.startTime, 'endTime' : checkBox.dataset.endTime};
             rentTimes.push(renTimeObject);
         }
     });
-    
-    rentTimes.forEach(rentTime => {
-        rentTime.startTime +' ~ '+rentTime.endTime+'\n'
-    });
 
     //로그인체크
-    if(memberName == 'null'){
-        alert('로그인 후 이용 가능 합니다');
-        location.href = '/member/loginForm';
-    } else {
-        if(checkBoxCnt == 0){
-            alert('신청할 시간대를 체크해주세요.');
-        } else{
-            facilityNameTag.value = facilityName;
-            rentalChargeSpan.textContent = (rentCharge*checkBoxCnt).toLocaleString('ko-KR') + '원';
-            userNameSpan.innerHTML = memberName;
-            rentTimes.forEach(rentTime => {
-                let rent = '<div>'+rentTime.startTime +' ~ '+rentTime.endTime+'</div>';
-                rentalTimeSpan.innerHTML += rent;
-            });
-    
-            const myModal = new bootstrap.Modal('#signUpModal');
-            myModal.show();
-    
-            // setTimeout(() => {
-            //     myModal.hide(); //모달창 닫기
-            // }, 2000);
-        }
-    };
+    // if(memberName == 'null'){
+    //     alert('로그인 후 이용 가능 합니다');
+    //     location.href = '/member/loginForm';
+    // } else {
+        
+    // };
+
+    if(checkBoxCnt == 0){
+        alert('신청할 시간대를 체크해주세요.');
+    } else{
+        facilityNameTag.value = facilityName;
+        rentalChargeTag.value = rentCharge;
+        totalRentalChargeTag.innerHTML = (rentCharge*checkBoxCnt).toLocaleString('ko-KR') + '원';
+        userNameTag.value = memberName;
+        rentTimeCodes.forEach((rentTimeCode) => {
+            insertTimeCodeTag.insertAdjacentHTML('afterbegin', `<input type="hidden" name="rentalTimeCode" value="${rentTimeCode}" class="rental-time-code-tag"></input>`);
+        });
+        rentTimes.forEach(rentTime => {
+            let rent = '<div>'+rentTime.startTime +' ~ '+rentTime.endTime+'</div>';
+            rentalTimeTag.innerHTML += rent;
+        });
+
+        const myModal = new bootstrap.Modal('#signUpModal');
+        myModal.show();
+
+        // setTimeout(() => {
+        //     myModal.hide(); //모달창 닫기
+        // }, 2000);
+    }
     
     
 }
