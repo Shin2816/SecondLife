@@ -42,15 +42,15 @@ public class LectureServiceImpl implements LectureService{
         return sqlSession.selectList("lectureMapper.adminSelectLectureReviewList");
     }
 
-    //강좌 등록 기능
+    //관리자용 수업 생성 기능
     @Override
-    public void insertLecture(LectureVO lectureVO) {
-        sqlSession.insert("lectureMapper.insertLecture", lectureVO);
+    public void adminInsertLecture(LectureVO lectureVO) {
+        sqlSession.insert("lectureMapper.adminInsertLecture", lectureVO);
     }
-    //강좌 목록 조회 기능
+    //관리자용 수업 목록 조회 기능
     @Override
-    public List<LectureVO> selectLectureList(String instructorCode) {
-        return sqlSession.selectList("lectureMapper.selectLectureList", instructorCode);
+    public List<LectureVO> adminSelectLectureList(String instructorCode) {
+        return sqlSession.selectList("lectureMapper.adminSelectLectureList", instructorCode);
     }
     //강좌 상세 정보 조회 기능
     @Override

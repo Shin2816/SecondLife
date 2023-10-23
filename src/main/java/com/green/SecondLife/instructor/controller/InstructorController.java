@@ -77,7 +77,7 @@ public class InstructorController {
     public Map<String, Object> showInstructorSimpleInfo(InstructorVO instructorVO, String instructorCode){
         Map<String, Object> simpleInfo = new HashMap<>();
         simpleInfo.put("instructor", instructorService.selectInstructorDetail(instructorVO));
-        simpleInfo.put("lectureList", lectureService.selectLectureList(instructorCode));
+        simpleInfo.put("lectureList", lectureService.adminSelectLectureList(instructorCode));
         simpleInfo.put("reviewList", lectureService.selectLectureReviewList(instructorVO));
         System.out.println("여기" + simpleInfo);
 
