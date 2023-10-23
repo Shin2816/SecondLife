@@ -23,8 +23,6 @@ public class InstructorController {
     //강사등록 페이지로 이동
     @GetMapping("/insertInstructorForm")
     public String insertInstructorForm(Model model, SubMenuVO subMenuVO){
-        //강사 전공 카테고리 조회
-        model.addAttribute("subjectList", instructorService.selectSubjectList());
         return "admin/insert_instructor";
     }
     //강사 등록 기능 + 이미지
@@ -79,7 +77,7 @@ public class InstructorController {
     public Map<String, Object> showInstructorSimpleInfo(InstructorVO instructorVO, String instructorCode){
         Map<String, Object> simpleInfo = new HashMap<>();
         simpleInfo.put("instructor", instructorService.selectInstructorDetail(instructorVO));
-        simpleInfo.put("lectureList", lectureService.selectLectureList(instructorCode));
+        simpleInfo.put("lectureList", lectureService.adminSelectLectureList(instructorCode));
         simpleInfo.put("reviewList", lectureService.selectLectureReviewList(instructorVO));
         System.out.println("여기" + simpleInfo);
 

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{fragment/main_layout}">
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+    <th:block layout:fragment="content">
+        <input type="hidden" id="inputId" th:value="${memberVO.memberId}">
+        <thblock th:if="${session.loginInfo == null}">
+            <script>
+                alert("id와 pw를 확인해주세요.")
+                location.href='/';
+            </script>
+        </thblock>
+        <thblock th:unless="${session.loginInfo == null}">
+            <script>
+                let memberId = document.querySelector('#inputId').value;
+                alert(memberId + "님 어서오세요.")
+                location.href='/';  
+            </script>s
+        </thblock>
+    </th:block>
+</body>
+</html>

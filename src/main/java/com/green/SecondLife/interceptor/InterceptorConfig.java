@@ -36,6 +36,8 @@ public class InterceptorConfig implements WebMvcConfigurer {
                                             ,"/lecture/adminInsertLectureEventForm"
                                             ,"/lecture/adminLectureEventList"
                                             ,"/lecture/adminLectureReviewList"
+                                            ,"/lecture/adminInsertLectureForm"
+                                            ,"/lecture/adminSelectLectureList"
                                             ,"/center/insertFacilityForm"
                                             ,"/center/selectAllFacility"
                                                                                     )

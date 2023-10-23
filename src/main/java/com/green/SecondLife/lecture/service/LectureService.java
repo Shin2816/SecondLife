@@ -20,11 +20,12 @@ public interface LectureService {
     //관리자용 강좌 리뷰 리스트 조회 기능
     public List<LectureReviewVO> adminSelectLectureReviewList();
 
-
-    //강좌 등록 기능
-    public void insertLecture(LectureVO lectureVO);
+    //관리자용 수업 생성 기능
+    public void adminInsertLecture(LectureVO lectureVO);
     //강좌 목록 조회 기능
-    public List<LectureVO> selectLectureList(String instructorCode);
+    public List<LectureVO> adminSelectLectureList(String instructorCode);
+
+
     //강좌 상세 정보 조회 기능
     public LectureVO selectLectureDetail(LectureVO lectureVO);
     //강좌 삭제 기능

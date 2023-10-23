@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{fragment/main_layout}">
+    layout:decorate="~{fragment/sub_layout}">
 <head>
 <meta charset="UTF-8">
 <title></title>
 </head>
 <body>
 <th:block layout:fragment="content">
-<h1>수업관리 페이지</h1>
+<h2>수업관리 페이지</h2>
 <table>
     <thead>
         <tr>
@@ -24,7 +24,7 @@
         <tr th:each="lecture : ${lectureList}">
             <td>[[${lecture.instructorName}]]</td>
             <td>[[${lecture.lectureTitle}]]</td>
-            <td>[[${lecture.lectureSubject}]]</td>
+            <td>[[${lecture.lectureEventCode}]]</td>
             <td>[[${lecture.lectureStudent}]]</td>
             <td>[[${lecture.lecturePeriod}]]</td>
             <td>[[${lecture.lecturePrice}]]</td>

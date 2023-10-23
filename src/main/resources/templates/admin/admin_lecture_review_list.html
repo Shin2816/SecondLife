@@ -8,7 +8,7 @@
 </head>
 <body>
 <th:block layout:fragment="content">
-<h1>관리자용 수업 리뷰 목록 페이지</h1>
+<h2>관리자용 수업 리뷰 목록 페이지</h2>
 <div>
     <div th:each="lectureReview : ${lectureReviewList}">
         <span>별점(5점만점)</span><p>[[${lectureReview.lectureStarPoint}]]</p>

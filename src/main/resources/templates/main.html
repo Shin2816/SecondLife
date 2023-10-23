@@ -32,7 +32,7 @@
                             </tr>
                             <tr class="board-tr" th:onclick="|location.href='@{/lecture/selectLectureDetail(lectureCode=${lecture.lectureCode})}'|" th:each="lecture : ${lectureList}">
                                 <td></td>
-                                <td>[[${lecture.lectureSubject}]]</td>
+                                <td>[[${lecture.lectureEventCode}]]</td>
                                 <td>[[${lecture.lectureTitle}]]</td>
                                 <td>[[${lecture.lectureStudent}]]</td>
                                 <td>[[${lecture.lecturePeriod}]]</td>
@@ -155,7 +155,7 @@
                                 <span>센터 소개</span>
                             </p>
                         </div>
-                        <div class="right">
+                        <div class="right" onclick="location.href='/rental/test'">
                             <p class="right_info">
                                 <img src="/images/icons/buildings.png" alt="">
                                 <span>시설 대관</span>

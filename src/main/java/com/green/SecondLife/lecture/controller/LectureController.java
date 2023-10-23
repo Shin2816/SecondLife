@@ -62,29 +62,27 @@ public class LectureController {
         model.addAttribute("lectureReviewList", lectureService.adminSelectLectureReviewList());
         return "admin/admin_lecture_review_list";
     }
-
-    //강좌등록 페이지로 이동
-    @GetMapping("/insertLectureForm")
+    //관리자용 수업 등록 페이지로 이동
+    @GetMapping("/adminInsertLectureForm")
     public String insertLectureForm(Model model, SubMenuVO subMenuVO){
-        //강좌과목 조회
-        model.addAttribute("subjectList",instructorService.selectSubjectList());
         //강사목록 조회
         model.addAttribute("instructorList", instructorService.selectInstuctorList());
-        return "admin/insert_lecture";
+        //강좌 종목 조회
+        model.addAttribute("lectureEventList", lectureService.adminSelectLectureEventList());
+        return "admin/admin_insert_lecture_form";
     }
-    //강좌 등록 기능
-    @PostMapping("/insertLecture")
+    //관리자용 수업 등록 기능 후 -> adminSelectLectureList로 리다이렉트
+    @PostMapping("/adminInsertLecture")
     public String insertLecture(LectureVO lectureVO){
         System.out.println(lectureVO);
-        lectureService.insertLecture(lectureVO);
-        return "redirect:/lecture/selectLectureList";
+        lectureService.adminInsertLecture(lectureVO);
+        return "redirect:/lecture/adminSelectLectureList";
     }
-    //강좌 목록 조회
-    @GetMapping("/selectLectureList")
-    public String selectLectureList(Model model, String instructorCode){
-        System.out.println("@@@@@@@@@@@@@" + lectureService.selectLectureList(instructorCode));
-        model.addAttribute("lectureList", lectureService.selectLectureList(instructorCode));
-        return "admin/manage_lecture";
+    //관리자용 수업 목록 페이지
+    @GetMapping("/adminSelectLectureList")
+    public String adminSelectLectureList(Model model, String instructorCode, SubMenuVO subMenuVO){
+        model.addAttribute("lectureList", lectureService.adminSelectLectureList(instructorCode));
+        return "admin/admin_lecture_list";
     }
     //강좌 상세 정보 조회
     @GetMapping("/selectLectureDetail")
@@ -101,8 +99,8 @@ public class LectureController {
 
     //↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ //
     //관리자//관리자//관리자//관리자//관리자//관리자//관리자//관리자//관리자//관리자//관리자//관리자//관리자//관리자//관리자//관리자//
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@//
+    //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@//
     //유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//
     //↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ //
 
