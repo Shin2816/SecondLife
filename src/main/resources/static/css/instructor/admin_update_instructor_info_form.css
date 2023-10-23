@@ -1,0 +1,9 @@
+@charset "utf-8";
+/* admin_update_instructor_info.css */
+.instructor_info{
+    display: flex;
+}
+.instructor_info_img img{
+    width: 100px;
+    height: 100px;
+}

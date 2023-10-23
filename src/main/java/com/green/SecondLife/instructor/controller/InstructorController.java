@@ -51,6 +51,7 @@ public class InstructorController {
     //관리자용 강사 정보 수정 페이지
     @GetMapping("/adminUpdateInstructorInfoForm")
     public String adminUpdateInstructorInfoForm(SubMenuVO subMenuVO, Model model, InstructorVO instructorVO){
+        System.out.println(instructorService.adminSelectInstructorDetail(instructorVO));
         model.addAttribute("instructor", instructorService.adminSelectInstructorDetail(instructorVO));
         return "admin/admin_update_instructor_info_form";
     }
@@ -68,7 +69,6 @@ public class InstructorController {
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@//
     //유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//
     //↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ //
-
 
     //강사 요약 정보 조회 페치
     @ResponseBody
