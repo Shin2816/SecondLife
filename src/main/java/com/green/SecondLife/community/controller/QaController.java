@@ -1,6 +1,7 @@
 package com.green.SecondLife.community.controller;
 
 import com.green.SecondLife.community.service.QaService;
+import com.green.SecondLife.community.vo.BoardCommentListVO;
 import com.green.SecondLife.community.vo.BoardFreeListVO;
 import com.green.SecondLife.community.vo.BoardQaListVO;
 import com.green.SecondLife.member.vo.MemberVO;
@@ -11,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -48,12 +50,50 @@ public class QaController {
     }
     //글 제목 클릭했을때 해당글의 상세페이지 이동
     @RequestMapping("/boardDetail")
-    public String boardDetail(int freeBoardNum, Model model){
-        //model.addAttribute("board", communityService.selectFreeBoardDetail(freeBoardNum));
+    public String boardDetail(int qaBoardNum, Model model){
+        model.addAttribute("board", qaService.selectQaBoardDetail(qaBoardNum));
         //조회수 증가
-        //communityService.updateFreeBoardCnt(freeBoardNum);
+        qaService.updateQaBoardCnt(qaBoardNum);
         //댓글 조회해서 html로 던지기
-        //model.addAttribute("comment", communityService.selectFreeBoardComment(freeBoardNum));
-        return "board/board_detail";
+        model.addAttribute("comment", qaService.selectQaBoardComment(qaBoardNum));
+        return "board/qa/board_detail";
+    }
+    //상세 페이지에서 댓글 작성버튼 클릭하면 비동기로 insert 쿼리 실행
+    @ResponseBody
+    @PostMapping("/qaBoardComment")
+    public boolean qaBoardComment(BoardCommentListVO boardCommentListVO, HttpSession session){
+        //로그인 정보가 없다면 댓글 작성하지 못하게
+        if (session.getAttribute("loginInfo") == null){//로그인 정보가 없을 때
+            return false;//board.js로 false리턴
+        }
+        //로그인 정보가 있다면 if문 실행되지않고 쿼리가 실행된 후 true 리턴
+        qaService.insertQaBoardComment(boardCommentListVO);
+        return true;//board.js로 true리턴
+    }
+    //글 상세페이지에서 삭제버튼 클릭하였을 때
+    @GetMapping("/deleteQaBoard")
+    public String deleteQaBoard(int qaBoardNum){
+        qaService.deleteQaBoard(qaBoardNum);
+        return "redirect:/qa/qaBoardList";
+    }
+    //수정페이지에서 수정 버튼을 눌렀을 때 수정 쿼리 실행
+    @RequestMapping("/updateQaBoard")
+    public String updateQaBoard(BoardQaListVO boardQaListVO){
+        //수정 쿼리
+        qaService.updateQaBoard(boardQaListVO);
+        //수정이 완료되면 해당 게시글 상세페이지로 freeBoardNum=숫자 데이터를 던질 수 있다.
+        return "redirect:/qa/boardDetail?qaBoardNum=" + boardQaListVO.getQaBoardNum();
+    }
+    //상세 페이지에서 댓글 삭제버튼 클릭하면 delete 쿼리 실행
+    @ResponseBody
+    @PostMapping("/qaDeleteComment")
+    public void qaBoardComment(int commentId){
+        qaService.deleteQaBoardComment(commentId);
+    }
+    //상세 페이지에서 댓글 수정 버튼 클릭하면 update 쿼리 실행
+    @ResponseBody
+    @PostMapping("/qaUpdateComment")
+    public void qaDeleteComment(BoardCommentListVO boardCommentListVO){
+        qaService.updateQaBoardComment(boardCommentListVO);
     }
 }
