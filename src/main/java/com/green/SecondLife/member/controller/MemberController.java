@@ -60,8 +60,7 @@ public class MemberController {
         if(loginInfo != null){
             session.setAttribute("loginInfo", loginInfo);
         }
-
-        return "/main";
+        return "/member/loginCheck";
     }
 
     //로그아웃 처리 후, 메인페이지로 이동
