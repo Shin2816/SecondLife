@@ -27,7 +27,7 @@
         FROM INSTRUCTOR
     </select>
     <!-- 강사 등록 쿼리 -->
-    <insert id="insertInstructor">
+    <insert id="adminInsertInstructor">
         INSERT INTO INSTRUCTOR (
             INSTRUCTOR_CODE
             , INSTRUCTOR_NAME
@@ -48,7 +48,7 @@
         )
     </insert>
     <!-- 강사 이미지 등록 -->
-    <insert id="insertInstructorImg">
+    <insert id="adminInsertInstructorImg">
         INSERT INTO INSTRUCTOR_IMG (
             INSTRUCTOR_IMG_CODE
             , INSTRUCTOR_CODE
@@ -63,7 +63,7 @@
         )
     </insert>
     <!-- 강사 목록 조회 쿼리 -->
-    <select id="selectInstructorList" resultMap="instructor">
+    <select id="adminSelectInstructorList" resultMap="instructor">
         SELECT INS.INSTRUCTOR_CODE
             , INSTRUCTOR_NAME
             , INSTRUCTOR_AGE
@@ -76,7 +76,7 @@
         WHERE INS.INSTRUCTOR_CODE = IMG.INSTRUCTOR_CODE
     </select>
     <!-- 강사 상세 조회 쿼리 -->
-    <select id="selectInstructorDetail" resultMap="instructor">
+    <select id="adminSelectInstructorDetail" resultMap="instructor">
         SELECT INSTRUCTOR.INSTRUCTOR_CODE
             , INSTRUCTOR_NAME
             , INSTRUCTOR_AGE

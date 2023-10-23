@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{fragment/sub_layout}">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" 
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{fragment/admin_layout}">
 
 <head>
     <meta charset="UTF-8">
@@ -11,7 +12,7 @@
     <th:block layout:fragment="content" id="block">
         <link rel="stylesheet" href="/css/instructor/insert_instructor.css">
         <h2>강사등록페이지</h2>
-        <form action="/instructor/insertInstructor" method="post" enctype="multipart/form-data" id="form">
+        <form action="/instructor/adminInsertInstructor" method="post" enctype="multipart/form-data" id="form">
         <div class="wrap info">
             <div>
                 <p>이름<p>
@@ -58,7 +59,7 @@
             <p><input type="submit" value="등록"></p>
         </div>
         </form>
-        <script src="/js/insert_instructor.js"></script>
+        <script src="/js/admin_insert_instructor_form.js"></script>
     </th:block>
 </body>
 

@@ -6,7 +6,7 @@
     <title></title>
 </head>
 <body>
-<th:block th:fragment="mainHeaderFragment">
+<th:block th:fragment="adminHeaderFragment">
     <!-- 게시판 css -->
     <link rel="stylesheet" href="/css/board/free_board.css">
     <link rel="stylesheet" href="/css/main_header.css">
@@ -22,27 +22,29 @@
             <div class="login-menu">
                 <p th:unless="${session.loginInfo == null}"> 
                     <span class="login-span" th:onclick="|location.href='@{/admin/admin_main(menuCode=MENU_001)}'|">관리하기 </span>
-                    <span class="login-span" th:if="${session.loginInfo.memberRoll == 'ADMIN'}" onclick="location.href='/member/logout';">로그아웃</span>
-                    <button th:if="${session.loginInfo.memberRoll == 'ADMIN'}" onclick="location.href='/instructor/selectInstructorList';">강사목록페이지</button>
-                    <button th:if="${session.loginInfo.memberRoll == 'ADMIN'}" onclick="location.href='/lecture/selectLectureList';">강좌목록페이지</button>
+                    <span class="login-span" onclick="location.href='/member/logout';">로그아웃</span>
+                    <button onclick="location.href='/instructor/selectInstructorList';">강사목록페이지</button>
+                    <button onclick="location.href='/lecture/selectLectureList';">강좌목록페이지</button>
                 </p>
             </div>
         </div>
-        <div class="main-header-menu">
-            <div class="banner">
-                <img src="/images/head.jpg" alt="">
+        <div class="row admin-main">
+            <div class="col-3" th:onclick="|location.href='@{/instructor/adminInsertInstructorForm(menuCode=MENU_001)}'|">
+                <img src="/images/icons/gymnastics.png" alt="" class="mx-auto d-block">
+                <span class="admin-img-info"> 강사관리 </span>
             </div>
-            <ul class="nav nav-underline">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">1번메뉴</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">2번메뉴</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">3번메뉴</a>
-                </li>
-            </ul>
+            <div class="col-3" th:onclick="|location.href='@{/lecture/adminInsertLectureEventForm(menuCode=MENU_002)}'|">
+                <img src="/images/icons/book.png" alt="" class="mx-auto d-block">
+                <span class="admin-img-info"> 강좌관리 </span>
+            </div>
+            <div class="col-3" th:onclick="|location.href='@{/center/insertFacilityForm(menuCode=MENU_003)}'|">
+                <img src="/images/icons/town-hall.png" alt="" class="mx-auto d-block">
+                <span class="admin-img-info"> 시설관리 </span>
+            </div>
+            <div class="col-3" th:onclick="|location.href='@{/admin/admin_main(menuCode=MENU_004)}'|">
+                <img src="/images/icons/board-bold.png" alt="" class="mx-auto d-block">
+                <span class="admin-img-info"> 게시판관리 </span>
+            </div>
         </div>
     </div>
     <!-- slick 슬라이드 -->
