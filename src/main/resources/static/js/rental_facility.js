@@ -104,7 +104,7 @@ function calendarCheck(date){
 
 //신청하기 버튼 클릭 시 실행되는 함수(모달창 열리기)
 function signBtn(memberName){
-    const facilityNameSpan = document.querySelector('#facility-name-span');
+    const facilityNameTag = document.querySelector('#facility-name-tag');
     const rentalTimeSpan = document.querySelector('#rental-time-span');
     const rentalChargeSpan = document.querySelector('#rental-charge-span');
     const userNameSpan = document.querySelector('#user-name-span');
@@ -139,7 +139,7 @@ function signBtn(memberName){
         if(checkBoxCnt == 0){
             alert('신청할 시간대를 체크해주세요.');
         } else{
-            facilityNameSpan.textContent = facilityName;
+            facilityNameTag.value = facilityName;
             rentalChargeSpan.textContent = (rentCharge*checkBoxCnt).toLocaleString('ko-KR') + '원';
             userNameSpan.innerHTML = memberName;
             rentTimes.forEach(rentTime => {
