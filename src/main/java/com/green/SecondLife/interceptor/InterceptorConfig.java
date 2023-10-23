@@ -30,8 +30,10 @@ public class InterceptorConfig implements WebMvcConfigurer {
 
         //메뉴 정보 출력 인터셉터 실행 설정
         registry.addInterceptor(menuInterceptor)
-                .addPathPatterns("/admin/**","/instructor/insertInstructorForm"
+                .addPathPatterns("/admin/**","/instructor/adminInsertInstructorForm"
                                             ,"/instructor/adminInstructorList"
+                                            ,"/instructor/adminInstructorDetail"
+                                            ,"/instructor/adminUpdateInstructorInfoForm"
                                             ,"/lecture/insertLectureForm"
                                             ,"/lecture/adminInsertLectureEventForm"
                                             ,"/lecture/adminLectureEventList"

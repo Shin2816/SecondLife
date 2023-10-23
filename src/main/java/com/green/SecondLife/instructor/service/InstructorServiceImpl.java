@@ -13,29 +13,31 @@ import java.util.List;
 @RequiredArgsConstructor
 public class InstructorServiceImpl implements InstructorService{
     private final SqlSessionTemplate sqlSession;
-    //다음 강사 코드 조회
+    //관리자용 강사 등록 기능
+    // 1. 다음 강사 코드 조회
     @Override
-    public String selectNextInstructorCode() {
-        return sqlSession.selectOne("instructorMapper.selectNextInstructorCode");
+    public String adminSelectNextInstructorCode() {
+        return sqlSession.selectOne("instructorMapper.adminSelectNextInstructorCode");
     }
-    //강사 등록 기능 + 이미지
+    // 2. 강사 등록 기능 + 강사 이미지 등록 기능
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Object insertInstructor(InstructorVO instructorVO) {
-        sqlSession.insert("instructorMapper.insertInstructor", instructorVO);
-        sqlSession.insert("instructorMapper.insertInstructorImg", instructorVO);
-        return null;
+    public void adminInsertInstructor(InstructorVO instructorVO) {
+        sqlSession.insert("instructorMapper.adminInsertInstructor", instructorVO);
+        sqlSession.insert("instructorMapper.adminInsertInstructorImg", instructorVO);
     }
-    //강사 목록 조회 기능
+    //관리자용 강사 목록 조회 기능
     @Override
-    public List<InstructorVO> selectInstuctorList() {
-        return sqlSession.selectList("instructorMapper.selectInstructorList");
+    public List<InstructorVO> adminSelectInstuctorList() {
+        return sqlSession.selectList("instructorMapper.adminSelectInstructorList");
     }
-    //강사 상세 정보 조회 기능
+    //관리자용 강사 상세 조회 기능
     @Override
-    public InstructorVO selectInstructorDetail(InstructorVO instructorVO) {
-        return sqlSession.selectOne("instructorMapper.selectInstructorDetail", instructorVO);
+    public InstructorVO adminSelectInstructorDetail(InstructorVO instructorVO) {
+        return sqlSession.selectOne("instructorMapper.adminSelectInstructorDetail", instructorVO);
     }
+
+
     //강사 이미지 코드 조회
     @Override
     public String selectInstructorImgCode(InstructorVO instructorVO) {

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{fragment/sub_layout}">
+    layout:decorate="~{fragment/admin_layout}">
 <head>
 <meta charset="UTF-8">
 <title></title>
@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="/css/instructor/admin_instructor_list.css">
 <h2>관리자 강사 목록 페이지</h2>
 <div>
-    <div class="admin-instructor-list-box" th:each="instructor : ${instructorList}">
+    <div class="admin-instructor-list-box" th:each="instructor : ${instructorList}" th:onclick="|location.href='@{/instructor/adminInstructorDetail(instructorCode=${instructor.instructorCode}, menuCode=MENU_001)}'|">
     <div class="admin-instructor-list-box-img">
         <p><img th:src="${'/images/instructor/' + instructor.instructorImgVO.instructorAttachedFileName}"></p>
     </div>
@@ -24,6 +24,7 @@
         </p>
     </div>
     </div>
+
 </div>
 </th:block>
 </body>
