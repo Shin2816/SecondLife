@@ -23,8 +23,6 @@
                 <p th:unless="${session.loginInfo == null}"> 
                     <span class="login-span" th:onclick="|location.href='@{/admin/admin_main(menuCode=MENU_001)}'|">관리하기 </span>
                     <span class="login-span" onclick="location.href='/member/logout';">로그아웃</span>
-                    <button onclick="location.href='/instructor/selectInstructorList';">강사목록페이지</button>
-                    <button onclick="location.href='/lecture/selectLectureList';">강좌목록페이지</button>
                 </p>
             </div>
         </div>
