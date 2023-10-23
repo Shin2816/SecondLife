@@ -118,7 +118,29 @@
                                     </th:block>
                                 </table>
                             </div>
-                            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">...</div>
+                            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">
+                                <table class="board-table">
+                                    <colgroup>
+                                        <col width="*">
+                                        <col width="10%">
+                                        <col width="20%">
+                                    </colgroup>
+                                    <!-- 게시글 없을 때 -->
+                                    <th:block th:if="${#lists.size(qaBoardList) == 0}">
+                                        <tr>
+                                            <td colspan="5">조회된 게시글이 없습니다</td>
+                                        </tr>
+                                    </th:block>
+                                    <!-- 게시글 있을 때 -->
+                                    <th:block th:unless="${#lists.size(qaBoardList) == 0}" >
+                                        <tr class="board-tr" th:each="qaBoard : ${qaBoardList}" th:onclick="|location.href='@{/qa/boardDetail(qaBoardNum=${qaBoard.qaBoardNum})}'|">
+                                            <td class="board_td_title">[[${qaBoard.qaBoardTitle}]]</td>
+                                            <td>[[${qaBoard.qaBoardWriter}]]</td>
+                                            <td>[[${qaBoard.qaCreateDate}]]</td>
+                                        </tr>
+                                    </th:block>
+                                </table>
+                            </div>
                         </div>
                     </div>
                     <div class="col-6 main-slide">

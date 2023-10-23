@@ -12,4 +12,6 @@ public interface QaService {
     public int selectBoardCnt();
     //QA게시판 글 등록
     public int insertQaBoard(BoardQaListVO boardQaListVO);
+    //QA 메인페이지
+    public List<BoardQaListVO> selectMainQaBoardList();
 }

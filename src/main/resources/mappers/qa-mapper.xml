@@ -47,6 +47,29 @@
         , #{qaBoardWriter}
         )
     </insert>
+    <!--메인페이지 자유게시판 목록 조회-->
+    <select id="selectMainQaBoardList" resultMap="qaList">
+        SELECT ROW_NUM
+            , QA_BOARD_NUM
+            , QA_BOARD_TITLE
+            , QA_BOARD_WRITER
+            , TO_CHAR(QA_CREATE_DATE, 'YYYY-MM-DD') QA_CREATE_DATE
+            , QA_BOARD_READ_CNT
+        FROM (
+        SELECT ROWNUM AS ROW_NUM
+            , QA_BOARD_NUM
+            , QA_BOARD_TITLE
+            , QA_BOARD_WRITER
+            , QA_CREATE_DATE
+            , QA_BOARD_READ_CNT
+        FROM (
+        SELECT *
+        FROM BOARD_QA_LIST
+        ORDER BY QA_CREATE_DATE DESC
+        )
+        )
+        WHERE ROWNUM &lt;= 5
+    </select>
 </mapper>
 
 
