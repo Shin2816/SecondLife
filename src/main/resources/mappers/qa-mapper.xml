@@ -12,6 +12,7 @@
         <result column="QA_CREATE_DATE" property="qaCreateDate"/>
         <result column="QA_BOARD_READ_CNT" property="qaBoardReadCnt"/>
         <result column="QA_BOARD_ISCLOSE" property="qaBoardIsClose"/>
+        <result column="QA_BOARD_PASSWORD" property="qaBoardPassword"/>
     </resultMap>
     <!--Q&A 게시판 목록 조회-->
     <select id="selectQaBoardList" resultMap="qaList">
@@ -24,9 +25,28 @@
         <if test='searchValue != null and !searchValue.equals("")'>
             WHERE UPPER(${searchType}) LIKE '%'||UPPER(#{searchValue})||'%'
         </if>
-        ORDER BY QA_CREATE_DATE DESC
+        ORDER BY QA_BOARD_NUM DESC
         OFFSET (#{nowPage} - 1) * #{displayDataCnt} ROWS FETCH FIRST #{displayDataCnt} ROWS ONLY
     </select>
+    <!--게시글 갯수 조회-->
+    <select id="selectBoardCnt" resultType="int">
+        SELECT COUNT(QA_BOARD_NUM)
+        FROM BOARD_QA_LIST
+    </select>
+    <!--자유게시판 글 등록-->
+    <insert id="insertQaBoard">
+        INSERT INTO BOARD_QA_LIST(
+        QA_BOARD_NUM
+        , QA_BOARD_TITLE
+        , QA_BOARD_CONTENT
+        , QA_BOARD_WRITER
+        ) VALUES(
+        (SELECT NVL(MAX(QA_BOARD_NUM), 0) + 1 FROM BOARD_QA_LIST)
+        , #{qaBoardTitle}
+        , #{qaBoardContent}
+        , #{qaBoardWriter}
+        )
+    </insert>
 </mapper>
 
 

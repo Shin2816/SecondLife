@@ -8,7 +8,47 @@
 </head>
 <body>
 <th:block layout:fragment="content">
+    <!-- 썸머노트 -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
+    <form action="/qa/regBoard" method="post" id="qaRegBoard">        
+        <div class="row mb-3">
+            <div class="text-center">
+                <h1>자유게시판 등록</h1>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-12">
+                <input type="text" class="form-control text-center" id="qaBoardTitle" name="qaBoardTitle" placeholder="제목을 입력해 주세요." required>
+            </div>
+        </div>
+        <div class="row mb-3 error">
+            <div class="title-error-div">
+                <!-- 에러 출력 -->
+            </div>
+        </div>
+
+        <div class="col-12">
+            <textarea name="qaBoardContent" class="form-control summernote text-left" id="qaBoardContent" cols="30" rows="10"></textarea>
+        </div>
+        <div class="row mb-3 error">
+            <div class="text-error-div">
+                <!-- 에러 출력 -->
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-1">
+                <input type="button" class="btn btn-primary mb-3 " id="regBoardBtn" value="등록하기" onclick="qaRegValidate()">
+            </div>
+        </div>
+    </form>
+    <!-- <div class="input-group">
+        <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+        <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">첨부</button>
+    </div> -->
+    <script src="/js/board/qa_board.js"></script>
 </th:block>
 </body>
 </html>
