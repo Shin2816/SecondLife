@@ -6,7 +6,7 @@ import lombok.Data;
 public class LectureVO {
     private String lectureCode;
     private String lectureTitle;
-    private String lectureSubject;
+    private String lectureEventCode;
     private int lectureStudent;
     private String lecturePeriod;
     private int lecturePrice;

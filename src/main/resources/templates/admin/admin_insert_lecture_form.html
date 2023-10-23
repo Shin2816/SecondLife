@@ -8,8 +8,8 @@
 </head>
 <body>
 <th:block layout:fragment="content">
-<h1>강좌등록페이지</h1>
-<form action="/lecture/insertLecture" method="post">
+<h1>수업 생성 페이지</h1>
+<form action="/lecture/adminInsertLecture" method="post">
     <div>
         <p>
             강좌명 : 
@@ -18,8 +18,8 @@
         <p>
             수강과목 : 
             <select name="lectureSubject">
-                <th:block th:each="subject : ${subjectList}">
-                    <option th:value="${subject.subjectName}">[[${subject.subjectName}]]</option>
+                <th:block th:each="lectureEvent : ${lectureEventList}">
+                    <option th:value="${lectureEvent.lectureEventCode}">[[${lectureEvent.lectureEventName}]]</option>
                 </th:block>
             </select>
         </p>
@@ -33,11 +33,7 @@
         </p>
         <p>
             수강생 정원 : 
-            <select name="lectureStudent">
-                <option value="10">10</option>
-                <option value="20">20</option>
-                <option value="30">30</option>
-            </select>
+            <input type="number" name="lectureStudent">
         </p>
         <p>수업기간 : <input type="date" name="lecturePeriod"> ~ <input type="date" name="lecturePeriod"></p>
         <p>수강료 : <input type="text" name="lecturePrice"></p>
