@@ -53,8 +53,7 @@ function calendarCheck(date){
         return response.json(); //나머지 경우에 사용
     })
     //fetch 통신 후 실행 영역
-    .then((data) => {//data -> controller에서 리턴되는 데이터!
-      // data = rentalTimeList
+    .then((data) => {//data -> controller에서 리턴되는 데이터(rentalTimeList)
         let inputTr = document.querySelector('#input-tr');
         let memberName = document.querySelector('#memberName').value;
 
@@ -103,8 +102,9 @@ function calendarCheck(date){
     });
 }
 
+//신청하기 버튼 클릭 시 실행되는 함수(모달창 열리기)
 function signBtn(memberName){
-    const facilityNameSpan = document.querySelector('#facility-name-span');
+    const facilityNameTag = document.querySelector('#facility-name-tag');
     const rentalTimeSpan = document.querySelector('#rental-time-span');
     const rentalChargeSpan = document.querySelector('#rental-charge-span');
     const userNameSpan = document.querySelector('#user-name-span');
@@ -117,39 +117,19 @@ function signBtn(memberName){
     let rentTimes = [];
     rentalTimeSpan.innerHTML = '';
 
-    //renTimeObject['startTime'] = '';
-    //renTimeObject['endTime'] = '';
-    //let startTime = '';
-    //let endTime = '';
-
     checkBoxes.forEach(function(checkBox){
         if(checkBox.checked == true){
             ++checkBoxCnt; //체크된 체크박스 개수 증가
             rentCharge = checkBox.dataset.rentalCharge; //요금 dataset들고오기
             facilityName = checkBox.dataset.facilityName; //시설이름 들고오기
             let renTimeObject = {'startTime' : checkBox.dataset.startTime, 'endTime' : checkBox.dataset.endTime};
-            // startTime = checkBox.dataset.startTime;
-            // endTime = checkBox.dataset.endTime;
-            
-            // renTimeObject.startTime = startTime;
-            // renTimeObject.endTime = endTime;
             rentTimes.push(renTimeObject);
         }
     });
     
-    
-    //console.log(rentTimes);
-    // console.log(renTimeObject);
-
-    //console.log(rentTimes.map(rentTime => rentTime.startTime));
-
     rentTimes.forEach(rentTime => {
         rentTime.startTime +' ~ '+rentTime.endTime+'\n'
     });
-
-    // rentTimes.forEach(rentTime => {
-    //     console.log(rentTime.startTime +' ~ '+rentTime.endTime);
-    // });
 
     //로그인체크
     if(memberName == 'null'){
@@ -159,7 +139,7 @@ function signBtn(memberName){
         if(checkBoxCnt == 0){
             alert('신청할 시간대를 체크해주세요.');
         } else{
-            facilityNameSpan.textContent = facilityName;
+            facilityNameTag.value = facilityName;
             rentalChargeSpan.textContent = (rentCharge*checkBoxCnt).toLocaleString('ko-KR') + '원';
             userNameSpan.innerHTML = memberName;
             rentTimes.forEach(rentTime => {
@@ -175,7 +155,6 @@ function signBtn(memberName){
             // }, 2000);
         }
     };
-
     
     
 }
