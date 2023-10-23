@@ -29,7 +29,7 @@ th{
 
 .login-area{
     position: relative;
-    margin: 40px 10px 40px 0;
+    margin: 40px 0;
     padding: 25px 15px;
     border: 1px solid black;
     border-radius: 10px;
@@ -60,12 +60,16 @@ th{
 .main-header-menu{
     position: relative;
 }
+.main-header-menu .banner img{
+    width: 1295px;
+    height: auto;
+}
 .nav-underline{
     position: absolute;
     padding: 10px 0 10px 0;
     top: 0;
     left: 0;
-    width: 1280px;
+    width: 1295px;
     background-color: aliceblue;
 }
 

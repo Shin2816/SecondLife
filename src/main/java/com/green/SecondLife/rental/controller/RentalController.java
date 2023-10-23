@@ -23,13 +23,13 @@ public class RentalController {
     private final RentalService rentalService;
 
 
-    //테스트
+    //화면
     @GetMapping("/test")
     public String test(){
         return "/rental/rental_facility";
     }
 
-    //테스트 비동기
+    //풀 캘린더
     @ResponseBody
     @PostMapping("/calTest")
     public List<RentalFacilityVO> calTest(RentalFacilityVO rentalFacilityVO, HttpSession session){
@@ -41,5 +41,10 @@ public class RentalController {
 
         List<RentalFacilityVO> rentalTimelList = rentalService.selectRentalFacility(rentalFacilityVO);
         return rentalTimelList;
+    }
+
+    @PostMapping("/signUpRentalFacility")
+    public void insertRentalInfo(){
+
     }
 }
