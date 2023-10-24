@@ -75,6 +75,16 @@ public class QaServiceImpl implements QaService{
 
     @Override
     public void insertQaImgs(BoardQaListVO boardQaListVO) {
+        sqlSession.insert("qaMapper.insertQaImgs", boardQaListVO);
+    }
 
+    @Override
+    public String selectNextQaCode() {
+        return sqlSession.selectOne("qaMapper.selectNextQaCode");
+    }
+
+    @Override
+    public int selectNextQaBoardNum() {
+        return sqlSession.selectOne("qaMapper.selectNextQaBoardNum");
     }
 }

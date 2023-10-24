@@ -14,6 +14,19 @@ document.addEventListener('DOMContentLoaded', function() {
       editable : true, //이벤트 위치 변경 가능 여부
       selectable: true, //달력 클릭 여부
       height: 500,
+      dayCellContent: function(info) {    //달력 '일' 삭제
+        var dayNum = document.createElement('a');
+        dayNum.classList.add('fc-daygrid-day-number');
+        dayNum.innerHTML = info.dayNumberText.replace('일', '');
+        if(info.view.type == 'dayGridMonth') {
+            return {
+                html: dayNum.outerHTML
+            };
+        }
+        return {
+            domNodes: []
+        };
+      },
       dateClick: function(info) { //달력을 클릭 했을 때, 함수 호출
         calendarCheck(info.dateStr); //비동기 통신, 매개변수는 클릭한 날짜
       },
@@ -22,11 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     calendar.render();
 
-    $(".fc-daygrid-day-number").each(function(){ // 캘린더 랜더 후 '일'자 없애기.
-        var day = $(this).text();
-        day = day.replace("일","");
-        $(this).text(day);
-    });
+    
   });
 
 //풀캘린더 날짜 선택 시 실행되는 함수
@@ -62,36 +71,36 @@ function calendarCheck(date){
 
         let str ='';
         data.forEach(rentalTime => {
-            if (rentalTime.rentalFacilityList.rentalDate != null) {
+            if (rentalTime.rentalDate != null) {
                 str += '<tr>';
                 str += '<td>';
-                if (rentalTime.rentalFacilityList.rentalStatus == 0) {
+                if (rentalTime.rentalStatus == 0) {
                     str += `<input type="checkbox" 
-                            data-rental-charge='${rentalTime.rentalFacilityList.rentalCharge}'
-                            data-facility-name='${rentalTime.rentalFacilityList.facilityName}'
-                            data-start-time='${rentalTime.rentalStartTime}'
-                            data-end-time='${rentalTime.rentalEndTime}'
+                            data-rental-charge='${rentalTime.rentalCharge}'
+                            data-facility-name='${rentalTime.facilityName}'
+                            data-start-time='${rentalTime.rentalTimeVO.rentalStartTime}'
+                            data-end-time='${rentalTime.rentalTimeVO.rentalEndTime}'
                             data-time-code='${rentalTime.rentalTimeCode}'
-                            data-rental-date='${rentalTime.rentalFacilityList.rentalDate}'>`;
+                            data-rental-date='${rentalTime.rentalDate}'>`;
                 } else {
                     str += '<input type="checkbox" disabled>';
                 }
 
                 str += '</td>';
-                str += '<td>' + rentalTime.rentalStartTime + ' ~ ' + rentalTime.rentalEndTime + '</td>';
+                str += '<td>' + rentalTime.rentalTimeVO.rentalStartTime + ' ~ ' + rentalTime.rentalTimeVO.rentalEndTime + '</td>';
                 str += `<td>`;
 
-                if (rentalTime.rentalFacilityList.rentalStatus == 0) {
-                    str += rentalTime.rentalFacilityList.rentalCharge.toLocaleString('ko-KR');
-                } else if (rentalTime.rentalFacilityList.rentalStatus == 1) {
+                if (rentalTime.rentalStatus == 0) {
+                    str += rentalTime.rentalCharge.toLocaleString('ko-KR');
+                } else if (rentalTime.rentalStatus == 1) {
                     str += '<span style="color: blue;">승인 대기중</span>';
-                } else if (rentalTime.rentalFacilityList.rentalStatus == 2) {
+                } else if (rentalTime.rentalStatus == 2) {
                     str += '<span style="color: red;">예약 불가</span>';
                 }
 
                 str += '</td>';
-                str += '<td>' + rentalTime.rentalFacilityList.rentalTeam + '</td>';
-                str += '<td>' + rentalTime.rentalFacilityList.rentalUser + '</td>';
+                str += '<td>' + rentalTime.rentalTeam + '</td>';
+                str += '<td>' + rentalTime.rentalUser + '</td>';
                 str += '</tr>';
             }
         });
@@ -169,4 +178,13 @@ function signBtn(memberName){
             // }, 2000);
         }
     };
+}
+
+//모달창에서 신청하기 버튼 클릭시 - 확인창 띄우고 submit되는 함수
+function rentalSignUp(){
+    const signUpBtn = document.querySelector('#sign-up-btn');
+    if(confirm('대관을 신청하시겠습니까?')){
+        signUpBtn.type = 'submit';
+        alert('신청이 완료되었습니다.');
+    }
 }

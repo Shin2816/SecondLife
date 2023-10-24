@@ -4,6 +4,7 @@ import com.green.SecondLife.member.vo.MemberVO;
 import com.green.SecondLife.rental.service.RentalService;
 import com.green.SecondLife.rental.vo.RentalFacilityVO;
 import jakarta.servlet.http.HttpSession;
+import jakarta.websocket.Session;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Controller;
@@ -34,14 +35,7 @@ public class RentalController {
     //풀 캘린더
     @ResponseBody
     @PostMapping("/calTest")
-    public List<RentalFacilityVO> calTest(RentalFacilityVO rentalFacilityVO, HttpSession session){
-        System.out.println(rentalFacilityVO.getFacilityCode());
-        System.out.println(rentalFacilityVO.getRentalDate());
-        System.out.println(rentalFacilityVO);
-
-        //세션 사용자이름 불러오기
-        MemberVO member = (MemberVO)session.getAttribute("loginInfo");
-
+    public List<RentalFacilityVO> calTest(RentalFacilityVO rentalFacilityVO){
         List<RentalFacilityVO> rentalTimeList = rentalService.selectRentalFacility(rentalFacilityVO);
         return rentalTimeList;
     }
@@ -49,12 +43,15 @@ public class RentalController {
     // 대관예약 신청하기
     @PostMapping("/signUpRentalFacility")
     public String insertRentalFacility(RentalFacilityVO rentalFacilityVO){
-        System.out.println(rentalFacilityVO);
+        // 빈 List<> 생성( 후에 setFacilityList() )
         List<RentalFacilityVO> rentalList = new ArrayList<>();
-
+        
+        // 2개이상 선택시 rentTimeCode = "time1, time2, ..." 로 받아와짐
+        // split을 이용하여 나누기
         String rentTimeCode = rentalFacilityVO.getRentalTimeCode();
         String[] timeCodeArr = rentTimeCode.split(",");
 
+        // 선택된 개수만큼 반복문을 돌려 빈 리스트에 담기
         for(int i = 0; i < timeCodeArr.length; i++){
             RentalFacilityVO rentVO = new RentalFacilityVO();
 
@@ -69,10 +66,22 @@ public class RentalController {
             rentalList.add(rentVO);
         }
         rentalFacilityVO.setFacilityList(rentalList);
-        System.out.println(rentalFacilityVO.getFacilityList());
-
 
         rentalService.insertRentalFacility(rentalFacilityVO);
+
         return "redirect:/rental/test";
+    }
+
+    @GetMapping("/myRentalHistory")
+    public String myRentalHistory(RentalFacilityVO rentalFacilityVO, HttpSession session, Model model){
+        //세션 사용자이름 불러오기
+        MemberVO member = (MemberVO)session.getAttribute("loginInfo");
+        rentalFacilityVO.setRentalUser(member.getMemberName());
+        List<RentalFacilityVO> myRentalList = rentalService.selectMyRentalList(rentalFacilityVO);
+
+        model.addAttribute("myRentalList", myRentalList);
+        System.out.println(myRentalList);
+
+        return "/rental/my_rental_history";
     }
 }

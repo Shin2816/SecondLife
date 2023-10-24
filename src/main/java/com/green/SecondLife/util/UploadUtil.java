@@ -1,6 +1,7 @@
 package com.green.SecondLife.util;
 
 import com.green.SecondLife.center.vo.FacilityImageVO;
+import com.green.SecondLife.community.vo.QaImgVO;
 import com.green.SecondLife.instructor.vo.InstructorImgVO;
 import com.green.SecondLife.lecture.vo.LectureEventImgVO;
 import com.sun.tools.javac.Main;
@@ -8,6 +9,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class UploadUtil {
@@ -134,6 +137,56 @@ public class UploadUtil {
         }
         // 원본파일명, 첨부파일명이 들어간 VO 리턴 해주기
         return lectureEventImgVO;
+    }
+
+    //------------qa 게시판 업로드 메소드
+    //파일첨부 기능(단일 파일 업로드)
+    public static QaImgVO qaUploadFile(MultipartFile Img){
+        QaImgVO qaImgVO = null;
+
+        //첨부파일을 선택한다면...
+        if (!Img.isEmpty()){
+            qaImgVO = new QaImgVO();
+            //첨부파일의 이름을 변수에 저장
+            String originFileName = Img.getOriginalFilename();
+            //첨부될 파일명을 랜덤한 문자열로 설정
+            String uuid = UUID.randomUUID().toString();
+
+            //확장자명 설정
+            //가장 마지막위치 .의 index를 저장
+            int dotIndex = originFileName.lastIndexOf(".");
+            String extention = originFileName.substring(dotIndex);//substring으로 .jpg를 분리
+            //랜덤한 문자열 + 확장자 asdf.jpg
+            String attachedFileName = uuid + extention;
+
+            try {
+                //지정한 형태로 파일 첨부(경로 + 파일명)
+                File file = new File(ConstantVariable.UPLOAD_PATH_COMMUNITY_QA + attachedFileName);
+                Img.transferTo(file);
+
+                qaImgVO.setQaOriginFileName(originFileName);
+                qaImgVO.setQaAttachedFileName(attachedFileName);
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        //첨부파일이 만약 없다면 null을 리턴
+        return qaImgVO;
+    }
+
+    //다중 파일 업로드
+    public static List<QaImgVO> qaMultiFileUpload(MultipartFile[] imgs){
+        List<QaImgVO> imgList = new ArrayList<>();
+
+        for (MultipartFile img : imgs){
+            QaImgVO vo = qaUploadFile(img);
+
+            if (vo != null){
+                imgList.add(vo);
+            }
+        }
+        return imgList;
     }
 
 

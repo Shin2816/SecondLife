@@ -8,7 +8,48 @@
 </head>
 <body>
 <th:block layout:fragment ="content">
-    
+    <div class="row">
+        <div class="col-12">
+            <h2>예약 현황</h2>
+        </div>
+        <div class="col">
+            <table class="table table-hover text-center align-middle">
+                <colgroup>
+                    <col width="5%">
+                    <col width="15%">
+                    <col width="12%">
+                    <col width="*">
+                    <col width="13%">
+                    <col width="13%">
+                    <col width="10%">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <td>No</td>
+                        <td>대관시설</td>
+                        <td>예약일</td>
+                        <td>예약시간</td>
+                        <td>단체명</td>
+                        <td>상태</td>
+                        <td>취소</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="myRental, state : ${myRentalList}">
+                        <td>[[${#lists.size(myRentalList) - state.index}]]</td>
+                        <td>[[${myRental.facilityName}]]</td>
+                        <td>[[${myRental.rentalDate}]]</td>
+                        <td>[[${myRental.rentalTimeVO.rentalStartTime}]]~[[${myRental.rentalTimeVO.rentalEndTime}]]</td>
+                        <td>[[${myRental.rentalTeam}]]</td>
+                        <th:block th:if="${myRental.rentalStatus == 1}">
+                            <td>승인 대기중</td>
+                        </th:block>
+                        <td><input type="button" class="btn btn-secondary btn-sm" value="취소"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </th:block>
 </body>
 </html>

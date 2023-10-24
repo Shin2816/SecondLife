@@ -34,4 +34,8 @@ public interface QaService {
     public int updateQaBoardComment(BoardCommentListVO boardCommentListVO);
     //상품 이미지 등록
     public void insertQaImgs(BoardQaListVO boardQaListVO);
+    //다음 QA_코드 조회
+    public String selectNextQaCode();
+    //다음 QA_BOARD_NUM 조회
+    public int selectNextQaBoardNum();
 }
