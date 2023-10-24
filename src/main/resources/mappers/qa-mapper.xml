@@ -146,7 +146,7 @@
         COMMENT_CONTENT = #{commentContent}
         WHERE COMMENT_ID = #{commentId}
     </update>
-    <insert id="insertQaImg">
+    <insert id="insertQaImgs">
         INSERT INTO QA_IMG (
             QA_CODE
             , QA_ORIGIN_FILE_NAME
