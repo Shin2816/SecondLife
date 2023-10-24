@@ -7,17 +7,19 @@
 </head>
 <body>
     <th:block th:fragment="mainFooterFragment">
+        <link rel="stylesheet" href="/css/main_footer.css">
         <div class="footer">
             <div class="foot-menu">
-                <p>개인정보처리방침 |</p>
-                <p>팀 소개 |</p>
-                <p>사이트 맵</p>
+                <p onclick="location.href='/etc/privacy'">개인정보처리방침</p>|
+                <p onclick="location.href=''"> 팀 소개</p>|
+                <p onclick="location.href='/etc/sitemap'"> 사이트 맵</p>
             </div>
             <div class="foot-info">
                 <p> SecondLife (팀장) 연락처 : 010-2953-2816 | 이메일 : rbghks2953@gmail.com </p> 
                 <p> © 2023 SecondLife. All rights reserved. </p>
             </div>
         </div>
+        <script src="/js/main_footer.js"></script>
     </th:block>
 </body>
 </html>

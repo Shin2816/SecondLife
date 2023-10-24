@@ -30,7 +30,6 @@ import java.util.List;
 public class MemberController {
 
     private final MemberService memberService;
-    private final CommunityService communityService;
 
     //로그인 폼 화면으로 이동
     @GetMapping("/loginForm")
