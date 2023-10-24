@@ -75,6 +75,6 @@ public class QaServiceImpl implements QaService{
 
     @Override
     public void insertQaImgs(BoardQaListVO boardQaListVO) {
-
+        sqlSession.insert("qaMapper.insertQaImgs", boardQaListVO);
     }
 }
