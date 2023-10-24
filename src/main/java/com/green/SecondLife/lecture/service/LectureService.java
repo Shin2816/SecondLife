@@ -17,11 +17,18 @@ public interface LectureService {
 
     //관리자용 강좌 종목 리스트 조회 기능
     public List<LectureEventVO> adminSelectLectureEventList();
+    //관리자용 강좌 종목 상세 조회 기능
+    public LectureEventVO adminSelectLectureEventDetail(LectureEventVO lectureEventVO);
+    //관리자용 강좌 종목 정보 수정 기능
+    public void adminUpdateLectureEventInfo(LectureEventVO lectureEventVO);
+    //관리자용 강좌 종목 삭제 기능
+    public void adminDeleteLectureEvent(LectureEventVO lectureEventVO);
     //관리자용 강좌 리뷰 리스트 조회 기능
     public List<LectureReviewVO> adminSelectLectureReviewList();
 
     //관리자용 수업 생성 기능
     public void adminInsertLecture(LectureVO lectureVO);
+
     //강좌 목록 조회 기능
     public List<LectureVO> adminSelectLectureList(String instructorCode);
 
