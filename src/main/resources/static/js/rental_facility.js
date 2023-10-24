@@ -14,6 +14,19 @@ document.addEventListener('DOMContentLoaded', function() {
       editable : true, //이벤트 위치 변경 가능 여부
       selectable: true, //달력 클릭 여부
       height: 500,
+      dayCellContent: function(info) {    //달력 '일' 삭제
+        var dayNum = document.createElement('a');
+        dayNum.classList.add('fc-daygrid-day-number');
+        dayNum.innerHTML = info.dayNumberText.replace('일', '');
+        if(info.view.type == 'dayGridMonth') {
+            return {
+                html: dayNum.outerHTML
+            };
+        }
+        return {
+            domNodes: []
+        };
+      },
       dateClick: function(info) { //달력을 클릭 했을 때, 함수 호출
         calendarCheck(info.dateStr); //비동기 통신, 매개변수는 클릭한 날짜
       },
@@ -22,11 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     calendar.render();
 
-    $(".fc-daygrid-day-number").each(function(){ // 캘린더 랜더 후 '일'자 없애기.
-        var day = $(this).text();
-        day = day.replace("일","");
-        $(this).text(day);
-    });
+    
   });
 
 //풀캘린더 날짜 선택 시 실행되는 함수

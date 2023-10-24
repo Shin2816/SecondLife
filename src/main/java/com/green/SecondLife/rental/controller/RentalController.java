@@ -49,12 +49,15 @@ public class RentalController {
     // 대관예약 신청하기
     @PostMapping("/signUpRentalFacility")
     public String insertRentalFacility(RentalFacilityVO rentalFacilityVO){
-        System.out.println(rentalFacilityVO);
+        // 빈 List<> 생성( 후에 setFacilityList() )
         List<RentalFacilityVO> rentalList = new ArrayList<>();
-
+        
+        // 2개이상 선택시 rentTimeCode = "time1, time2, ..." 로 받아와짐
+        // split을 이용하여 나누기
         String rentTimeCode = rentalFacilityVO.getRentalTimeCode();
         String[] timeCodeArr = rentTimeCode.split(",");
 
+        // 선택된 개수만큼 반복문을 돌려 빈 리스트에 담기
         for(int i = 0; i < timeCodeArr.length; i++){
             RentalFacilityVO rentVO = new RentalFacilityVO();
 
@@ -69,8 +72,6 @@ public class RentalController {
             rentalList.add(rentVO);
         }
         rentalFacilityVO.setFacilityList(rentalList);
-        System.out.println(rentalFacilityVO.getFacilityList());
-
 
         rentalService.insertRentalFacility(rentalFacilityVO);
         return "redirect:/rental/test";
