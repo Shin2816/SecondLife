@@ -13,7 +13,7 @@
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
-    <form action="/qa/regBoard" method="post" id="qaRegBoard">        
+    <form action="/qa/regBoard" method="post" id="qaRegBoard" enctype="multipart/form-data">        
         <div class="row mb-3">
             <div class="text-center">
                 <h1>QnA게시판 등록</h1>
@@ -38,31 +38,30 @@
                 <!-- 에러 출력 -->
             </div>
         </div>
-        <div class="row form-check">
+        <!-- 첨부파일 -->
+        <div class="input-group mb-3">
+            <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+            <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">첨부</button>
+        </div>
+        <div class="row form-check openAndClose">
+            <!-- 공개여부 -->
             <div class="col">
                 <div class="form-check form-check-inline col-1">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" onclick="openAndClose()">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="openAndClose1" value="open" onclick="openAndClose(this)">
                     <label class="form-check-label" for="inlineRadio1">공개</label>
                 </div>
                 <div class="form-check form-check-inline col-1">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" onclick="openAndClose()">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="openAndClose2" value="close" onclick="openAndClose(this)" checked>
                     <label class="form-check-label" for="inlineRadio2">비공개</label>
                 </div>
             </div>
             <!-- 비밀번호 input -->
-            <div class="row g-3 align-items-center">
-                <div class="col-auto">
-                    <label for="inputPassword6" class="col-form-label">비밀번호 설정</label>
-                </div>
-                <div class="col-auto">
-                    <input type="password" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
-                </div>
-                <div class="col-auto">
-                    <span id="passwordHelpInline" class="form-text">
-                        24글자 이내로 입력 해 주세요
-                    </span>
-                </div>
-              </div>
+            <div class="col g-3 align-items-center" id="password-onOff">
+                <hr>
+                <label for="inputPassword6" class="col-form-label">비밀번호 설정</label>
+                <input type="password" class="form-control" style="width: 300px;" id="passwordValue">
+                <span id="passwordHelpInline" class="form-text">24글자 이내로 입력 해 주세요</span>
+            </div>
         </div>
         <div class="row justify-content-center">
             <div class="col-1">
@@ -70,10 +69,6 @@
             </div>
         </div>
     </form>
-    <!-- <div class="input-group">
-        <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
-        <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">첨부</button>
-    </div> -->
     <script src="/js/board/qa_board.js"></script>
 </th:block>
 </body>
