@@ -4,6 +4,7 @@ import com.green.SecondLife.member.vo.MemberVO;
 import com.green.SecondLife.rental.service.RentalService;
 import com.green.SecondLife.rental.vo.RentalFacilityVO;
 import jakarta.servlet.http.HttpSession;
+import jakarta.websocket.Session;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Controller;
@@ -34,14 +35,7 @@ public class RentalController {
     //풀 캘린더
     @ResponseBody
     @PostMapping("/calTest")
-    public List<RentalFacilityVO> calTest(RentalFacilityVO rentalFacilityVO, HttpSession session){
-        System.out.println(rentalFacilityVO.getFacilityCode());
-        System.out.println(rentalFacilityVO.getRentalDate());
-        System.out.println(rentalFacilityVO);
-
-        //세션 사용자이름 불러오기
-        MemberVO member = (MemberVO)session.getAttribute("loginInfo");
-
+    public List<RentalFacilityVO> calTest(RentalFacilityVO rentalFacilityVO){
         List<RentalFacilityVO> rentalTimeList = rentalService.selectRentalFacility(rentalFacilityVO);
         return rentalTimeList;
     }
@@ -74,6 +68,20 @@ public class RentalController {
         rentalFacilityVO.setFacilityList(rentalList);
 
         rentalService.insertRentalFacility(rentalFacilityVO);
+
         return "redirect:/rental/test";
+    }
+
+    @GetMapping("/myRentalHistory")
+    public String myRentalHistory(RentalFacilityVO rentalFacilityVO, HttpSession session, Model model){
+        //세션 사용자이름 불러오기
+        MemberVO member = (MemberVO)session.getAttribute("loginInfo");
+        rentalFacilityVO.setRentalUser(member.getMemberName());
+        List<RentalFacilityVO> myRentalList = rentalService.selectMyRentalList(rentalFacilityVO);
+
+        model.addAttribute("myRentalList", myRentalList);
+        System.out.println(myRentalList);
+
+        return "/rental/my_rental_history";
     }
 }

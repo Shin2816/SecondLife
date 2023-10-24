@@ -71,36 +71,36 @@ function calendarCheck(date){
 
         let str ='';
         data.forEach(rentalTime => {
-            if (rentalTime.rentalFacilityList.rentalDate != null) {
+            if (rentalTime.rentalDate != null) {
                 str += '<tr>';
                 str += '<td>';
-                if (rentalTime.rentalFacilityList.rentalStatus == 0) {
+                if (rentalTime.rentalStatus == 0) {
                     str += `<input type="checkbox" 
-                            data-rental-charge='${rentalTime.rentalFacilityList.rentalCharge}'
-                            data-facility-name='${rentalTime.rentalFacilityList.facilityName}'
-                            data-start-time='${rentalTime.rentalStartTime}'
-                            data-end-time='${rentalTime.rentalEndTime}'
+                            data-rental-charge='${rentalTime.rentalCharge}'
+                            data-facility-name='${rentalTime.facilityName}'
+                            data-start-time='${rentalTime.rentalTimeVO.rentalStartTime}'
+                            data-end-time='${rentalTime.rentalTimeVO.rentalEndTime}'
                             data-time-code='${rentalTime.rentalTimeCode}'
-                            data-rental-date='${rentalTime.rentalFacilityList.rentalDate}'>`;
+                            data-rental-date='${rentalTime.rentalDate}'>`;
                 } else {
                     str += '<input type="checkbox" disabled>';
                 }
 
                 str += '</td>';
-                str += '<td>' + rentalTime.rentalStartTime + ' ~ ' + rentalTime.rentalEndTime + '</td>';
+                str += '<td>' + rentalTime.rentalTimeVO.rentalStartTime + ' ~ ' + rentalTime.rentalTimeVO.rentalEndTime + '</td>';
                 str += `<td>`;
 
-                if (rentalTime.rentalFacilityList.rentalStatus == 0) {
-                    str += rentalTime.rentalFacilityList.rentalCharge.toLocaleString('ko-KR');
-                } else if (rentalTime.rentalFacilityList.rentalStatus == 1) {
+                if (rentalTime.rentalStatus == 0) {
+                    str += rentalTime.rentalCharge.toLocaleString('ko-KR');
+                } else if (rentalTime.rentalStatus == 1) {
                     str += '<span style="color: blue;">승인 대기중</span>';
-                } else if (rentalTime.rentalFacilityList.rentalStatus == 2) {
+                } else if (rentalTime.rentalStatus == 2) {
                     str += '<span style="color: red;">예약 불가</span>';
                 }
 
                 str += '</td>';
-                str += '<td>' + rentalTime.rentalFacilityList.rentalTeam + '</td>';
-                str += '<td>' + rentalTime.rentalFacilityList.rentalUser + '</td>';
+                str += '<td>' + rentalTime.rentalTeam + '</td>';
+                str += '<td>' + rentalTime.rentalUser + '</td>';
                 str += '</tr>';
             }
         });
@@ -178,4 +178,13 @@ function signBtn(memberName){
             // }, 2000);
         }
     };
+}
+
+//모달창에서 신청하기 버튼 클릭시 - 확인창 띄우고 submit되는 함수
+function rentalSignUp(){
+    const signUpBtn = document.querySelector('#sign-up-btn');
+    if(confirm('대관을 신청하시겠습니까?')){
+        signUpBtn.type = 'submit';
+        alert('신청이 완료되었습니다.');
+    }
 }
