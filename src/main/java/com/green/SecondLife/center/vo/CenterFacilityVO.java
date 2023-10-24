@@ -8,6 +8,7 @@ public class CenterFacilityVO {
     private String facilityName;
     private String facilityContent;
     private String rentalAvailable;
+    private int facilityRentalCharge;
     private int centerCateCode;
     private String facilityPlaceInfo;
     private FacilityImageVO facilityImageVO;

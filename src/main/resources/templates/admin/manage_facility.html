@@ -104,6 +104,12 @@
                                                 <div class="col-8">[[${facility.rentalAvailable}]]</div>
                                             </div>
                                             <div class="row mb-3">
+                                                <div class="col-4">대관 요금</div>
+                                                <div class="col-8">
+                                                    <input class="form-control" type="text" name="facilityRentalCharge" th:value="${facility.facilityRentalCharge}">
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
                                                 <div class="col-4">사진 파일 첨부 </div>
                                                 <div class="col-8">
                                                     <input class="form-control" type="file" id="formFile" name="facilityImg" onchange="updateImg()">

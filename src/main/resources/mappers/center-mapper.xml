@@ -13,6 +13,7 @@
         <result column="FACILITY_NAME"          property="facilityName"/>
         <result column="FACILITY_CONTENT"       property="facilityContent"/>
         <result column="RENTAL_AVAILABLE"       property="rentalAvailable"/>
+        <result column="FACILITY_RENTAL_CHARGE"       property="facilityRentalCharge"/>
         <result column="CENTER_CATE_CODE"       property="centerCateCode"/>
         <result column="FACILITY_PLACE_INFO"    property="facilityPlaceInfo"/>
         <association property="facilityImageVO" resultMap="facilityImage"/>
@@ -45,6 +46,7 @@
             , FACILITY_NAME
             , FACILITY_CONTENT
             , RENTAL_AVAILABLE
+            , FACILITY_RENTAL_CHARGE
             , CENTER_CATE_CODE
             , FACILITY_PLACE_INFO
         ) VALUES (
@@ -52,6 +54,7 @@
             , #{facilityName}
             , #{facilityContent}
             , #{rentalAvailable}
+            , #{facilityRentalCharge}
             , #{centerCateCode}
             , #{facilityPlaceInfo}
         )
@@ -86,6 +89,7 @@
             , FACILITY_CONTENT
             , FACILITY_PLACE_INFO
             , RENTAL_AVAILABLE
+            , FACILITY_RENTAL_CHARGE
             , FACILITY_ORIGIN_FILE_NAME
             , FACILITY_ATTACHED_FILE_NAME
         FROM CENTER_FACILITY, CENTER_FACILITY_IMAGE
@@ -107,6 +111,7 @@
             FACILITY_NAME = #{facilityName}
             , FACILITY_CONTENT = #{facilityContent}
             , FACILITY_PLACE_INFO = #{facilityPlaceInfo}
+            , FACILITY_RENTAL_CHARGE = #{facilityRentalCharge}
             , CENTER_CATE_CODE = #{centerCateCode}
         WHERE FACILITY_CODE = #{facilityCode}
     </update>
