@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{fragment/admin_layout}">
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+<th:block layout:fragment="content">
+    <h2>관리자용 강좌 종목 수정 페이지</h2>
+    <div>
+        <form action="/lecture/adminUpdateLectureEventInfo" method="post" id="lectureEventForm">
+        <div>
+            <p class="event-img"><img th:src="${'/images/lectureEvent/' + lectureEvent.lectureEventImgVO.lectureEventAttachedFileName}"></p>
+            <p>강좌 종목 : <input type="text" th:value="${lectureEvent.lectureEventName}" name="lectureEventName"></p>
+            <p>내용 : <input type="text" th:value="${lectureEvent.lectureEventContent}" name="lectureEventContent"></p>
+            <input type="hidden" th:value="${lectureEvent.lectureEventCode}" name="lectureEventCode">
+        </div>
+        <input type="button" value="저장" onclick="submitButton();">
+        </form>
+    </div>
+    <script src="/js/admin/admin_update_lecture_event_info_form.js"></script>
+</th:block>
+</body>
+</html>

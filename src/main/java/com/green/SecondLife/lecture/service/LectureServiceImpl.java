@@ -36,6 +36,22 @@ public class LectureServiceImpl implements LectureService{
     public List<LectureEventVO> adminSelectLectureEventList() {
         return sqlSession.selectList("lectureMapper.adminSelectLectureEventList");
     }
+    //관리자용 강좌 종목 상세 조회 기능
+    @Override
+    public LectureEventVO adminSelectLectureEventDetail(LectureEventVO lectureEventVO) {
+        return sqlSession.selectOne("lectureMapper.adminSelectLectureEventDetail", lectureEventVO);
+    }
+    //관리자용 강좌 종목 정보 수정 기능
+    @Override
+    public void adminUpdateLectureEventInfo(LectureEventVO lectureEventVO) {
+        sqlSession.update("lectureMapper.adminUpdateLectureEventInfo", lectureEventVO);
+    }
+    //관리자용 강좌 종목 삭제 기능
+    @Override
+    public void adminDeleteLectureEvent(LectureEventVO lectureEventVO) {
+        sqlSession.delete("lectureMapper.adminDeleteLectureEvent", lectureEventVO);
+    }
+
     //관리자용 강좌 리뷰 리스트 조회 기능
     @Override
     public List<LectureReviewVO> adminSelectLectureReviewList() {
@@ -47,6 +63,7 @@ public class LectureServiceImpl implements LectureService{
     public void adminInsertLecture(LectureVO lectureVO) {
         sqlSession.insert("lectureMapper.adminInsertLecture", lectureVO);
     }
+
     //관리자용 수업 목록 조회 기능
     @Override
     public List<LectureVO> adminSelectLectureList(String instructorCode) {

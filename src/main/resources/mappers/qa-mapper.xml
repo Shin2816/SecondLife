@@ -14,6 +14,7 @@
         <result column="QA_BOARD_ISCLOSE" property="qaBoardIsClose"/>
         <result column="QA_BOARD_PASSWORD" property="qaBoardPassword"/>
         <collection property="qaBoardComment" resultMap="communityMapper.comment"/><!--comment를 여러개 가지기 위해서-->
+        <collection property="qaImgList" resultMap="qaImg"/><!--어소시에이션은 하나만, 컬렉션은 다수-->
     </resultMap>
     <!-- QA 이미지 -->
     <resultMap id="qaImg" type="com.green.SecondLife.community.vo.QaImgVO">
@@ -25,10 +26,10 @@
     <!--Q&A 게시판 목록 조회-->
     <select id="selectQaBoardList" resultMap="qaList">
         SELECT QA_BOARD_NUM
-        , QA_BOARD_TITLE
-        , QA_BOARD_WRITER
-        , TO_CHAR(QA_CREATE_DATE, 'YYYY-MM-DD') QA_CREATE_DATE
-        , QA_BOARD_READ_CNT
+            , QA_BOARD_TITLE
+            , QA_BOARD_WRITER
+            , TO_CHAR(QA_CREATE_DATE, 'YYYY-MM-DD') QA_CREATE_DATE
+            , QA_BOARD_READ_CNT
         FROM BOARD_QA_LIST
         <if test='searchValue != null and !searchValue.equals("")'>
             WHERE UPPER(${searchType}) LIKE '%'||UPPER(#{searchValue})||'%'
@@ -41,21 +42,21 @@
         SELECT COUNT(QA_BOARD_NUM)
         FROM BOARD_QA_LIST
     </select>
-    <!--자유게시판 글 등록-->
+    <!--Q&A 게시판 글 등록-->
     <insert id="insertQaBoard">
         INSERT INTO BOARD_QA_LIST(
-        QA_BOARD_NUM
-        , QA_BOARD_TITLE
-        , QA_BOARD_CONTENT
-        , QA_BOARD_WRITER
+            QA_BOARD_NUM
+            , QA_BOARD_TITLE
+            , QA_BOARD_CONTENT
+            , QA_BOARD_WRITER
         ) VALUES(
-        (SELECT NVL(MAX(QA_BOARD_NUM), 0) + 1 FROM BOARD_QA_LIST)
-        , #{qaBoardTitle}
-        , #{qaBoardContent}
-        , #{qaBoardWriter}
+            (SELECT NVL(MAX(QA_BOARD_NUM), 0) + 1 FROM BOARD_QA_LIST)
+            , #{qaBoardTitle}
+            , #{qaBoardContent}
+            , #{qaBoardWriter}
         )
     </insert>
-    <!--메인페이지 자유게시판 목록 조회-->
+    <!--메인페이지 Q&A게시판 목록 조회-->
     <select id="selectMainQaBoardList" resultMap="qaList">
         SELECT ROW_NUM
             , QA_BOARD_NUM
@@ -78,14 +79,14 @@
         )
         WHERE ROWNUM &lt;= 5
     </select>
-    <!--자유게시판 상세 조회-->
+    <!--Q&A게시판 상세 조회-->
     <select id="selectQaBoardDetail" resultMap="qaList">
         SELECT QA_BOARD_NUM
-        , QA_BOARD_TITLE
-        , QA_BOARD_CONTENT
-        , QA_BOARD_WRITER
-        , TO_CHAR(QA_CREATE_DATE, 'YYYY-MM-DD') QA_CREATE_DATE
-        , QA_BOARD_READ_CNT
+            , QA_BOARD_TITLE
+            , QA_BOARD_CONTENT
+            , QA_BOARD_WRITER
+            , TO_CHAR(QA_CREATE_DATE, 'YYYY-MM-DD') QA_CREATE_DATE
+            , QA_BOARD_READ_CNT
         FROM BOARD_QA_LIST
         WHERE QA_BOARD_NUM = #{qaBoardNum}
     </select>
@@ -99,26 +100,26 @@
     <!--QA게시판 댓글 조회-->
     <select id="selectQaBoardComment" resultMap="communityMapper.comment">
         SELECT COMMENT_ID
-        , COMMENT_CONTENT
-        , COMMENT_WRITER
-        , TO_CHAR(COMMENT_CREATE_DATE, 'YYYY.MM.DD. HH24:MI') COMMENT_CREATE_DATE
+            , COMMENT_CONTENT
+            , COMMENT_WRITER
+            , TO_CHAR(COMMENT_CREATE_DATE, 'YYYY.MM.DD. HH24:MI') COMMENT_CREATE_DATE
         FROM BOARD_FREE_COMMENTS
         WHERE COMMENT_NUM = #{qaBoardNum}
     </select>
     <!--QA게시판 댓글 작성-->
     <insert id="insertQaBoardComment">
         INSERT INTO BOARD_FREE_COMMENTS (
-        COMMENT_ID
-        , COMMENT_CONTENT
-        , COMMENT_WRITER
-        , COMMENT_CREATE_DATE
-        , COMMENT_NUM
+            COMMENT_ID
+            , COMMENT_CONTENT
+            , COMMENT_WRITER
+            , COMMENT_CREATE_DATE
+            , COMMENT_NUM
         ) VALUES (
         (SELECT NVL(MAX(COMMENT_ID), 0) + 1 FROM BOARD_FREE_COMMENTS)
-        , #{commentContent}
-        , #{commentWriter}
-        , SYSDATE
-        , #{commentNum}
+            , #{commentContent}
+            , #{commentWriter}
+            , SYSDATE
+            , #{commentNum}
         )
     </insert>
     <!--QA게시판 글 삭제, 댓글이 먼저 삭제되고 게시글 삭제 되도록(외래키 오류)-->
@@ -139,13 +140,19 @@
         DELETE BOARD_FREE_COMMENTS
         WHERE COMMENT_ID = #{commentId}
     </delete>
-    <!--자유게시판 댓글 수정-->
+    <!--Q&A 게시판 댓글 수정-->
     <update id="updateQaBoardComment">
         UPDATE BOARD_FREE_COMMENTS
         SET
         COMMENT_CONTENT = #{commentContent}
         WHERE COMMENT_ID = #{commentId}
     </update>
+    <!--다음 qaBoardNum 조회-->
+    <select id="selectNextQaBoardNum" resultType="int">
+        SELECT MAX(QA_BOARD_NUM)
+        FROM BOARD_QA_LIST
+    </select>
+    <!--이미지 등록-->
     <insert id="insertQaImgs">
         INSERT INTO QA_IMG (
             QA_CODE
@@ -154,13 +161,17 @@
             , QA_BOARD_NUM
         )
         <foreach collection="qaImgList" item="img" separator="UNION ALL" index="idx">
-            SELECT (SELECT 'IMG_'||LPAD(NVL(MAX(TO_NUMBER(SUBSTR(IMG_CODE, 5))), 0) + 1 + #{idx}, 3, '0') FROM QA_IMG)
-                , #{img.originFileName}
-                , #{img.attachedFileName}
+            SELECT (SELECT 'QA_'||LPAD(NVL(MAX(TO_NUMBER(SUBSTR(QA_CODE, 4))), 0) + 1 + #{idx}, 3, '0') FROM QA_IMG)
+                , #{img.qaOriginFileName}
+                , #{img.qaAttachedFileName}
                 , #{img.qaBoardNum}
             FROM DUAL
         </foreach>
     </insert>
+    <!--다음 QA_CODE조회-->
+    <select id="selectNextQaCode" resultType="String">
+        SELECT 'QA_'||LPAD(NVL(MAX(TO_NUMBER(SUBSTR(QA_CODE, 4))), 0) + 1, 3, '0') FROM QA_IMG
+    </select>
 </mapper>
 
 

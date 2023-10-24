@@ -17,7 +17,7 @@
         </p>
         <p>
             수강과목 : 
-            <select name="lectureSubject">
+            <select name="lectureEventCode">
                 <th:block th:each="lectureEvent : ${lectureEventList}">
                     <option th:value="${lectureEvent.lectureEventCode}">[[${lectureEvent.lectureEventName}]]</option>
                 </th:block>

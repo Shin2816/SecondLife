@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{fragment/sub_layout}">
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+    <th:block layout:fragment="content">
+        <div class="row sitemap-row">
+            <h2>사이트맵</h2>
+            <div class="col-4" th:each="mainMenu : ${mainMenuList}">
+                <div class="sitemap-main" th:onclick="@{${mainMenu.menuUrl}}">
+                    [[${mainMenu.menuName}]]
+                </div>
+                <div class="sitemap-sub">
+                    <ol>
+                        <li class="sitemap-sub-url" th:each="subMenu : ${mainSubMenuList}" th:if="${mainMenu.menuCode == subMenu.menuCode}" th:onclick="|location.href='@{${subMenu.subMenuUrl}}'|">[[${subMenu.subMenuName}]]</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </th:block>
+</body>
+</html>

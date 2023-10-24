@@ -89,6 +89,7 @@ th{
     padding: 37px 46px;
     margin: 20px 12px;
     background-color: rgb(211, 253, 211);
+    cursor: pointer;
 }
 .link-area div:nth-child(even){
     background-color: lightyellow;
@@ -192,4 +193,17 @@ th{
 .forth{
     height: 15rem;
     margin-bottom: 10px;
+}
+.privacy-title {
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+.privacy-info{
+    margin-bottom: 20px;
+}
+.sitemap-row div{
+    margin: 0 0 20px 0;
+}
+.sitemap-sub-url{
+cursor: pointer;
 }

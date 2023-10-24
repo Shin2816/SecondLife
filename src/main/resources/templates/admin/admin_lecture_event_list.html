@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="/css/admin_lecture_event_list.css">
 <h2>관리자용 강좌 종목 현황</h2>
 <div>
-    <div th:each="lectureEvent : ${lectureEventList}" class="box">
+    <div th:each="lectureEvent : ${lectureEventList}" class="box" th:onclick="|location.href='@{/lecture/adminLectureEventDetail(lectureEventCode=${lectureEvent.lectureEventCode}, menuCode='MENU_002')}'|">
         <p class="event-img"><img th:src="${'/images/lectureEvent/' + lectureEvent.lectureEventImgVO.lectureEventAttachedFileName}"></p>
         <p>[[${lectureEvent.lectureEventName}]]</p>
         <p>[[${lectureEvent.lectureEventContent}]]</p>

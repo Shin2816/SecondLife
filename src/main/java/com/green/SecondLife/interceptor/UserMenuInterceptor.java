@@ -24,7 +24,7 @@ public class UserMenuInterceptor implements HandlerInterceptor {
         List<MenuVO> menuList = menuService.selectMainMenuList();
         List<SubMenuVO> subMenuList = menuService.selectMainSubMenuList();
 
-        modelAndView.addObject("menuList", menuList);
-        modelAndView.addObject("subMenuList", subMenuList);
+        modelAndView.addObject("mainMenuList", menuList);
+        modelAndView.addObject("mainSubMenuList", subMenuList);
     }
 }
