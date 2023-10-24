@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -35,6 +37,7 @@ public class RentalController {
     public List<RentalFacilityVO> calTest(RentalFacilityVO rentalFacilityVO, HttpSession session){
         System.out.println(rentalFacilityVO.getFacilityCode());
         System.out.println(rentalFacilityVO.getRentalDate());
+        System.out.println(rentalFacilityVO);
 
         //세션 사용자이름 불러오기
         MemberVO member = (MemberVO)session.getAttribute("loginInfo");
@@ -45,9 +48,31 @@ public class RentalController {
 
     // 대관예약 신청하기
     @PostMapping("/signUpRentalFacility")
-    public String insertRentalInfo(RentalFacilityVO rentalFacilityVO){
+    public String insertRentalFacility(RentalFacilityVO rentalFacilityVO){
         System.out.println(rentalFacilityVO);
-        rentalService.insertRentalInfo(rentalFacilityVO);
+        List<RentalFacilityVO> rentalList = new ArrayList<>();
+
+        String rentTimeCode = rentalFacilityVO.getRentalTimeCode();
+        String[] timeCodeArr = rentTimeCode.split(",");
+
+        for(int i = 0; i < timeCodeArr.length; i++){
+            RentalFacilityVO rentVO = new RentalFacilityVO();
+
+            rentVO.setFacilityCode(rentalFacilityVO.getFacilityCode());
+            rentVO.setRentalDate(rentalFacilityVO.getRentalDate());
+            rentVO.setRentalTimeCode(timeCodeArr[i]);
+            rentVO.setRentalCharge(rentalFacilityVO.getRentalCharge());
+            rentVO.setRentalUser(rentalFacilityVO.getRentalUser());
+            rentVO.setRentalTeam(rentalFacilityVO.getRentalTeam());
+            rentVO.setRentalPurpose(rentalFacilityVO.getRentalPurpose());
+
+            rentalList.add(rentVO);
+        }
+        rentalFacilityVO.setFacilityList(rentalList);
+        System.out.println(rentalFacilityVO.getFacilityList());
+
+
+        rentalService.insertRentalFacility(rentalFacilityVO);
         return "redirect:/rental/test";
     }
 }

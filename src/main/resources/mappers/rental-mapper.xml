@@ -37,7 +37,7 @@
             FROM RENTAL_FACILITY
             WHERE RENTAL_TIME_CODE = TIME.RENTAL_TIME_CODE
             AND RENTAL_DATE = #{rentalDate}
-            AND FACILITY_CODE = #{facilityCode}), '-') RENTAL_DATE
+            AND FACILITY_CODE = #{facilityCode}), #{rentalDate}) RENTAL_DATE
         , (SELECT FACILITY_NAME
             FROM CENTER_FACILITY
             WHERE FACILITY_CODE = #{facilityCode}) FACILITY_NAME
@@ -45,7 +45,7 @@
             FROM RENTAL_FACILITY
             WHERE RENTAL_TIME_CODE = TIME.RENTAL_TIME_CODE
             AND RENTAL_DATE = #{rentalDate}
-            AND FACILITY_CODE = #{facilityCode}), '30000') RENTAL_CHARGE
+            AND FACILITY_CODE = #{facilityCode}), 30000) RENTAL_CHARGE
         , NVL((SELECT RENTAL_USER
             FROM RENTAL_FACILITY
             WHERE RENTAL_TIME_CODE = TIME.RENTAL_TIME_CODE
@@ -65,7 +65,7 @@
     </select>
 
     <!--대관 신청하기-->
-    <insert id="insertRentalInfo">
+    <insert id="insertRentalFacility">
         INSERT INTO RENTAL_FACILITY (
         RENTAL_CODE
         , FACILITY_CODE
@@ -77,10 +77,11 @@
         , RENTAL_PURPOSE
         , RENTAL_STATUS
         )
-        <foreach collection="facilityList" item="facility" separator="UNION ALL">
-            SELECT 'RENTAL_FACILITY_'||LPAD(NVL(MAX(TO_NUMBER(SUBSTR(RENTAL_CODE, 18))), 0) + 1, 3, '0')
-            , #{facility.facilityCode}
-            , #{facility.rentalDate}
+        <foreach index="i" collection="facilityList" item="facility" separator="UNION ALL">
+            SELECT
+                'RENTAL_FACILITY_'||(#{i} + 1)
+                , #{facility.facilityCode}
+                , #{facility.rentalDate}
                 , #{facility.rentalTimeCode}
                 , #{facility.rentalCharge}
                 , #{facility.rentalUser}

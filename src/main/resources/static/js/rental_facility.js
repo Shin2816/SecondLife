@@ -31,6 +31,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 //풀캘린더 날짜 선택 시 실행되는 함수
 function calendarCheck(date){
+    let inputTitle = document.querySelector('#rental-table-title'); // h2날짜 표시
+    inputTitle.innerHTML = date;
+
     fetch('/rental/calTest', { //요청경로
         method: 'POST',
         cache: 'no-cache',
@@ -114,7 +117,7 @@ function signBtn(memberName){
     const userNameTag = document.querySelector('#user-name-tag');
     const insertTimeCodeTag = rentalChargeTag.closest('.row');
     
-    const checkBoxes = document.querySelectorAll('input[type=checkbox]');
+    let checkBoxes = document.querySelectorAll('input[type=checkbox]');
    
     let checkBoxCnt = 0;  //체크박스 개수
     let rentCharge = 0;   

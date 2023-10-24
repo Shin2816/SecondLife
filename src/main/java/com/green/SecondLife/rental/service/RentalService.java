@@ -9,5 +9,5 @@ public interface RentalService {
     public List<RentalFacilityVO> selectRentalFacility(RentalFacilityVO rentalFacilityVO);
 
     // 대관 신청하기
-    public void insertRentalInfo(RentalFacilityVO rentalFacilityVO);
+    public void insertRentalFacility(RentalFacilityVO rentalFacilityVO);
 }

@@ -1,14 +1,18 @@
 #calendar{
   margin-bottom: 20px;
 }
-
-#rentalTable{
-  margin-top: 65px;
-}
-
-#input-tr{
+#rental-calendar-table{
+  position: relative;
   width: 100%;
   margin: 0 auto;
+}
+#rental-table-title{
+  text-align: center;
+}
+#rental-table{
+  position: absolute;
+  top: 65px;
+  left: 0;
 }
 
 /* 헤더셀 요일표시 - 검정색 */
@@ -37,8 +41,10 @@
 }
 
 #sign-btn{
+  position: absolute;
+  bottom: -80px;
+  right: 42%;
   width: 100px;
-  margin-top: 30px;
 }
 .input-n-box{
   border: none;

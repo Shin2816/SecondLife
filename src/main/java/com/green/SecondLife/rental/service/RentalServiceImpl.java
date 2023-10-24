@@ -18,7 +18,7 @@ public class RentalServiceImpl implements RentalService{
     }
 
     @Override
-    public void insertRentalInfo(RentalFacilityVO rentalFacilityVO) {
-        sqlSession.insert("rentalMapper.insertRentalInfo", rentalFacilityVO);
+    public void insertRentalFacility(RentalFacilityVO rentalFacilityVO) {
+        sqlSession.insert("rentalMapper.insertRentalFacility", rentalFacilityVO);
     }
 }
