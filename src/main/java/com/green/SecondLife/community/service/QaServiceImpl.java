@@ -72,4 +72,9 @@ public class QaServiceImpl implements QaService{
     public int updateQaBoardComment(BoardCommentListVO boardCommentListVO) {
         return sqlSession.update("qaMapper.updateQaBoardComment", boardCommentListVO);
     }
+
+    @Override
+    public void insertQaImgs(BoardQaListVO boardQaListVO) {
+
+    }
 }
