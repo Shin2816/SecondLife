@@ -2,9 +2,9 @@ package com.green.SecondLife.community.controller;
 
 import com.green.SecondLife.community.service.QaService;
 import com.green.SecondLife.community.vo.BoardCommentListVO;
-import com.green.SecondLife.community.vo.BoardFreeListVO;
 import com.green.SecondLife.community.vo.BoardQaListVO;
 import com.green.SecondLife.member.vo.MemberVO;
+import com.green.SecondLife.util.ConstantVariable;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -13,8 +13,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
@@ -42,9 +46,27 @@ public class QaController {
     }
     //글 등록 페이지에서 등록하기 누르면 글 등록 쿼리 실행
     @PostMapping("/regBoard")
-    public String regBoard(BoardQaListVO boardQaListVO, HttpSession session){
+    public String regBoard(BoardQaListVO boardQaListVO, HttpSession session, MultipartFile qaImg){//인터페이스
+        //첨부파일
+        String originFileName = qaImg.getOriginalFilename();//파일 이름 저장
+        System.out.println(originFileName);//첨부파일이름 확인
+
+        //첨부될 파일명
+        String uuid = UUID.randomUUID().toString();//랜덤한 난수 생성해서 파일이름이 겹치지 않도록
+        int dotIndex = originFileName.lastIndexOf(".");//가장 마지막위치의 .위치 index를 저장
+        String extension = originFileName.substring(dotIndex);//원본파일의 확장자명
+        String attachedFileName = uuid + extension; //난수 + 확장자 저장
+        //파일 첨부경로, (상수)+난수+확장자로 저장
+        File file = new File(ConstantVariable.UPLOAD_PATH_COMMUNITY_QA + attachedFileName);
+        try {
+            qaImg.transferTo(file);//qaImg 첨부파일에 대한 정보를 변환
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }//이미지 첨부가 안될때 파일 생성도 되지가 않으니 트라이 캐치(예외처리) 활용
+
         MemberVO loginInfo = (MemberVO)session.getAttribute("loginInfo");
         boardQaListVO.setQaBoardWriter(loginInfo.getMemberId());
+        //글 등록 쿼리 실행
         qaService.insertQaBoard(boardQaListVO);
         return "redirect:/qa/qaBoardList";
     }
