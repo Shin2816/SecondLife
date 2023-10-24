@@ -11,6 +11,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
     private final BoardInterceptor boardInterceptor;
     private final LectureInterceptor lectureServiceInterceptor;
     private final AdminMenuInterceptor menuInterceptor;
+    private final UserMenuInterceptor userMenuInterceptor;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -43,6 +44,12 @@ public class InterceptorConfig implements WebMvcConfigurer {
                                             ,"/center/insertFacilityForm"
                                             ,"/center/selectAllFacility"
                                                                                     )
+                .excludePathPatterns("/**/**Fetch")
+                .excludePathPatterns("/images/**", "/js/**", "/css/**");
+
+        //유저 메뉴 정보 출력 인터셉터 실행
+        registry.addInterceptor(userMenuInterceptor)
+                .addPathPatterns("/")
                 .excludePathPatterns("/**/**Fetch")
                 .excludePathPatterns("/images/**", "/js/**", "/css/**");
     }
