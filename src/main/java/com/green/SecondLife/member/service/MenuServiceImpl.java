@@ -23,4 +23,15 @@ public class MenuServiceImpl implements MenuService{
     public List<SubMenuVO> selectSubMenuList(String menuCode) {
         return sqlSession.selectList("menuMapper.selectSubMenuList", menuCode);
     }
+
+    @Override
+    public List<MenuVO> selectMainMenuList() {
+        return sqlSession.selectList("menuMapper.selectMainMenuList");
+    }
+
+    @Override
+    public List<SubMenuVO> selectMainSubMenuList() {
+        return sqlSession.selectList("menuMapper.selectMainSubMenuList");
+    }
+
 }

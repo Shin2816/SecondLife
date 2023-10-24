@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+.footer{
+    background-color: lightgrey;
+    padding: 40px 0 30px 40px;
+}
+
+.foot-menu{
+    display: flex;
+}
+.foot-menu p{
+    margin-right: 10px;
+}
