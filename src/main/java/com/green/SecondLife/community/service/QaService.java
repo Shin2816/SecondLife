@@ -22,14 +22,16 @@ public interface QaService {
     public int updateQaBoardCnt(int qaBoardNum);
     //QA 댓글 목록 조회
     public List<BoardQaListVO> selectQaBoardComment(int qaBoardNum);
-    //자유게시판 댓글 등록
+    //QA 댓글 등록
     public int insertQaBoardComment(BoardCommentListVO boardCommentListVO);
-    //자유게시판 글 삭제
+    //QA 글 삭제
     public int deleteQaBoard(int qaBoardNum);
-    //자유게시판 글 수정
+    //QA 글 수정
     public int updateQaBoard(BoardQaListVO boardQaListVO);
-    //자유게시판 댓글 삭제
+    //QA 댓글 삭제
     public int deleteQaBoardComment(int commentId);
-    //자유게시판 댓글 수정
+    //QA 댓글 수정
     public int updateQaBoardComment(BoardCommentListVO boardCommentListVO);
+    //상품 이미지 등록
+    public void insertQaImgs(BoardQaListVO boardQaListVO);
 }
