@@ -1,5 +1,8 @@
 @charset "utf-8";
 /* admin_lecture_event_list.css */
+.box{
+    cursor: pointer;
+}
 .event-img{
     width: 70px;
     height: 70px;

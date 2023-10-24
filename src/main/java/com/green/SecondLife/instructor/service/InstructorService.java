@@ -16,9 +16,8 @@ public interface InstructorService {
     public List<InstructorVO> adminSelectInstuctorList();
     //관리자용 강사 상세 조회 기능
     public InstructorVO adminSelectInstructorDetail(InstructorVO instructorVO);
-
-    //강사 이미지 코드 조회
-    public String selectInstructorImgCode(InstructorVO instructorVO);
-    //강사 삭제 기능 이미지부터 삭제
-    public void deleteInstructor(InstructorVO instructorVO, InstructorImgVO instructorImgVO);
+    //관리자용 강사 정보 수정 기능
+    public void adminUpdateInstructorInfo(InstructorVO instructorVO);
+    //관리자용 강사 삭제 기능
+    public void adminDeleteInstructor(InstructorVO instructorVO);
 }
