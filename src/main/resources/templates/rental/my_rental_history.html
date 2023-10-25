@@ -43,7 +43,9 @@
                         <td>[[${myRental.rentalTeam}]]</td>
                         <th:block th:if="${myRental.rentalStatus == '1'}">
                             <td>승인 대기중</td>
-                            <td><input type="button" class="btn btn-secondary btn-sm" value="취소"></td>
+                            <td>
+                                <button type="button" class="btn btn-secondary btn-sm" th:onclick="cancelRental([[${myRental.rentalSignCode}]])">취소</button>
+                            </td>
                         </th:block>
                         <th:block th:unless="${myRental.rentalStatus == '1'}">
                             <td>결제 완료</td>
@@ -54,6 +56,8 @@
             </table>
         </div>
     </div>
+    
+    <script src="/js/my_rental_history.js"></script>
 </th:block>
 </body>
 </html>

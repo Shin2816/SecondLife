@@ -13,4 +13,7 @@ public interface RentalService {
 
     // 마이페이지-시설예약현황
     public List<RentalFacilityVO> selectMyRentalList(RentalFacilityVO rentalFacilityVO);
+
+    // 대관신청 취소하기
+    public void deleteSignRental(String rentalSignCode);
 }

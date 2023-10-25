@@ -80,8 +80,14 @@ public class RentalController {
         List<RentalFacilityVO> myRentalList = rentalService.selectMyRentalList(rentalFacilityVO);
 
         model.addAttribute("myRentalList", myRentalList);
-        System.out.println(myRentalList);
-
         return "/rental/my_rental_history";
     }
+
+    @GetMapping("/deleteSignRental")
+    public String deleteSignRental(String rentalSignCode){
+        System.out.println(rentalSignCode);
+        rentalService.deleteSignRental(rentalSignCode);
+        return "redirect:/rental/myRentalHistory";
+    }
+
 }
