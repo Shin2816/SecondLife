@@ -116,17 +116,18 @@ public class LectureController {
         model.addAttribute("lectureList", lectureService.adminSelectLectureList(instructorCode));
         return "admin/admin_lecture_list";
     }
-    //강좌 상세 정보 조회
-    @GetMapping("/selectLectureDetail")
-    public String selectLectureDetail(LectureVO lectureVO, Model model){
-        model.addAttribute("lecture", lectureService.selectLectureDetail(lectureVO));
-        return "admin/lecture_detail";
+    //관리자용 수업 상세 조회
+    @GetMapping("/adminSelectLectureDetail")
+    public String selectLectureDetail(LectureVO lectureVO, Model model, SubMenuVO subMenuVO){
+        model.addAttribute("lecture", lectureService.adminSelectLectureDetail(lectureVO));
+        return "admin/admin_lecture_detail";
     }
-    //강좌 삭제 기능
-    @GetMapping("/deleteLecture")
-    public String deleteLecture(LectureVO lectureVO){
-        lectureService.deleteLecture(lectureVO);
-        return "redirect:/lecture/selectLectureList";
+    //관리자용 수업 삭제 기능
+    @GetMapping("/adminDeleteLecture")
+    public String deleteLecture(LectureVO lectureVO, RedirectAttributes redirectAttributes){
+        redirectAttributes.addAttribute("menuCode", "MENU_002");
+        lectureService.adminDeleteLecture(lectureVO);
+        return "redirect:/lecture/adminLectureList";
     }
 
     //↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ //
@@ -139,7 +140,7 @@ public class LectureController {
     //수강 신청 페이지로 이동
     @GetMapping("/goLectureApplyForm")
     public String goLectureApplyForm(LectureVO lectureVO, Model model, HttpSession session){
-        model.addAttribute("lectureInfo", lectureService.selectLectureDetail(lectureVO));
+        model.addAttribute("lectureInfo", lectureService.adminSelectLectureDetail(lectureVO));
         MemberVO memberId = (MemberVO)session.getAttribute("loginInfo");
         model.addAttribute("memberInfo", memberService.selectMember(memberId));
         return "lecture/lecture_apply_form";
@@ -156,7 +157,7 @@ public class LectureController {
     public String selectStudentList(Model model, @RequestParam String lectureCode, StudentVO studentVO, LectureVO lectureVO){
         Optional.ofNullable(lectureCode).ifPresent(lc -> studentVO.setLectureCode(lc));
         System.out.println(studentVO);
-        model.addAttribute("lectureInfo", lectureService.selectLectureDetail(lectureVO));
+        model.addAttribute("lectureInfo", lectureService.adminSelectLectureDetail(lectureVO));
         model.addAttribute("studentList", lectureService.selectStudentList(studentVO));
         return "lecture/student_list";
     }
@@ -174,7 +175,7 @@ public class LectureController {
         MemberVO loginInfo = (MemberVO) session.getAttribute("loginInfo");
         studentVO.setMemberId(loginInfo.getMemberId());
         System.out.println(studentVO);
-        model.addAttribute("lecture", lectureService.selectLectureDetail(lectureVO));
+        model.addAttribute("lecture", lectureService.adminSelectLectureDetail(lectureVO));
         model.addAttribute("student", lectureService.selectTheStudent(studentVO));
         return "lecture/lecture_review_form";
     }
