@@ -85,6 +85,10 @@ public class InstructorController {
     //유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저/////
     //↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ //
 
+    @GetMapping("/instructorList")
+    public String instructorList(){
+        return "instructor/instructor_list";
+    }
     //강사 요약 정보 조회 페치
     @ResponseBody
     @PostMapping("/showInstructorSimpleInfo")

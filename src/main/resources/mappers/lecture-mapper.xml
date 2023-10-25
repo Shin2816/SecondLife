@@ -154,8 +154,8 @@
             AND L.INSTRUCTOR_CODE = #{instructorCode}
         </if>
     </select>
-    <!-- 강좌 상세 정보 조회 쿼리-->
-    <select id="selectLectureDetail" resultMap="lecture">
+    <!-- 관리자용 수업 상세 조회 쿼리-->
+    <select id="adminSelectLectureDetail" resultMap="lecture">
         SELECT LECTURE_CODE
             , LECTURE_EVENT_CODE
             , LECTURE_TITLE
@@ -168,11 +168,12 @@
         WHERE LECTURE_CODE = #{lectureCode}
         AND L.INSTRUCTOR_CODE = I.INSTRUCTOR_CODE
     </select>
-    <!-- 강좌 삭제 기능-->
-    <delete id="deleteLecture">
+    <!-- 관리자용 수업 삭제 쿼리 -->
+    <delete id="adminDeleteLecture">
         DELETE LECTURE
         WHERE LECTURE_CODE = #{lectureCode}
     </delete>
+
     <!-- 강좌 수강신청 -->
     <insert id="insertStudent">
         INSERT INTO STUDENT (

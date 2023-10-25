@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{fragment/main_layout}">
+    layout:decorate="~{fragment/admin_layout}">
 <head>
 <meta charset="UTF-8">
 <title></title>
@@ -12,16 +12,18 @@
     <div>
         <p>강좌명 : [[${lecture.lectureTitle}]]</p>
         <p>수강과목 : [[${lecture.lectureEventCode}]]</p>
-        <p>강사명 : [[${lecture.instructorName}]]</p>
+        <p>강사명 : [[${lecture.instructorCode}]]</p>
         <p>강좌기간 : [[${lecture.lecturePeriod}]]</p>
         <p>정원 : [[${lecture.lectureStudent}]]</p>
         <p>수강료 : [[${lecture.lecturePrice}]]</p>
     </div>
     <div>
+        <p><input type="button" value="삭제" th:onclick="deleteLecture([[${lecture.lectureCode}]]);"></p>
         <p><input type="button" value="수강신청" th:onclick="|location.href='@{/lecture/goLectureApplyForm(lectureCode=${lecture.lectureCode})}'|"></p>
         <p><input type="button" value="수강생목록" th:onclick="|location.href='@{/lecture/selectStudentList(lectureCode=${lecture.lectureCode})}'|"></p>
         <p><button th:onclick="|location.href='@{/lecture/goLectureReviewForm(lectureCode=${lecture.lectureCode})}'|">리뷰쓰기</button></p>
     </div>
+    <script src="/js/admin_lecture_detail.js"></script>
 </th:block>
 </body>
 </html>
