@@ -37,11 +37,13 @@
     <select id="selectMainMenuList" resultMap="menu">
         SELECT * FROM MENU
         WHERE SUBSTR(MENU_CODE,6) > 4
+        AND SUBSTR(MENU_CODE,6) &lt; 12
     </select>
     <!--유저 서브 메뉴 목록 조회-->
     <select id="selectMainSubMenuList" resultMap="subMenu">
         select * from sub_menu
         where SUBSTR(MENU_CODE,6) > 4
+        AND SUBSTR(MENU_CODE,6) &lt; 12
     </select>
 
 

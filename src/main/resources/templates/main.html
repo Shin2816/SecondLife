@@ -133,7 +133,7 @@
                                     </th:block>
                                     <!-- 게시글 있을 때 -->
                                     <th:block th:unless="${#lists.size(qaBoardList) == 0}" >
-                                        <tr class="board-tr" th:each="qaBoard : ${qaBoardList}" th:onclick="|location.href='@{/qa/boardDetail(qaBoardNum=${qaBoard.qaBoardNum})}'|">
+                                        <tr class="board-tr" th:each="qaBoard : ${qaBoardList}" th:onclick="|location.href='@{/qa/boardDetail(qaBoardNum=${qaBoard.qaBoardNum},menuCode=MENU_007)}'|">
                                             <td class="board_td_title">[[${qaBoard.qaBoardTitle}]]</td>
                                             <td>[[${qaBoard.qaBoardWriter}]]</td>
                                             <td>[[${qaBoard.qaCreateDate}]]</td>
@@ -148,7 +148,7 @@
                             <div class="slide-1" onclick="location.href='/rental/rentalFacility'">
                                 <img src="/images/main_banner/facility.jpg" alt="">
                             </div>
-                            <div class="slide-2" onclick="location.href='/board/freeBoardList'">
+                            <div class="slide-2" th:onclick="|@{location.href='/board/freeBoardList(menuCode=MENU_007)}'|">
                                 <img src="/images/main_banner/board.jpg" alt="">
                             </div>
                             <div class="slide-3">
@@ -202,7 +202,7 @@
                                 <img src="/images/icons/board.png" alt="">
                                 센터 소개
                             </div>
-                            <div onclick="location.href='/board/freeBoardList'">
+                            <div th:onclick="|@{location.href='/board/freeBoardList(menuCode=MENU_007)}'|">
                                 <img src="/images/icons/community.png" alt="">
                                 커뮤니티
                             </div>
