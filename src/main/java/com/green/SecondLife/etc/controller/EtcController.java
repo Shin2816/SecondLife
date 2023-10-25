@@ -1,11 +1,14 @@
 package com.green.SecondLife.etc.controller;
 
 import com.green.SecondLife.etc.service.EtcService;
+import com.green.SecondLife.member.vo.SubMenuVO;
+import com.green.SecondLife.util.ConstantVariable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/etc")
@@ -15,14 +18,13 @@ public class EtcController {
     private final EtcService etcService;
 
     @GetMapping("/privacy")
-    public String privacy(String menuCode, Model model){
-        model.addAttribute("menuCode", menuCode);
+    public String privacy(SubMenuVO subMenuVO){
         return "/user/etc/privacy";
     }
 
     @GetMapping("/sitemap")
-    public String sitemap(String menuCode, Model model){
-        model.addAttribute("menuCode", menuCode);
+    public String sitemap(SubMenuVO subMenuVO){
+
         return "/user/etc/sitemap";
     }
 

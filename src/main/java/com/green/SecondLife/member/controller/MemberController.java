@@ -5,6 +5,7 @@ import com.green.SecondLife.community.vo.BoardFreeListVO;
 import com.green.SecondLife.lecture.service.LectureService;
 import com.green.SecondLife.member.service.MemberService;
 import com.green.SecondLife.member.vo.MemberVO;
+import com.green.SecondLife.member.vo.SubMenuVO;
 import com.green.SecondLife.util.ConstantVariable;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -64,7 +65,7 @@ public class MemberController {
 
     //로그아웃 처리 후, 메인페이지로 이동
     @GetMapping("/logout")
-    public String logout(HttpSession session){
+    public String logout(HttpSession session, SubMenuVO subMenuVO){
         session.removeAttribute("loginInfo");
         return "/main";
     }

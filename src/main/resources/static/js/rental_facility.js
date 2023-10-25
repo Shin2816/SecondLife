@@ -43,7 +43,7 @@ function calendarCheck(date){
     let inputTitle = document.querySelector('#rental-table-title'); // h2날짜 표시
     inputTitle.innerHTML = date;
 
-    fetch('/rental/calTest', { //요청경로
+    fetch('/rental/rentalCalendar', { //요청경로
         method: 'POST',
         cache: 'no-cache',
         headers: {
@@ -93,7 +93,7 @@ function calendarCheck(date){
                 if (rentalTime.rentalStatus == 0) {
                     str += rentalTime.rentalCharge.toLocaleString('ko-KR');
                 } else if (rentalTime.rentalStatus == 1) {
-                    str += '<span style="color: blue;">승인 대기중</span>';
+                    str += '<span style="color: blue;">승인 대기</span>';
                 } else if (rentalTime.rentalStatus == 2) {
                     str += '<span style="color: red;">예약 불가</span>';
                 }

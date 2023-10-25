@@ -27,14 +27,14 @@ public class RentalController {
 
 
     //화면
-    @GetMapping("/test")
+    @GetMapping("/rentalFacility")
     public String test(){
         return "/rental/rental_facility";
     }
 
     //풀 캘린더
     @ResponseBody
-    @PostMapping("/calTest")
+    @PostMapping("/rentalCalendar")
     public List<RentalFacilityVO> calTest(RentalFacilityVO rentalFacilityVO){
         List<RentalFacilityVO> rentalTimeList = rentalService.selectRentalFacility(rentalFacilityVO);
         return rentalTimeList;
@@ -69,9 +69,10 @@ public class RentalController {
 
         rentalService.insertRentalFacility(rentalFacilityVO);
 
-        return "redirect:/rental/test";
+        return "redirect:/rental/rentalFacility";
     }
 
+    //사용자(마이페이지)-대관신청 목록 조회
     @GetMapping("/myRentalHistory")
     public String myRentalHistory(RentalFacilityVO rentalFacilityVO, HttpSession session, Model model){
         //세션 사용자이름 불러오기
@@ -80,8 +81,22 @@ public class RentalController {
         List<RentalFacilityVO> myRentalList = rentalService.selectMyRentalList(rentalFacilityVO);
 
         model.addAttribute("myRentalList", myRentalList);
-        System.out.println(myRentalList);
-
         return "/rental/my_rental_history";
     }
+
+    //사용자(마이페이지)-대관신청 취소
+    @GetMapping("/deleteSignRental")
+    public String deleteSignRental(String rentalSignCode){
+        System.out.println(rentalSignCode);
+        rentalService.deleteSignRental(rentalSignCode);
+        return "redirect:/rental/myRentalHistory";
+    }
+
+    //관리자(시설대관현황) - 목록조회
+    @GetMapping("/rentalManageList")
+    public String selectRentalList(Model model){
+        model.addAttribute("rentalList", rentalService.selectRentalList());
+        return "/admin/manage_rental";
+    }
+
 }

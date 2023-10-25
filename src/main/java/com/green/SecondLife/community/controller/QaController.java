@@ -5,6 +5,7 @@ import com.green.SecondLife.community.vo.BoardCommentListVO;
 import com.green.SecondLife.community.vo.BoardQaListVO;
 import com.green.SecondLife.community.vo.QaImgVO;
 import com.green.SecondLife.member.vo.MemberVO;
+import com.green.SecondLife.member.vo.SubMenuVO;
 import com.green.SecondLife.util.ConstantVariable;
 import com.green.SecondLife.util.UploadUtil;
 import jakarta.servlet.http.HttpSession;
@@ -27,7 +28,7 @@ public class QaController {
 
     //Q&A 게시판 출력
     @RequestMapping("/qaBoardList")
-    public String qaBoardList(Model model, BoardQaListVO boardQaListVO){
+    public String qaBoardList(Model model, BoardQaListVO boardQaListVO, SubMenuVO subMenuVO){
         //페이지 정보 세팅
         int totalDataCnt = qaService.selectBoardCnt(); //전체 게시글 갯수 조회해서
         boardQaListVO.setTotalPageCnt(totalDataCnt);//세터 호출해서 전체 게시글 갯수 전달

@@ -4,6 +4,8 @@ import com.green.SecondLife.community.service.CommunityService;
 import com.green.SecondLife.community.vo.BoardCommentListVO;
 import com.green.SecondLife.community.vo.BoardFreeListVO;
 import com.green.SecondLife.member.vo.MemberVO;
+import com.green.SecondLife.member.vo.SubMenuVO;
+import com.green.SecondLife.util.ConstantVariable;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -21,7 +23,7 @@ public class CommunityController {
 
     //자유 게시판 출력
     @RequestMapping("/freeBoardList")
-    public String freeBoardList(Model model, BoardFreeListVO boardFreeListVO){
+    public String freeBoardList(Model model, BoardFreeListVO boardFreeListVO, SubMenuVO subMenuVO){
         //페이지 정보 세팅
         int totalDataCnt = communityService.selectBoardCnt(); //전체 게시글 갯수 조회해서
         boardFreeListVO.setTotalPageCnt(totalDataCnt);//세터 호출해서 전체 게시글 갯수 전달
@@ -51,7 +53,7 @@ public class CommunityController {
 
     //등록버튼 누르면 등록 페이지로 이동
     @GetMapping("/regBoardForm")
-    public String regBoardForm(){
+    public String regBoardForm(SubMenuVO subMenuVO){
         return "board/reg_board";
     }
     //글 등록 페이지에서 등록하기 누르면 글 등록 쿼리 실행
@@ -60,11 +62,11 @@ public class CommunityController {
         MemberVO loginInfo = (MemberVO)session.getAttribute("loginInfo");
         boardFreeListVO.setFreeBoardWriter(loginInfo.getMemberId());
         communityService.insertFreeBoard(boardFreeListVO);
-        return "redirect:/board/freeBoardList";
+        return "redirect:/board/freeBoardList?menuCode="+ ConstantVariable.MENU_CODE_BOARD;
     }
     //글 제목 클릭했을때 해당글의 상세페이지 이동
     @RequestMapping("/boardDetail")
-    public String boardDetail(int freeBoardNum, Model model){
+    public String boardDetail(int freeBoardNum, Model model, SubMenuVO subMenuVO){
         model.addAttribute("board", communityService.selectFreeBoardDetail(freeBoardNum));
         //조회수 증가
         communityService.updateFreeBoardCnt(freeBoardNum);
@@ -76,7 +78,7 @@ public class CommunityController {
     @GetMapping("/deleteFreeBoard")
     public String deleteFreeBoard(int freeBoardNum){
         communityService.deleteFreeBoard(freeBoardNum);
-        return "redirect:/board/freeBoardList";
+        return "redirect:/board/freeBoardList?menuCode="+ConstantVariable.MENU_CODE_BOARD;
     }
 
     //수정페이지에서 수정 버튼을 눌렀을 때 수정 쿼리 실행
@@ -87,7 +89,7 @@ public class CommunityController {
         //수정 쿼리
         communityService.updateFreeBoard(boardFreeListVO);
         //수정이 완료되면 해당 게시글 상세페이지로 freeBoardNum=숫자 데이터를 던질 수 있다.
-        return "redirect:/board/boardDetail?freeBoardNum=" + boardFreeListVO.getFreeBoardNum();
+        return "redirect:/board/boardDetail?freeBoardNum=" + boardFreeListVO.getFreeBoardNum()+"&menuCode="+ConstantVariable.MENU_CODE_BOARD;
     }
     //상세 페이지에서 댓글 작성버튼 클릭하면 비동기로 insert 쿼리 실행
     @ResponseBody

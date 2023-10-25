@@ -22,7 +22,7 @@ import java.util.List;
 public class CenterController {
     private final CenterService centerService;
 
-    // 시설 등록 페이지로 이동
+    //관리자-시설 등록 페이지로 이동
     @GetMapping("/insertFacilityForm")
     public String insertFacilityForm(Model model, SubMenuVO subMenuVO){
         subMenuVO.setMenuCode("MENU_003");
@@ -32,7 +32,7 @@ public class CenterController {
         return "admin/insert_facility_form";
     }
 
-    // 시설 등록 + 시설 이미지 등록
+    //관리자-시설 등록 + 시설 이미지 등록
     @PostMapping("/insertFacility")
     public String insertFacility(CenterFacilityVO centerFacilityVO, MultipartFile facilityImg){
         // 시설 이미지 등록
@@ -53,7 +53,7 @@ public class CenterController {
         return "redirect:/center/insertFacilityForm";
     }
 
-    // 전체 시설 목록 조회
+    //관리자-전체 시설 목록 조회
     @GetMapping("/selectAllFacility")
     public String selectAllFacility(Model model, SubMenuVO subMenuVO){
            subMenuVO.setMenuCode("MENU_003");
@@ -65,14 +65,14 @@ public class CenterController {
         return "admin/manage_facility";
     }
 
-    // 시설관리 - 대관가능유무 상태 변경
+    //관리자-시설관리 - 대관가능유무 상태 변경
     @ResponseBody
     @PostMapping("/updateRentalAvailable")
     public void updateRentalAvailable(CenterFacilityVO centerFacilityVO){
         centerService.updateRentalAvailable(centerFacilityVO);
     }
 
-    // 시설관리 - 수정하기
+    //관리자-시설관리 - 수정하기
     @PostMapping("/updateFacility")
     public String updateFacility(CenterFacilityVO centerFacilityVO, MultipartFile facilityImg){
 
@@ -95,7 +95,7 @@ public class CenterController {
         return "redirect:/center/selectAllFacility";
     }
 
-    // 시설관리 - 삭제하기
+    //관리자-시설관리 - 삭제하기
     @GetMapping("/deleteFacility")
     public String deleteFacility(String facilityCode){
         // 해당 게시물의 첨부파일 삭제

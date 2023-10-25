@@ -17,12 +17,12 @@
         <div class="menu">
             <div class="left-menu">
                 <span class="link-main" onclick="location.href='/'"></span>
-                <button onclick="location.href='/rental/test';">대관신청(테스트중)</button>
             </div>
             <div class="login-menu">
                 <p th:unless="${session.loginInfo == null}"> 
                     <span class="login-span" th:if="${session.loginInfo.memberRoll == 'ADMIN'}" th:onclick="|location.href='@{/admin/admin_main(menuCode=MENU_000)}'|">관리하기 </span>
                     <span class="login-span" th:if="${session.loginInfo.memberRoll == 'ADMIN'}" onclick="location.href='/member/logout';">로그아웃</span>
+                    <button onclick="location.href='/rental/myRentalHistory';">나의 예약 현황</button>
                 </p>
             </div>
         </div>
@@ -32,7 +32,7 @@
             </div>
             <ul class="nav nav-underline">
                 <li class="nav-item" th:each="mainMenu : ${mainMenuList}">
-                    <a class="nav-link" th:href="@{${mainMenu.menuUrl}}">[[${mainMenu.menuName}]]</a>
+                    <a class="nav-link main-menu-link" th:href="@{${mainMenu.menuUrl}(menuCode=${mainMenu.menuCode})}">[[${mainMenu.menuName}]]</a>
                 </li>
             </ul>
         </div>
