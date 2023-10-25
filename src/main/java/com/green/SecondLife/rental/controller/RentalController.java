@@ -69,7 +69,7 @@ public class RentalController {
 
         rentalService.insertRentalFacility(rentalFacilityVO);
 
-        return "redirect:/rental/test";
+        return "redirect:/rental/rentalFacility";
     }
 
     @GetMapping("/myRentalHistory")
