@@ -27,14 +27,14 @@ public class RentalController {
 
 
     //화면
-    @GetMapping("/test")
+    @GetMapping("/rentalFacility")
     public String test(){
         return "/rental/rental_facility";
     }
 
     //풀 캘린더
     @ResponseBody
-    @PostMapping("/calTest")
+    @PostMapping("/rentalCalendar")
     public List<RentalFacilityVO> calTest(RentalFacilityVO rentalFacilityVO){
         List<RentalFacilityVO> rentalTimeList = rentalService.selectRentalFacility(rentalFacilityVO);
         return rentalTimeList;

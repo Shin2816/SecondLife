@@ -41,11 +41,13 @@
                         <td>[[${myRental.rentalDate}]]</td>
                         <td>[[${myRental.rentalTimeVO.rentalStartTime}]]~[[${myRental.rentalTimeVO.rentalEndTime}]]</td>
                         <td>[[${myRental.rentalTeam}]]</td>
-                        <th:block th:if="${myRental.rentalStatus == 1}">
+                        <th:block th:if="${myRental.rentalStatus == '1'}">
                             <td>승인 대기중</td>
-                        </th:block>
-                        <th:block th:if="${myRental.rentalStatus == 1}">
                             <td><input type="button" class="btn btn-secondary btn-sm" value="취소"></td>
+                        </th:block>
+                        <th:block th:unless="${myRental.rentalStatus == 1}">
+                            <td>승인 완료</td>
+                            <td>취소 불가</td>
                         </th:block>
                     </tr>
                 </tbody>

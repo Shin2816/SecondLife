@@ -43,7 +43,7 @@ function calendarCheck(date){
     let inputTitle = document.querySelector('#rental-table-title'); // h2날짜 표시
     inputTitle.innerHTML = date;
 
-    fetch('/rental/calTest', { //요청경로
+    fetch('/rental/rentalCalendar', { //요청경로
         method: 'POST',
         cache: 'no-cache',
         headers: {
