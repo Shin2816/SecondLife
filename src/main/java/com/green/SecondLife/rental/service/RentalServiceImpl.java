@@ -31,4 +31,9 @@ public class RentalServiceImpl implements RentalService{
     public void deleteSignRental(String rentalSignCode) {
         sqlSession.delete("rentalMapper.deleteSignRental", rentalSignCode);
     }
+
+    @Override
+    public List<RentalFacilityVO> selectRentalList() {
+        return sqlSession.selectList("rentalMapper.selectRentalList");
+    }
 }
