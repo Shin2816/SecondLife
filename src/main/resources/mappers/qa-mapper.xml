@@ -30,6 +30,7 @@
             , QA_BOARD_WRITER
             , TO_CHAR(QA_CREATE_DATE, 'YYYY-MM-DD') QA_CREATE_DATE
             , QA_BOARD_READ_CNT
+            , QA_BOARD_PASSWORD
         FROM BOARD_QA_LIST
         <if test='searchValue != null and !searchValue.equals("")'>
             WHERE UPPER(${searchType}) LIKE '%'||UPPER(#{searchValue})||'%'
@@ -42,15 +43,31 @@
         SELECT COUNT(QA_BOARD_NUM)
         FROM BOARD_QA_LIST
     </select>
-    <!--Q&A 게시판 글 등록-->
-    <insert id="insertQaBoard">
+    <!--Q&A 게시판 글 등록(비공개)-->
+    <insert id="insertQaBoardClose">
+        INSERT INTO BOARD_QA_LIST(
+            QA_BOARD_NUM
+            , QA_BOARD_TITLE
+            , QA_BOARD_CONTENT
+            , QA_BOARD_WRITER
+            , QA_BOARD_PASSWORD
+        ) VALUES(
+            #{qaBoardNum}
+            , #{qaBoardTitle}
+            , #{qaBoardContent}
+            , #{qaBoardWriter}
+            , #{qaBoardPassword}
+        )
+    </insert>
+    <!--Q&A 게시판 글 등록(공개)-->
+    <insert id="insertQaBoardOpen">
         INSERT INTO BOARD_QA_LIST(
             QA_BOARD_NUM
             , QA_BOARD_TITLE
             , QA_BOARD_CONTENT
             , QA_BOARD_WRITER
         ) VALUES(
-            (SELECT NVL(MAX(QA_BOARD_NUM), 0) + 1 FROM BOARD_QA_LIST)
+            #{qaBoardNum}
             , #{qaBoardTitle}
             , #{qaBoardContent}
             , #{qaBoardWriter}
@@ -149,8 +166,7 @@
     </update>
     <!--다음 qaBoardNum 조회-->
     <select id="selectNextQaBoardNum" resultType="int">
-        SELECT MAX(QA_BOARD_NUM)
-        FROM BOARD_QA_LIST
+        SELECT NVL(MAX(QA_BOARD_NUM), 0) + 1 FROM BOARD_QA_LIST
     </select>
     <!--이미지 등록-->
     <insert id="insertQaImgs">
@@ -168,10 +184,6 @@
             FROM DUAL
         </foreach>
     </insert>
-    <!--다음 QA_CODE조회-->
-    <select id="selectNextQaCode" resultType="String">
-        SELECT 'QA_'||LPAD(NVL(MAX(TO_NUMBER(SUBSTR(QA_CODE, 4))), 0) + 1, 3, '0') FROM QA_IMG
-    </select>
 </mapper>
 
 

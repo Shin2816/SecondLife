@@ -1,11 +1,12 @@
+//비밀번호 확인 모달
+const qaModal = document.getElementById('qaPasswordBoard');
+
+
 ////////////////////////////////QA게시판 글 등록 유효성 정규식//////////////////////////////////////
 function qaRegValidate(){
 
-    //비밀번호 input값 가져오기
-    const passwordValue = document.querySelector('#passwordValue').value;
-
     //오류 메세지 리셋
-    resetMessage();
+    resetQaMessage();
 
     //form태그 id값 가져오기
     const qaRegBoard = document.querySelector('#qaRegBoard');
@@ -33,9 +34,26 @@ function qaRegValidate(){
         inputInvalidate('.text-error-div', '내용은 300글자 이내로 작성해주세요.');
         return;
     }
+    //비밀번호 입력 체크
+    if(qaRegBoard.qaBoardPassword.value == ''){
+        inputInvalidate('.password-error-div', '비밀번호를 입력해주세요.');
+        return;
+    }
+    //비밀번호 정규식 체크
+    let passwordRegex = /^.{0,24}$/;        //모든글자 24글자 이하로
+    const password = qaRegBoard.qaBoardPassword.value; //제목 input값 가져오기
+    if(!passwordRegex.test(password)){
+        inputInvalidate('.password-error-div', '비밀번호는 25글자 이내로 작성해주세요.');
+        return;
+    }
 
     //submit 실행
-    qaRegBoard.submit(passwordValue);
+    qaRegBoard.submit();
+}
+//글 등록 오류 메세지 초기화
+function resetQaMessage(){
+    document.querySelector('.title-error-div').style.display = 'none';
+    document.querySelector('.text-error-div').style.display = 'none';
 }
 /////////////////////////////////////////////////////////////////////////////QA게시판 글 삭제
 function deleteboard(qaBoardNum){
@@ -263,4 +281,41 @@ function openAndClose(selectedTag){
     } else {
         document.querySelector('#password-onOff').style.display = 'block';//비공개
     }
+}
+///////////////////////////////////QA 게시판 비밀번호 유효성 검사////////////////////////////////
+function qaPasswordValidate(){
+        //오류 메세지 리셋
+        resetPasswordMessage();
+    
+        //form태그 id값 가져오기
+        const qaPasswordBoardForm = document.querySelector('#qaPasswordBoardForm');
+
+        //비밀번호 입력 여부 체크
+        if(qaUpdateBoardForm.qaBoardTitle.value == ''){
+            boardInvalidate('.password-error-div', '비밀번호를 작성해주세요.');
+            return;
+        }
+        //비밀번호 정규식 체크
+        let titleRegex = /^.{0,49}$/;        //모든글자 50글자 이하로
+        const title = qaUpdateBoardForm.qaBoardTitle.value; //제목 input값 가져오기
+        if(!titleRegex.test(title)){
+            boardInvalidate('.password-error-div', '비밀번호는 25자 이내로 작성해주세요.');
+            return;
+        }
+    
+        //submit 실행
+        qaPasswordBoardForm.submit();
+}
+//글 등록 오류 메세지 초기화
+function resetPasswordMessage(){
+    document.querySelector('.password-error-div').style.display = 'none';
+}
+
+
+// myModalEl.addEventListener('hidden.bs.modal', event => {
+//   // do something...
+// })
+
+function openModal11(){
+    qaModal.show();
 }

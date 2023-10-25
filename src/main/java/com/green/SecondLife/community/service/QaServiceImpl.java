@@ -5,6 +5,7 @@ import com.green.SecondLife.community.vo.BoardQaListVO;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -23,9 +24,19 @@ public class QaServiceImpl implements QaService{
         return sqlSession.selectOne("qaMapper.selectBoardCnt");
     }
 
+    //트랜잭션, 어떤 이유건 오류가 나면 중지(비공개)
     @Override
-    public int insertQaBoard(BoardQaListVO boardQaListVO) {
-        return sqlSession.insert("qaMapper.insertQaBoard", boardQaListVO);
+    @Transactional(rollbackFor = Exception.class)
+    public void insertQaBoardClose(BoardQaListVO boardQaListVO) {
+        sqlSession.insert("qaMapper.insertQaBoardClose", boardQaListVO);
+        sqlSession.insert("qaMapper.insertQaImgs", boardQaListVO);
+    }
+    //트랜잭션, 어떤 이유건 오류가 나면 중지(공개)
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void insertQaBoardOpen(BoardQaListVO boardQaListVO) {
+        sqlSession.insert("qaMapper.insertQaBoardOpen", boardQaListVO);
+        sqlSession.insert("qaMapper.insertQaImgs", boardQaListVO);
     }
 
     @Override
@@ -53,6 +64,7 @@ public class QaServiceImpl implements QaService{
         return sqlSession.insert("qaMapper.insertQaBoardComment", boardCommentListVO);
     }
 
+
     @Override
     public int deleteQaBoard(int qaBoardNum) {
         return sqlSession.delete("qaMapper.deleteQaBoard", qaBoardNum);
@@ -71,16 +83,6 @@ public class QaServiceImpl implements QaService{
     @Override
     public int updateQaBoardComment(BoardCommentListVO boardCommentListVO) {
         return sqlSession.update("qaMapper.updateQaBoardComment", boardCommentListVO);
-    }
-
-    @Override
-    public void insertQaImgs(BoardQaListVO boardQaListVO) {
-        sqlSession.insert("qaMapper.insertQaImgs", boardQaListVO);
-    }
-
-    @Override
-    public String selectNextQaCode() {
-        return sqlSession.selectOne("qaMapper.selectNextQaCode");
     }
 
     @Override
