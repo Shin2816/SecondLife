@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class IndexController {
 
     @GetMapping("/")
-    public String main(BoardFreeListVO boardFreeListVO){
+    public String main(BoardFreeListVO boardFreeListVO, SubMenuVO subMenuVO){
 
         return "main";
     }

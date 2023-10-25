@@ -51,7 +51,6 @@ public class LectureServiceImpl implements LectureService{
     public void adminDeleteLectureEvent(LectureEventVO lectureEventVO) {
         sqlSession.delete("lectureMapper.adminDeleteLectureEvent", lectureEventVO);
     }
-
     //관리자용 강좌 리뷰 리스트 조회 기능
     @Override
     public List<LectureReviewVO> adminSelectLectureReviewList() {
@@ -63,21 +62,20 @@ public class LectureServiceImpl implements LectureService{
     public void adminInsertLecture(LectureVO lectureVO) {
         sqlSession.insert("lectureMapper.adminInsertLecture", lectureVO);
     }
-
     //관리자용 수업 목록 조회 기능
     @Override
     public List<LectureVO> adminSelectLectureList(String instructorCode) {
         return sqlSession.selectList("lectureMapper.adminSelectLectureList", instructorCode);
     }
-    //강좌 상세 정보 조회 기능
+    //관리자용 수업 상세 조회 기능
     @Override
-    public LectureVO selectLectureDetail(LectureVO lectureVO) {
-        return sqlSession.selectOne("lectureMapper.selectLectureDetail", lectureVO);
+    public LectureVO adminSelectLectureDetail(LectureVO lectureVO) {
+        return sqlSession.selectOne("lectureMapper.adminSelectLectureDetail", lectureVO);
     }
-    //강좌 삭제 기능
+    //관리자용 수업 삭제 기능
     @Override
-    public void deleteLecture(LectureVO lectureVO) {
-        sqlSession.delete("lectureMapper.deleteLecture", lectureVO);
+    public void adminDeleteLecture(LectureVO lectureVO) {
+        sqlSession.delete("lectureMapper.adminDeleteLecture", lectureVO);
     }
     //수강 신청 기능
     @Override

@@ -1,0 +1,6 @@
+@charset "utf-8";
+/* admin_lecture_list.css */
+#lectureList{
+    cursor: pointer;
+    border: 1px solid #000;
+}

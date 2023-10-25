@@ -8,6 +8,7 @@
 </head>
 <body>
 <th:block layout:fragment="content">
+    <link rel="stylesheet" href="/css/admin_lecture_list.css">
 <h2>수업관리 페이지</h2>
 <table>
     <thead>
@@ -21,19 +22,16 @@
         </tr>
     </thead>
     <tbody>
-        <tr th:each="lecture : ${lectureList}">
+        <tr th:each="lecture : ${lectureList}" th:onclick="|location.href='@{/lecture/adminSelectLectureDetail(lectureCode=${lecture.lectureCode}, menuCode='MENU_002')}'|" id="lectureList">
             <td>[[${lecture.instructorCode}]]</td>
             <td>[[${lecture.lectureTitle}]]</td>
             <td>[[${lecture.lectureEventCode}]]</td>
             <td>[[${lecture.lectureStudent}]]</td>
             <td>[[${lecture.lecturePeriod}]]</td>
             <td>[[${lecture.lecturePrice}]]</td>
-            <td><input type="submit" value="상세" th:onclick="|location.href='@{/lecture/selectLectureDetail(lectureCode=${lecture.lectureCode})}'|"></td>
-            <td><input type="submit" value="삭제" th:onclick="deleteLecture([[${lecture.lectureCode}]]);"></td>
         </tr>
     </tbody>
 </table>
-<script src="/js/manage_lecture.js"></script>
 </th:block>
 </body>
 </html>

@@ -32,7 +32,7 @@
             </div>
             <ul class="nav nav-underline">
                 <li class="nav-item" th:each="mainMenu : ${mainMenuList}">
-                    <a class="nav-link" th:href="@{${mainMenu.menuUrl}}">[[${mainMenu.menuName}]]</a>
+                    <a class="nav-link main-menu-link" th:href="@{${mainMenu.menuUrl}(menuCode=${mainMenu.menuCode})}">[[${mainMenu.menuName}]]</a>
                 </li>
             </ul>
         </div>
