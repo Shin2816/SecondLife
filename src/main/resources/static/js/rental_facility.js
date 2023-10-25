@@ -93,7 +93,7 @@ function calendarCheck(date){
                 if (rentalTime.rentalStatus == 0) {
                     str += rentalTime.rentalCharge.toLocaleString('ko-KR');
                 } else if (rentalTime.rentalStatus == 1) {
-                    str += '<span style="color: blue;">승인 대기중</span>';
+                    str += '<span style="color: blue;">승인 대기</span>';
                 } else if (rentalTime.rentalStatus == 2) {
                     str += '<span style="color: red;">예약 불가</span>';
                 }

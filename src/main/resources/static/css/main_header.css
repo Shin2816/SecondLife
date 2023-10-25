@@ -28,9 +28,8 @@ th{
     justify-content: space-between;
 }
 .main-menu-link{
-    margin-right: 10px;
+    margin:0 10px;
 }
-
 .login-area{
     position: relative;
     margin: 40px 0;
@@ -59,7 +58,7 @@ th{
 }
 .login-menu{
     display: flex;
-    margin: 15px 0;
+    margin-top: 10px;
 }
 .main-header-menu{
     position: relative;
