@@ -110,7 +110,7 @@
                                     </th:block>
                                     <!-- 게시글 있을 때 --> 
                                     <th:block th:unless="${#lists.size(freeBoardList) == 0}">
-                                        <tr class="board-tr" th:onclick="|location.href='@{/board/boardDetail(freeBoardNum=${freeBoard.freeBoardNum})}'|" th:each="freeBoard : ${freeBoardList}">
+                                        <tr class="board-tr" th:onclick="|location.href='@{/board/boardDetail(freeBoardNum=${freeBoard.freeBoardNum},menuCode=MENU_007)}'|" th:each="freeBoard : ${freeBoardList}">
                                             <td class="board_td_title">[[${freeBoard.freeBoardTitle}]]</td>
                                             <td>[[${freeBoard.freeBoardWriter}]]</td>
                                             <td>[[${freeBoard.freeCreateDate}]]</td>

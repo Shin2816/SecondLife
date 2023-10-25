@@ -17,7 +17,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">메뉴를 선택해주세요.</a>
                   <ul class="dropdown-menu">
-                    <li th:each="subMenu : ${mainSubMenuList}" th:if="${subMenu.menuCode == subMenuVO.menuCode}"><a class="dropdown-item" th:href="@{${subMenu.subMenuUrl}}">[[${subMenu.subMenuName}]]</a></li>
+                    <li th:each="subMenu : ${mainSubMenuList}" th:if="${subMenu.menuCode == subMenuVO.menuCode}"><a class="dropdown-item" th:href="@{${subMenu.subMenuUrl}(menuCode=${subMenuVO.menuCode})}">[[${subMenu.subMenuName}]]</a></li>
                   </ul>
                 </li>
             </ul>

@@ -2,10 +2,13 @@ package com.green.SecondLife.etc.controller;
 
 import com.green.SecondLife.etc.service.EtcService;
 import com.green.SecondLife.member.vo.SubMenuVO;
+import com.green.SecondLife.util.ConstantVariable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/etc")
@@ -21,6 +24,7 @@ public class EtcController {
 
     @GetMapping("/sitemap")
     public String sitemap(SubMenuVO subMenuVO){
+
         return "/user/etc/sitemap";
     }
 
