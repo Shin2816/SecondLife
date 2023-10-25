@@ -1,10 +1,6 @@
-//manage_instructor.js
+// instructor_list.js
 
-function deleteInstructor(instructorCode){
-    if(confirm('정말 삭제 하시겠습니까?')){
-        location.href=`/instructor/deleteInstructor?instructorCode=${instructorCode}`;
-    }
-}
+const myModal = new bootstrap.Modal('#simpleInfoModal');
 
 function showInstructorSimpleInfo(instructorCode){
     fetch('/instructor/showInstructorSimpleInfo', { //요청경로
@@ -34,7 +30,7 @@ function showInstructorSimpleInfo(instructorCode){
         document.querySelector('#instructor_name').innerHTML=`이름 : ${data.instructor.instructorName}`;
         document.querySelector('#instructor_age').innerHTML=`나이 : ${data.instructor.instructorAge}`;
         document.querySelector('#instructor_gender').innerHTML=`성별 : ${data.instructor.instructorGender}`;
-        
+        console.log(data.instructor);
         console.log(data.lectureList);
         console.log(data.reviewList);
         
@@ -62,7 +58,6 @@ function showInstructorSimpleInfo(instructorCode){
         document.querySelector('#lecture-review-table tbody').insertAdjacentHTML('afterbegin', str2);
         
         myModal.show();
-
 
     })
     //fetch 통신 실패 시 실행 영역

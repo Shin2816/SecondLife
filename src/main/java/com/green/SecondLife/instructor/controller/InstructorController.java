@@ -85,8 +85,10 @@ public class InstructorController {
     //유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저/////
     //↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ //
 
+    //강사 목록 페이지
     @GetMapping("/instructorList")
-    public String instructorList(){
+    public String instructorList(Model model){
+        model.addAttribute("instructorList", instructorService.adminSelectInstuctorList());
         return "instructor/instructor_list";
     }
     //강사 요약 정보 조회 페치
