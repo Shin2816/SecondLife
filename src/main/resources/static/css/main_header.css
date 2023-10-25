@@ -22,9 +22,13 @@ th{
 .login-span{
     cursor: pointer;
 }
+
 .menu{
     display: flex;
     justify-content: space-between;
+}
+.main-menu-link{
+    margin-right: 10px;
 }
 
 .login-area{

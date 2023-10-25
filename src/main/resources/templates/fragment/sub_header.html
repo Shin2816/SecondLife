@@ -11,13 +11,13 @@
     <th:block th:fragment="subHeaderFragment">
         <div class="header">
             <ul class="nav">
-                <li class="nav-item" th:each="mainMenu : ${mainMenuList}" th:if="${mainMenu.menuCode == menuCode}">
+                <li class="nav-item" th:each="mainMenu : ${mainMenuList}" th:if="${mainMenu.menuCode == subMenuVO.menuCode}">
                     <a class="nav-link" href="#">[[${mainMenu.menuName}]]</a>
                 </li>
                 <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">이동할 메뉴를 선택해주세요.</a>
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">메뉴를 선택해주세요.</a>
                   <ul class="dropdown-menu">
-                    <li th:each="subMenu : ${mainSubMenuList}" th:if="${subMenu.menuCode == menuCode}"><a class="dropdown-item" th:href="@{${subMenu.subMenuUrl}}">[[${subMenu.subMenuName}]]</a></li>
+                    <li th:each="subMenu : ${mainSubMenuList}" th:if="${subMenu.menuCode == subMenuVO.menuCode}"><a class="dropdown-item" th:href="@{${subMenu.subMenuUrl}}">[[${subMenu.subMenuName}]]</a></li>
                   </ul>
                 </li>
             </ul>
