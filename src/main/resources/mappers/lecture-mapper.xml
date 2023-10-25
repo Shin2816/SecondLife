@@ -11,7 +11,6 @@
         <result column="LECTURE_PERIOD"     property="lecturePeriod"/>
         <result column="LECTURE_PRICE"      property="lecturePrice"/>
         <result column="INSTRUCTOR_CODE"    property="instructorCode"/>
-        <result column="INSTRUCTOR_NAME"    property="instructorName"/>
     </resultMap>
     <!-- 수강생 테이블 -->
     <resultMap id="student" type="com.green.SecondLife.lecture.vo.StudentVO">
@@ -85,6 +84,28 @@
         FROM LECTURE_EVENT EVENT, LECTURE_EVENT_IMG IMG
         WHERE EVENT.LECTURE_EVENT_CODE = IMG.LECTURE_EVENT_CODE
     </select>
+    <!-- 관리자용 강좌 종목 상세 조회 쿼리 -->
+    <select id="adminSelectLectureEventDetail" resultMap="lectureEvent">
+        SELECT EVENT.LECTURE_EVENT_CODE
+            , LECTURE_EVENT_NAME
+            , LECTURE_EVENT_CONTENT
+            , LECTURE_EVENT_ATTACHED_FILE_NAME
+        FROM LECTURE_EVENT EVENT, LECTURE_EVENT_IMG IMG
+        WHERE EVENT.LECTURE_EVENT_CODE = IMG.LECTURE_EVENT_CODE
+        AND EVENT.LECTURE_EVENT_CODE = #{lectureEventCode}
+    </select>
+    <!-- 관리자용 강좌 종목 정보 수정 쿼리 -->
+    <update id="adminUpdateLectureEventInfo">
+        UPDATE LECTURE_EVENT
+        SET LECTURE_EVENT_NAME = #{lectureEventName}
+            , LECTURE_EVENT_CONTENT = #{lectureEventContent}
+        WHERE LECTURE_EVENT_CODE = #{lectureEventCode}
+    </update>
+    <!-- 관리자용 강좌 종목 삭제 쿼리 -->
+    <delete id="adminDeleteLectureEvent">
+        DELETE LECTURE_EVENT
+        WHERE LECTURE_EVENT_CODE = #{lectureEventCode}
+    </delete>
     <!-- 관리자용 강좌 리뷰 리스트 조회 쿼리 -->
     <select id="adminSelectLectureReviewList" resultMap="lectureReview">
         SELECT LECTURE_REVIEW_CODE

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{fragment/sub_layout}">
+    layout:decorate="~{fragment/admin_layout}">
 <head>
 <meta charset="UTF-8">
 <title></title>
@@ -10,45 +10,23 @@
 <th:block layout:fragment="content">
     <link rel="stylesheet" href="/css/instructor/admin_update_instructor_info_form.css">
 <h1>관리자용 강사 정보 수정 페이지</h1>
-<form action="">
+<form action="/instructor/adminUpdateInstructorInfo" method="post" id="updateForm">
     <div class="instructor_info">
     <div>
-    <p>이름 : <input readonly type="text" th:value="${instructor.instructorName}" data-bs-toggle="modal" data-bs-target="#setNameModal" onclick="showChangeNameBox();" id="bbb"></p>
-    <p>이름 : <input readonly type="text" th:value="${instructor.instructorName}" onclick="showChangeNameBox();" id="bbb"></p>
-    <p>나이 : <input readonly type="text" th:value="${instructor.instructorAge}" data-bs-toggle="modal" data-bs-target="#setNameModal" onclick="showChangeAgeBox();"></p>
-    <p>성별 : <input readonly type="text" th:value="${instructor.instructorGender}" data-bs-toggle="modal" data-bs-target="#setNameModal" onclick=""></p>
-    <p>연락처 : <input readonly type="text" th:value="${instructor.instructorPhone}" data-bs-toggle="modal" data-bs-target="#setNameModal" onclick=""></p>
-    <p>주소 : <input readonly type="text" th:value="${instructor.instructorAddr}" data-bs-toggle="modal" data-bs-target="#setNameModal" onclick=""></p>
-    <p>입사일 : <input readonly type="text" th:value="${instructor.instructorJoinDate}" data-bs-toggle="modal" data-bs-target="#setNameModal" onclick=""></p>
+    <p>이름 : <input type="text" th:value="${instructor.instructorName}" readonly></p>
+    <p>나이 : <input type="text" th:value="${instructor.instructorAge}" readonly></p>
+    <p>성별 : <input type="text" th:value="${instructor.instructorGender}" readonly></p>
+    <p>연락처 : <input type="text" th:value="${instructor.instructorPhone}" name="instructorPhone"></p>
+    <p>주소 : <input type="text" th:value="${instructor.instructorAddr}" name="instructorAddr"></p>
+    <p>입사일 : <input type="text" th:value="${instructor.instructorJoinDate}" readonly></p>
     </div>
     <div class="instructor_info_img">
         <img th:src="${'/images/instructor/' + instructor.instructorImgVO.instructorAttachedFileName}">
     </div>
     </div>
-    <input type="button" value="저장" th:onclick="|location.href='@{/instructor/adminUpdateInstructorInfoForm(instructorCode=${instructor.instructorCode}, menuCode=MENU_001)}'|">
-
-    <!-- 강사 간략한 정보 모달 -->
-  <div class="modal fade" id="setNameModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="simple_profil_title"></h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <div id="eachUpdateForm">
-
-            </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" id="each-info-save-button">저장</button>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</form>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <input type="hidden" th:value="${instructor.instructorCode}" name="instructorCode">
+    <input type="button" onclick="buttonSubmit();" value="저장">
+  </form>
 <script src="/js/admin/admin_update_instructor_info_form.js"></script>
 </th:block>
 </body>

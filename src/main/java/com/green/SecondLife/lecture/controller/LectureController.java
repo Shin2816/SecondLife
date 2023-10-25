@@ -8,6 +8,7 @@ import com.green.SecondLife.member.vo.MemberVO;
 import com.green.SecondLife.member.vo.SubMenuVO;
 import com.green.SecondLife.util.UploadUtil;
 import jakarta.servlet.http.HttpSession;
+import kotlin.contracts.ReturnsNotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import retrofit2.http.GET;
 
+import javax.sound.sampled.SourceDataLine;
+import java.awt.*;
 import java.util.Optional;
 
 @Controller
@@ -36,8 +39,8 @@ public class LectureController {
     }
     //관리자용 강좌 종목 개설 기능 (이미지 등록 기능도 포함)
     @PostMapping("/adminInsertLectureEvent")
-    public String adminInsertLectureEvent(LectureEventVO lectureEventVO, MultipartFile lectureEventImg){
-        //인서트할 다음 강좌 종목 코드 조회
+    public String adminInsertLectureEvent(LectureEventVO lectureEventVO, MultipartFile lectureEventImg, RedirectAttributes redirectAttributes){
+        // 인서트할 다음 강좌 종목 코드 조회
         String lectureEventCode = lectureService.adminSelectNextLectureEventCode();
         // lectureEventImgVO에 원본파일명 + 첨부파일명 set하기
         LectureEventImgVO lectureEventImgVO = UploadUtil.uploadLectureEventImgFile(lectureEventImg);
@@ -45,16 +48,44 @@ public class LectureController {
         // 나머지는 input 태그를 통해 넘어올 예정
         lectureEventVO.setLectureEventCode(lectureEventCode);
         lectureEventVO.setLectureEventImgVO(lectureEventImgVO);
+        // 인서트
         lectureService.adminInsertLectureEventAndImg(lectureEventVO);
+        redirectAttributes.addAttribute("menuCode", "MENU_002");
         return "redirect:/lecture/adminLectureEventList";
     }
     //관리자용 강좌 종목 리스트 페이지
     @GetMapping("/adminLectureEventList")
     public String adminLectureEventList(Model model,SubMenuVO subMenuVO){
-        subMenuVO.setMenuCode("MENU_002");
         //관리자용 강좌 종목 리스트 조회 + 보내기 기능
         model.addAttribute("lectureEventList", lectureService.adminSelectLectureEventList());
         return "admin/admin_lecture_event_list";
+    }
+    //관리자용 강좌 종목 상세 페이지
+    @GetMapping("/adminLectureEventDetail")
+    public String adminLectureEventDetail(LectureEventVO lectureEventVO, Model model, SubMenuVO subMenuVO){
+        model.addAttribute("lectureEvent", lectureService.adminSelectLectureEventDetail(lectureEventVO));
+        return "admin/admin_lecture_event_detail";
+    }
+    //관리자용 강좌 종목 정보 수정 폶
+    @GetMapping("/adminUpdateLectureEventInfoForm")
+    public String adminUpdateLectureEventForm(LectureEventVO lectureEventVO, Model model, SubMenuVO subMenuVO){
+        model.addAttribute("lectureEvent", lectureService.adminSelectLectureEventDetail(lectureEventVO));
+        return "admin/admin_update_lecture_event_info_form";
+    }
+    //관리자용 강좌 종목 정보 수정 기능
+    @PostMapping("/adminUpdateLectureEventInfo")
+    public String adminUpdateLectureEventInfo(LectureEventVO lectureEventVO, RedirectAttributes redirectAttributes){
+        lectureService.adminUpdateLectureEventInfo(lectureEventVO);
+        redirectAttributes.addAttribute("lectureEventCode", lectureEventVO.getLectureEventCode());
+        redirectAttributes.addAttribute("menuCode", "MENU_002");
+        return "redirect:/lecture/adminLectureEventDetail";
+    }
+    //관리자용 강좌 종목 삭제 기능
+    @GetMapping("/adminDeleteLectureEvent")
+    public String adminDeleteLectureEvent(LectureEventVO lectureEventVO, RedirectAttributes redirectAttributes){
+        lectureService.adminDeleteLectureEvent(lectureEventVO);
+        redirectAttributes.addAttribute("menuCode", "MENU_002");
+        return "redirect:/lecture/adminLectureEventList";
     }
     //관리자용 강좌 리뷰 리스트 페이지
     @GetMapping("/adminLectureReviewList")
@@ -64,8 +95,8 @@ public class LectureController {
     }
     //관리자용 수업 등록 페이지로 이동
     @GetMapping("/adminInsertLectureForm")
-    public String insertLectureForm(Model model, SubMenuVO subMenuVO){
-        //강사목록 조회
+    public String adminInsertLectureForm(Model model, SubMenuVO subMenuVO){
+        //강사 목록 조회
         model.addAttribute("instructorList", instructorService.adminSelectInstuctorList());
         //강좌 종목 조회
         model.addAttribute("lectureEventList", lectureService.adminSelectLectureEventList());
@@ -73,14 +104,15 @@ public class LectureController {
     }
     //관리자용 수업 등록 기능 후 -> adminSelectLectureList로 리다이렉트
     @PostMapping("/adminInsertLecture")
-    public String insertLecture(LectureVO lectureVO){
+    public String adminInsertLecture(LectureVO lectureVO, RedirectAttributes redirectAttributes){
         System.out.println(lectureVO);
         lectureService.adminInsertLecture(lectureVO);
-        return "redirect:/lecture/adminSelectLectureList";
+        redirectAttributes.addAttribute("menuCode", "MENU_002");
+        return "redirect:/lecture/adminLectureList";
     }
     //관리자용 수업 목록 페이지
-    @GetMapping("/adminSelectLectureList")
-    public String adminSelectLectureList(Model model, String instructorCode, SubMenuVO subMenuVO){
+    @GetMapping("/adminLectureList")
+    public String adminLectureList(Model model, String instructorCode, SubMenuVO subMenuVO){
         model.addAttribute("lectureList", lectureService.adminSelectLectureList(instructorCode));
         return "admin/admin_lecture_list";
     }

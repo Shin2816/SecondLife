@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.*;
 
@@ -27,14 +28,18 @@ public class InstructorController {
     }
     //관리자용 강사 등록 기능 + 이미지
     @PostMapping("/adminInsertInstructor")
-    public String insertInstructor(InstructorVO instructorVO, MultipartFile instructorImg){
+    public String insertInstructor(InstructorVO instructorVO, MultipartFile instructorImg, RedirectAttributes redirectAttributes){
         //다음 강사 코드 조회 + 그걸 instructorVO에 넣기
         instructorVO.setInstructorCode(instructorService.adminSelectNextInstructorCode());
         //강사 이미지가 들어갈 통 하나
         InstructorImgVO instructorImgVO = UploadUtil.uploadInstructorFile(instructorImg);
         //강사VO에 강사이미지 넣기
         instructorVO.setInstructorImgVO(instructorImgVO);
-        return "redirect:/instructor/selectInstructorList";
+        //강사 등록하기
+        instructorService.adminInsertInstructor(instructorVO);
+        //리다이렉트로 서브메뉴 코드 보내기
+        redirectAttributes.addAttribute("menuCode", "MENU_001");
+        return "redirect:/instructor/adminInstructorList";
     }
     //관리자용 강사 목록 페이지
     @GetMapping("/adminInstructorList")
@@ -45,6 +50,7 @@ public class InstructorController {
     //관리자용 강사 상세 페이지
     @GetMapping("/adminInstructorDetail")
     public String adminInstructorDetail(InstructorVO instructorVO, Model model, SubMenuVO subMenuVO){
+        System.out.println(instructorVO);
         model.addAttribute("instructor", instructorService.adminSelectInstructorDetail(instructorVO));
         return "admin/admin_instructor_detail";
     }
@@ -55,19 +61,28 @@ public class InstructorController {
         model.addAttribute("instructor", instructorService.adminSelectInstructorDetail(instructorVO));
         return "admin/admin_update_instructor_info_form";
     }
-    //강사 삭제 기능
+    //관리자용 강사 정보 수정 기능
+    @PostMapping("/adminUpdateInstructorInfo")
+    public String adminUpdateInstructorInfo(InstructorVO instructorVO, RedirectAttributes redirectAttributes){
+        System.out.println(instructorVO);
+        redirectAttributes.addAttribute("instructorCode", instructorVO.getInstructorCode());
+        redirectAttributes.addAttribute("menuCode", "MENU_001");
+        instructorService.adminUpdateInstructorInfo(instructorVO);
+        return "redirect:/instructor/adminInstructorDetail";
+    }
+    //관리자용 강사 삭제 기능
     @GetMapping("/adminDeleteInstructor")
-    public String adminDeleteInstructor(InstructorVO instructorVO, InstructorImgVO instructorImgVO){
-        instructorImgVO.setInstructorImgCode(instructorService.selectInstructorImgCode(instructorVO));
-        instructorService.deleteInstructor(instructorVO, instructorImgVO);
-        return "redirect:/instructor/selectInstructorList";
+    public String adminDeleteInstructor(InstructorVO instructorVO, RedirectAttributes redirectAttributes){
+        instructorService.adminDeleteInstructor(instructorVO);
+        redirectAttributes.addAttribute("menuCode", "MENU_001");
+        return "redirect:/instructor/adminInstructorList";
     }
 
     //↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ ↑ //
-    //관리자//관리자//관리자//관리자//관리자//관리자//관리자//관리자//관리자//관리자//관리자//관리자//관리자//관리자//관리자//관리자//
+    //관리자//관리자//관리자//관리자//관리자//관리자//관리자//관리자//관리자//관리자//관리자//관리자//관리자//관리자//관리자//관리자/////
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@//
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@//
-    //유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//
+    //유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저/////
     //↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ //
 
     //강사 요약 정보 조회 페치

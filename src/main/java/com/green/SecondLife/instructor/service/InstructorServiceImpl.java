@@ -36,18 +36,14 @@ public class InstructorServiceImpl implements InstructorService{
     public InstructorVO adminSelectInstructorDetail(InstructorVO instructorVO) {
         return sqlSession.selectOne("instructorMapper.adminSelectInstructorDetail", instructorVO);
     }
-
-
-    //강사 이미지 코드 조회
+    //관리자용 강사 정보 수정 기능
     @Override
-    public String selectInstructorImgCode(InstructorVO instructorVO) {
-        return sqlSession.selectOne("instructorMapper.selectInstructorImgCode", instructorVO);
+    public void adminUpdateInstructorInfo(InstructorVO instructorVO) {
+        sqlSession.update("instructorMapper.adminUpdateInstructorInfo", instructorVO);
     }
-    //강사 삭제 기능
+    //관리자용 강사 삭제 기능
     @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void deleteInstructor(InstructorVO instructorVO, InstructorImgVO instructorImgVO) {
-        sqlSession.delete("instructorMapper.deleteInstructorImg", instructorImgVO);
-        sqlSession.delete("instructorMapper.deleteInstructor", instructorVO);
+    public void adminDeleteInstructor(InstructorVO instructorVO) {
+        sqlSession.delete("instructorMapper.adminDeleteInstructor", instructorVO);
     }
 }
