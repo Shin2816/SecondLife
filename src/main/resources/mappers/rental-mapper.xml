@@ -9,11 +9,13 @@
         <result column="FACILITY_NAME"      property="facilityName"/>
         <result column="RENTAL_DATE"        property="rentalDate"/>
         <result column="RENTAL_TIME_CODE"   property="rentalTimeCode"/>
+        <result column="RENTAL_TIME"        property="rentalTime"/>
         <result column="RENTAL_CHARGE"      property="rentalCharge"/>
         <result column="RENTAL_USER"        property="rentalUser"/>
         <result column="RENTAL_TEAM"        property="rentalTeam"/>
         <result column="RENTAL_PURPOSE"     property="rentalPurpose"/>
         <result column="RENTAL_STATUS"      property="rentalStatus"/>
+        <result column="RENTAL_SIGN_CODE"   property="rentalSignCode"/>
         <collection property="rentalTimeVO" resultMap="rentalTime" />
     </resultMap>
 
@@ -74,6 +76,7 @@
             , RENTAL_TEAM
             , RENTAL_PURPOSE
             , RENTAL_STATUS
+            , RENTAL_SIGN_CODE
         )
         <foreach index="i" collection="facilityList" item="facility" separator="UNION ALL">
             SELECT
@@ -86,6 +89,7 @@
                     , #{facility.rentalTeam}
                     , #{facility.rentalPurpose}
                     , 1
+                    ,#{facility.rentalUser}||'_'||TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')
             FROM DUAL
         </foreach>
     </insert>
@@ -99,18 +103,19 @@
 
     <!--마이페이지 - 예약 현황 조회-->
     <select id="selectMyRentalList" resultMap="rentalFacility">
-        SELECT FACILITY_CODE
-                ,(SELECT FACILITY_NAME
-                    FROM CENTER_FACILITY
-                    WHERE FACILITY_CODE = RENTAL_FACILITY.FACILITY_CODE) FACILITY_NAME
-                , RENTAL_DATE
-                , RENTAL_AVAILABLE_TIME.RENTAL_START_TIME
-                , RENTAL_AVAILABLE_TIME.RENTAL_END_TIME
-                , RENTAL_TEAM
-                , RENTAL_STATUS
+        SELECT MAX(FACILITY_CODE) FACILITY_CODE
+        , MAX((SELECT FACILITY_NAME
+        FROM CENTER_FACILITY
+        WHERE FACILITY_CODE = RENTAL_FACILITY.FACILITY_CODE)) FACILITY_NAME
+        , MAX(RENTAL_DATE) RENTAL_DATE
+        , SUM(RENTAL_CHARGE) RENTAL_CHARGE
+        , MAX(RENTAL_TEAM) RENTAL_TEAM
+        , MAX(RENTAL_STATUS) RENTAL_STATUS
+        , LISTAGG(RENTAL_AVAILABLE_TIME.RENTAL_START_TIME||'-'||RENTAL_AVAILABLE_TIME.RENTAL_END_TIME, ', ') WITHIN GROUP(ORDER BY RENTAL_AVAILABLE_TIME.RENTAL_START_TIME||'-'||RENTAL_AVAILABLE_TIME.RENTAL_END_TIME) AS RENTAL_TIME
         FROM RENTAL_FACILITY , RENTAL_AVAILABLE_TIME
         WHERE RENTAL_FACILITY.RENTAL_TIME_CODE =  RENTAL_AVAILABLE_TIME.RENTAL_TIME_CODE
         AND RENTAL_USER = #{rentalUser}
+        GROUP BY RENTAL_SIGN_CODE
     </select>
 
 </mapper>
