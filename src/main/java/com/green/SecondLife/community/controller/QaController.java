@@ -83,7 +83,7 @@ public class QaController {
         System.out.println(qaPw);// 공개로 글을 작성하면 데이터베이스에 null값 들어가 있어서 오류남
 
         //데이터베이스에 저장된 비밀번호가 없거나, 로그인을 했고 관리자라면 프리패스!
-        if(qaPw == null || (loginInfo != null && loginInfo.getMemberRoll().equals("admin"))){
+        if(qaPw == null || (loginInfo != null && loginInfo.getMemberRoll().equals("ADMIN"))){
             //board이름으로 디테일정보 던지기
             model.addAttribute("board", qaService.selectQaBoardDetail(qaBoardNum));
             //조회수 증가
