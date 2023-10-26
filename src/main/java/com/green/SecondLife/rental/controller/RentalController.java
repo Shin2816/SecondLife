@@ -4,6 +4,7 @@ import com.green.SecondLife.member.vo.MemberVO;
 import com.green.SecondLife.member.vo.SubMenuVO;
 import com.green.SecondLife.rental.service.RentalService;
 import com.green.SecondLife.rental.vo.RentalFacilityVO;
+import com.green.SecondLife.util.ConstantVariable;
 import jakarta.servlet.http.HttpSession;
 import jakarta.websocket.Session;
 import lombok.RequiredArgsConstructor;
@@ -36,7 +37,7 @@ public class RentalController {
     //풀 캘린더
     @ResponseBody
     @PostMapping("/rentalCalendar")
-    public List<RentalFacilityVO> calTest(RentalFacilityVO rentalFacilityVO, SubMenuVO subMenuVO){
+    public List<RentalFacilityVO> calTest(RentalFacilityVO rentalFacilityVO){
         List<RentalFacilityVO> rentalTimeList = rentalService.selectRentalFacility(rentalFacilityVO);
         return rentalTimeList;
     }
@@ -70,7 +71,7 @@ public class RentalController {
 
         rentalService.insertRentalFacility(rentalFacilityVO);
 
-        return "redirect:/rental/rentalFacility";
+        return "redirect:/rental/rentalFacility?menuCode="+ ConstantVariable.MENU_CODE_RENTAL_FACILITY;
     }
 
     //사용자(마이페이지)-대관신청 목록 조회

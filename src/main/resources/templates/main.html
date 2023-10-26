@@ -145,7 +145,7 @@
                     </div>
                     <div class="col-6 main-slide">
                         <div class="slide">
-                            <div class="slide-1" onclick="location.href='/rental/rentalFacility'">
+                            <div class="slide-1" th:onclick="|@{location.href='/rental/rentalFacility(menuCode=MENU_010)}'|">
                                 <img src="/images/main_banner/facility.jpg" alt="">
                             </div>
                             <div class="slide-2" th:onclick="|@{location.href='/board/freeBoardList(menuCode=MENU_007)}'|">
@@ -174,7 +174,7 @@
                                 <span>센터 소개</span>
                             </p>
                         </div>
-                        <div class="right" onclick="location.href='/rental/rentalFacility'">
+                        <div class="right" th:onclick="|@{location.href='/rental/rentalFacility(menuCode=MENU_010)}'|">
                             <p class="right_info">
                                 <img src="/images/icons/buildings.png" alt="">
                                 <span>시설 대관</span>
@@ -194,7 +194,7 @@
                                 <img src="/images/icons/book.png" alt="">
                                 수업 신청
                             </div>
-                            <div onclick="location.href=''">
+                            <div th:onclick="|@{location.href='/rental/rentalFacility(menuCode=MENU_010)}'|">
                                 <img src="/images/icons/buildings.png" alt="">
                                 시설 대관
                             </div>
