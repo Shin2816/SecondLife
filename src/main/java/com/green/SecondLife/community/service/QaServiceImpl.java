@@ -29,14 +29,20 @@ public class QaServiceImpl implements QaService{
     @Transactional(rollbackFor = Exception.class)
     public void insertQaBoardClose(BoardQaListVO boardQaListVO) {
         sqlSession.insert("qaMapper.insertQaBoardClose", boardQaListVO);
-        sqlSession.insert("qaMapper.insertQaImgs", boardQaListVO);
+
+        if(boardQaListVO.getQaImgList().size() != 0){
+            sqlSession.insert("qaMapper.insertQaImgs", boardQaListVO);
+        }
+
     }
     //트랜잭션, 어떤 이유건 오류가 나면 중지(공개)
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void insertQaBoardOpen(BoardQaListVO boardQaListVO) {
         sqlSession.insert("qaMapper.insertQaBoardOpen", boardQaListVO);
-        sqlSession.insert("qaMapper.insertQaImgs", boardQaListVO);
+        if (boardQaListVO.getQaImgList().size() != 0){
+            sqlSession.insert("qaMapper.insertQaImgs", boardQaListVO);
+        }
     }
 
     @Override

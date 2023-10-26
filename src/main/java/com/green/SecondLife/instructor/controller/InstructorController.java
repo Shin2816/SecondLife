@@ -24,6 +24,7 @@ public class InstructorController {
     //관리자용 강사등록 페이지로 이동
     @GetMapping("/adminInsertInstructorForm")
     public String insertInstructorForm(Model model, SubMenuVO subMenuVO){
+        model.addAttribute("lectureEventList", instructorService.adminSelectLectureEventListForInsertInstructor());
         return "admin/admin_insert_instructor_form";
     }
     //관리자용 강사 등록 기능 + 이미지
@@ -85,8 +86,10 @@ public class InstructorController {
     //유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저/////
     //↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ //
 
+    //강사 목록 페이지
     @GetMapping("/instructorList")
-    public String instructorList(){
+    public String instructorList(Model model){
+        model.addAttribute("instructorList", instructorService.adminSelectInstuctorList());
         return "instructor/instructor_list";
     }
     //강사 요약 정보 조회 페치

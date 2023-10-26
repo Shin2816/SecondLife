@@ -5,6 +5,7 @@ import com.green.SecondLife.lecture.vo.LectureEventVO;
 import com.green.SecondLife.lecture.vo.LectureReviewVO;
 import com.green.SecondLife.lecture.vo.LectureVO;
 import com.green.SecondLife.lecture.vo.StudentVO;
+import com.green.SecondLife.member.vo.SubMenuVO;
 
 import java.util.List;
 
