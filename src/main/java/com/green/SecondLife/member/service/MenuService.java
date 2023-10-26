@@ -15,4 +15,8 @@ public interface MenuService {
     public List<MenuVO> selectMainMenuList();
     //유저 서브 메뉴 목록 조회
     public List<SubMenuVO> selectMainSubMenuList();
+    //유저 메뉴 목록 전체 조회
+    public List<MenuVO> selectMainMenuAllList();
+    //유저 서브 메뉴 목록 전체 조회
+    public List<SubMenuVO> selectMainSubMenuAllList();
 }

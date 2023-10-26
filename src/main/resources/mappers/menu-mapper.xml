@@ -44,9 +44,6 @@
         where SUBSTR(MENU_CODE,6) > 4
     </select>
 
-
-
-
 	
 </mapper>
 

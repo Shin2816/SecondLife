@@ -67,6 +67,35 @@ th{
     width: 1295px;
     height: auto;
 }
+.sub-header{
+    margin: 10px 0;
+}
+.sub-header-nav-item{
+    position: relative;
+}
+.sub-header-sub-link{
+    display: flex;
+}
+.nav-link {
+    color: inherit;
+    text-decoration: none;
+
+}
+.sub-menu-main-link{
+    padding-left: 0;
+}
+.sub-menu-main-link::after{
+    position: absolute;
+    display: block;
+    content: "";
+    top: 15px;
+    right: 0;
+    width: 10px;
+    height: 10px;
+    border-top: 1px solid #121212;
+    border-right: 1px solid #121212;
+    transform: rotate(45deg);
+}
 .slide{
     cursor: pointer;
 }

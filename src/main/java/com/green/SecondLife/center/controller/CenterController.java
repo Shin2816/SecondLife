@@ -48,15 +48,14 @@ public class CenterController {
         centerFacilityVO.setFacilityCode(facilityCode);
         centerService.insertFacility(centerFacilityVO);
 
-        System.out.println(centerFacilityVO);
-
         return "redirect:/center/insertFacilityForm";
     }
 
     //관리자-전체 시설 목록 조회
     @GetMapping("/selectAllFacility")
     public String selectAllFacility(Model model, SubMenuVO subMenuVO){
-           subMenuVO.setMenuCode("MENU_003");
+        subMenuVO.setMenuCode("MENU_003");
+
         // 시설 카테고리 조회
         model.addAttribute("centerCategoryList", centerService.selectCenterCategory());
 

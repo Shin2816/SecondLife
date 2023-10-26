@@ -1,8 +1,10 @@
 package com.green.SecondLife.rental.controller;
 
 import com.green.SecondLife.member.vo.MemberVO;
+import com.green.SecondLife.member.vo.SubMenuVO;
 import com.green.SecondLife.rental.service.RentalService;
 import com.green.SecondLife.rental.vo.RentalFacilityVO;
+import com.green.SecondLife.util.ConstantVariable;
 import jakarta.servlet.http.HttpSession;
 import jakarta.websocket.Session;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +30,7 @@ public class RentalController {
 
     //화면
     @GetMapping("/rentalFacility")
-    public String test(){
+    public String test(SubMenuVO subMenuVO){
         return "/rental/rental_facility";
     }
 
@@ -69,34 +71,55 @@ public class RentalController {
 
         rentalService.insertRentalFacility(rentalFacilityVO);
 
-        return "redirect:/rental/rentalFacility";
+        return "redirect:/rental/rentalFacility?menuCode="+ ConstantVariable.MENU_CODE_RENTAL_FACILITY;
     }
 
     //사용자(마이페이지)-대관신청 목록 조회
     @GetMapping("/myRentalHistory")
-    public String myRentalHistory(RentalFacilityVO rentalFacilityVO, HttpSession session, Model model){
+    public String myRentalHistory(RentalFacilityVO rentalFacilityVO, HttpSession session, Model model, SubMenuVO subMenuVO){
         //세션 사용자이름 불러오기
         MemberVO member = (MemberVO)session.getAttribute("loginInfo");
         rentalFacilityVO.setRentalUser(member.getMemberName());
-        List<RentalFacilityVO> myRentalList = rentalService.selectMyRentalList(rentalFacilityVO);
 
-        model.addAttribute("myRentalList", myRentalList);
+        model.addAttribute("myRentalList", rentalService.selectMyRentalList(rentalFacilityVO));
         return "/rental/my_rental_history";
     }
 
     //사용자(마이페이지)-대관신청 취소
     @GetMapping("/deleteSignRental")
     public String deleteSignRental(String rentalSignCode){
-        System.out.println(rentalSignCode);
         rentalService.deleteSignRental(rentalSignCode);
-        return "redirect:/rental/myRentalHistory";
+        return "redirect:/rental/myRentalHistory?menuCode="+ConstantVariable.MENU_CODE_MY_HISTORY;
     }
 
-    //관리자(시설대관현황) - 목록조회
+    //관리자(대관관리) - 목록조회
     @GetMapping("/rentalManageList")
-    public String selectRentalList(Model model){
+    public String selectRentalList(Model model, SubMenuVO subMenuVO){
+        subMenuVO.setMenuCode("MENU_003");
         model.addAttribute("rentalList", rentalService.selectRentalList());
         return "/admin/manage_rental";
     }
 
+    //(관리자)대관관리 상태변경(현상태-승인대기:2 / 반려: 0, 완료: 1, 승인->결제 대기: 3)
+    //반려하기
+    @GetMapping("/updateStateReject")
+    public String updateRentalStatus0(String rejectReason, RentalFacilityVO rentalFacilityVO){
+        System.out.println(rejectReason);
+        rentalFacilityVO.setRejectReason(rejectReason);
+        rentalService.updateRentalStatus0(rentalFacilityVO);
+
+        return "redirect:/rental/rentalManageList";
+    }
+    //승인하기 -> 결제 대기
+    @GetMapping("/updateStatePay")
+    public String updateRentalStatus3(String rentalSignCode){
+        rentalService.updateRentalStatus3(rentalSignCode);
+
+        return "redirect:/rental/rentalManageList";
+    }
+    
+    //결제하기 -> 완료!
+    public void updateRentalStatus1(String rentalSignCode){
+        rentalService.updateRentalStatus1(rentalSignCode);
+    }
 }

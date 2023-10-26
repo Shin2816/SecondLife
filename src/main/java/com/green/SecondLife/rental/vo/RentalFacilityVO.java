@@ -18,6 +18,7 @@ public class RentalFacilityVO {
     private String rentalPurpose;
     private String rentalStatus;
     private String rentalSignCode;
+    private String rejectReason;
     private RentalTimeVO rentalTimeVO;
     private List<RentalFacilityVO> facilityList;
 }

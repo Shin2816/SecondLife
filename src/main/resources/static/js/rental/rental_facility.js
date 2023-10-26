@@ -1,7 +1,7 @@
 // 풀캘린더 화면 구현
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
-    var list = [{title : '테스트', start : '2023-10-16'}, {title : '테스트2', start : '2023-10-18', end : '2023-10-22'}, {title : '테스트3', start : '2023-10-22T12:35:00', allDay : false}];
+    //var list = [{title : '테스트', start : '2023-10-16'}, {title : '테스트2', start : '2023-10-18', end : '2023-10-22'}, {title : '테스트3', start : '2023-10-22T12:35:00', allDay : false}];
     var calendar = new FullCalendar.Calendar(calendarEl, {
       headerToolbar: {
         left: 'prev',
@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
       initialView: 'dayGridMonth',
       initailDate: 'default', // 달력 처음 로드될때 표시되는 날짜. default는 현재 날짜
       locale: 'ko', //달력 한국어
-      editable : true, //이벤트 위치 변경 가능 여부
+      editable : false, //이벤트 위치 변경 가능 여부
       selectable: true, //달력 클릭 여부
       height: 500,
       dayCellContent: function(info) {    //달력 '일' 삭제
@@ -28,9 +28,11 @@ document.addEventListener('DOMContentLoaded', function() {
         };
       },
       dateClick: function(info) { //달력을 클릭 했을 때, 함수 호출
-        calendarCheck(info.dateStr); //비동기 통신, 매개변수는 클릭한 날짜
-      },
-      events: list
+        if(info.date.getDay() === 0 || info.date.getDay() === 6){ //토(6),일(0)만 클릭 가능
+            calendarCheck(info.dateStr); //비동기 통신, 매개변수는 클릭한 날짜
+        }
+      }
+      //, events: list
     });
 
     calendar.render();
@@ -92,9 +94,9 @@ function calendarCheck(date){
 
                 if (rentalTime.rentalStatus == 0) {
                     str += rentalTime.rentalCharge.toLocaleString('ko-KR');
-                } else if (rentalTime.rentalStatus == 1) {
+                } else if (rentalTime.rentalStatus > 1) {
                     str += '<span style="color: blue;">승인 대기</span>';
-                } else if (rentalTime.rentalStatus == 2) {
+                } else if (rentalTime.rentalStatus == 1) {
                     str += '<span style="color: red;">예약 불가</span>';
                 }
 
@@ -188,3 +190,4 @@ function rentalSignUp(){
         alert('신청이 완료되었습니다.');
     }
 }
+

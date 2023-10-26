@@ -44,31 +44,58 @@
                         <td>[[${rental.rentalTime}]]</td>
                         <td>[[${rental.rentalUser}]]</td>
                         <td>[[${rental.rentalTeam}]]</td>
-                        <!-- 0: 예약가능 / 1: 승인대기 / 2: 예약불가 / 3: 결제대기 / 4: 승인완료 / 5: 반려 -->
-                        <th:block th:if="${rental.rentalStatus == '1'}">
+                        <!-- 0:예약가능(반려) / 1:예약불가(승인완료)  / 2:승인대기 / 3:결제대기 -->
+                        <th:block th:if="${rental.rentalStatus == '2'}">
                             <td>승인 대기</td>
                             <td>
-                                <button type="button" class="btn btn-secondary btn-sm">반려</button>
-                                <button type="button" class="btn btn-secondary btn-sm">승인</button>
+                                <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" th:data-bs-target="${'#rejectModal' + state.count}">반려</button>
+                                <button type="button" class="btn btn-secondary btn-sm" th:onclick="acceptBtn([[${rental.rentalSignCode}]])">승인</button>
                             </td>
                         </th:block>
                         <th:block th:if="${rental.rentalStatus == '3'}">
                             <td>결제 대기</td>
                             <td>승인</td>
                         </th:block>
-                        <th:block th:if="${rental.rentalStatus == '4'}">
+                        <th:block th:if="${rental.rentalStatus == '1'}">
                             <td>결제 완료</td>
                             <td>승인</td>
                         </th:block>
-                        <th:block th:if="${rental.rentalStatus == '5'}">
+                        <th:block th:if="${rental.rentalStatus == '0'}">
                             <td>반려</td>
                             <td>반려</td>
                         </th:block>
+
+                        <!-- 반려 내용 입력 모달창 -->
+                        <div class="modal fade" th:id="${'rejectModal' + state.count}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h5 class="modal-title">반려 내용을 입력해주세요.</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-3">반려 내용 :</div>
+                                        <div class="col-9">
+                                            <input class="form-control" type="text" name="rejectReason" placeholder="30자 이내로 작성해주세요.">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                                <button type="button" class="btn btn-primary" th:onclick="rejectBtn([[${rental.rentalSignCode}]])">반려하기</button>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
                     </tr>
                 </tbody>
             </table>
+            
         </div>
     </div>
+    
+    <script src="/js/admin/manage_rental.js"></script>
 </th:block>
 </body>
 </html>

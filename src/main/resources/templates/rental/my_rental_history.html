@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-     layout:decorate="~{fragment/main_layout}" >
+     layout:decorate="~{fragment/sub_layout}" >
 <head>
 <meta charset="UTF-8">
 <title></title>
@@ -29,42 +29,74 @@
                         <td>대관시설</td>
                         <td>예약일</td>
                         <td>예약시간</td>
+                        <td>대관요금</td>
                         <td>단체명</td>
-                        <td>상태</td>
-                        <td>취소</td>
+                        <td>예약상태</td>
+                        <td>비고</td>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="myRental, state : ${myRentalList}">
-                        <td>[[${#lists.size(myRentalList) - state.index}]]</td>
-                        <td>[[${myRental.facilityName}]]</td>
-                        <td>[[${myRental.rentalDate}]]</td>
-                        <td>[[${myRental.rentalTime}]]</td>
-                        <td>[[${myRental.rentalTeam}]]</td>
-                        <!-- 0: 예약가능 / 1: 승인대기 / 2: 예약불가 / 3: 결제대기 / 4: 승인완료 / 5: 반려 -->
-                        <th:block th:if="${myRental.rentalStatus == '1'}">
-                            <td>승인 대기중</td>
-                            <td>
-                                <button type="button" class="btn btn-secondary btn-sm" th:onclick="cancelRental([[${myRental.rentalSignCode}]])">취소</button>
-                            </td>
-                        </th:block>
-                        <th:block th:if="${myRental.rentalStatus == '3'}">
-                            <td>결제 대기</td>
-                            <td>
-                                <button type="button" class="btn btn-primary btn-sm">결제하기</button>
-                            </td>
-                        </th:block>
-                        <th:block th:if="${myRental.rentalStatus == '4'}">
-                            <td>신청 완료</td>
-                            <td>취소 불가</td>
-                        </th:block>
-                    </tr>
+                    <th:block th:if="${#lists.size(myRentalList) == 0}">
+                        <tr>
+                            <td colspan="7">등록된 대관 신청이 없습니다.</td>
+                        </tr>
+                    </th:block>
+                    <th:block th:unless="${#lists.size(myRentalList) == 0}">
+                        <tr th:each="myRental, state : ${myRentalList}">
+                            <td>[[${#lists.size(myRentalList) - state.index}]]</td>
+                            <td>[[${myRental.facilityName}]]</td>
+                            <td>[[${myRental.rentalDate}]]</td>
+                            <td>[[${myRental.rentalTime}]]</td>
+                            <td >[[${#numbers.formatCurrency(myRental.rentalCharge)}]]</td>
+                            <td>[[${myRental.rentalTeam}]]</td>
+                            <!--  0:예약가능(반려) / 1:예약불가(승인완료)  / 2:승인대기 / 3:결제대기 -->
+                            <th:block th:if="${myRental.rentalStatus == '2'}">
+                                <td>승인 대기중</td>
+                                <td>
+                                    <button type="button" class="btn btn-secondary btn-sm" th:onclick="cancelRental([[${myRental.rentalSignCode}]])">취소</button>
+                                </td>
+                            </th:block>
+                            <th:block th:if="${myRental.rentalStatus == '3'}">
+                                <td>결제 대기</td>
+                                <td>
+                                    <button type="button" class="btn btn-primary btn-sm" th:onclick="kakaopay([[${myRental.facilityName}]], [[${myRental.rentalCharge}]], [[${myRental.rentalUser}]], [[${subMenuVO.menuCode}]])">결제하기</button>
+                                </td>
+                            </th:block>
+                            <th:block th:if="${myRental.rentalStatus == '1'}">
+                                <td>신청 완료</td>
+                                <td>취소 불가</td>
+                            </th:block>
+                            <th:block th:if="${myRental.rentalStatus == '0'}">
+                                <td>반려</td>
+                                <td>
+                                    <button type="button" class="btn btn-secondary btn-sm" onclick="rejectReasonBtn()">반려내용</button>
+                                    <button type="button" class="btn btn-secondary btn-sm" th:onclick="cancelRental([[${myRental.rentalSignCode}]])">취소</button>
+                                </td>
+                            </th:block>
+
+                            <!-- 반려 내용 보기 모달창 -->
+                            <div class="modal fade" id="rejectReasonModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <div class="modal-title">반려내용은 아래와 같습니다.</div>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div>[[${myRental.rejectReason}]] 으로/로 반려되었습니다.</div>
+                                        <div>발전하는 "라이프 센터"가 되겠습니다. 많은 이용 바랍니다.</div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </tr>
+                    </th:block>
                 </tbody>
             </table>
         </div>
     </div>
     
-    <script src="/js/my_rental_history.js"></script>
+    <script src="/js/rental/my_rental_history.js"></script>
 </th:block>
 </body>
 </html>
