@@ -27,12 +27,6 @@ document.addEventListener('DOMContentLoaded', function() {
             domNodes: []
         };
       },
-      dayRender: function (date, cell) {
-        // 특정 날짜에 따라 배경색을 변경
-        if (date.getDate() === 1) {
-            cell.css("background-color", "red"); // 원하는 색상으로 변경
-        }    
-      },
       dateClick: function(info) { //달력을 클릭 했을 때, 함수 호출
         if(info.date.getDay() === 0 || info.date.getDay() === 6){ //토(6),일(0)만 클릭 가능
             calendarCheck(info.dateStr); //비동기 통신, 매개변수는 클릭한 날짜
