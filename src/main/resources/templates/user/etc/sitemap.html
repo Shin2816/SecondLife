@@ -15,9 +15,9 @@
                     [[${mainMenu.menuName}]]
                 </div>
                 <div class="sitemap-sub">
-                    <ol>
+                    <ul>
                         <li class="sitemap-sub-url" th:each="subMenu : ${mainSubMenuList}" th:if="${mainMenu.menuCode == subMenu.menuCode}" th:onclick="|location.href='@{${subMenu.subMenuUrl}}'|">[[${subMenu.subMenuName}]]</li>
-                    </ol>
+                    </ul>
                 </div>
             </div>
         </div>

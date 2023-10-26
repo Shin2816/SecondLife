@@ -67,7 +67,7 @@
                                         [[${session.loginInfo.memberName}]]님 어서오세요.
                                     </div>
                                     <div class="login-menu">
-                                        <span class="login-span" th:onclick="|location.href='@{/member/updateMemberForm(memberId=${session.loginInfo.memberId})}'|">내 정보 </span>
+                                        <span class="login-span" th:onclick="|location.href='@{/member/updateMemberForm(memberId=${session.loginInfo.memberId}, menuCode=MENU_012)}'|">내 정보 </span>
                                          / 
                                         <span class="login-span" onclick="location.href='/member/logout'"> 로그아웃</span> 
                                     </div>
@@ -133,7 +133,7 @@
                                     </th:block>
                                     <!-- 게시글 있을 때 -->
                                     <th:block th:unless="${#lists.size(qaBoardList) == 0}" >
-                                        <tr class="board-tr" th:each="qaBoard : ${qaBoardList}" th:onclick="|location.href='@{/qa/boardDetail(qaBoardNum=${qaBoard.qaBoardNum})}'|">
+                                        <tr class="board-tr" th:each="qaBoard : ${qaBoardList}" th:onclick="|location.href='@{/qa/boardDetail(qaBoardNum=${qaBoard.qaBoardNum},menuCode=MENU_007)}'|">
                                             <td class="board_td_title">[[${qaBoard.qaBoardTitle}]]</td>
                                             <td>[[${qaBoard.qaBoardWriter}]]</td>
                                             <td>[[${qaBoard.qaCreateDate}]]</td>
@@ -145,10 +145,10 @@
                     </div>
                     <div class="col-6 main-slide">
                         <div class="slide">
-                            <div class="slide-1" onclick="location.href='/rental/rentalFacility'">
+                            <div class="slide-1" th:onclick="|@{location.href='/rental/rentalFacility(menuCode=MENU_010)}'|">
                                 <img src="/images/main_banner/facility.jpg" alt="">
                             </div>
-                            <div class="slide-2" onclick="location.href='/board/freeBoardList'">
+                            <div class="slide-2" th:onclick="|@{location.href='/board/freeBoardList(menuCode=MENU_007)}'|">
                                 <img src="/images/main_banner/board.jpg" alt="">
                             </div>
                             <div class="slide-3">
@@ -174,7 +174,7 @@
                                 <span>센터 소개</span>
                             </p>
                         </div>
-                        <div class="right" onclick="location.href='/rental/rentalFacility'">
+                        <div class="right" th:onclick="|@{location.href='/rental/rentalFacility(menuCode=MENU_010)}'|">
                             <p class="right_info">
                                 <img src="/images/icons/buildings.png" alt="">
                                 <span>시설 대관</span>
@@ -194,7 +194,7 @@
                                 <img src="/images/icons/book.png" alt="">
                                 수업 신청
                             </div>
-                            <div onclick="location.href=''">
+                            <div th:onclick="|@{location.href='/rental/rentalFacility(menuCode=MENU_010)}'|">
                                 <img src="/images/icons/buildings.png" alt="">
                                 시설 대관
                             </div>
@@ -202,7 +202,7 @@
                                 <img src="/images/icons/board.png" alt="">
                                 센터 소개
                             </div>
-                            <div onclick="location.href='/board/freeBoardList'">
+                            <div th:onclick="|@{location.href='/board/freeBoardList(menuCode=MENU_007)}'|">
                                 <img src="/images/icons/community.png" alt="">
                                 커뮤니티
                             </div>

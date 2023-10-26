@@ -87,7 +87,7 @@
     <h1>댓글작성</h1>
     <div class="input-group mb-3" id="freeRegDiv">
         <input type="text" name="commentContent" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2">
-        <button class="btn btn-outline-secondary" type="button" id="button-addon2" th:onclick="freeRegComment([[${board.freeBoardWriter}]], this, [[${board.freeBoardNum}]], [[${session.loginInfo}]]);">작성</button>
+        <button class="btn btn-outline-secondary" type="button" id="button-addon2" th:onclick="freeRegComment([[${board.freeBoardWriter}]], this, [[${board.freeBoardNum}]], [[${session.loginInfo}]], [[${subMenuVO.menuCode}]]);">작성</button>
     </div>
     <hr>
     <table border="1" class="text-center col-12">
@@ -110,7 +110,7 @@
                             </a>
                             <!-- 삭제,수정버튼 -->
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" th:onclick="freeDeleteComment([[${comment.commentId}]], [[${board.freeBoardNum}]])">삭제</a></li>
+                                <li><a class="dropdown-item" th:onclick="freeDeleteComment([[${comment.commentId}]], [[${board.freeBoardNum}]], [[${subMenuVO.menuCode}]])">삭제</a></li>
                                 <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" th:onclick="freeUpdateModal([[${comment.commentContent}]]);">수정</a></li>
                             </ul>
                             <!-- Modal -->
@@ -127,7 +127,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                                            <button type="button" class="btn btn-primary" th:onclick="freeUpdateComment([[${comment.commentId}]], [[${board.freeBoardNum}]]);">수정하기</button>
+                                            <button type="button" class="btn btn-primary" th:onclick="freeUpdateComment([[${comment.commentId}]], [[${board.freeBoardNum}]], [[${subMenuVO.menuCode}]]);">수정하기</button>
                                         </div>
                                     </div>
                                 </div>

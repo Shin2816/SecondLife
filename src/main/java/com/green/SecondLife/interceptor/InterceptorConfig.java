@@ -54,9 +54,10 @@ public class InterceptorConfig implements WebMvcConfigurer {
         //유저 메뉴 정보 출력 인터셉터 실행
         registry.addInterceptor(userMenuInterceptor)
                 .addPathPatterns("/", "/etc/privacy", "/etc/sitemap"
-                                ,"/member/logout"
+                                ,"/member/logout", "/member/updateMemberForm"
                                 ,"/board/freeBoardList", "/board/regBoardForm", "/board/boardDetail"
-                                ,"/qa/qaBoardList")
+                                ,"/qa/qaBoardList"
+                                ,"/rental/rentalFacility")
                 .excludePathPatterns("/**/**Fetch")
                 .excludePathPatterns("/images/**", "/js/**", "/css/**");
     }

@@ -1,8 +1,10 @@
 package com.green.SecondLife.rental.controller;
 
 import com.green.SecondLife.member.vo.MemberVO;
+import com.green.SecondLife.member.vo.SubMenuVO;
 import com.green.SecondLife.rental.service.RentalService;
 import com.green.SecondLife.rental.vo.RentalFacilityVO;
+import com.green.SecondLife.util.ConstantVariable;
 import jakarta.servlet.http.HttpSession;
 import jakarta.websocket.Session;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +30,7 @@ public class RentalController {
 
     //화면
     @GetMapping("/rentalFacility")
-    public String test(){
+    public String test(SubMenuVO subMenuVO){
         return "/rental/rental_facility";
     }
 
@@ -69,7 +71,7 @@ public class RentalController {
 
         rentalService.insertRentalFacility(rentalFacilityVO);
 
-        return "redirect:/rental/rentalFacility";
+        return "redirect:/rental/rentalFacility?menuCode="+ ConstantVariable.MENU_CODE_RENTAL_FACILITY;
     }
 
     //사용자(마이페이지)-대관신청 목록 조회

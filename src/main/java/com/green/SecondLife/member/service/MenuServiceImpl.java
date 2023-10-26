@@ -34,4 +34,15 @@ public class MenuServiceImpl implements MenuService{
         return sqlSession.selectList("menuMapper.selectMainSubMenuList");
     }
 
+    @Override
+    public List<MenuVO> selectMainMenuAllList() {
+        return sqlSession.selectList("menuMapper.selectMainMenuAllList");
+    }
+
+    @Override
+    public List<SubMenuVO> selectMainSubMenuAllList() {
+        return sqlSession.selectList("menuMapper.selectMainSubMenuAllList");
+    }
+
+
 }
