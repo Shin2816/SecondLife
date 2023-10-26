@@ -8,6 +8,8 @@
 </head>
 <body>
 <th:block layout:fragment ="content">
+    <link rel="stylesheet" href="/css/validate_error.css">
+
     <div class="row">
         <div class="col-12">
             <h2>예약 현황</h2>
@@ -77,13 +79,14 @@
                                     <div class="row">
                                         <div class="col-3">반려 내용 :</div>
                                         <div class="col-9">
-                                            <input class="form-control" type="text" name="rejectReason" placeholder="30자 이내로 작성해주세요.">
+                                            <input class="form-control" type="text" name="rejectReason" placeholder="15자 이내로 작성해주세요.">
                                         </div>
+                                        <div th:id="${'reject-error-div' + state.count}" class="error-div"></div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                                <button type="button" class="btn btn-primary" th:onclick="rejectBtn([[${rental.rentalSignCode}]])">반려하기</button>
+                                <button type="button" class="btn btn-primary" th:onclick="rejectValidate([[${rental.rentalSignCode}]], [[state.count]])">반려하기</button>
                                 </div>
                             </div>
                             </div>
