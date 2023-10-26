@@ -45,37 +45,51 @@ public class QaController {
     //등록버튼 누르면 등록 페이지로 이동
     @GetMapping("/regQaBoardForm")
     public String regQaBoardForm(){
-
         return "board/qa/reg_board";
     }
     //글 등록 페이지에서 등록하기 누르면 글 등록 쿼리 실행
     @PostMapping("/regBoard")
     public String regBoard(BoardQaListVO boardQaListVO, HttpSession session, MultipartFile[] qaImg){
-        System.out.println(000);
-        //파일 업로드 메소드를 변수에 저장
-        List<QaImgVO> qaImgList = UploadUtil.qaMultiFileUpload(qaImg);
-        int nextBoardNum = qaService.selectNextQaBoardNum();
-        //하나씩 돌면서 vo boardNum안에 다음 boardNum 전달
-        for(QaImgVO e : qaImgList){
-            e.setQaBoardNum(nextBoardNum);
-        }
-        System.out.println(111);
         MemberVO loginInfo = (MemberVO)session.getAttribute("loginInfo");
-        boardQaListVO.setQaBoardWriter(loginInfo.getMemberId());
-        //다음 들어갈 글 번호 조회된 것을 빈값으로 채움
-        boardQaListVO.setQaBoardNum(nextBoardNum);
-        //트랜젝션 처리한 메소드
-        boardQaListVO.setQaImgList(qaImgList);
-        System.out.println(222);
-        //만약 password값이 비어있다면?
-        if (boardQaListVO.getQaBoardPassword() == null){
-            //공개 등록 쿼리 실행
-            qaService.insertQaBoardOpen(boardQaListVO);
-        } else {
-            //비공개 등록 쿼리 실행
-            qaService.insertQaBoardClose(boardQaListVO);
+        int nextBoardNum = qaService.selectNextQaBoardNum();//빈 값 채울 pk 조회해서 저장
+
+        //만약 이미지를 첨부 했다면?
+        if(qaImg != null){
+            System.out.println("이미지 첨부");
+            //파일 업로드 메소드를 변수에 저장
+            List<QaImgVO> qaImgList = UploadUtil.qaMultiFileUpload(qaImg);
+            //하나씩 돌면서 vo boardNum안에 다음 boardNum 전달
+            for(QaImgVO e : qaImgList){
+                e.setQaBoardNum(nextBoardNum);
+            }
+            boardQaListVO.setQaBoardWriter(loginInfo.getMemberId());//vo안에 writer를 세션에 저장된 id로 갖고옴
+            boardQaListVO.setQaBoardNum(nextBoardNum);//다음 들어갈 글 번호 조회된 것을 빈값으로 채움
+            boardQaListVO.setQaImgList(qaImgList);
+
+            //만약 password값이 비어있다면?
+            if (boardQaListVO.getQaBoardPassword() == null){
+                //공개 등록 쿼리 실행
+                qaService.insertQaBoardOpen(boardQaListVO);
+            } else {
+                //비공개 등록 쿼리 실행
+                qaService.insertQaBoardClose(boardQaListVO);
+            }
         }
-        System.out.println(333);
+        else {//파일 첨부를 하지 않았다면
+            boardQaListVO.setQaBoardNum(nextBoardNum);
+            boardQaListVO.setQaBoardWriter(loginInfo.getMemberId());//vo안에 writer를 세션에 저장된 id로 갖고옴
+            System.out.println("이미지 미첨부");
+            System.out.println(boardQaListVO);
+            //만약 password값이 비어있다면?
+            if (boardQaListVO.getQaBoardPassword() == null){
+                //공개 등록 쿼리 실행
+                qaService.insertQaBoardOpen(boardQaListVO);
+            } else {
+                //비공개 등록 쿼리 실행
+                qaService.insertQaBoardClose(boardQaListVO);
+            }
+        }
+
         return "redirect:/qa/qaBoardList";
     }
     //글 tr태그를 클릭했을때 해당글의 상세페이지 이동

@@ -30,10 +30,10 @@ function qaRegValidate(){
         inputInvalidate('.text-error-div', '내용은 300글자 이내로 작성해주세요.');
         return;
     }
-    //글 등록시 공개로 체크되어있다면 유효성 검사 실행
-    const openCheck = openAndClose().value;
-    console.log(openCheck);
-    if(openCheck.value == 'close'){
+
+    //글 등록시 비공개로 체크되어있다면 유효성 검사 실행
+    const openCheckBox = document.querySelector('#openAndClose2').value;
+    if(openCheckBox.value == 'close'){
         //비밀번호 입력 체크
         if(qaRegBoard.qaBoardPassword.value == ''){
             inputInvalidate('.password-error-div', '비밀번호를 입력해주세요.');
@@ -46,7 +46,7 @@ function qaRegValidate(){
             inputInvalidate('.password-error-div', '비밀번호는 25글자 이내로 작성해주세요.');
             return;
         }
-    }
+    }//공개라면 바로 실행
 
     //submit 실행
     qaRegBoard.submit();
