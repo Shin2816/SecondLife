@@ -113,6 +113,7 @@
         WHERE RENTAL_FACILITY.RENTAL_TIME_CODE =  RENTAL_AVAILABLE_TIME.RENTAL_TIME_CODE
         AND RENTAL_USER = #{rentalUser}
         GROUP BY RENTAL_SIGN_CODE
+        ORDER BY RENTAL_SIGN_CODE DESC
     </select>
 
     <!--대관신청 취소-->
@@ -146,7 +147,6 @@
             , REJECT_REASON = #{rejectReason}
         WHERE RENTAL_SIGN_CODE = #{rentalSignCode}
     </update>
-
     <update id="updateRentalStatus1">
         UPDATE RENTAL_FACILITY
         SET RENTAL_STATUS = 1
