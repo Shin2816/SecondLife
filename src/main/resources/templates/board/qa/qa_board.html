@@ -40,15 +40,57 @@
         <!-- 게시글 있을 때 -->
         <th:block th:unless="${#lists.size(qaBoardList) == 0}" >
             <tbody id="board-list-body">
-                <tr class="board-tr" th:each="qaBoard, state : ${qaBoardList}" th:onclick="|location.href='@{/qa/boardDetail(qaBoardNum=${qaBoard.qaBoardNum})}'|">
-                    <td>[[${qaBoard.qaBoardNum}]]</td>
-                    <td>[[${qaBoard.qaBoardTitle}]]</td>
-                    <td>[[${qaBoard.qaBoardWriter}]]</td>
-                    <td>[[${qaBoard.qaCreateDate}]]</td>
-                    <td>[[${qaBoard.qaBoardReadCnt}]]</td>
-                </tr>
+                <!-- 클릭 했을 때 비밀번호가 걸려있다면 -->
+                <th:block th:if="${qaBoard.qaBoardPassword != null}" th:each="qaBoard : ${qaBoardList}">
+                    <!-- <tr class="board-tr" data-bs-target="#qaPasswordBoard" data-bs-toggle="modal"> -->
+                    <tr class="board-tr" onclick="openModal11();">
+                        <td>[[${qaBoard.qaBoardNum}]]</td>
+                        <td>[[${qaBoard.qaBoardTitle}]]</td>
+                        <td>[[${qaBoard.qaBoardWriter}]]</td>
+                        <td>[[${qaBoard.qaCreateDate}]]</td>
+                        <td>[[${qaBoard.qaBoardReadCnt}]]</td>
+                    </tr>
+                </th:block>
+                <!-- 클릭 했을 때 비밀번호가 걸려있지않다면 -->
+                <th:block th:if="${qaBoard.qaBoardPassword == null}" th:each="qaBoard : ${qaBoardList}">
+                    <tr class="board-tr" th:onclick="|location.href='@{/qa/boardDetail(qaBoardNum=${qaBoard.qaBoardNum})}'|">
+                        <td>[[${qaBoard.qaBoardNum}]]</td>
+                        <td>[[${qaBoard.qaBoardTitle}]]</td>
+                        <td>[[${qaBoard.qaBoardWriter}]]</td>
+                        <td>[[${qaBoard.qaCreateDate}]]</td>
+                        <td>[[${qaBoard.qaBoardReadCnt}]]</td>
+                    </tr>
+                </th:block>
             </tbody>
         </th:block>
+        <!-- Modal창을 띄우고 -->
+        <div class="modal fade" id="qaPasswordBoard" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">비밀번호를 입력해주세요.</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>          
+                    <form action="/qa/boardDetail" method="post" id="qaPasswordBoardForm">
+                       
+                        <div class="modal-body">
+                            <div class="row mb-3">
+                                <input type="text" name="qaBoardTitle" id="qaBoard" class="form-control">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="row mb-3 error text-center">
+                                <div class="password-error-div">
+                                    <!-- 에러 출력 -->
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                            <button type="button" class="btn btn-primary" onclick="qaPasswordValidate()">확인</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </table>
     <!-- 페이징처리 -->
     <nav aria-label="Page navigation example" class="row-12 text-center">
@@ -63,6 +105,7 @@
             <li class="page-item"><span th:if="${boardQaListVO.next}"><a class="page-link" th:href="@{/qa/qaBoardList(nowPage=${boardQaListVO.endPage + 1})}">다음</a></span></li>
         </ul>
     </nav>
+    <script src="/js/board/qa_board.js"></script>
 </th:block>
 </body>
 </html>

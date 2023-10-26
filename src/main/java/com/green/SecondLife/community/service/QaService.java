@@ -12,8 +12,10 @@ public interface QaService {
     public List<BoardQaListVO> selectQaBoardList(BoardQaListVO boardQaListVO);
     //게시글 갯수 조회
     public int selectBoardCnt();
-    //QA게시판 글 등록
-    public int insertQaBoard(BoardQaListVO boardQaListVO);
+    //QA게시판 글 등록(비공개)
+    public void insertQaBoardClose(BoardQaListVO boardQaListVO);
+    //QA게시판 글 등록(비공개)
+    public void insertQaBoardOpen(BoardQaListVO boardQaListVO);
     //QA 메인페이지
     public List<BoardQaListVO> selectMainQaBoardList();
     //QA 상세 페이지
@@ -32,10 +34,6 @@ public interface QaService {
     public int deleteQaBoardComment(int commentId);
     //QA 댓글 수정
     public int updateQaBoardComment(BoardCommentListVO boardCommentListVO);
-    //상품 이미지 등록
-    public void insertQaImgs(BoardQaListVO boardQaListVO);
-    //다음 QA_코드 조회
-    public String selectNextQaCode();
     //다음 QA_BOARD_NUM 조회
     public int selectNextQaBoardNum();
 }
