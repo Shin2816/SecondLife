@@ -58,12 +58,12 @@
                             </div>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" th:data-bs-target="${'#staticBackdrop' + state.count}">
+                            <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" th:data-bs-target="${'#updateFacilityModal' + state.count}">
                                 수정
                             </button>
                             
                             <!-- 수정버튼 Modal -->
-                            <div class="modal fade" th:id="${'staticBackdrop' + state.count}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal fade" th:id="${'updateFacilityModal' + state.count}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
                                     <div class="modal-header">

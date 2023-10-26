@@ -94,11 +94,28 @@ public class RentalController {
         return "redirect:/rental/myRentalHistory";
     }
 
-    //관리자(시설대관현황) - 목록조회
+    //관리자(대관관리) - 목록조회
     @GetMapping("/rentalManageList")
     public String selectRentalList(Model model){
         model.addAttribute("rentalList", rentalService.selectRentalList());
         return "/admin/manage_rental";
     }
 
+    //(관리자)대관관리 상태변경(현상태-승인대기:2 / 반려: 0, 완료: 1, 승인->결제 대기: 3)
+    @GetMapping("/updateStateReject")
+    public String updateRentalStatus0(String rejectReason, RentalFacilityVO rentalFacilityVO){
+        rentalFacilityVO.setRejectReason(rejectReason);
+        rentalService.updateRentalStatus0(rentalFacilityVO);
+
+        return "redirect:/rental/rentalManageList";
+    }
+    public void updateRentalStatus1(String rentalSignCode){
+        rentalService.updateRentalStatus1(rentalSignCode);
+    }
+    @GetMapping("/updateStatePay")
+    public String updateRentalStatus3(String rentalSignCode){
+        rentalService.updateRentalStatus3(rentalSignCode);
+
+        return "redirect:/rental/rentalManageList";
+    }
 }
