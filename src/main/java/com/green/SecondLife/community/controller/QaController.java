@@ -28,11 +28,14 @@ public class QaController {
 
     //Q&A 게시판 출력
     @RequestMapping("/qaBoardList")
-    public String qaBoardList(Model model, BoardQaListVO boardQaListVO, SubMenuVO subMenuVO){
+    public String qaBoardList(Model model, BoardQaListVO boardQaListVO, SubMenuVO subMenuVO, HttpSession session){
         //페이지 정보 세팅
         int totalDataCnt = qaService.selectBoardCnt(); //전체 게시글 갯수 조회해서
         boardQaListVO.setTotalPageCnt(totalDataCnt);//세터 호출해서 전체 게시글 갯수 전달
         boardQaListVO.setPageInfo();//변수값 설정한 메소드 호출(상속관계라 사용가능)
+
+        MemberVO loginInfo = (MemberVO)session.getAttribute("loginInfo");
+        model.addAttribute("loginInfo", loginInfo);
 
         //게시글 목록 조회
         List<BoardQaListVO> qaBoardList = qaService.selectQaBoardList(boardQaListVO);
@@ -42,12 +45,13 @@ public class QaController {
     //등록버튼 누르면 등록 페이지로 이동
     @GetMapping("/regQaBoardForm")
     public String regQaBoardForm(){
+
         return "board/qa/reg_board";
     }
     //글 등록 페이지에서 등록하기 누르면 글 등록 쿼리 실행
     @PostMapping("/regBoard")
     public String regBoard(BoardQaListVO boardQaListVO, HttpSession session, MultipartFile[] qaImg){
-        
+        System.out.println(000);
         //파일 업로드 메소드를 변수에 저장
         List<QaImgVO> qaImgList = UploadUtil.qaMultiFileUpload(qaImg);
         int nextBoardNum = qaService.selectNextQaBoardNum();
@@ -55,14 +59,14 @@ public class QaController {
         for(QaImgVO e : qaImgList){
             e.setQaBoardNum(nextBoardNum);
         }
-        
+        System.out.println(111);
         MemberVO loginInfo = (MemberVO)session.getAttribute("loginInfo");
         boardQaListVO.setQaBoardWriter(loginInfo.getMemberId());
         //다음 들어갈 글 번호 조회된 것을 빈값으로 채움
         boardQaListVO.setQaBoardNum(nextBoardNum);
         //트랜젝션 처리한 메소드
         boardQaListVO.setQaImgList(qaImgList);
-
+        System.out.println(222);
         //만약 password값이 비어있다면?
         if (boardQaListVO.getQaBoardPassword() == null){
             //공개 등록 쿼리 실행
@@ -71,26 +75,44 @@ public class QaController {
             //비공개 등록 쿼리 실행
             qaService.insertQaBoardClose(boardQaListVO);
         }
-
+        System.out.println(333);
         return "redirect:/qa/qaBoardList";
     }
-    //글 제목 클릭했을때 해당글의 상세페이지 이동
+    //글 tr태그를 클릭했을때 해당글의 상세페이지 이동
     @RequestMapping("/boardDetail")
-    public String boardDetail(int qaBoardNum, String qaBoardPassword, Model model, BoardQaListVO boardQaListVO, HttpSession session){
-        MemberVO loginInfo = (MemberVO) session.getAttribute("loginInfo");
+    public String boardDetail(int qaBoardNum, String qaCheckPwInput, Model model, BoardQaListVO boardQaListVO, HttpSession session){
+        MemberVO loginInfo = (MemberVO)session.getAttribute("loginInfo");
+        //저장된 비밀번호 조회 쿼리
+         String qaPw = qaService.selectQaPw(qaBoardNum);
+         //로그인을 했다면?
+         if(loginInfo != null){// 저장되어진 비밀번호와 입력한 비밀번호가 같거나, 관리자라면?
 
-        // 저장되어진 비밀번호와 입력한 비밀번호가 같거나, 관리자라면?
-        if (boardQaListVO.getQaBoardPassword() == qaBoardPassword || loginInfo.getMemberRoll() == "ADMIN"){
-            model.addAttribute("board", qaService.selectQaBoardDetail(qaBoardNum));
-            //조회수 증가
-            qaService.updateQaBoardCnt(qaBoardNum);
-            //댓글 조회해서 html로 던지기
-            model.addAttribute("comment", qaService.selectQaBoardComment(qaBoardNum));
-            return "board/qa/board_detail";
-        }
-        else {
-            return "board/qa/qa_result";
-        }
+            if (qaPw.equals(qaCheckPwInput) || "ADMIN".equals(loginInfo.getMemberRoll())){
+                //board이름으로 디테일정보 던지기
+                model.addAttribute("board", qaService.selectQaBoardDetail(qaBoardNum));
+                //조회수 증가
+                qaService.updateQaBoardCnt(qaBoardNum);
+                //댓글 조회해서 html로 던지기
+                model.addAttribute("comment", qaService.selectQaBoardComment(qaBoardNum));
+                return "board/qa/board_detail";
+            }
+            else {
+                return "board/qa/qa_result";
+            }
+         } else {// 로그인 하지 않았을 때, 저장되어진 비밀번호와 입력한 비밀번호가 같다면?
+             if (qaPw.equals(qaCheckPwInput)){
+                 //board이름으로 디테일정보 던지기
+                 model.addAttribute("board", qaService.selectQaBoardDetail(qaBoardNum));
+                 //조회수 증가
+                 qaService.updateQaBoardCnt(qaBoardNum);
+                 //댓글 조회해서 html로 던지기
+                 model.addAttribute("comment", qaService.selectQaBoardComment(qaBoardNum));
+                 return "board/qa/board_detail";
+             }
+             else {
+                 return "board/qa/qa_result";
+             }
+         }
     }
     //상세 페이지에서 댓글 작성버튼 클릭하면 비동기로 insert 쿼리 실행
     @ResponseBody
