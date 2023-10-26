@@ -139,7 +139,7 @@
             , #{commentNum}
         )
     </insert>
-    <!--QA게시판 글 삭제, 댓글이 먼저 삭제되고 게시글 삭제 되도록(외래키 오류)-->
+    <!--QA게시판 글 삭제, 댓글이 먼저 삭제되고 게시글 삭제 되도록(외래키 오류에 대응)-->
     <delete id="deleteQaBoard">
         DELETE BOARD_QA_LIST
         WHERE QA_BOARD_NUM = #{qaBoardNum}
@@ -184,6 +184,12 @@
             FROM DUAL
         </foreach>
     </insert>
+    <!--qaBoardNum이 같은 비밀번호 조회-->
+    <select id="selectQaPw" resultType="String">
+        SELECT QA_BOARD_PASSWORD
+        FROM BOARD_QA_LIST
+        WHERE QA_BOARD_NUM = #{qaBoardNum}
+    </select>
 </mapper>
 
 

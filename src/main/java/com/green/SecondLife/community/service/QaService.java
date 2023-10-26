@@ -36,4 +36,6 @@ public interface QaService {
     public int updateQaBoardComment(BoardCommentListVO boardCommentListVO);
     //다음 QA_BOARD_NUM 조회
     public int selectNextQaBoardNum();
+    //해당하는 비밀번호 조회
+    public String selectQaPw(int qaBoardNum);
 }
