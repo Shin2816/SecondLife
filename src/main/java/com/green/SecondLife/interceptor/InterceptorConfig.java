@@ -57,7 +57,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
                                 ,"/member/logout", "/member/updateMemberForm"
                                 ,"/board/freeBoardList", "/board/regBoardForm", "/board/boardDetail"
                                 ,"/qa/qaBoardList"
-                                ,"/rental/rentalFacility")
+                                ,"/rental/rentalFacility", "/rental/myRentalHistory")
                 .excludePathPatterns("/**/**Fetch")
                 .excludePathPatterns("/images/**", "/js/**", "/css/**");
     }

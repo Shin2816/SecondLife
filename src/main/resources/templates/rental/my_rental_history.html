@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-     layout:decorate="~{fragment/main_layout}" >
+     layout:decorate="~{fragment/sub_layout}" >
 <head>
 <meta charset="UTF-8">
 <title></title>
@@ -59,7 +59,7 @@
                             <th:block th:if="${myRental.rentalStatus == '3'}">
                                 <td>결제 대기</td>
                                 <td>
-                                    <button type="button" class="btn btn-primary btn-sm" th:onclick="kakaopay([[${myRental.facilityName}]], [[${myRental.rentalCharge}]], [[${myRental.rentalUser}]])">결제하기</button>
+                                    <button type="button" class="btn btn-primary btn-sm" th:onclick="kakaopay([[${myRental.facilityName}]], [[${myRental.rentalCharge}]], [[${myRental.rentalUser}]], [[${subMenuVO.menuCode}]])">결제하기</button>
                                 </td>
                             </th:block>
                             <th:block th:if="${myRental.rentalStatus == '1'}">

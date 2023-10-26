@@ -141,8 +141,8 @@ public class LectureController {
     @GetMapping("/goLectureApplyForm")
     public String goLectureApplyForm(LectureVO lectureVO, Model model, HttpSession session){
         model.addAttribute("lectureInfo", lectureService.adminSelectLectureDetail(lectureVO));
-        MemberVO memberId = (MemberVO)session.getAttribute("loginInfo");
-        model.addAttribute("memberInfo", memberService.selectMember(memberId));
+        MemberVO loginInfo = (MemberVO)session.getAttribute("loginInfo");
+        model.addAttribute("memberInfo", memberService.selectMember(loginInfo.getMemberId()));
         return "lecture/lecture_apply_form";
     }
     //수강생테이블로 수강생 인서트

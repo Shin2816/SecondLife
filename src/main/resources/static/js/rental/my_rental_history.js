@@ -12,7 +12,7 @@ function rejectReasonBtn(){
     myModal.show();
 }
 
-function kakaopay(facilityName, rentalCharge, rentalUser){
+function kakaopay(facilityName, rentalCharge, rentalUser, menuCode){
 	
 	var IMP = window.IMP;
 	IMP.init('imp22886415');
@@ -39,6 +39,6 @@ function kakaopay(facilityName, rentalCharge, rentalUser){
         	msg += "에러 내용" + rsp.error_msg;
         }
 		alert(msg);
-		document.location.href="/rental/myRentalHistory";
+		document.location.href="/rental/myRentalHistory?menuCode"+menuCode;
 	});
 }

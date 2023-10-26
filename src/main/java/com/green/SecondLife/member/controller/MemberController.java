@@ -16,10 +16,7 @@ import net.nurigo.sdk.message.service.DefaultMessageService;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 
 import java.lang.reflect.Member;
@@ -116,11 +113,11 @@ public class MemberController {
 
     }
 
-
     //회원 정보 수정폼으로 이동
     @GetMapping("/updateMemberForm")
-    public String updateMemberForm(MemberVO memberVO, Model model, SubMenuVO subMenuVO){
-        model.addAttribute("member", memberService.selectMember(memberVO));
+    public String updateMemberForm(Model model, SubMenuVO subMenuVO, HttpSession session){
+        MemberVO member = (MemberVO)session.getAttribute("loginInfo");
+        model.addAttribute("member", memberService.selectMember(member.getMemberId()));
         return "/member/updateMember";
     }
 
