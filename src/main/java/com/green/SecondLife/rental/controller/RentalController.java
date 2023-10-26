@@ -80,9 +80,8 @@ public class RentalController {
         //세션 사용자이름 불러오기
         MemberVO member = (MemberVO)session.getAttribute("loginInfo");
         rentalFacilityVO.setRentalUser(member.getMemberName());
-        List<RentalFacilityVO> myRentalList = rentalService.selectMyRentalList(rentalFacilityVO);
-        System.out.println(myRentalList);
-        model.addAttribute("myRentalList", myRentalList);
+
+        model.addAttribute("myRentalList", rentalService.selectMyRentalList(rentalFacilityVO));
         return "/rental/my_rental_history";
     }
 
@@ -95,7 +94,8 @@ public class RentalController {
 
     //관리자(대관관리) - 목록조회
     @GetMapping("/rentalManageList")
-    public String selectRentalList(Model model){
+    public String selectRentalList(Model model, SubMenuVO subMenuVO){
+        subMenuVO.setMenuCode("MENU_003");
         model.addAttribute("rentalList", rentalService.selectRentalList());
         return "/admin/manage_rental";
     }
