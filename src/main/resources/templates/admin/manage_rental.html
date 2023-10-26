@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-     layout:decorate="~{fragment/main_layout}" >
+     layout:decorate="~{fragment/admin_layout}" >
 <head>
 <meta charset="UTF-8">
 <title></title>
@@ -19,9 +19,10 @@
                     <col width="15%">
                     <col width="12%">
                     <col width="*">
-                    <col width="13%">
+                    <col width="10%">
                     <col width="13%">
                     <col width="10%">
+                    <col width="15%">
                 </colgroup>
                 <thead>
                     <tr>
@@ -29,42 +30,45 @@
                         <td>대관시설</td>
                         <td>예약일</td>
                         <td>예약시간</td>
+                        <td>신청자</td>
                         <td>단체명</td>
                         <td>상태</td>
-                        <td>취소</td>
+                        <td>승인</td>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="myRental, state : ${myRentalList}">
-                        <td>[[${#lists.size(myRentalList) - state.index}]]</td>
-                        <td>[[${myRental.facilityName}]]</td>
-                        <td>[[${myRental.rentalDate}]]</td>
-                        <td>[[${myRental.rentalTime}]]</td>
-                        <td>[[${myRental.rentalTeam}]]</td>
+                    <tr th:each="rental, state : ${rentalList}">
+                        <td>[[${#lists.size(rentalList) - state.index}]]</td>
+                        <td>[[${rental.facilityName}]]</td>
+                        <td>[[${rental.rentalDate}]]</td>
+                        <td>[[${rental.rentalTime}]]</td>
+                        <td>[[${rental.rentalUser}]]</td>
+                        <td>[[${rental.rentalTeam}]]</td>
                         <!-- 0: 예약가능 / 1: 승인대기 / 2: 예약불가 / 3: 결제대기 / 4: 승인완료 / 5: 반려 -->
-                        <th:block th:if="${myRental.rentalStatus == '1'}">
-                            <td>승인 대기중</td>
+                        <th:block th:if="${rental.rentalStatus == '1'}">
+                            <td>승인 대기</td>
                             <td>
-                                <button type="button" class="btn btn-secondary btn-sm" th:onclick="cancelRental([[${myRental.rentalSignCode}]])">취소</button>
+                                <button type="button" class="btn btn-secondary btn-sm">반려</button>
+                                <button type="button" class="btn btn-secondary btn-sm">승인</button>
                             </td>
                         </th:block>
-                        <th:block th:if="${myRental.rentalStatus == '3'}">
+                        <th:block th:if="${rental.rentalStatus == '3'}">
                             <td>결제 대기</td>
-                            <td>
-                                <button type="button" class="btn btn-primary btn-sm">결제하기</button>
-                            </td>
+                            <td>승인</td>
                         </th:block>
-                        <th:block th:if="${myRental.rentalStatus == '4'}">
-                            <td>신청 완료</td>
-                            <td>취소 불가</td>
+                        <th:block th:if="${rental.rentalStatus == '4'}">
+                            <td>결제 완료</td>
+                            <td>승인</td>
+                        </th:block>
+                        <th:block th:if="${rental.rentalStatus == '5'}">
+                            <td>반려</td>
+                            <td>반려</td>
                         </th:block>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
-    
-    <script src="/js/my_rental_history.js"></script>
 </th:block>
 </body>
 </html>
