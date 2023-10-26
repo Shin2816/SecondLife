@@ -16,5 +16,4 @@ public interface MemberService {
     public void memberUpdate(MemberVO memberVO);
     //회원 정보 검색
     public MemberVO selectMember(MemberVO memberVO);
-
 }

@@ -5,6 +5,7 @@ import com.green.SecondLife.member.vo.MenuVO;
 import com.green.SecondLife.member.vo.SubMenuVO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -22,9 +23,8 @@ public class UserMenuInterceptor implements HandlerInterceptor {
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
 
         List<MenuVO> menuList = menuService.selectMainMenuList();
-        List<SubMenuVO> subMenuList = menuService.selectMainSubMenuList();
-
         modelAndView.addObject("mainMenuList", menuList);
+        List<SubMenuVO> subMenuList = menuService.selectMainSubMenuList();
         modelAndView.addObject("mainSubMenuList", subMenuList);
     }
 }

@@ -9,7 +9,6 @@ public class ConstantVariable {
     public static final String UPLOAD_PATH_COMMUNITY_QA = "D:\\dev\\workspaceSpring\\SecondLife\\src\\main\\resources\\static\\images\\community\\qa\\";
     public static final String PHONE_CHECK_KEY = "NCSFRSPOSEI2P4NJ";
     public static final String PHONE_CHECK_SECRET = "W6YQENCRQSPFUC6BLQFNKDMI8E8ADWGJ";
-    public static final String RENTAL_PAYMENT_CODE = "imp22886415";
     public static final String RENTAL_PAYMENT_KEY = "5485801252312526";
     public static final String RENTAL_PAYMENT_SECRET = "pFhv7ExoGzdddAarJdxo4orslRCie6XluUFyPWx1cBCupBxeavlvoCh3fy84S2mdIllKYBkMJtHNLaF0";
     public static final String MENU_CODE_BOARD = "MENU_007";

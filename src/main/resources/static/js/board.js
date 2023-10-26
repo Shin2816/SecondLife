@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////댓글작성(비동기)
-function freeRegComment(freeBoardWriter, selectedTag, freeBoardNum, loginInfo){
+function freeRegComment(freeBoardWriter, selectedTag, freeBoardNum, loginInfo, menuCode){
     const commentContent = selectedTag.closest('div').querySelector('input[type="text"]').value;
 
     //댓글 입력 여부 체크
@@ -51,7 +51,7 @@ function freeRegComment(freeBoardWriter, selectedTag, freeBoardNum, loginInfo){
     .then((data) => {//data -> controller에서 리턴되는 데이터!
         if(data == true){//로그인 정보가 있다면
             alert('등록이 완료 되었습니다.');
-            location.href=`/board/boardDetail?freeBoardNum=${freeBoardNum}`;//등록이 완료되고 해당 게시글 상세페이지로 이동
+            location.href=`/board/boardDetail?freeBoardNum=${freeBoardNum}&menuCode=${menuCode}`;//등록이 완료되고 해당 게시글 상세페이지로 이동
         }
     })
     //fetch 통신 실패 시 실행 영역
@@ -62,7 +62,7 @@ function freeRegComment(freeBoardWriter, selectedTag, freeBoardNum, loginInfo){
 }
 
 ////////////////////////////////////////////////////////댓글 삭제(비동기)
-function freeDeleteComment(commentId, freeBoardNum){
+function freeDeleteComment(commentId, freeBoardNum, menuCode){
     if(confirm('삭제하시면 되돌릴 수 없습니다.\n삭제 하시겠습니까?')){
         fetch('/board/freeDeleteComment', { //요청경로
             method: 'POST',
@@ -88,7 +88,7 @@ function freeDeleteComment(commentId, freeBoardNum){
         //fetch 통신 후 실행 영역
         .then((data) => {//data -> controller에서 리턴되는 데이터!
             alert('댓글 삭제가 완료 되었습니다.');
-            location.href=`/board/boardDetail?freeBoardNum=${freeBoardNum}`;
+            location.href=`/board/boardDetail?freeBoardNum=${freeBoardNum}&menuCode=${menuCode}`;
         })
         //fetch 통신 실패 시 실행 영역
         .catch(err=>{
@@ -103,7 +103,7 @@ function freeUpdateModal(freeUpdateCommentContent){//실제 데이터value
     freeCommentInput.value = freeUpdateCommentContent;//input안에 내용 넣기
 }
 ///////////////////////////////////////////////////////////////////댓글 수정(비동기)
-function freeUpdateComment(commentId, freeBoardNum){//수정버튼을 누르면 도착, div id : freeCommentInput 안에 데이터 넣기
+function freeUpdateComment(commentId, freeBoardNum, menuCode){//수정버튼을 누르면 도착, div id : freeCommentInput 안에 데이터 넣기
     const freeCommentInput = document.querySelector('#freeCommentInput').value;
 
     if(freeCommentInput == ''){
@@ -144,7 +144,7 @@ function freeUpdateComment(commentId, freeBoardNum){//수정버튼을 누르면 
     //fetch 통신 후 실행 영역
     .then((data) => {//data -> controller에서 리턴되는 데이터!
         alert('댓글 수정이 완료 되었습니다.');
-        location.href=`/board/boardDetail?freeBoardNum=${freeBoardNum}`;
+        location.href=`/board/boardDetail?freeBoardNum=${freeBoardNum}&menuCode=${menuCode}`;
     })
     //fetch 통신 실패 시 실행 영역
     .catch(err=>{

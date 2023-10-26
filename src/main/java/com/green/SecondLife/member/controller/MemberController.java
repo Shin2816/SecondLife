@@ -119,7 +119,7 @@ public class MemberController {
 
     //회원 정보 수정폼으로 이동
     @GetMapping("/updateMemberForm")
-    public String updateMemberForm(MemberVO memberVO, Model model){
+    public String updateMemberForm(MemberVO memberVO, Model model, SubMenuVO subMenuVO){
         model.addAttribute("member", memberService.selectMember(memberVO));
         return "/member/updateMember";
     }

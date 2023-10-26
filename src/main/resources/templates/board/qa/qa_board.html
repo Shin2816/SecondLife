@@ -12,7 +12,7 @@
     <hr>
     <!-- 검색 영역 -->
     <div class="row-12 d-flex justify-content-between">
-        <input th:if="${session.loginInfo != null}" class="btn btn-primary" type="button" value="등록하기" onclick="location.href='/qa/regQaBoardForm';">
+        <input th:if="${session.loginInfo != null}" class="btn btn-primary" type="button" value="등록하기" th:onclick="|location.href='@{/qa/regQaBoardForm?(menuCode=${subMenuVO.menuCode})}'|">
         <form action="/qa/qaBoardList" method="post" class="col-5 d-flex">
             <select name="searchType" class="form-select list-select" aria-label="Default select example">
                 <option value="QA_BOARD_TITLE" selected>제목</option>
@@ -96,13 +96,13 @@
     <nav aria-label="Page navigation example" class="row-12 text-center">
         <ul class="pagination justify-content-center" id="board-my-page">
             <!-- 예) 이전 1 2 3 4 5 다음 / 이전 페이지 누르면 현재 페이지 -1 -->
-            <li class="page-item"><span th:if="${boardQaListVO.prev}"><a class="page-link" th:href="@{/qa/qaBoardList(nowPage=${boardQaListVO.beginPage - 1})}">이전</a></span></li>
+            <li class="page-item"><span th:if="${boardQaListVO.prev}"><a class="page-link" th:href="@{/qa/qaBoardList(nowPage=${boardQaListVO.beginPage - 1},menuCode=${subMenuVO.menuCode})}">이전</a></span></li>
             <!-- 시작번호부터 끝 번호까지 반복한 것을 pageNum으로 지정-->
             <th:block class="page-item" th:each="pageNum : ${#numbers.sequence(boardQaListVO.beginPage, boardQaListVO.endPage)}">
                 <!-- 출력된 숫자 클릭하면 이동 -->
-                <a th:href="@{/qa/qaBoardList(nowPage=${pageNum})}" class="page-link"><span th:text="${pageNum}"></span></a>
+                <a th:href="@{/qa/qaBoardList(nowPage=${pageNum},menuCode=${subMenuVO.menuCode})}" class="page-link"><span th:text="${pageNum}"></span></a>
             </th:block>
-            <li class="page-item"><span th:if="${boardQaListVO.next}"><a class="page-link" th:href="@{/qa/qaBoardList(nowPage=${boardQaListVO.endPage + 1})}">다음</a></span></li>
+            <li class="page-item"><span th:if="${boardQaListVO.next}"><a class="page-link" th:href="@{/qa/qaBoardList(nowPage=${boardQaListVO.endPage + 1},menuCode=${subMenuVO.menuCode})}">다음</a></span></li>
         </ul>
     </nav>
     <script src="/js/board/qa_board.js"></script>

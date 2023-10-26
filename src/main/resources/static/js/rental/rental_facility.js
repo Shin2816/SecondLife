@@ -188,3 +188,4 @@ function rentalSignUp(){
         alert('신청이 완료되었습니다.');
     }
 }
+
