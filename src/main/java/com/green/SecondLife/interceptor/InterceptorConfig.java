@@ -56,7 +56,8 @@ public class InterceptorConfig implements WebMvcConfigurer {
                 .addPathPatterns("/", "/etc/privacy", "/etc/sitemap"
                                 ,"/member/logout"
                                 ,"/board/freeBoardList", "/board/regBoardForm", "/board/boardDetail"
-                                ,"/qa/qaBoardList")
+                                ,"/qa/qaBoardList"
+                                ,"/rental/rentalFacility")
                 .excludePathPatterns("/**/**Fetch")
                 .excludePathPatterns("/images/**", "/js/**", "/css/**");
     }

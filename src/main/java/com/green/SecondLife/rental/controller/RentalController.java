@@ -1,6 +1,7 @@
 package com.green.SecondLife.rental.controller;
 
 import com.green.SecondLife.member.vo.MemberVO;
+import com.green.SecondLife.member.vo.SubMenuVO;
 import com.green.SecondLife.rental.service.RentalService;
 import com.green.SecondLife.rental.vo.RentalFacilityVO;
 import jakarta.servlet.http.HttpSession;
@@ -28,14 +29,14 @@ public class RentalController {
 
     //화면
     @GetMapping("/rentalFacility")
-    public String test(){
+    public String test(SubMenuVO subMenuVO){
         return "/rental/rental_facility";
     }
 
     //풀 캘린더
     @ResponseBody
     @PostMapping("/rentalCalendar")
-    public List<RentalFacilityVO> calTest(RentalFacilityVO rentalFacilityVO){
+    public List<RentalFacilityVO> calTest(RentalFacilityVO rentalFacilityVO, SubMenuVO subMenuVO){
         List<RentalFacilityVO> rentalTimeList = rentalService.selectRentalFacility(rentalFacilityVO);
         return rentalTimeList;
     }
