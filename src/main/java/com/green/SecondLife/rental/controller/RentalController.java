@@ -79,7 +79,7 @@ public class RentalController {
         MemberVO member = (MemberVO)session.getAttribute("loginInfo");
         rentalFacilityVO.setRentalUser(member.getMemberName());
         List<RentalFacilityVO> myRentalList = rentalService.selectMyRentalList(rentalFacilityVO);
-
+        System.out.println(myRentalList);
         model.addAttribute("myRentalList", myRentalList);
         return "/rental/my_rental_history";
     }
@@ -87,7 +87,6 @@ public class RentalController {
     //사용자(마이페이지)-대관신청 취소
     @GetMapping("/deleteSignRental")
     public String deleteSignRental(String rentalSignCode){
-        System.out.println(rentalSignCode);
         rentalService.deleteSignRental(rentalSignCode);
         return "redirect:/rental/myRentalHistory";
     }
@@ -100,20 +99,25 @@ public class RentalController {
     }
 
     //(관리자)대관관리 상태변경(현상태-승인대기:2 / 반려: 0, 완료: 1, 승인->결제 대기: 3)
+    //반려하기
     @GetMapping("/updateStateReject")
     public String updateRentalStatus0(String rejectReason, RentalFacilityVO rentalFacilityVO){
+        System.out.println(rejectReason);
         rentalFacilityVO.setRejectReason(rejectReason);
         rentalService.updateRentalStatus0(rentalFacilityVO);
 
         return "redirect:/rental/rentalManageList";
     }
-    public void updateRentalStatus1(String rentalSignCode){
-        rentalService.updateRentalStatus1(rentalSignCode);
-    }
+    //승인하기 -> 결제 대기
     @GetMapping("/updateStatePay")
     public String updateRentalStatus3(String rentalSignCode){
         rentalService.updateRentalStatus3(rentalSignCode);
 
         return "redirect:/rental/rentalManageList";
+    }
+    
+    //결제하기 -> 완료!
+    public void updateRentalStatus1(String rentalSignCode){
+        rentalService.updateRentalStatus1(rentalSignCode);
     }
 }
