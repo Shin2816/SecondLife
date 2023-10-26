@@ -16,6 +16,7 @@
         <result column="RENTAL_PURPOSE"     property="rentalPurpose"/>
         <result column="RENTAL_STATUS"      property="rentalStatus"/>
         <result column="RENTAL_SIGN_CODE"   property="rentalSignCode"/>
+        <result column="REJECT_REASON"      property="rejectReason"/>
         <collection property="rentalTimeVO" resultMap="rentalTime" />
     </resultMap>
 
@@ -88,18 +89,12 @@
                     , #{facility.rentalUser}
                     , #{facility.rentalTeam}
                     , #{facility.rentalPurpose}
-                    , 1
+                    , 2
                     ,#{facility.rentalUser}||'_'||TO_CHAR(SYSDATE, 'YYYYMMDDHH24MISS')
             FROM DUAL
         </foreach>
     </insert>
 
-    <!--대관 신청하기 시 예약상태 1 로 변경-->
-    <!--<update id="updateRentalStatus">
-        UPDATE RENTAL_FACILITY
-        SET RENTAL_STATUS = 1
-        WHERE RENTAL_CODE = #{rentalCode}
-    </update>-->
 
     <!--마이페이지 - 예약 현황 조회-->
     <select id="selectMyRentalList" resultMap="rentalFacility">
@@ -113,6 +108,7 @@
                 , MAX(RENTAL_STATUS) RENTAL_STATUS
                 , MAX(RENTAL_SIGN_CODE) RENTAL_SIGN_CODE
                 , LISTAGG(RENTAL_AVAILABLE_TIME.RENTAL_START_TIME||'-'||RENTAL_AVAILABLE_TIME.RENTAL_END_TIME, ', ') WITHIN GROUP(ORDER BY RENTAL_AVAILABLE_TIME.RENTAL_START_TIME||'-'||RENTAL_AVAILABLE_TIME.RENTAL_END_TIME) AS RENTAL_TIME
+                , MAX(REJECT_REASON) REJECT_REASON
         FROM RENTAL_FACILITY , RENTAL_AVAILABLE_TIME
         WHERE RENTAL_FACILITY.RENTAL_TIME_CODE =  RENTAL_AVAILABLE_TIME.RENTAL_TIME_CODE
         AND RENTAL_USER = #{rentalUser}
@@ -142,6 +138,27 @@
         WHERE RENTAL_FACILITY.RENTAL_TIME_CODE =  RENTAL_AVAILABLE_TIME.RENTAL_TIME_CODE
         GROUP BY RENTAL_SIGN_CODE
     </select>
+
+    <!--(관리자)대관관리 상태변경(현상태-승인대기:2 / 반려: 0, 완료: 1, 승인->결제 대기: 3)-->
+    <update id="updateRentalStatus0">
+        UPDATE RENTAL_FACILITY
+        SET RENTAL_STATUS = 0
+            , REJECT_REASON = #{rejectReason}
+        WHERE RENTAL_SIGN_CODE = #{rentalSignCode}
+    </update>
+
+    <update id="updateRentalStatus1">
+        UPDATE RENTAL_FACILITY
+        SET RENTAL_STATUS = 1
+        WHERE RENTAL_SIGN_CODE = #{rentalSignCode}
+    </update>
+    <update id="updateRentalStatus3">
+        UPDATE RENTAL_FACILITY
+        SET RENTAL_STATUS = 3
+        WHERE RENTAL_SIGN_CODE = #{rentalSignCode}
+    </update>
+
+
 </mapper>
 
 

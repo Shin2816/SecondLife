@@ -36,4 +36,19 @@ public class RentalServiceImpl implements RentalService{
     public List<RentalFacilityVO> selectRentalList() {
         return sqlSession.selectList("rentalMapper.selectRentalList");
     }
+
+    @Override
+    public void updateRentalStatus0(RentalFacilityVO rentalFacilityVO) {
+        sqlSession.update("rentalMapper.updateRentalStatus0", rentalFacilityVO);
+    }
+
+    @Override
+    public void updateRentalStatus1(String rentalSignCode) {
+        sqlSession.update("rentalMapper.updateRentalStatus1", rentalSignCode);
+    }
+
+    @Override
+    public void updateRentalStatus3(String rentalSignCode) {
+        sqlSession.update("rentalMapper.updateRentalStatus3", rentalSignCode);
+    }
 }

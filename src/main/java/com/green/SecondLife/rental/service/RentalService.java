@@ -19,4 +19,9 @@ public interface RentalService {
 
     // (관리자)대관신청현황관리 목록 조회
     public List<RentalFacilityVO> selectRentalList();
+
+    //(관리자)대관관리 상태변경(현상태-승인대기:2 / 반려: 0, 완료: 1, 승인->결제 대기: 3)
+    public void updateRentalStatus0(RentalFacilityVO rentalFacilityVO);
+    public void updateRentalStatus1(String rentalSignCode);
+    public void updateRentalStatus3(String rentalSignCode);
 }
