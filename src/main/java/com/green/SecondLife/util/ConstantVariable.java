@@ -13,4 +13,7 @@ public class ConstantVariable {
     public static final String RENTAL_PAYMENT_SECRET = "pFhv7ExoGzdddAarJdxo4orslRCie6XluUFyPWx1cBCupBxeavlvoCh3fy84S2mdIllKYBkMJtHNLaF0";
     public static final String MENU_CODE_BOARD = "MENU_007";
     public static final String MENU_CODE_RENTAL_FACILITY = "MENU_010";
+    public static final String MENU_CODE_MY_HISTORY = "MENU_012";
+
+
 }

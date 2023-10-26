@@ -29,6 +29,16 @@
                     <label><input type="radio" value="여자" name="instructorGender">여자</label>
                 </div>
             </div>
+            <div>
+                <p>담당과목</p>
+                <div class="box lectureEvent">
+                    <select name="lectureEventCode">
+                        <th:block th:each="lectureEvent : ${lectureEventList}">
+                            <option th:value="${lectureEvent.lectureEventCode}">[[${lectureEvent.lectureEventName}]]</option>
+                        </th:block>
+                    </select>
+                </div>
+            </div>
             <div class="box tel">
                 <p>연락처</p>
                 <select name="instructorPhones">

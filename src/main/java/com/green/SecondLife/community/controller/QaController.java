@@ -53,41 +53,23 @@ public class QaController {
         MemberVO loginInfo = (MemberVO)session.getAttribute("loginInfo");
         int nextBoardNum = qaService.selectNextQaBoardNum();//빈 값 채울 pk 조회해서 저장
 
-        //만약 이미지를 첨부 했다면?
-        if(qaImg != null){
-            System.out.println("이미지 첨부");
-            //파일 업로드 메소드를 변수에 저장
-            List<QaImgVO> qaImgList = UploadUtil.qaMultiFileUpload(qaImg);
-            //하나씩 돌면서 vo boardNum안에 다음 boardNum 전달
-            for(QaImgVO e : qaImgList){
-                e.setQaBoardNum(nextBoardNum);
-            }
-            boardQaListVO.setQaBoardWriter(loginInfo.getMemberId());//vo안에 writer를 세션에 저장된 id로 갖고옴
-            boardQaListVO.setQaBoardNum(nextBoardNum);//다음 들어갈 글 번호 조회된 것을 빈값으로 채움
-            boardQaListVO.setQaImgList(qaImgList);
-
-            //만약 password값이 비어있다면?
-            if (boardQaListVO.getQaBoardPassword() == null){
-                //공개 등록 쿼리 실행
-                qaService.insertQaBoardOpen(boardQaListVO);
-            } else {
-                //비공개 등록 쿼리 실행
-                qaService.insertQaBoardClose(boardQaListVO);
-            }
+        //파일 업로드 메소드를 변수에 저장
+        List<QaImgVO> qaImgList = UploadUtil.qaMultiFileUpload(qaImg);
+        //하나씩 돌면서 vo boardNum안에 다음 boardNum 전달
+        for(QaImgVO e : qaImgList){
+            e.setQaBoardNum(nextBoardNum);
         }
-        else {//파일 첨부를 하지 않았다면
-            boardQaListVO.setQaBoardNum(nextBoardNum);
-            boardQaListVO.setQaBoardWriter(loginInfo.getMemberId());//vo안에 writer를 세션에 저장된 id로 갖고옴
-            System.out.println("이미지 미첨부");
-            System.out.println(boardQaListVO);
-            //만약 password값이 비어있다면?
-            if (boardQaListVO.getQaBoardPassword() == null){
-                //공개 등록 쿼리 실행
-                qaService.insertQaBoardOpen(boardQaListVO);
-            } else {
-                //비공개 등록 쿼리 실행
-                qaService.insertQaBoardClose(boardQaListVO);
-            }
+        boardQaListVO.setQaBoardWriter(loginInfo.getMemberId());//vo안에 writer를 세션에 저장된 id로 갖고옴
+        boardQaListVO.setQaBoardNum(nextBoardNum);//다음 들어갈 글 번호 조회된 것을 빈값으로 채움
+        boardQaListVO.setQaImgList(qaImgList);
+
+        //만약 password값이 비어있다면?
+        if (boardQaListVO.getQaBoardPassword() == null){
+            //공개 등록 쿼리 실행
+            qaService.insertQaBoardOpen(boardQaListVO);
+        } else {
+            //비공개 등록 쿼리 실행
+            qaService.insertQaBoardClose(boardQaListVO);
         }
 
         return "redirect:/qa/qaBoardList";
@@ -96,12 +78,22 @@ public class QaController {
     @RequestMapping("/boardDetail")
     public String boardDetail(int qaBoardNum, String qaCheckPwInput, Model model, BoardQaListVO boardQaListVO, HttpSession session){
         MemberVO loginInfo = (MemberVO)session.getAttribute("loginInfo");
-        //저장된 비밀번호 조회 쿼리
-         String qaPw = qaService.selectQaPw(qaBoardNum);
-         //로그인을 했다면?
-         if(loginInfo != null){// 저장되어진 비밀번호와 입력한 비밀번호가 같거나, 관리자라면?
+        //데이터베이스에 저장된 비밀번호를 조회해서 저장함
+        String qaPw = qaService.selectQaPw(qaBoardNum);
+        System.out.println(qaPw);// 공개로 글을 작성하면 데이터베이스에 null값 들어가 있어서 오류남
 
-            if (qaPw.equals(qaCheckPwInput) || "ADMIN".equals(loginInfo.getMemberRoll())){
+        //데이터베이스에 저장된 비밀번호가 없거나, 로그인을 했고 관리자라면 프리패스!
+        if(qaPw == null || (loginInfo != null && loginInfo.getMemberRoll().equals("admin"))){
+            //board이름으로 디테일정보 던지기
+            model.addAttribute("board", qaService.selectQaBoardDetail(qaBoardNum));
+            //조회수 증가
+            qaService.updateQaBoardCnt(qaBoardNum);
+            //댓글 조회해서 html로 던지기
+            model.addAttribute("comment", qaService.selectQaBoardComment(qaBoardNum));
+            return "board/qa/board_detail";
+        }
+        else{
+            if (qaPw.equals(qaCheckPwInput)){// 저장되어진 비밀번호와 입력한 비밀번호가 같다면?
                 //board이름으로 디테일정보 던지기
                 model.addAttribute("board", qaService.selectQaBoardDetail(qaBoardNum));
                 //조회수 증가
@@ -110,23 +102,10 @@ public class QaController {
                 model.addAttribute("comment", qaService.selectQaBoardComment(qaBoardNum));
                 return "board/qa/board_detail";
             }
-            else {
-                return "board/qa/qa_result";
+            else {//비밀번호 틀렸다면
+                return "board/qa/qa_result";//alert창 띄우기
             }
-         } else {// 로그인 하지 않았을 때, 저장되어진 비밀번호와 입력한 비밀번호가 같다면?
-             if (qaPw.equals(qaCheckPwInput)){
-                 //board이름으로 디테일정보 던지기
-                 model.addAttribute("board", qaService.selectQaBoardDetail(qaBoardNum));
-                 //조회수 증가
-                 qaService.updateQaBoardCnt(qaBoardNum);
-                 //댓글 조회해서 html로 던지기
-                 model.addAttribute("comment", qaService.selectQaBoardComment(qaBoardNum));
-                 return "board/qa/board_detail";
-             }
-             else {
-                 return "board/qa/qa_result";
-             }
-         }
+        }
     }
     //상세 페이지에서 댓글 작성버튼 클릭하면 비동기로 insert 쿼리 실행
     @ResponseBody

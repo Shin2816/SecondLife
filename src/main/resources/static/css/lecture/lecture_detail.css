@@ -1,0 +1,49 @@
+@charset "utf-8";
+/* lecture_detail.css */
+#wrap{
+    width: 1295px;
+}
+.boxWrap{
+    margin-left: 250px;
+}
+.topBox{
+    display: flex;
+    margin-bottom: 100px;
+}
+.topBox-img{
+    margin-right: 30px;
+}
+.topBox-img img{
+    width: 500px;
+    height: 300px;
+}
+.topBox-title{
+    background-color: black;
+    margin-bottom: 40px;
+    padding: 15px;
+}
+.topBox-title h3{
+    color: #fff;
+}
+.topBox-text p{
+    display: flex;
+    align-items: center;
+}
+.topBox-text .label-box{
+    display: block;
+    text-align: center;
+    width: 45px;
+    padding: 5px;
+    margin-right: 20px;
+    font-weight: 400;
+    font-size: 15px;
+    color: #fff;
+    background-color: orange
+}
+.midBox{
+    margin-bottom: 100px;
+}
+.bottomBox{
+    text-align: right;
+    margin-right: 260px;
+}

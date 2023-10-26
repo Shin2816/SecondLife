@@ -67,7 +67,7 @@
                                         [[${session.loginInfo.memberName}]]님 어서오세요.
                                     </div>
                                     <div class="login-menu">
-                                        <span class="login-span" th:onclick="|location.href='@{/member/updateMemberForm(memberId=${session.loginInfo.memberId}, menuCode=MENU_012)}'|">내 정보 </span>
+                                        <span class="login-span" th:onclick="|location.href='@{/member/updateMemberForm(menuCode=MENU_012)}'|">내 정보 </span>
                                          / 
                                         <span class="login-span" onclick="location.href='/member/logout'"> 로그아웃</span> 
                                     </div>

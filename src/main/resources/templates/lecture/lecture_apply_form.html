@@ -8,17 +8,35 @@
 </head>
 <body>
 <th:block layout:fragment="content">
+    <link rel="stylesheet" href="/css/lecture/lecture_apply_form.css">
 <h1>수강 신청 페이지</h1> <br>
 <form action="/lecture/insertStudent" method="post">
-    <h3>강좌 정보</h3> <br>
-    강좌명 : <input type="text" th:value="${lectureInfo.lectureTitle}" readonly> <br><br>
-    강좌과목 : <input type="text" th:value="${lectureInfo.lectureSubject}" readonly> <br><br>
-    강사 : <input type="text" th:value="${lectureInfo.instructorName}" readonly> <br><br>
-    수강료 : <input type="text" th:value="${lectureInfo.lecturePrice}" readonly>원 <br><br>
-    <h3>수강생 정보</h3> <br>
-     수강생 ID : <input type="text" name="memberId" th:value="${memberInfo.memberId}">
-     수업 코드 : <input type="text" name="lectureCode" th:value="${lectureInfo.lectureCode}">
-    <input type="submit" value="신청하기">
+    <div id="wrap">
+        <div class="top lecture-info">
+            <h3>구매강좌정보</h3>
+            <div class="head content">
+                <p>강좌정보</p>
+                <p>판매가</p>
+                <p>수강기간</p>
+            </div>
+            <div class="body content">
+                <div>
+                    <p>[[${lectureEventInfo.lectureEventName}]]</p>
+                    <p>[[${lectureInfo.lectureTitle}]]</p>
+                </div>
+                <p>[[${lectureInfo.lecturePrice}]]</p>
+                <p>[[${lectureInfo.lecturePeriod}]]</p>
+            </div>
+        </div>
+        <div class="mid member-info">
+            <h3>구매자정보</h3>
+            <div></div>
+        </div>
+        <div class="bottom pay-info">
+            <h3>결제정보</h3>
+            <div></div>
+        </div>
+    </div>
 </form>
 </th:block>
 </body>

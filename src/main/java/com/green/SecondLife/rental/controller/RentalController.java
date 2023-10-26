@@ -76,7 +76,7 @@ public class RentalController {
 
     //사용자(마이페이지)-대관신청 목록 조회
     @GetMapping("/myRentalHistory")
-    public String myRentalHistory(RentalFacilityVO rentalFacilityVO, HttpSession session, Model model){
+    public String myRentalHistory(RentalFacilityVO rentalFacilityVO, HttpSession session, Model model, SubMenuVO subMenuVO){
         //세션 사용자이름 불러오기
         MemberVO member = (MemberVO)session.getAttribute("loginInfo");
         rentalFacilityVO.setRentalUser(member.getMemberName());
@@ -89,7 +89,7 @@ public class RentalController {
     @GetMapping("/deleteSignRental")
     public String deleteSignRental(String rentalSignCode){
         rentalService.deleteSignRental(rentalSignCode);
-        return "redirect:/rental/myRentalHistory";
+        return "redirect:/rental/myRentalHistory?menuCode="+ConstantVariable.MENU_CODE_MY_HISTORY;
     }
 
     //관리자(대관관리) - 목록조회
