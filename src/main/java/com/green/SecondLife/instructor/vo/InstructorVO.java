@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class InstructorVO {
     private String instructorCode;
+    private String lectureEventCode;
     private String instructorName;
     private int instructorAge;
     private String instructorGender;

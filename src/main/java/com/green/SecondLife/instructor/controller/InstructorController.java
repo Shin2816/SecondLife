@@ -24,6 +24,7 @@ public class InstructorController {
     //관리자용 강사등록 페이지로 이동
     @GetMapping("/adminInsertInstructorForm")
     public String insertInstructorForm(Model model, SubMenuVO subMenuVO){
+        model.addAttribute("lectureEventList", instructorService.adminSelectLectureEventListForInsertInstructor());
         return "admin/admin_insert_instructor_form";
     }
     //관리자용 강사 등록 기능 + 이미지

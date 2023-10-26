@@ -102,7 +102,7 @@ public class LectureController {
         model.addAttribute("lectureEventList", lectureService.adminSelectLectureEventList());
         return "admin/admin_insert_lecture_form";
     }
-    //관리자용 수업 등록 기능 후 -> adminSelectLectureList로 리다이렉트
+    //관리자용 수업 등록 기능 후 -> adminLectureList로 리다이렉트
     @PostMapping("/adminInsertLecture")
     public String adminInsertLecture(LectureVO lectureVO, RedirectAttributes redirectAttributes){
         System.out.println(lectureVO);
@@ -112,7 +112,7 @@ public class LectureController {
     }
     //관리자용 수업 목록 페이지
     @GetMapping("/adminLectureList")
-    public String adminLectureList(Model model, String instructorCode, SubMenuVO subMenuVO){
+    public String adminLectureList(Model model, SubMenuVO subMenuVO, String instructorCode){
         model.addAttribute("lectureList", lectureService.adminSelectLectureList(instructorCode));
         return "admin/admin_lecture_list";
     }
@@ -137,12 +137,22 @@ public class LectureController {
     //유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//
     //↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ //
 
-    //수강 신청 페이지로 이동
+    // 수업 상세 페이지
+    @GetMapping("/lectureDetail")
+    public String lectureDetail(LectureVO lectureVO, Model model, SubMenuVO subMenuVO, LectureEventVO lectureEventVO){
+        String lectureEventCode = lectureService.adminSelectLectureDetail(lectureVO).getLectureEventCode();
+        lectureEventVO.setLectureEventCode(lectureEventCode);
+        model.addAttribute("lectureEvent", lectureService.adminSelectLectureEventDetail(lectureEventVO));
+        model.addAttribute("lecture", lectureService.adminSelectLectureDetail(lectureVO));
+        return "/lecture/lecture_detail";
+    }
+    // 강좌 구매 페이지
     @GetMapping("/goLectureApplyForm")
-    public String goLectureApplyForm(LectureVO lectureVO, Model model, HttpSession session){
+    public String goLectureApplyForm(LectureVO lectureVO, Model model, HttpSession session, LectureEventVO lectureEventVO){
+        lectureEventVO.setLectureEventCode(lectureService.adminSelectLectureDetail(lectureVO).getLectureEventCode());
+        model.addAttribute("lectureEventInfo", lectureService.adminSelectLectureEventDetail(lectureEventVO));
         model.addAttribute("lectureInfo", lectureService.adminSelectLectureDetail(lectureVO));
-        MemberVO memberId = (MemberVO)session.getAttribute("loginInfo");
-        model.addAttribute("memberInfo", memberService.selectMember(memberId));
+        model.addAttribute("memberInfo", memberService.selectMember((MemberVO)session.getAttribute("loginInfo")));
         return "lecture/lecture_apply_form";
     }
     //수강생테이블로 수강생 인서트
