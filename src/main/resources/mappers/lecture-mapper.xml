@@ -11,6 +11,7 @@
         <result column="LECTURE_PERIOD"     property="lecturePeriod"/>
         <result column="LECTURE_PRICE"      property="lecturePrice"/>
         <result column="INSTRUCTOR_CODE"    property="instructorCode"/>
+        <association property="instructorVO" resultMap="instructorMapper.instructor"/>
     </resultMap>
     <!-- 수강생 테이블 -->
     <resultMap id="student" type="com.green.SecondLife.lecture.vo.StudentVO">
@@ -74,6 +75,12 @@
             , #{lectureEventImgVO.lectureEventAttachedFileName}
         )
     </insert>
+    <!-- 관리자용 + 강사 등록용 강좌 종목 리스트 조회 쿼리 -->
+    <select id="adminSelectLectureEventListForInsertInstructor" resultMap="lectureEvent">
+        SELECT LECTURE_EVENT_CODE
+            , LECTURE_EVENT_NAME
+        FROM LECTURE_EVENT
+    </select>
     <!-- 관리자용 강좌 종목 리스트 조회 쿼리 -->
     <!-- LECTURE_EVENT + LECTURE_EVENT_IMG 조인 -->
     <select id="adminSelectLectureEventList" resultMap="lectureEvent">
@@ -141,7 +148,7 @@
     <!-- 관리자용 수업 목록 조회 쿼리-->
     <select id="adminSelectLectureList" resultMap="lecture">
         SELECT LECTURE_CODE
-        , LECTURE_EVENT_CODE
+        , L.LECTURE_EVENT_CODE
         , LECTURE_TITLE
         , LECTURE_STUDENT
         , LECTURE_PERIOD
@@ -151,13 +158,13 @@
         FROM LECTURE L, INSTRUCTOR I
         WHERE L.INSTRUCTOR_CODE = I.INSTRUCTOR_CODE
         <if test="instructorCode != null">
-            AND L.INSTRUCTOR_CODE = #{instructorCode}
+            AND I.INSTRUCTOR_CODE = #{instructorCode}
         </if>
     </select>
     <!-- 관리자용 수업 상세 조회 쿼리-->
     <select id="adminSelectLectureDetail" resultMap="lecture">
         SELECT LECTURE_CODE
-            , LECTURE_EVENT_CODE
+            , L.LECTURE_EVENT_CODE
             , LECTURE_TITLE
             , LECTURE_STUDENT
             , LECTURE_PERIOD
@@ -173,7 +180,6 @@
         DELETE LECTURE
         WHERE LECTURE_CODE = #{lectureCode}
     </delete>
-
     <!-- 강좌 수강신청 -->
     <insert id="insertStudent">
         INSERT INTO STUDENT (
@@ -227,7 +233,12 @@
                 , LECTURE_PERIOD
                 , LECTURE_PRICE
             FROM (
-                SELECT *
+                SELECT LECTURE_CODE
+                , LECTURE_TITLE
+                , LECTURE_EVENT_CODE
+                , LECTURE_STUDENT
+                , LECTURE_PERIOD
+                , LECTURE_PRICE
                 FROM LECTURE
                 ORDER BY LECTURE_CODE DESC
             )

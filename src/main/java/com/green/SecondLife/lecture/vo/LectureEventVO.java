@@ -1,5 +1,6 @@
 package com.green.SecondLife.lecture.vo;
 
+import com.green.SecondLife.member.vo.SubMenuVO;
 import lombok.Data;
 
 @Data

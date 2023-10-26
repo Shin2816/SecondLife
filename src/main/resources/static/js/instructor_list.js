@@ -1,7 +1,4 @@
 // instructor_list.js
-
-const myModal = new bootstrap.Modal('#simpleInfoModal');
-
 function showInstructorSimpleInfo(instructorCode){
     fetch('/instructor/showInstructorSimpleInfo', { //요청경로
         method: 'POST',
@@ -25,18 +22,16 @@ function showInstructorSimpleInfo(instructorCode){
     })
     //fetch 통신 후 실행 영역
     .then((data) => {//data -> controller에서 리턴되는 데이터!
-        document.querySelector('#simple_profil_title').innerHTML=`${data.instructor.instructorName}강사 프로필`;
-        document.getElementById('instructor_img').src=`/images/instructor/${data.instructor.instructorImgVO.instructorAttachedFileName}`;
+        const myModal = new bootstrap.Modal('#simpleInfoModal');
+        document.querySelector('#simple_profil_title').innerHTML=`${data.instructor.instructorName}강사님 프로필`;
+        document.querySelector('#instructor_img').src=`/images/instructor/${data.instructor.instructorImgVO.instructorAttachedFileName}`;
         document.querySelector('#instructor_name').innerHTML=`이름 : ${data.instructor.instructorName}`;
         document.querySelector('#instructor_age').innerHTML=`나이 : ${data.instructor.instructorAge}`;
         document.querySelector('#instructor_gender').innerHTML=`성별 : ${data.instructor.instructorGender}`;
-        console.log(data.instructor);
-        console.log(data.lectureList);
-        console.log(data.reviewList);
         
         let str = '';
         data.lectureList.forEach(lecture => {
-            str += `<tr>`;
+            str += `<tr class="lecture_list" onclick="location.href='/lecture/lectureDetail?lectureCode=${lecture.lectureCode}';">`;
             str += `<td>${lecture.lectureTitle}</td>`;
             str += `<td>${lecture.lectureSubject}</td>`;
             str += `<td>${lecture.lecturePeriod}</td>`;

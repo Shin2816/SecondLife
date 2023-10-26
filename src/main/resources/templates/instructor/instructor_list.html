@@ -8,6 +8,7 @@
 </head>
 <body>
 <th:block layout:fragment="content">
+  <link rel="stylesheet" href="/css/instructor/instructor_list.css">
 <div>
     <div class="container" style="display: flex; flex-wrap: wrap; margin-left: 75px;">
         <div class="card" style="width: 15rem; margin: 20px;" th:each="instructor : ${instructorList}" th:onclick="showInstructorSimpleInfo([[${instructor.instructorCode}]]);">
@@ -16,11 +17,6 @@
             <h5 class="card-title">[[${instructor.instructorName}]] <span style="font-size: 14px;">강사님</span></h5>
             <p class="card-text">클릭해보세유</p>
             </div>
-
-            <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#simpleInfoModal"  th:onclick="showInstructorSimpleInfo([[${instructor.instructorCode}]]);">
-                Launch demo modal
-            </button> -->
-
         </div>
     </div>
 </div>
@@ -45,7 +41,7 @@
             </div>
           </div>
           <div class="instructor_simple_lecture_list">
-            <h3>현재 진행중인 강좌정보</h3>
+            <h2>현재 진행중인 강좌정보</h2>
             <table id="lecture-table">
               <thead>
                 <tr>
@@ -60,7 +56,7 @@
             </table>
           </div>
           <div class="instructor_review_list">
-            <h3>리뷰 및 평점</h3>
+            <h2>리뷰 및 평점</h2>
             <table id="lecture-review-table">
               <thead>
                 <tr>

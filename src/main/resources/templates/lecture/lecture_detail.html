@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{fragment/main_layout}">
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+<th:block layout:fragment="content">
+    <link rel="stylesheet" href="/css/lecture/lecture_detail.css">
+<div id="wrap">
+    <div class="boxWrap">
+        <div class="topBox">
+            <div class="topBox-img"><img th:src="${'/images/lectureEvent/' + lectureEvent.lectureEventImgVO.lectureEventAttachedFileName}"></div>
+            <div class="topBox-text">
+                <div class="topBox-title"><h3>[[${lecture.lectureTitle}]]</h3></div>
+                <p><span class="label-box">강사</span> [[${lecture.instructorVO.instructorName}]]</p>
+                <p><span class="label-box">기간</span> [[${lecture.lecturePeriod}]]</p>
+                <p><span class="label-box">내용</span> [[${lectureEvent.lectureEventContent}]]</p>
+                <p><span class="label-box">가격</span> [[${lecture.lecturePrice}]]원</p>
+            </div>
+        </div>
+        <div class="midBox">
+            <p>이러이러한 내용이 들어갑니다</p>
+            <p>이러이러한 내용이 들어갑니다</p>
+        </div>
+        <div class="bottomBox">
+            <input type="button" value="수강신청" class="btn btn-secondary" th:onclick="lectureApply([[${lecture.lectureCode}]]);">
+        </div>
+    </div>
+</div>
+<script src="/js/lecture/lecture_detail.js"></script>
+</th:block>
+</body>
+</html>
