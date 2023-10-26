@@ -89,4 +89,9 @@ public class QaServiceImpl implements QaService{
     public int selectNextQaBoardNum() {
         return sqlSession.selectOne("qaMapper.selectNextQaBoardNum");
     }
+
+    @Override
+    public String selectQaPw(int qaBoardNum) {
+        return sqlSession.selectOne("qaMapper.selectQaPw", qaBoardNum);
+    }
 }
