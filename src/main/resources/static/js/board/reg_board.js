@@ -64,3 +64,14 @@ function openAndClose(selectedTag){
         document.querySelector('#password-onOff').style.display = 'block';//비공개
     }
 }
+////////////////////////////////QA게시판 글 등록 썸머노트//////////////////////////////////////////
+//썸머노트 활성화
+$(document).ready(function () {
+    $('.summernote').summernote({
+       placeholder: '내용을 작성하세요',
+       height: 400,
+       maxHeight: 400,
+       lang: 'ko-KR',
+       focus: true
+   }); 
+});
