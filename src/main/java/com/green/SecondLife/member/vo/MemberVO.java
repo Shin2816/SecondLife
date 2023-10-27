@@ -1,5 +1,6 @@
 package com.green.SecondLife.member.vo;
 
+import com.green.SecondLife.rental.vo.RentalFacilityVO;
 import lombok.Data;
 
 @Data

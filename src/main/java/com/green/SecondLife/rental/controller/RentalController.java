@@ -1,5 +1,6 @@
 package com.green.SecondLife.rental.controller;
 
+import com.green.SecondLife.member.service.MemberService;
 import com.green.SecondLife.member.vo.MemberVO;
 import com.green.SecondLife.member.vo.SubMenuVO;
 import com.green.SecondLife.rental.service.RentalService;
@@ -17,15 +18,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequestMapping("/rental")
 @RequiredArgsConstructor
 public class RentalController {
     private final RentalService rentalService;
+    private final MemberService memberService;
 
     // 시설대관-이용안내 페이지
     @GetMapping("/rentalGuide")
@@ -85,7 +85,7 @@ public class RentalController {
         //세션 사용자이름 불러오기
         MemberVO member = (MemberVO)session.getAttribute("loginInfo");
         rentalFacilityVO.setRentalUser(member.getMemberName());
-
+        model.addAttribute("memberInfo", memberService.selectMember(member.getMemberId()));
         model.addAttribute("myRentalList", rentalService.selectMyRentalList(rentalFacilityVO));
         return "/rental/my_rental_history";
     }
@@ -125,7 +125,15 @@ public class RentalController {
     }
     
     //결제하기 -> 완료!
-    public void updateRentalStatus1(String rentalSignCode){
-        rentalService.updateRentalStatus1(rentalSignCode);
+    @ResponseBody
+    @PostMapping("/updateRentalStatus1")
+    public void updateRentalStatus1(RentalFacilityVO rentalFacilityVO, MemberVO memberVO){
+        Map<String, String> updateRental = new HashMap<>();
+        updateRental.put("paymentRentalFacilityName", rentalFacilityVO.getFacilityName());
+        updateRental.put("paymentName", memberVO.getMemberName());
+        updateRental.put("paymentTel", memberVO.getMemberTel());
+        updateRental.put("paymentAddr", memberVO.getMemberAddr());
+        updateRental.put("rentalSignCode", rentalFacilityVO.getRentalSignCode());
+        rentalService.updateRentalStatus1(updateRental);
     }
 }

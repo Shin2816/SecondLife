@@ -1,11 +1,14 @@
 package com.green.SecondLife.rental.service;
 
+import com.green.SecondLife.member.vo.MemberVO;
 import com.green.SecondLife.rental.vo.RentalFacilityVO;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -43,8 +46,10 @@ public class RentalServiceImpl implements RentalService{
     }
 
     @Override
-    public void updateRentalStatus1(String rentalSignCode) {
-        sqlSession.update("rentalMapper.updateRentalStatus1", rentalSignCode);
+    @Transactional(rollbackFor = Exception.class)
+    public void updateRentalStatus1(Map<String, String> updateRental) {
+        sqlSession.insert("paymentMapper.insertPayment", updateRental);
+        sqlSession.update("rentalMapper.updateRentalStatus1", updateRental);
     }
 
     @Override

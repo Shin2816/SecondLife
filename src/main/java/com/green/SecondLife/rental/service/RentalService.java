@@ -1,8 +1,10 @@
 package com.green.SecondLife.rental.service;
 
+import com.green.SecondLife.member.vo.MemberVO;
 import com.green.SecondLife.rental.vo.RentalFacilityVO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface RentalService {
     // (사용자)대관 가능 정보 조회
@@ -22,6 +24,6 @@ public interface RentalService {
 
     //(관리자)대관관리 상태변경(현상태-승인대기:2 / 반려: 0, 완료: 1, 승인->결제 대기: 3)
     public void updateRentalStatus0(RentalFacilityVO rentalFacilityVO);
-    public void updateRentalStatus1(String rentalSignCode);
+    public void updateRentalStatus1(Map<String, String> updateRental);
     public void updateRentalStatus3(String rentalSignCode);
 }
