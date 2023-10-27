@@ -26,42 +26,49 @@
         <result column="RENTAL_END_TIME"    property="rentalEndTime"/>
     </resultMap>
 
+    <!-- 시설코드,이름 조회 -->
+    <select id="selectFacility" resultMap="centerMapper.facility">
+        SELECT FACILITY_CODE
+            , FACILITY_NAME
+        FROM CENTER_FACILITY
+    </select>
+
     <!-- 대관 가능 정보 조회 -->
     <select id="selectRentalFacility" resultMap="rentalFacility">
         SELECT RENTAL_TIME_CODE
-        , RENTAL_START_TIME
-        , RENTAL_END_TIME
-        , (SELECT RENTAL_CODE
-            FROM RENTAL_FACILITY
-            WHERE RENTAL_TIME_CODE = TIME.RENTAL_TIME_CODE
-            AND RENTAL_DATE = #{rentalDate}
-            AND FACILITY_CODE = #{facilityCode}) RENTAL_CODE
-        , NVL((SELECT RENTAL_DATE
-            FROM RENTAL_FACILITY
-            WHERE RENTAL_TIME_CODE = TIME.RENTAL_TIME_CODE
-            AND RENTAL_DATE = #{rentalDate}
-            AND FACILITY_CODE = #{facilityCode}), #{rentalDate}) RENTAL_DATE
-        , (SELECT FACILITY_NAME
-            FROM CENTER_FACILITY
-            WHERE FACILITY_CODE = #{facilityCode}) FACILITY_NAME
-        , (SELECT FACILITY_RENTAL_CHARGE
-            FROM CENTER_FACILITY
-            WHERE FACILITY_CODE = #{facilityCode}) RENTAL_CHARGE
-        , NVL((SELECT RENTAL_USER
-            FROM RENTAL_FACILITY
-            WHERE RENTAL_TIME_CODE = TIME.RENTAL_TIME_CODE
-            AND RENTAL_DATE = #{rentalDate}
-            AND FACILITY_CODE = #{facilityCode}), '-') RENTAL_USER
-        , NVL((SELECT RENTAL_TEAM
-            FROM RENTAL_FACILITY
-            WHERE RENTAL_TIME_CODE = TIME.RENTAL_TIME_CODE
-            AND RENTAL_DATE = #{rentalDate}
-            AND FACILITY_CODE = #{facilityCode}), '-') RENTAL_TEAM
-        , NVL((SELECT RENTAL_STATUS
-            FROM RENTAL_FACILITY
-            WHERE RENTAL_TIME_CODE = TIME.RENTAL_TIME_CODE
-            AND RENTAL_DATE = #{rentalDate}
-            AND FACILITY_CODE = #{facilityCode}), '0') RENTAL_STATUS
+            , RENTAL_START_TIME
+            , RENTAL_END_TIME
+            , (SELECT RENTAL_CODE
+                FROM RENTAL_FACILITY
+                WHERE RENTAL_TIME_CODE = TIME.RENTAL_TIME_CODE
+                AND RENTAL_DATE = #{rentalDate}
+                AND FACILITY_CODE = #{facilityCode}) RENTAL_CODE
+            , NVL((SELECT RENTAL_DATE
+                FROM RENTAL_FACILITY
+                WHERE RENTAL_TIME_CODE = TIME.RENTAL_TIME_CODE
+                AND RENTAL_DATE = #{rentalDate}
+                AND FACILITY_CODE = #{facilityCode}), #{rentalDate}) RENTAL_DATE
+            , (SELECT FACILITY_NAME
+                FROM CENTER_FACILITY
+                WHERE FACILITY_CODE = #{facilityCode}) FACILITY_NAME
+            , (SELECT FACILITY_RENTAL_CHARGE
+                FROM CENTER_FACILITY
+                WHERE FACILITY_CODE = #{facilityCode}) RENTAL_CHARGE
+            , NVL((SELECT RENTAL_USER
+                FROM RENTAL_FACILITY
+                WHERE RENTAL_TIME_CODE = TIME.RENTAL_TIME_CODE
+                AND RENTAL_DATE = #{rentalDate}
+                AND FACILITY_CODE = #{facilityCode}), '-') RENTAL_USER
+            , NVL((SELECT RENTAL_TEAM
+                FROM RENTAL_FACILITY
+                WHERE RENTAL_TIME_CODE = TIME.RENTAL_TIME_CODE
+                AND RENTAL_DATE = #{rentalDate}
+                AND FACILITY_CODE = #{facilityCode}), '-') RENTAL_TEAM
+            , NVL((SELECT RENTAL_STATUS
+                FROM RENTAL_FACILITY
+                WHERE RENTAL_TIME_CODE = TIME.RENTAL_TIME_CODE
+                AND RENTAL_DATE = #{rentalDate}
+                AND FACILITY_CODE = #{facilityCode}), '0') RENTAL_STATUS
         FROM RENTAL_AVAILABLE_TIME TIME
     </select>
 

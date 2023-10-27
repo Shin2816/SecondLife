@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 import java.util.*;
+import java.util.jar.Attributes;
 
 @Controller
 @RequestMapping("/rental")
@@ -35,7 +36,10 @@ public class RentalController {
 
     //시설대관 화면
     @GetMapping("/rentalFacility")
-    public String rentalFacility(SubMenuVO subMenuVO){
+    public String rentalFacility(Model model, SubMenuVO subMenuVO){
+        List<RentalFacilityVO> facilityList = rentalService.selectFacility();
+        System.out.println(facilityList);
+        model.addAttribute("facilityList", facilityList);
         return "/rental/rental_facility";
     }
 
@@ -86,7 +90,11 @@ public class RentalController {
         MemberVO member = (MemberVO)session.getAttribute("loginInfo");
         rentalFacilityVO.setRentalUser(member.getMemberName());
         model.addAttribute("memberInfo", memberService.selectMember(member.getMemberId()));
-        model.addAttribute("myRentalList", rentalService.selectMyRentalList(rentalFacilityVO));
+        List<RentalFacilityVO> myRentalList =  rentalService.selectMyRentalList(rentalFacilityVO);
+        System.out.println(myRentalList);
+        System.out.println();
+        System.out.println(rentalFacilityVO);
+        model.addAttribute("myRentalList", myRentalList);
         return "/rental/my_rental_history";
     }
 

@@ -73,13 +73,13 @@
                             <th:block th:if="${myRental.rentalStatus == '0'}">
                                 <td>반려</td>
                                 <td>
-                                    <button type="button" class="btn btn-secondary btn-sm" onclick="rejectReasonBtn()">반려내용</button>
+                                    <button type="button" class="btn btn-secondary btn-sm" th:onclick="rejectReasonBtn([[${state.count}]])">반려내용</button>
                                     <button type="button" class="btn btn-secondary btn-sm" th:onclick="cancelRental([[${myRental.rentalSignCode}]])">취소</button>
                                 </td>
                             </th:block>
 
                             <!-- 반려 내용 보기 모달창 -->
-                            <div class="modal fade" id="rejectReasonModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal fade" th:id="${'rejectReasonModal' + state.count}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
                                     <div class="modal-header">

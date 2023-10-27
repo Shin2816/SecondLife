@@ -1,3 +1,13 @@
+#rental-facility-container{
+  position: relative;
+}
+
+#facility-tab{
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
 #calendar{
   margin-bottom: 20px;
 }
@@ -13,6 +23,11 @@
   position: absolute;
   top: 65px;
   left: 0;
+}
+
+/* 캘린더 날짜표시 위치  */
+.fc-header-toolbar .fc-toolbar-title {
+  margin-left: 95px; 
 }
 
 /* 헤더셀 요일표시 - 검정색 */
