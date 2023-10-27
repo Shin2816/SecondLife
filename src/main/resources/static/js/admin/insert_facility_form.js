@@ -12,7 +12,7 @@ function insertFacilityValidate(facilityCode){
         return;  // 함수 실행 종료
     }
 
-    // // 시설명은 10자 이하로 작성
+    // 시설명은 10자 이하로 작성
     if(insertFacilityForm.facilityName.value.length == 0){
         inputInvalidate('#name-error-div', '시설명을 입력해주세요.');
         return;
@@ -22,7 +22,7 @@ function insertFacilityValidate(facilityCode){
         return;
     }
 
-    // // 첨부파일 필수
+    // 첨부파일 필수
     if(insertFacilityForm.facilityImg.value == ''){
         inputInvalidate('#file-error-div', '이미지 파일을 첨부해주세요.');
         return;

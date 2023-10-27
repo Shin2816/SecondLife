@@ -80,10 +80,9 @@ public class QaController {
         MemberVO loginInfo = (MemberVO)session.getAttribute("loginInfo");
         //데이터베이스에 저장된 비밀번호를 조회해서 저장함
         String qaPw = qaService.selectQaPw(qaBoardNum);
-        System.out.println(qaPw);// 공개로 글을 작성하면 데이터베이스에 null값 들어가 있어서 오류남
 
         //데이터베이스에 저장된 비밀번호가 없거나, 로그인을 했고 관리자라면 프리패스!
-        if(qaPw == null || (loginInfo != null && loginInfo.getMemberRoll().equals("admin"))){
+        if(qaPw == null || (loginInfo != null && loginInfo.getMemberRoll().equals("ADMIN"))){
             //board이름으로 디테일정보 던지기
             model.addAttribute("board", qaService.selectQaBoardDetail(qaBoardNum));
             //조회수 증가
@@ -125,7 +124,7 @@ public class QaController {
         qaService.deleteQaBoard(qaBoardNum);
         return "redirect:/qa/qaBoardList";
     }
-    //수정페이지에서 수정 버튼을 눌렀을 때 수정 쿼리 실행
+    //수정 모달에서 수정 버튼을 눌렀을 때 수정 쿼리 실행
     @RequestMapping("/updateQaBoard")
     public String updateQaBoard(BoardQaListVO boardQaListVO){
         //수정 쿼리

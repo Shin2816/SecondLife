@@ -130,12 +130,12 @@
 
 
                             <!-- 이미지 팝업 Modal -->
-                            <div class="modal fade" th:id="${'img_modal_' + state.count}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" th:id="${'img_modal_' + state.count}" tabindex="-1" aria-labelledby="imgModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h1 class="modal-title fs-5" id="staticBackdropLabel">[[${facility.facilityImageVO.facilityOriginFileName}]]</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <button type="button" class="btn-close" th:data-bs-target="${'#updateFacilityModal' + state.count}" data-bs-toggle="modal"></button>
                                     </div>
                                     <form action="/center/updateFacility" method="post">
                                         <input type="hidden" name="facilityCode" th:value="${facility.facilityCode}">

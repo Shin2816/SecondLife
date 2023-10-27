@@ -59,7 +59,11 @@
                             <th:block th:if="${myRental.rentalStatus == '3'}">
                                 <td>결제 대기</td>
                                 <td>
-                                    <button type="button" class="btn btn-primary btn-sm" th:onclick="kakaopay([[${myRental.facilityName}]], [[${myRental.rentalCharge}]], [[${myRental.rentalUser}]], [[${subMenuVO.menuCode}]])">결제하기</button>
+                                    <input type="hidden" id="memberTel" name="memberTel" th:value="${memberInfo.memberTel}">
+                                    <input type="hidden" id="memberAddr" name="memberAddr" th:value="${memberInfo.memberAddr}">
+                                    <input type="hidden" id="addrDetail" name="addrDetail" th:value="${memberInfo.addrDetail}">
+                                    <input type="hidden" id="rentalSignCode" name="rentalSignCode" th:value="${myRental.rentalSignCode}">
+                                    <button type="button" class="btn btn-primary btn-sm" th:onclick="kakaopay([[${myRental.facilityName}]], [[${myRental.rentalCharge}]], [[${memberInfo.memberName}]], [[${subMenuVO.menuCode}]])">결제하기</button>
                                 </td>
                             </th:block>
                             <th:block th:if="${myRental.rentalStatus == '1'}">
