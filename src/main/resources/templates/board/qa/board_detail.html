@@ -35,6 +35,9 @@
         <div class="row">
             <!-- 섬머노트 p태그를 html에서 읽을 수 있도록-->
             <div class="col" th:utext="${board.qaBoardContent}"></div>
+            <th:block th:each="qaImgVO, state : ${board.qaImgList}">
+                <img width="auto" height="auto" th:src="${'/images/community/qa/' + qaImgVO.qaAttachedFileName}" alt="">
+            </th:block>
         </div>
     </div>
     <br>
@@ -60,10 +63,20 @@
                             <input type="hidden" name="qaBoardNum" th:value="${board.qaBoardNum}">
                             <div class="modal-body">
                                 <div class="row mb-3">
-                                    <input type="text" name="qaBoardTitle" id="qaBoardTitle" class="form-control" th:value="${board.qaBoardTitle}">
+                                    <div class="col">
+                                        <input type="text" name="qaBoardTitle" id="qaBoardTitle" class="form-control" th:value="${board.qaBoardTitle}">
+                                    </div>
                                 </div>
                                 <div class="row mb-3">
-                                    <textarea rows="5" cols="50" name="qaBoardContent" id="qaBoardContent" class="form-control summernote s-note col" th:utext="${board.qaBoardContent}"></textarea>
+                                    <div class="col">
+                                        <textarea rows="5" cols="50" name="qaBoardContent" id="qaBoardContent" class="form-control summernote s-note col" th:utext="${board.qaBoardContent}"></textarea>
+                                    </div>
+                                </div>
+                                <!-- 이미지 이름 넣기 -->
+                                <div>
+                                    <th:block th:each="qaImgVO : ${board.qaImgList}">
+                                        <span th:text="${qaImgVO.qaOriginFileName}"></span><br>
+                                    </th:block>
                                 </div>
                             </div>
                             <div class="modal-footer">
