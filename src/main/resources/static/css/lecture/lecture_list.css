@@ -1,2 +1,93 @@
 @charset "utf-8";
 /* lecture_list.css */
+#inner{
+    width: 820px;
+    margin: 0 auto;
+}
+.event-box{
+    padding-bottom: 15px;
+    border-bottom: 2px solid #000;
+}
+.lecture-box{
+    padding: 25px 20px 5px 20px;
+    display: flex;
+    border-bottom: 1px solid #ddd;
+}
+.lecture-box .title{
+    width: 430px;
+}
+.lecture-box .instructor{
+    width: 130px;
+    text-align: center;
+}
+.lecture-box .period{
+    width: 130px;
+    text-align: center;
+}
+.lecture-box .price{
+    width: 130px;
+    text-align: center;
+}
+.lecture-box .top{
+    margin-bottom: 3px;
+    padding-top: 5px;
+}
+.lecture-box .top span{
+    display: inline-block;
+    width: 35px;
+    height: 25px;
+    font-size: 13px;
+    font-weight: 700;
+    text-align: center;
+    padding-top: 3px;
+}
+.lecture-box .title p{
+    padding-top: 20px;
+}
+.lecture-box .title .lecture-event-name{
+    display: inline-block;
+    width: 43px;
+    height: 28px;
+    background-color: #000;
+    color: #fff;
+    font-weight: 700;
+    margin-right: 15px;
+    text-align: center;
+    padding-top: 3px;
+}
+.lecture-box .title .lecture-title{
+    font-size: 18px;
+    font-weight: 700;
+}
+.lecture-box .title .lecture-title:hover{
+    cursor: pointer;
+    color: #ed1c24;
+}
+.lecture-box .instructor .top span{
+    background-color: blue;
+    color: #fff;
+}
+.lecture-box .instructor .bottom{
+    padding-top: 10px;
+}
+.lecture-box .instructor .bottom span{
+    font-weight: 600;
+}
+.lecture-box .period .top span{
+    background-color: yellowgreen;
+    color: #fff;
+}
+.lecture-box .period .bottom span{
+    font-size: 14px;
+    color: #444;
+}
+.lecture-box .price .top span{
+    background-color: palevioletred;
+    color: #fff;
+}
+.lecture-box .price .bottom{
+    padding-top: 10px;
+}
+.lecture-box .price .bottom span{
+    font-weight: 700;
+}
