@@ -22,7 +22,6 @@
                 <p th:unless="${session.loginInfo == null}"> 
                     <span class="login-span" th:if="${session.loginInfo.memberRoll == 'ADMIN'}" th:onclick="|location.href='@{/admin/admin_main(menuCode=MENU_000)}'|">관리하기 </span>
                     <span class="login-span" th:if="${session.loginInfo.memberRoll == 'ADMIN'}" onclick="location.href='/member/logout';">로그아웃</span>
-                    <button onclick="location.href='/rental/myRentalHistory';">나의 예약 현황</button>
                 </p>
             </div>
         </div>
@@ -45,8 +44,6 @@
     <!-- 결제 api -->
     <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
     <script src="/js/main_header.js"></script>
-    <!-- 게시판 js -->
-    <script src="/js/board.js"></script>
 </th:block>
 </body>
 </html>

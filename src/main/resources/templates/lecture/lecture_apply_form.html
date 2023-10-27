@@ -9,35 +9,60 @@
 <body>
 <th:block layout:fragment="content">
     <link rel="stylesheet" href="/css/lecture/lecture_apply_form.css">
-<h1>수강 신청 페이지</h1> <br>
-<form action="/lecture/insertStudent" method="post">
+<form action="/lecture/insertStudent" method="post" id="payForm">
     <div id="wrap">
         <div class="top lecture-info">
             <h3>구매강좌정보</h3>
             <div class="head content">
-                <p>강좌정보</p>
-                <p>판매가</p>
-                <p>수강기간</p>
+                <p class="title">강좌정보</p>
+                <p class="price">판매가</p>
+                <p class="period">수강기간</p>
             </div>
             <div class="body content">
-                <div>
-                    <p>[[${lectureEventInfo.lectureEventName}]]</p>
-                    <p>[[${lectureInfo.lectureTitle}]]</p>
+                <div class="title">
+                    <div>
+                        <p class="lectureEvent">[[${lectureEventInfo.lectureEventName}]]</p>
+                        <p class="lectureTitle">[[${lectureInfo.lectureTitle}]]</p>
+                    </div>
                 </div>
-                <p>[[${lectureInfo.lecturePrice}]]</p>
-                <p>[[${lectureInfo.lecturePeriod}]]</p>
+                <div class="price"><div><span>[[${lectureInfo.lecturePrice}]]</span>원</div></div>
+                <div class="period"><div>[[${lectureInfo.lecturePeriod}]]</div></div>
             </div>
         </div>
         <div class="mid member-info">
             <h3>구매자정보</h3>
-            <div></div>
+            <div class="member-info-wrap">
+                <div class="left">
+                    <div class="first-child">구매자</div>
+                    <div>정보</div>
+                </div>
+                <div class="center">
+                    <div class="name"><p>이름</p></div>
+                    <div class="phone"><p>휴대폰번호</p></div>
+                </div>
+                <div class="right">
+                    <div class="name"><p>[[${memberInfo.memberName}]]</p></div>
+                    <div class="phone"><p>[[${memberInfo.memberTel}]]</p></div>
+                </div>
+            </div>
         </div>
         <div class="bottom pay-info">
             <h3>결제정보</h3>
-            <div></div>
+            <div class="pay-info-box">
+                <h5>결제 하실 금액</h5>
+                <div class="price"><span>[[${lectureInfo.lecturePrice}]]</span>원</div>
+            </div>
+        </div>
+        <input type="hidden" th:value="${lectureInfo.lectureCode}" name="lectureCode">
+        <div class="button-box">
+            <div class="button-wrap">
+                <div class="cancel" onclick="cancel();"><span>취소하기</span></div>
+                <div class="pay" onclick="pay();"><span>결제하기</span></div>
+            </div>
         </div>
     </div>
 </form>
+<script src="/js/lecture/lecture_apply_form.js"></script>
 </th:block>
 </body>
 </html>

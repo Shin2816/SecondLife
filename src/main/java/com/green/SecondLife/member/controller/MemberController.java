@@ -31,7 +31,7 @@ public class MemberController {
 
     //로그인 폼 화면으로 이동
     @GetMapping("/loginForm")
-    public String loginForm(){
+    public String loginForm(SubMenuVO subMenuVO){
         return "/member/login";
     }
 

@@ -13,8 +13,6 @@
     <table>
         <thead>
             <tr>
-                <td>강좌명</td>
-                <td>과목</td>
                 <td>수업코드</td>
                 <td>아이디</td>
                 <td>수강생코드</td>
@@ -23,8 +21,6 @@
         <tbody>
             <th:block th:each="student : ${studentList}">
             <tr>
-                <td>[[${lectureInfo.lectureTitle}]]</td>
-                <td>[[${lectureInfo.lectureSubject}]]</td>
                 <td>[[${student.lectureCode}]]</td>
                 <td>[[${student.memberId}]]</td>
                 <td>[[${student.studentCode}]]</td>

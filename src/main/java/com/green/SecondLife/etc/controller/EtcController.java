@@ -28,4 +28,10 @@ public class EtcController {
         return "/user/etc/sitemap";
     }
 
+    @GetMapping("/teamInfo")
+    public String teamInfo(SubMenuVO subMenuVO){
+
+        return "/user/etc/team_info";
+    }
+
 }

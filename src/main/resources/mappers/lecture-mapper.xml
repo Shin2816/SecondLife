@@ -180,6 +180,7 @@
         DELETE LECTURE
         WHERE LECTURE_CODE = #{lectureCode}
     </delete>
+
     <!-- 강좌 수강신청 -->
     <insert id="insertStudent">
         INSERT INTO STUDENT (
