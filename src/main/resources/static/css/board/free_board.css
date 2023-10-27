@@ -14,9 +14,11 @@
     line-height: 2;
     background-color: rgb(206, 226, 243);
 }
-.s-note{
+/* .s-note{
     resize: none;
-}
+    padding: 0;
+    background-color: aqua;
+} */
 .openAndClose{
     padding: 0;
 }

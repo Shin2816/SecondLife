@@ -182,12 +182,53 @@ function signBtn(memberName){
     };
 }
 
-//모달창에서 신청하기 버튼 클릭시 - 확인창 띄우고 submit되는 함수
-function rentalSignUp(){
-    const signUpBtn = document.querySelector('#sign-up-btn');
+
+//모달창-대관신청 시 데이터 유효성 검사(벨리데이트)
+function rentalSignUpValidate(){
+    // 오류메세지 초기화
+    resetMessage();
+
+    // 1. 데이터 유효성 검사
+    const signRentalForm = document.querySelector('#signRentalForm');
+
+
+    //단체명 필수 입력/ 8자 이하로 작성
+    if(signRentalForm.rentalTeam.value.length == 0){
+        inputInvalidate('#team-error-div', '단체명을 입력해주세요.');
+        return;
+    } 
+    else if(signRentalForm.rentalTeam.value.length > 8){
+        inputInvalidate('#team-error-div', '8자 이하로 작성해주세요.');
+        return;
+    }
+
+    // 사용목적 필수 입력/ 10자 이하로 작성 
+    if(signRentalForm.rentalPurpose.value.length == 0){
+        inputInvalidate('#purpose-error-div', '대관 목적을 입력해주세요.');
+        return;
+    } 
+    else if(signRentalForm.rentalPurpose.value.length > 10){
+        inputInvalidate('#purpose-error-div', '10자 이하로 작성해주세요.');
+        return;
+    }
+
+
+    // 2. 데이터 가져가기 - submit 실행
+    // form태그 선택 -> submit()함수 실행
     if(confirm('대관을 신청하시겠습니까?')){
-        signUpBtn.type = 'submit';
+        signRentalForm.submit();
         alert('신청이 완료되었습니다.');
     }
 }
 
+// 오류메세지 초기화
+function resetMessage(){
+    document.querySelector('#team-error-div').style.display = 'none';
+    document.querySelector('#purpose-error-div').style.display = 'none';
+}
+
+// validate 실패 시 메세지 설정
+function inputInvalidate(tagId, message){
+    document.querySelector(tagId).style.display = 'block';
+    document.querySelector(tagId).textContent = message;
+}
