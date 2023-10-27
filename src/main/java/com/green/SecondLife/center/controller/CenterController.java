@@ -107,5 +107,17 @@ public class CenterController {
 
         return "redirect:/center/selectAllFacility";
     }
+
+    //사용자-오시는길 페이지
+    @GetMapping("/centerLocation")
+    public String centerLocation(){
+        return "/center/center_location";
+    }
+
+    //사용자-시설소개 페이지
+    @GetMapping("/centerGuide")
+    public String centerGuide(){
+        return "/center/center_facility_guide";
+    }
 }
 

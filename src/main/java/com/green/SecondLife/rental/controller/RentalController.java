@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 import java.util.*;
+import java.util.jar.Attributes;
 
 @Controller
 @RequestMapping("/rental")
@@ -35,7 +36,10 @@ public class RentalController {
 
     //시설대관 화면
     @GetMapping("/rentalFacility")
-    public String rentalFacility(SubMenuVO subMenuVO){
+    public String rentalFacility(Model model, SubMenuVO subMenuVO){
+        List<RentalFacilityVO> facilityList = rentalService.selectFacility();
+        System.out.println(facilityList);
+        model.addAttribute("facilityList", facilityList);
         return "/rental/rental_facility";
     }
 

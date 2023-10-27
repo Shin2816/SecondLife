@@ -16,6 +16,11 @@ public class RentalServiceImpl implements RentalService{
     private final SqlSessionTemplate sqlSession;
 
     @Override
+    public List<RentalFacilityVO> selectFacility() {
+        return sqlSession.selectList("rentalMapper.selectFacility");
+    }
+
+    @Override
     public List<RentalFacilityVO> selectRentalFacility(RentalFacilityVO rentalFacilityVO) {
         return sqlSession.selectList("rentalMapper.selectRentalFacility", rentalFacilityVO);
     }
