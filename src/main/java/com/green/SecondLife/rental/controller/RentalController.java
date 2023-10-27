@@ -27,17 +27,22 @@ import java.util.List;
 public class RentalController {
     private final RentalService rentalService;
 
+    // 시설대관-이용안내 페이지
+    @GetMapping("/rentalGuide")
+    public String rentalGuide(SubMenuVO subMenuVO){
+        return "/rental/rental_guide";
+    }
 
-    //화면
+    //시설대관 화면
     @GetMapping("/rentalFacility")
-    public String test(SubMenuVO subMenuVO){
+    public String rentalFacility(SubMenuVO subMenuVO){
         return "/rental/rental_facility";
     }
 
     //풀 캘린더
     @ResponseBody
     @PostMapping("/rentalCalendar")
-    public List<RentalFacilityVO> calTest(RentalFacilityVO rentalFacilityVO){
+    public List<RentalFacilityVO> rentalCalendar(RentalFacilityVO rentalFacilityVO){
         List<RentalFacilityVO> rentalTimeList = rentalService.selectRentalFacility(rentalFacilityVO);
         return rentalTimeList;
     }
