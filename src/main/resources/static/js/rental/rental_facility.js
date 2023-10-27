@@ -154,7 +154,7 @@ function signBtn(memberName){
     //로그인체크
     if(memberName == 'null'){
         alert('로그인 후 이용 가능 합니다');
-        location.href = '/member/loginForm';
+        location.href = '/member/loginForm?menuCode=';
     } else {
         if(checkBoxCnt == 0){
             alert('신청할 시간대를 체크해주세요.');
