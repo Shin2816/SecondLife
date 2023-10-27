@@ -22,6 +22,7 @@ import retrofit2.http.GET;
 
 import javax.sound.sampled.SourceDataLine;
 import java.awt.*;
+import java.lang.reflect.Member;
 import java.util.Optional;
 
 @Controller
@@ -136,7 +137,12 @@ public class LectureController {
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@//
     //유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//
     //↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ //
-
+    // 수업 목록 페이지
+    @GetMapping("/lectureList")
+    public String lectureList(Model model){
+        model.addAttribute("lectureEventList", lectureService.adminSelectLectureEventList());
+        return "/lecture/lecture_list";
+    }
     // 수업 상세 페이지
     @GetMapping("/lectureDetail")
     public String lectureDetail(LectureVO lectureVO, Model model, SubMenuVO subMenuVO, LectureEventVO lectureEventVO){
@@ -158,7 +164,8 @@ public class LectureController {
     }
     //수강생테이블로 수강생 인서트
     @RequestMapping("/insertStudent")
-    public String insertStudent(StudentVO studentVO, RedirectAttributes redirect){
+    public String insertStudent(StudentVO studentVO, RedirectAttributes redirect, HttpSession session){
+        studentVO.setMemberId(((MemberVO) session.getAttribute("loginInfo")).getMemberId());
         lectureService.insertStudent(studentVO);
         redirect.addAttribute("lectureCode", studentVO.getLectureCode());
         return "redirect:/lecture/selectStudentList";
