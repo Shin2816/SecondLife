@@ -8,6 +8,15 @@ function openPost(){
     }).open();
 }
 
+function getSelectedValue() {
+    // 드롭다운 버튼의 ID를 사용하여 요소 선택
+    const dropdownButton = document.getElementById("dropdownMenuButton");
+
+    // 드롭다운 버튼의 내용을 가져와서 선택된 값을 표시할 요소에 할당
+    const selectedValueElement = document.getElementById("selectedValue");
+    selectedValueElement.textContent = dropdownButton.textContent;
+}
+
 //아이디 중복 확인
 function checkId(){
 

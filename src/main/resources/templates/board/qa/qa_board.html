@@ -52,7 +52,7 @@
                 </th:block>
                 <!-- 클릭 했을 때 비밀번호가 걸려있지않다면 -->
                 <th:block th:if="${qaBoard.qaBoardPassword == null}" th:each="qaBoard : ${qaBoardList}">
-                    <tr class="board-tr" th:onclick="|location.href='@{/qa/boardDetail(qaBoardNum=${qaBoard.qaBoardNum})}'|">
+                    <tr class="board-tr" th:onclick="|location.href='@{/qa/boardDetail(qaBoardNum=${qaBoard.qaBoardNum}, menuCode=${subMenuVO.menuCode})}'|">
                         <td>[[${qaBoard.qaBoardNum}]]</td>
                         <td>[[${qaBoard.qaBoardTitle}]]</td>
                         <td>[[${qaBoard.qaBoardWriter}]]</td>

@@ -127,6 +127,7 @@ function signBtn(memberName){
     const totalRentalChargeTag = document.querySelector('#total-rental-charge-tag');
     const userNameTag = document.querySelector('#user-name-tag');
     const insertTimeCodeTag = rentalChargeTag.closest('.row');
+    const menuCode = document.querySelector('#menuCode').value;
     
     let checkBoxes = document.querySelectorAll('input[type=checkbox]');
    
@@ -154,7 +155,7 @@ function signBtn(memberName){
     //로그인체크
     if(memberName == 'null'){
         alert('로그인 후 이용 가능 합니다');
-        location.href = '/member/loginForm?menuCode=';
+        location.href = '/member/loginForm';
     } else {
         if(checkBoxCnt == 0){
             alert('신청할 시간대를 체크해주세요.');
