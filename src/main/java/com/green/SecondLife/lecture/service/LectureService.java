@@ -36,6 +36,8 @@ public interface LectureService {
     //관리자용 수업 삭제 기능
     public void adminDeleteLecture(LectureVO lectureVO);
 
+    //수업 목록 조회
+    public List<LectureVO> selectLectureList();
     //수강 신청 기능
     public void insertStudent(StudentVO studentVO);
     //수강생 목록 조회

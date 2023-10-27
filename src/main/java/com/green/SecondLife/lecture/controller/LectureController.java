@@ -141,6 +141,7 @@ public class LectureController {
     @GetMapping("/lectureList")
     public String lectureList(Model model){
         model.addAttribute("lectureEventList", lectureService.adminSelectLectureEventList());
+        model.addAttribute("lectureList", lectureService.selectLectureList());
         return "/lecture/lecture_list";
     }
     // 수업 상세 페이지

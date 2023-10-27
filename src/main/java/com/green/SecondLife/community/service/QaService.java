@@ -18,7 +18,7 @@ public interface QaService {
     public void insertQaBoardOpen(BoardQaListVO boardQaListVO);
     //QA 메인페이지
     public List<BoardQaListVO> selectMainQaBoardList();
-    //QA 상세 페이지
+    //QA 상세 페이지(아우터조인 사용)
     public BoardQaListVO selectQaBoardDetail(int qaBoardNum);
     //QA 조회수 증가
     public int updateQaBoardCnt(int qaBoardNum);

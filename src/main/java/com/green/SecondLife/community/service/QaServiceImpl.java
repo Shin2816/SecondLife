@@ -52,7 +52,7 @@ public class QaServiceImpl implements QaService{
 
     @Override
     public BoardQaListVO selectQaBoardDetail(int qaBoardNum) {
-        return sqlSession.selectOne("qaMapper.selectQaBoardDetail", qaBoardNum);
+            return sqlSession.selectOne("qaMapper.selectQaBoardDetail", qaBoardNum);
     }
 
     @Override

@@ -12,13 +12,34 @@
     <div id="wrap">
         <div id="inner">
             <div class="event-box">
-                <select name="">
-                    <option value=""></option>
+                <select name="lectureEventCode">
+                    <th:block th:each="lectureEvent : ${lectureEventList}">
+                        <option th:value="${lectureEvent.lectureEventCode}">[[${lectureEvent.lectureEventName}]]</option>
+                    </th:block>
                 </select>
             </div>
-            <div class="lecture-box">
-
-            </div>
+            <th:block th:each="lecture : ${lectureList}">
+                <div class="lecture-box">
+                    <div class="title">
+                        <p>
+                            <span class="lecture-event-name">[[${lecture.lectureEventVO.lectureEventName}]]</span>
+                            <span class="lecture-title">[[${lecture.lectureTitle}]]</span>
+                        </p>
+                    </div>
+                    <div class="instructor">
+                        <p class="top"><span>강사</span></p>
+                        <p class="bottom"><span>[[${lecture.instructorVO.instructorName}]]</span></p>
+                    </div>
+                    <div class="period">
+                        <p class="top"><span>기간</span></p>
+                        <p class="bottom"><span>[[${lecture.lecturePeriod}]]</span></p>
+                    </div>
+                    <div class="price">
+                        <p class="top"><span>가격</span></p>
+                        <p class="bottom"><span>[[${lecture.lecturePrice}]]</span>원</p>
+                    </div>
+                </div>
+            </th:block>
         </div>
     </div>
 </th:block>

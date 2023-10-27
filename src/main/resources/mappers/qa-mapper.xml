@@ -107,15 +107,15 @@
     <!--Q&A게시판 상세 조회(JOIN)-->
     <select id="selectQaBoardDetail" resultMap="qaList">
         SELECT LIST.QA_BOARD_NUM
-            , QA_BOARD_TITLE
-            , QA_BOARD_CONTENT
-            , QA_BOARD_WRITER
-            , TO_CHAR(QA_CREATE_DATE, 'YYYY-MM-DD') QA_CREATE_DATE
-            , QA_BOARD_READ_CNT
-            , IMG.QA_ATTACHED_FILE_NAME
-            , IMG.QA_ORIGIN_FILE_NAME
+        , QA_BOARD_TITLE
+        , QA_BOARD_CONTENT
+        , QA_BOARD_WRITER
+        , TO_CHAR(QA_CREATE_DATE, 'YYYY-MM-DD') QA_CREATE_DATE
+        , QA_BOARD_READ_CNT
+        , IMG.QA_ATTACHED_FILE_NAME
+        , IMG.QA_ORIGIN_FILE_NAME
         FROM BOARD_QA_LIST LIST, QA_IMG IMG
-        WHERE LIST.QA_BOARD_NUM = IMG.QA_BOARD_NUM
+        WHERE LIST.QA_BOARD_NUM = IMG.QA_BOARD_NUM(+)
         AND LIST.QA_BOARD_NUM = #{qaBoardNum}
     </select>
     <!--클릭하면 조회수 1 증가-->
