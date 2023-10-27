@@ -1,7 +1,13 @@
-//반려 버튼 클릭시 실행(모달창)되는 함수
-// function rejectModal(){
-//     const myModal = new bootstrap.Modal('#rejectModal');
-//     myModal.show();
+
+
+//모달창-반려하기 버튼 클릭시 실행 함수
+// function rejectBtn(signCode){
+//     console.log(signCode);
+//     const InputRejectReason = document.querySelector('input[name=rejectReason]');
+//     if(confirm('해당 신청건을 반려하시겠습니까?')){
+//         location.href= '/rental/updateStateReject?rentalSignCode='+signCode+'&rejectReason='+ InputRejectReason.value;
+//         alert('반려가 완료되었습니다.');
+//     }   
 // }
 
 //승인 버튼 클릭시 실행되는 함수
@@ -13,34 +19,40 @@ function acceptBtn(signCode){
 }
 
 //모달창-반려하기 클릭시 데이터 유효성 검사(벨리데이트)
-function rejectValidate(signCode, idx){
+function rejectValidate(idx){
     // 오류메세지 초기화
-    resetMessage();
+    //resetMessage();
+    document.querySelector(`#reject-error-div${idx}`).style.display = 'none';
 
     // 1. 데이터 유효성 검사
-    const InputRejectReason = document.querySelector('input[name=rejectReason]');
+    const rejectForm = document.querySelector(`#rejectForm${idx}`);
+    console.log(rejectForm);
+
+    let rejectInput = document.querySelector(`#rejectReason${idx}`);
 
     //반려 내용 필수 입력/ 15자 이하로 작성
-    if(InputRejectReason.value.length == 0){
-        inputInvalidate('.reject-error-div', '반려 내용을 입력해주세요.');
+    if(rejectInput.value.length == 0){
+        inputInvalidate(`#reject-error-div${idx}`, '반려 내용을 입력해주세요.');
         return;
     } 
-    else if(InputRejectReason.value.length > 15){
-        inputInvalidate('.reject-error-div', '15자 이하로 작성해주세요.');
+    else if(rejectInput.value.length > 15){
+        inputInvalidate(`#reject-error-div${idx}`, '15자 이하로 작성해주세요.');
         return;
     }
 
-    // 2. 데이터 가져가기 
+    // 2. 데이터 가져가기 - submit 실행
+    // form태그 선택 -> submit()함수 실행
     if(confirm('해당 신청건을 반려하시겠습니까?')){
-        location.href= '/rental/updateStateReject?rentalSignCode='+signCode+'&rejectReason='+ InputRejectReason.value;
+        rejectForm.submit();
         alert('반려가 완료되었습니다.');
-    }
+    }       
+    
 }
 
 // 오류메세지 초기화
-function resetMessage(){
-    document.querySelector('.reject-error-div').style.display = 'none';
-}
+// function resetMessage(){
+//     document.querySelector('#reject-error-div').style.display = 'none';
+// }
 
 // validate 실패 시 메세지 설정
 function inputInvalidate(tagId, message){
