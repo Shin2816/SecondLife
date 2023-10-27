@@ -110,13 +110,13 @@ public class CenterController {
 
     //사용자-오시는길 페이지
     @GetMapping("/centerLocation")
-    public String centerLocation(){
+    public String centerLocation(SubMenuVO subMenuVO){
         return "/center/center_location";
     }
 
     //사용자-시설소개 페이지
     @GetMapping("/centerGuide")
-    public String centerGuide(){
+    public String centerGuide(SubMenuVO subMenuVO){
         return "/center/center_facility_guide";
     }
 }
