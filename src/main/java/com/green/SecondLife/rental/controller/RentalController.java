@@ -86,7 +86,11 @@ public class RentalController {
         MemberVO member = (MemberVO)session.getAttribute("loginInfo");
         rentalFacilityVO.setRentalUser(member.getMemberName());
         model.addAttribute("memberInfo", memberService.selectMember(member.getMemberId()));
-        model.addAttribute("myRentalList", rentalService.selectMyRentalList(rentalFacilityVO));
+        List<RentalFacilityVO> myRentalList =  rentalService.selectMyRentalList(rentalFacilityVO);
+        System.out.println(myRentalList);
+        System.out.println();
+        System.out.println(rentalFacilityVO);
+        model.addAttribute("myRentalList", myRentalList);
         return "/rental/my_rental_history";
     }
 
