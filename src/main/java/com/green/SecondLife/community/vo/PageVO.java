@@ -30,8 +30,8 @@ public class PageVO {
         }
         else {
             next = false;
-            if(totalPageCnt == 0){//
-                endPage = 1;
+            if(totalPageCnt == 0){//전체 데이터가 하나도 없다면
+                endPage = 1; //화면에 출력되는 페이지를 1로 설정
             }
             else{
                 endPage = totalPageCnt; //마지막 페이지랑 전체 페이지랑 맞춤
