@@ -48,7 +48,7 @@
         <if test='searchValue != null and !searchValue.equals("")'>
             WHERE UPPER(${searchType}) LIKE '%'||UPPER(#{searchValue})||'%'
         </if>
-        ORDER BY FREE_BOARD_NUM DESC
+        ORDER BY FREE_CREATE_DATE DESC
         OFFSET (#{nowPage} - 1) * #{displayDataCnt} ROWS FETCH FIRST #{displayDataCnt} ROWS ONLY
     </select>
     <!--자유게시판 글 등록-->

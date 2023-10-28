@@ -43,7 +43,7 @@
         <if test='searchValue != null and !searchValue.equals("")'>
             WHERE UPPER(${searchType}) LIKE '%'||UPPER(#{searchValue})||'%'
         </if>
-        ORDER BY QA_BOARD_NUM DESC
+        ORDER BY QA_CREATE_DATE DESC
         OFFSET (#{nowPage} - 1) * #{displayDataCnt} ROWS FETCH FIRST #{displayDataCnt} ROWS ONLY
     </select>
     <!--게시글 갯수 조회-->
