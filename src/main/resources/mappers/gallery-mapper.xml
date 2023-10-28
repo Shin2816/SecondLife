@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 해당 파일에 모든 쿼리문을 작성 -->
+<mapper namespace="galleryMapper">
+    <!--갤러리 목록-->
+    <resultMap id="galleryList" type="com.green.SecondLife.community.vo.BoardGalleryListVO">
+        <id column="GAL_BOARD_NUM" property="galBoardNum"/>
+        <result column="GAL_BOARD_TITLE" property="galBoardTitle"/>
+        <result column="GAL_BOARD_CONTENT" property="galBoardContent"/>
+        <result column="GAL_BOARD_WRITER" property="galBoardWriter"/>
+        <result column="GAL_CREATE_DATE" property="galCreateDate"/>
+        <result column="GAL_BOARD_READ_CNT" property="galBoardReadCnt"/>
+    </resultMap>
+    <!--갤러리 이미지-->
+    <resultMap id="galleryImg" type="com.green.SecondLife.community.vo.GalleryImgVO">
+        <id column="GALLERY_CODE" property="galBoardNum"/>
+        <result column="GAL_ORIGIN_IMG_NAME" property="galBoardTitle"/>
+        <result column="GAL_ATTACHED_IMG_NAME" property="comBoardContent"/>
+        <result column="GAL_BOARD_NUM" property="comBoardWriter"/>
+    </resultMap>
+    <!--Gallery 게시판 목록 조회-->
+    <select id="selectGalBoardList" resultMap="galleryList">
+        SELECT GAL_BOARD_NUM
+            , GAL_BOARD_TITLE
+            , GAL_BOARD_WRITER
+            , TO_CHAR(GAL_CREATE_DATE, 'YYYY-MM-DD') GAL_CREATE_DATE
+            , GAL_BOARD_READ_CNT
+        FROM BOARD_GALLERY_LIST
+        <if test='searchValue != null and !searchValue.equals("")'>
+            WHERE UPPER(${searchType}) LIKE '%'||UPPER(#{searchValue})||'%'
+        </if>
+        ORDER BY GAL_BOARD_NUM DESC
+        OFFSET (#{nowPage} - 1) * #{displayDataCnt} ROWS FETCH FIRST #{displayDataCnt} ROWS ONLY
+    </select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -29,22 +29,6 @@
         <result column="FREE_BOARD_READ_CNT" property="freeBoardReadCnt"/>
         <collection property="freeBoardComment" resultMap="comment"/><!--comment를 여러개 가지기 위해서-->
     </resultMap>
-    <!--갤러리 이미지-->
-    <resultMap id="galleryImg" type="com.green.SecondLife.community.vo.BoardGalleryImg">
-        <id column="COM_BOARD_NUM" property="comBoardNum"/>
-        <result column="COM_BOARD_TITLE" property="comBoardTitle"/>
-        <result column="COM_BOARD_CONTENT" property="comBoardContent"/>
-        <result column="COM_BOARD_WRITER" property="comBoardWriter"/>
-        <result column="COM_CREATE_DATE" property="comCreateDate"/>
-    </resultMap>
-    <!--갤러리 목록-->
-    <resultMap id="galleryList" type="com.green.SecondLife.community.vo.BoardGalleryListVO">
-        <id column="COM_BOARD_NUM" property="comBoardNum"/>
-        <result column="COM_BOARD_TITLE" property="comBoardTitle"/>
-        <result column="COM_BOARD_CONTENT" property="comBoardContent"/>
-        <result column="COM_BOARD_WRITER" property="comBoardWriter"/>
-        <result column="COM_CREATE_DATE" property="comCreateDate"/>
-    </resultMap>
     <!--자유게시판 댓글 목록-->
     <resultMap id="comment" type="com.green.SecondLife.community.vo.BoardCommentListVO">
         <id column="COMMENT_ID" property="commentId"/>
