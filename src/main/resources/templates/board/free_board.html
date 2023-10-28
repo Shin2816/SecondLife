@@ -43,7 +43,7 @@
             <th:block th:unless="${#lists.size(freeBoardList) == 0}" >
                 <tbody id="board-list-body">
                     <tr class="board-tr" th:each="freeBoard, state : ${freeBoardList}" th:onclick="|location.href='@{/board/boardDetail(freeBoardNum=${freeBoard.freeBoardNum},menuCode=${subMenuVO.menuCode})}'|">
-                        <td>[[${freeBoard.freeBoardNum}]]</td>
+                        <td>[[${#lists.size(freeBoardList) - state.index}]]</td>
                         <td>[[${freeBoard.freeBoardTitle}]]</td>
                         <td>[[${freeBoard.freeBoardWriter}]]</td>
                         <td>[[${freeBoard.freeCreateDate}]]</td>
