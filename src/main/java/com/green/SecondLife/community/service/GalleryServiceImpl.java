@@ -11,9 +11,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class GalleryServiceImpl implements GalleryService{
     private final SqlSessionTemplate sqlSession;
-
+    //게시글 목록 조회
     @Override
     public List<BoardGalleryListVO> selectGalBoardList(BoardGalleryListVO boardGalleryListVO) {
-        return sqlSession.selectList("GalleryMapper.selectGalBoardList", boardGalleryListVO);
+        return sqlSession.selectList("galleryMapper.selectGalBoardList", boardGalleryListVO);
+    }
+    //게시글 갯수 조회
+    @Override
+    public int selectBoardCnt() {
+        return sqlSession.selectOne("galleryMapper.selectBoardCnt");
     }
 }

@@ -33,6 +33,11 @@
         ORDER BY GAL_BOARD_NUM DESC
         OFFSET (#{nowPage} - 1) * #{displayDataCnt} ROWS FETCH FIRST #{displayDataCnt} ROWS ONLY
     </select>
+    <!--게시글 갯수 조회-->
+    <select id="selectBoardCnt" resultType="int">
+        SELECT COUNT(GAL_BOARD_NUM)
+        FROM BOARD_GALLERY_LIST
+    </select>
 </mapper>
 
 
