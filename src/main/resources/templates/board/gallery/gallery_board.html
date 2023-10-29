@@ -26,7 +26,7 @@
     <div class="row row-cols-5 g-4">
         <div class="col" th:each="gal : ${galleryBoardList}">
             <div class="card">
-                <a th:href="@{/item/itemDetail(itemCode=${item.itemCode})}"><img th:src="${'/images/' + item.imgList[0].attachedFileName}" class="card-img-top img" alt="..."></a>
+                <a th:href="@{/gallery/boardDetail(galBoardNum=${gal.galBoardNum})}"><img th:src="${'/images/community/gallery/' + gal.galImgList[0].attachedFileName}" class="card-img-top img" alt="..."></a>
                 <div class="card-body">
                     <h5 class="card-title">[[${gal.galBoardTitle}]]</h5>
                     <p class="card-text">[[${gal.galBoardWriter}]]</p>
