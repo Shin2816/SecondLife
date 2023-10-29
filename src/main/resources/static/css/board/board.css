@@ -22,3 +22,6 @@
 .openAndClose{
     padding: 0;
 }
+.board_item{
+    cursor: pointer;
+}
