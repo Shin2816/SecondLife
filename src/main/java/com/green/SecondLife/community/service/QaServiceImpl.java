@@ -33,7 +33,6 @@ public class QaServiceImpl implements QaService{
         if(boardQaListVO.getQaImgList().size() != 0){
             sqlSession.insert("qaMapper.insertQaImgs", boardQaListVO);
         }
-
     }
     //트랜잭션, 어떤 이유건 오류가 나면 중지(공개)
     @Override

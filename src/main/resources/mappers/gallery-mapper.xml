@@ -38,6 +38,24 @@
         SELECT COUNT(GAL_BOARD_NUM)
         FROM BOARD_GALLERY_LIST
     </select>
+    <!--다음 galBoardNum 조회-->
+    <select id="selectNextGalBoardNum" resultType="int">
+        SELECT NVL(MAX(GAL_BOARD_NUM), 0) + 1 FROM BOARD_GALLERY_LIST
+    </select>
+    <!--Q&A 게시판 글 등록(공개)-->
+    <insert id="insertGalBoard">
+        INSERT INTO BOARD_QA_LIST(
+            GAL_BOARD_NUM
+            , GAL_BOARD_TITLE
+            , GAL_BOARD_CONTENT
+            , GAL_BOARD_WRITER
+        ) VALUES(
+            #{galBoardNum}
+            , #{galBoardTitle}
+            , #{galBoardContent}
+            , #{galBoardWriter}
+        )
+    </insert>
 </mapper>
 
 

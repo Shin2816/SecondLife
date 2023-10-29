@@ -23,36 +23,18 @@
         </form>
     </div>
     <hr>
-    <table border="1" class="row-12 text-center col-12 free-table mb-4">
-        <thead class="free-table-head">
-            <td>번호</td>
-            <td>제목</td>
-            <td>작성자</td>
-            <td>작성일</td>
-            <td>조회수</td>
-        </thead>
-        <!-- 게시글 없을 때 -->
-        <th:block th:if="${#lists.size(galleryBoardList) == 0}">
-            <tr>
-                <td colspan="5">조회된 게시글이 없습니다</td>
-            </tr>
-        </th:block>
-        <!-- 게시글 있을 때 -->
-        <th:block th:unless="${#lists.size(galleryBoardList) == 0}" >
-            <tbody id="board-list-body">
-                <!-- 클릭 했을 때 비밀번호가 걸려있다면 -->
-                <th:block th:each="galBoard, state : ${galleryBoardList}">
-                    <tr class="board-tr" th:onclick="|location.href='@{/gallery/boardDetail(galBoardNum=${galBoard.galBoardNum})}'|">
-                        <td>[[${#lists.size(galleryBoardList) - state.index}]]</td>
-                        <td>[[${galBoard.galBoardTitle}]]</td>
-                        <td>[[${galBoard.galBoardWriter}]]</td>
-                        <td>[[${galBoard.galCreateDate}]]</td>
-                        <td>[[${galBoard.galBoardReadCnt}]]</td>
-                    </tr>
-                </th:block>
-            </tbody>
-        </th:block>
-    </table>
+    <div class="row row-cols-5 g-4">
+        <div class="col" th:each="gal : ${galleryBoardList}">
+            <div class="card">
+                <a th:href="@{/item/itemDetail(itemCode=${item.itemCode})}"><img th:src="${'/images/' + item.imgList[0].attachedFileName}" class="card-img-top img" alt="..."></a>
+                <div class="card-body">
+                    <h5 class="card-title">[[${gal.galBoardTitle}]]</h5>
+                    <p class="card-text">[[${gal.galBoardWriter}]]</p>
+                    <p class="card-text">[[${gal.galBoardReadCnt}]]</p>
+                </div>
+            </div>
+        </div>
+    <div>
     <!-- 페이징처리 -->
     <nav aria-label="Page navigation example" class="row-12 text-center">
         <ul class="pagination justify-content-center" id="board-my-page">
