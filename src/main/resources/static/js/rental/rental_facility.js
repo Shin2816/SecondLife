@@ -1,49 +1,67 @@
+//시설 탭 고를때마다 시설코드값 변경
+function selectFacility(name, code){
+    let facilityName = name.innerText;
+    let nameTag = document.querySelector('#facility-name');
+    nameTag.innerHTML = facilityName;
+    nameTag.dataset.facilityCode = code;
+
+}
+
 // 풀캘린더 화면 구현
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
+    
     //var list = [{title : '테스트', start : '2023-10-16'}, {title : '테스트2', start : '2023-10-18', end : '2023-10-22'}, {title : '테스트3', start : '2023-10-22T12:35:00', allDay : false}];
     var calendar = new FullCalendar.Calendar(calendarEl, {
-      headerToolbar: {
-        left: 'prev',
-        center: 'title',
-        right: 'next'
-      },
-      initialView: 'dayGridMonth',
-      initailDate: 'default', // 달력 처음 로드될때 표시되는 날짜. default는 현재 날짜
-      locale: 'ko', //달력 한국어
-      editable : false, //이벤트 위치 변경 가능 여부
-      selectable: true, //달력 클릭 여부
-      height: 500,
-      dayCellContent: function(info) {    //달력 '일' 삭제
-        var dayNum = document.createElement('a');
-        dayNum.classList.add('fc-daygrid-day-number');
-        dayNum.innerHTML = info.dayNumberText.replace('일', '');
-        if(info.view.type == 'dayGridMonth') {
+        headerToolbar: {
+            left: '',
+            center: 'title',
+            right: 'prev,next'
+        },
+        initialView: 'dayGridMonth',
+        initailDate: 'default', // 달력 처음 로드될때 표시되는 날짜. default는 현재 날짜
+        locale: 'ko', //달력 한국어
+        editable : false, //이벤트 위치 변경 가능 여부
+        selectable: true, //달력 클릭 여부
+        height: 500,
+        dayCellContent: function(info) {    //달력 '일' 삭제
+            var dayNum = document.createElement('a');
+            dayNum.classList.add('fc-daygrid-day-number');
+            dayNum.innerHTML = info.dayNumberText.replace('일', '');
+            if(info.view.type == 'dayGridMonth') {
+                return {
+                    html: dayNum.outerHTML
+                };
+            }
             return {
-                html: dayNum.outerHTML
+                domNodes: []
             };
-        }
-        return {
-            domNodes: []
-        };
-      },
-      dateClick: function(info) { //달력을 클릭 했을 때, 함수 호출
+        },
+        dateClick: function(info) { //달력을 클릭 했을 때, 함수 호출
         if(info.date.getDay() === 0 || info.date.getDay() === 6){ //토(6),일(0)만 클릭 가능
             calendarCheck(info.dateStr); //비동기 통신, 매개변수는 클릭한 날짜
         }
-      }
-      //, events: list
+        }
+        //, events: list
     });
 
     calendar.render();
+});
 
-    
-  });
+
+
 
 //풀캘린더 날짜 선택 시 실행되는 함수
 function calendarCheck(date){
     let inputTitle = document.querySelector('#rental-table-title'); // h2날짜 표시
     inputTitle.innerHTML = date;
+
+    const facilityCode = document.querySelector('#facility-name').dataset.facilityCode;
+    
+    if(facilityCode == undefined){
+        alert('먼저 사용할 시설을 선택해주세요');
+        return ;
+    }
 
     fetch('/rental/rentalCalendar', { //요청경로
         method: 'POST',
@@ -53,7 +71,7 @@ function calendarCheck(date){
         },
         //컨트롤러로 전달할 데이터
         body: new URLSearchParams({
-            'facilityCode' : 'FACILITY_001',
+            'facilityCode' : facilityCode,
             'rentalDate' : date
         })
     })

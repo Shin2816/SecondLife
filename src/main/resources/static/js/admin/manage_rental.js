@@ -1,15 +1,3 @@
-
-
-//모달창-반려하기 버튼 클릭시 실행 함수
-// function rejectBtn(signCode){
-//     console.log(signCode);
-//     const InputRejectReason = document.querySelector('input[name=rejectReason]');
-//     if(confirm('해당 신청건을 반려하시겠습니까?')){
-//         location.href= '/rental/updateStateReject?rentalSignCode='+signCode+'&rejectReason='+ InputRejectReason.value;
-//         alert('반려가 완료되었습니다.');
-//     }   
-// }
-
 //승인 버튼 클릭시 실행되는 함수
 function acceptBtn(signCode){
     if(confirm('해당 신청건을 승인하시겠습니까?')){

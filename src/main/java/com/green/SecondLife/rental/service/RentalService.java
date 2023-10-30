@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Map;
 
 public interface RentalService {
+    // 대관 코드 조회
+    public List<RentalFacilityVO> selectFacility();
+
     // (사용자)대관 가능 정보 조회
     public List<RentalFacilityVO> selectRentalFacility(RentalFacilityVO rentalFacilityVO);
 

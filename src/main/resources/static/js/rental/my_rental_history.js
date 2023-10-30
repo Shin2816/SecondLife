@@ -7,8 +7,8 @@ function cancelRental(rentalCode){
 }
 
 //반려내용 버튼 클릭시 실행 함수
-function rejectReasonBtn(){
-    const myModal = new bootstrap.Modal('#rejectReasonModal');
+function rejectReasonBtn(idx){
+    const myModal = new bootstrap.Modal(`#rejectReasonModal${idx}`);
     myModal.show();
 }
 
