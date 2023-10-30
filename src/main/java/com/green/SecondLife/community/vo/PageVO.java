@@ -30,7 +30,13 @@ public class PageVO {
         }
         else {
             next = false;
-            endPage = totalPageCnt; //마지막 페이지랑 전체 페이지랑 맞춤
+            if(totalPageCnt == 0){//전체 데이터가 하나도 없다면
+                endPage = 1; //화면에 출력되는 페이지를 1로 설정
+            }
+            else{
+                endPage = totalPageCnt; //마지막 페이지랑 전체 페이지랑 맞춤
+            }
+
         }
         //prev(이전) 버튼 유무
         if (beginPage == 1){ //첫번째 페이지가 1과 같다면 이전버튼은 사라져야한다

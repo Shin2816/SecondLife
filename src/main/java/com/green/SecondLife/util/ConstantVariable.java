@@ -7,6 +7,7 @@ public class ConstantVariable {
     public static final String UPLOAD_PATH_INSTRUCTOR = "D:\\dev\\workspaceSpring\\SecondLife\\src\\main\\resources\\static\\images\\instructor\\";
     public static final String UPLOAD_PATH_LECTURE_EVENT = "D:\\dev\\workspaceSpring\\SecondLife\\src\\main\\resources\\static\\images\\lectureEvent\\";
     public static final String UPLOAD_PATH_COMMUNITY_QA = "D:\\dev\\workspaceSpring\\SecondLife\\src\\main\\resources\\static\\images\\community\\qa\\";
+    public static final String UPLOAD_PATH_COMMUNITY_GALLERY = "D:\\dev\\workspaceSpring\\SecondLife\\src\\main\\resources\\static\\images\\community\\gallery\\";
     public static final String PHONE_CHECK_KEY = "NCSFRSPOSEI2P4NJ";
     public static final String PHONE_CHECK_SECRET = "W6YQENCRQSPFUC6BLQFNKDMI8E8ADWGJ";
     public static final String RENTAL_PAYMENT_KEY = "5485801252312526";

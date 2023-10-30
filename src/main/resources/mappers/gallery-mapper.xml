@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 해당 파일에 모든 쿼리문을 작성 -->
+<mapper namespace="galleryMapper">
+    <!--갤러리 목록-->
+    <resultMap id="galleryList" type="com.green.SecondLife.community.vo.BoardGalleryListVO">
+        <id column="GAL_BOARD_NUM" property="galBoardNum"/>
+        <result column="GAL_BOARD_TITLE" property="galBoardTitle"/>
+        <result column="GAL_BOARD_CONTENT" property="galBoardContent"/>
+        <result column="GAL_BOARD_WRITER" property="galBoardWriter"/>
+        <result column="GAL_CREATE_DATE" property="galCreateDate"/>
+        <result column="GAL_BOARD_READ_CNT" property="galBoardReadCnt"/>
+        <collection property="galImgList" resultMap="galleryImg"/> <!--galleryImg를 여러개 갖기 위해-->
+    </resultMap>
+    <!--갤러리 이미지-->
+    <resultMap id="galleryImg" type="com.green.SecondLife.community.vo.GalleryImgVO">
+        <id column="GALLERY_CODE" property="galleryCode"/>
+        <result column="GAL_ORIGIN_FILE_NAME" property="galOriginFileName"/>
+        <result column="GAL_ATTACHED_FILE_NAME" property="galAttachedFileName"/>
+        <result column="GAL_BOARD_NUM" property="galBoardNum"/>
+        <result column="GAL_IS_MAIN" property="galIsMain"/>
+    </resultMap>
+    <!--Gallery 게시판 목록 조회-->
+    <select id="selectGalBoardList" resultMap="galleryList">
+        SELECT LIST.GAL_BOARD_NUM
+            , GAL_BOARD_TITLE
+            , GAL_BOARD_WRITER
+            , TO_CHAR(GAL_CREATE_DATE, 'YYYY-MM-DD') GAL_CREATE_DATE
+            , GAL_BOARD_READ_CNT
+            , IMG.GAL_ATTACHED_FILE_NAME
+            , IMG.GALLERY_CODE
+        FROM BOARD_GALLERY_LIST LIST, BOARD_GALLERY_IMG IMG
+        WHERE LIST.GAL_BOARD_NUM = IMG.GAL_BOARD_NUM
+        AND IMG.GAL_IS_MAIN = 'Y'
+        <if test='searchValue != null and !searchValue.equals("")'>
+            AND UPPER(${searchType}) LIKE '%'||UPPER(#{searchValue})||'%'
+        </if>
+        ORDER BY GAL_BOARD_NUM DESC
+        OFFSET (#{nowPage} - 1) * #{displayDataCnt} ROWS FETCH FIRST #{displayDataCnt} ROWS ONLY
+    </select>
+    <!--게시글 갯수 조회-->
+    <select id="selectBoardCnt" resultType="int">
+        SELECT COUNT(GAL_BOARD_NUM)
+        FROM BOARD_GALLERY_LIST
+    </select>
+    <!--다음 galBoardNum 조회-->
+    <select id="selectNextGalBoardNum" resultType="int">
+        SELECT NVL(MAX(GAL_BOARD_NUM), 0) + 1 FROM BOARD_GALLERY_LIST
+    </select>
+    <!--gallery 게시판 글 등록-->
+    <insert id="insertGalBoard">
+        INSERT INTO BOARD_GALLERY_LIST(
+            GAL_BOARD_NUM
+            , GAL_BOARD_TITLE
+            , GAL_BOARD_CONTENT
+            , GAL_BOARD_WRITER
+        ) VALUES(
+            #{galBoardNum}
+            , #{galBoardTitle}
+            , #{galBoardContent}
+            , #{galBoardWriter}
+        )
+    </insert>
+    <!--이미지 등록-->
+    <insert id="insertGalImgs">
+        INSERT INTO BOARD_GALLERY_IMG (
+            GALLERY_CODE
+            , GAL_ORIGIN_FILE_NAME
+            , GAL_ATTACHED_FILE_NAME
+            , GAL_BOARD_NUM
+            , GAL_IS_MAIN
+        )
+        <foreach collection="galImgList" item="img" separator="UNION ALL" index="idx">
+            SELECT (SELECT 'GAL_'||LPAD(NVL(MAX(TO_NUMBER(SUBSTR(GALLERY_CODE, 5))), 0) + 1 + #{idx}, 3, '0') FROM BOARD_GALLERY_IMG)
+                , #{img.galOriginFileName}
+                , #{img.galAttachedFileName}
+                , #{img.galBoardNum}
+                , #{img.galIsMain}
+            FROM DUAL
+        </foreach>
+    </insert>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,6 +1,7 @@
 package com.green.SecondLife.util;
 
 import com.green.SecondLife.center.vo.FacilityImageVO;
+import com.green.SecondLife.community.vo.GalleryImgVO;
 import com.green.SecondLife.community.vo.QaImgVO;
 import com.green.SecondLife.instructor.vo.InstructorImgVO;
 import com.green.SecondLife.lecture.vo.LectureEventImgVO;
@@ -189,6 +190,55 @@ public class UploadUtil {
         return imgList;
     }
 
+    //------------Galley 게시판 업로드 메소드
+    //파일첨부 기능(단일 파일 업로드)
+    public static GalleryImgVO galUploadFile(MultipartFile Img){
+        GalleryImgVO galleryImgVO = null;
 
+        //첨부파일을 선택한다면...
+        if (!Img.isEmpty()){
+            galleryImgVO = new GalleryImgVO();
+            //첨부파일의 이름을 변수에 저장
+            String originFileName = Img.getOriginalFilename();
+            //첨부될 파일명을 랜덤한 문자열로 설정
+            String uuid = UUID.randomUUID().toString();
 
+            //확장자명 설정
+            //가장 마지막위치 .의 index를 저장
+            int dotIndex = originFileName.lastIndexOf(".");
+            String extention = originFileName.substring(dotIndex);//substring으로 .jpg를 분리
+            //랜덤한 문자열 + 확장자 asdf.jpg
+            String attachedFileName = uuid + extention;
+
+            try {
+                //지정한 형태로 파일 첨부(경로 + 파일명)
+                File file = new File(ConstantVariable.UPLOAD_PATH_COMMUNITY_GALLERY + attachedFileName);
+                Img.transferTo(file);
+
+                galleryImgVO.setGalOriginFileName(originFileName);
+                galleryImgVO.setGalAttachedFileName(attachedFileName);
+                galleryImgVO.setGalIsMain("Y");
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        //첨부파일이 만약 없다면 null을 리턴
+        return galleryImgVO;
+    }
+
+    //다중 파일 업로드
+    public static List<GalleryImgVO> galMultiFileUpload(MultipartFile[] imgs){
+        List<GalleryImgVO> imgList = new ArrayList<>();
+
+        for (MultipartFile img : imgs){
+            GalleryImgVO vo = galUploadFile(img);
+
+            if (vo != null){
+                vo.setGalIsMain("N");
+                imgList.add(vo);
+            }
+        }
+        return imgList;
+    }
 }

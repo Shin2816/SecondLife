@@ -8,11 +8,16 @@
 </head>
 <body>
 <th:block layout:fragment ="content">
+    <link rel="stylesheet" href="/css/center_location.css">
     <div class="row">
         <div class="col">
             <h2>오시는 길</h2>
+            <div id="map"></div>
         </div>
     </div>
+
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1bc71b804b2b70029b98d7911d1a61b0"></script>
+    <script src="/js/center_location.js"></script>
 </th:block>
 </body>
 </html>

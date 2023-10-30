@@ -80,31 +80,30 @@ public class QaController {
         MemberVO loginInfo = (MemberVO)session.getAttribute("loginInfo");
         //데이터베이스에 저장된 비밀번호를 조회해서 저장함
         String qaPw = qaService.selectQaPw(qaBoardNum);
+        System.out.println(boardQaListVO);
 
-        //데이터베이스에 저장된 비밀번호가 없거나, 로그인을 했고 관리자라면 프리패스!
+
+        //   공개이 거나,         로그인을 했고                관리자라면 프리패스!
         if(qaPw == null || (loginInfo != null && loginInfo.getMemberRoll().equals("ADMIN"))){
             //board이름으로 디테일정보 던지기
-            model.addAttribute("board", qaService.selectQaBoardDetail(qaBoardNum));
+            model.addAttribute("board", qaService.selectQaBoardDetail(qaBoardNum));//아우터조인
             //조회수 증가
             qaService.updateQaBoardCnt(qaBoardNum);
             //댓글 조회해서 html로 던지기
             model.addAttribute("comment", qaService.selectQaBoardComment(qaBoardNum));
             return "board/qa/board_detail";
         }
-        else{
-            if (qaPw.equals(qaCheckPwInput)){// 저장되어진 비밀번호와 입력한 비밀번호가 같다면?
-                //board이름으로 디테일정보 던지기
-                model.addAttribute("board", qaService.selectQaBoardDetail(qaBoardNum));
-                //조회수 증가
-                qaService.updateQaBoardCnt(qaBoardNum);
-                //댓글 조회해서 html로 던지기
-                model.addAttribute("comment", qaService.selectQaBoardComment(qaBoardNum));
-                return "board/qa/board_detail";
-            }
-            else {//비밀번호 틀렸다면
-                return "board/qa/qa_result";//alert창 띄우기
-            }
-        }
+        else if (qaPw.equals(qaCheckPwInput)){ // 비공개
+            //board이름으로 디테일정보 던지기
+            model.addAttribute("board", qaService.selectQaBoardDetail(qaBoardNum));//아우터조인
+            //조회수 증가
+            qaService.updateQaBoardCnt(qaBoardNum);
+            //댓글 조회해서 html로 던지기
+            model.addAttribute("comment", qaService.selectQaBoardComment(qaBoardNum));
+            return "board/qa/board_detail";
+        } else {//비밀번호 틀렸다면
+            return "board/qa/qa_result";//alert창 띄우기
+        }//비공개
     }
     //상세 페이지에서 댓글 작성버튼 클릭하면 비동기로 insert 쿼리 실행
     @ResponseBody
