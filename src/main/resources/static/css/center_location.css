@@ -1,9 +1,8 @@
 #map{
-    width: 90%;
-    height: 500px;
-    margin: 30px auto 0 auto;
+    width: 80%;
+    height: 400px;
+    margin: 30px auto 15px auto;
 }
-
 .customoverlay {
     position:relative;
     bottom:85px;
@@ -45,4 +44,16 @@
     bottom:-12px;
     width:22px;
     height:12px;
-    background:url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
+    background:url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')
+}
+.location{
+    width: 80%;
+    margin: 0 auto;
+}
+.location h5{
+    font-weight: bold;
+}
+.location p{
+    font-size: 0.8rem;
+    margin: 0;
+}

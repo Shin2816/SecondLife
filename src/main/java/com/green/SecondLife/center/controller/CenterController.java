@@ -116,7 +116,9 @@ public class CenterController {
 
     //사용자-시설소개 페이지
     @GetMapping("/centerGuide")
-    public String centerGuide(SubMenuVO subMenuVO){
+    public String centerGuide(Model model, SubMenuVO subMenuVO){
+        model.addAttribute("categoryList", centerService.selectCenterCategory());
+        model.addAttribute("facilityList", centerService.selectAllFacility());
         return "/center/center_facility_guide";
     }
 }

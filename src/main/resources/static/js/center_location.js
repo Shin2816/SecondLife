@@ -6,6 +6,7 @@ var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 
 var map = new kakao.maps.Map(mapContainer, mapOption);
 
+
 var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png', // 마커이미지의 주소입니다    
     imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
     imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
@@ -26,7 +27,7 @@ marker.setMap(map);
 // 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
 var content = '<div class="customoverlay">' +
     '  <a href="https://kko.to/crm4vlfkI5" target="_blank">' +
-    '    <span class="title">라이프센터</span>' +
+    '    <span class="title">라이프 센터</span>' +
     '  </a>' +
     '</div>';
 
