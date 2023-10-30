@@ -13,8 +13,8 @@
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
-    <form action="/qa/regBoard" method="post" id="galRegBoard" enctype="multipart/form-data">
-        <input type="hidden" name="qaBoardWriter" value="">
+    <form action="/gallery/regBoard" method="post" id="galRegBoard" enctype="multipart/form-data">
+        <input type="hidden" name="galBoardWriter" value="">
         <div class="row mb-3">
             <div class="text-center">
                 <h1>사진 게시판 등록</h1>
@@ -31,7 +31,7 @@
             </div>
         </div>
         <div class="col-12">
-            <textarea name="galBoardContent" class="form-control summernote text-left s-note mb-1" id="galBoardContent" cols="30" rows="10" style="resize: none;"></textarea>
+            <textarea name="galBoardContent" class="form-control summernote text-left mb-1" id="galBoardContent" cols="30" rows="10"></textarea>
         </div>
         <div class="row mb-3 error">
             <div class="text-error-div">
@@ -39,9 +39,21 @@
             </div>
         </div>
         <!-- 첨부파일 -->
-        <div class="input-group mb-3">
-            <input type="file" class="form-control" name="qaImg" multiple aria-describedby="inputGroupFileAddon04" aria-label="Upload">
-            <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">첨부</button>
+        <div class="row input-group mb-3 align-middle">
+            <div class="col-3">
+                <label class="form-label">메인 이미지를 선택하세요.</label>
+            </div>
+            <div class="col-7">
+                <input type="file" class="form-control" name="galImgMain" aria-label="Upload" id="formFile_01">
+            </div>
+        </div>
+        <div class="row input-group mb-3 align-middle">
+            <div class="col-3">
+                <label class="form-label">서브 이미지를 선택하세요.</label>
+            </div>
+            <div class="col-7">
+                <input type="file" class="form-control" name="galImgSub" aria-label="Upload" id="formFile_02">
+            </div>
         </div>
         <div class="row justify-content-center">
             <div class="col-1">

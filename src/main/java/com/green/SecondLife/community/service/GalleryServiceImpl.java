@@ -32,6 +32,7 @@ public class GalleryServiceImpl implements GalleryService{
     @Transactional(rollbackFor = Exception.class)
     public void insertGalBoard(BoardGalleryListVO boardGalleryListVO) {
         sqlSession.insert("galleryMapper.insertGalBoard", boardGalleryListVO);
+
         if (boardGalleryListVO.getGalImgList().size() != 0){
             sqlSession.insert("galleryMapper.insertGalImgs", boardGalleryListVO);
         }

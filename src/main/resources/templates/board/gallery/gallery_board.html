@@ -24,13 +24,16 @@
     </div>
     <hr>
     <div class="row row-cols-5 g-4">
-        <div class="col" th:each="gal : ${galleryBoardList}">
-            <div class="board-item">
-                <a th:href="@{/gallery/boardDetail(galBoardNum=${gal.galBoardNum})}"><img th:src="${'/images/community/gallery/' + gal.galImgList[0].attachedFileName}" class="card-img-top img" alt="..."></a>
-                <div class="card-body">
-                    <h5 class="card-title">[[${gal.galBoardTitle}]]</h5>
-                    <p class="card-text">[[${gal.galBoardWriter}]]</p>
-                    <p class="card-text">[[${gal.galBoardReadCnt}]]</p>
+        <div class="col" th:each="gal, state : ${galleryBoardList}">
+            <div>[[${gal}]]</div>
+            <div th:if="${gal.galImgList[0].galIsMain == 'Y'}">
+                <div class="board-item">
+                    <a th:href="@{/gallery/boardDetail(galBoardNum=${gal.galBoardNum})}"><img th:src="${'/images/community/gallery/' + gal.galImgList[0].galAttachedFileName}" alt="..."></a>
+                    <div class="card-body">
+                        <h5 class="card-title">[[${gal.galBoardTitle}]]</h5>
+                        <p class="card-text">[[${gal.galBoardWriter}]]</p>
+                        <p class="card-text">[[${gal.galBoardReadCnt}]]</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -49,7 +52,7 @@
         </ul>
     </nav>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-    <script src="/js/board/qa_board.js"></script>
+    <!-- <script src="/js/board/gallery/gal_board.js"></script> -->
 </th:block>
 </body>
 </html>
