@@ -69,4 +69,20 @@ public class GalleryController {
 
         return "redirect:/gallery/galleryBoardList";
     }
+    //글 tr태그를 클릭했을때 해당글의 상세페이지 이동
+    @RequestMapping("/boardDetail")
+    public String boardDetail(int qaBoardNum, String qaCheckPwInput, Model model, BoardQaListVO boardQaListVO, HttpSession session){
+        MemberVO loginInfo = (MemberVO)session.getAttribute("loginInfo");
+
+//        //board이름으로 디테일정보 던지기
+//        model.addAttribute("board", galleryService.selectQaBoardDetail(qaBoardNum));//아우터조인
+//
+//        //조회수 증가
+//        galleryService.updateQaBoardCnt(qaBoardNum);
+//
+//        //댓글 조회해서 html로 던지기
+//        model.addAttribute("comment", galleryService.selectQaBoardComment(qaBoardNum));
+        return "board/qa/board_detail";
+
+    }
 }

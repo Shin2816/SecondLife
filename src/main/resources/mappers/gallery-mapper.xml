@@ -16,8 +16,8 @@
     <!--갤러리 이미지-->
     <resultMap id="galleryImg" type="com.green.SecondLife.community.vo.GalleryImgVO">
         <id column="GALLERY_CODE" property="galleryCode"/>
-        <result column="GAL_ORIGIN_IMG_NAME" property="galOriginFileName"/>
-        <result column="GAL_ATTACHED_IMG_NAME" property="galAttachedFileName"/>
+        <result column="GAL_ORIGIN_FILE_NAME" property="galOriginFileName"/>
+        <result column="GAL_ATTACHED_FILE_NAME" property="galAttachedFileName"/>
         <result column="GAL_BOARD_NUM" property="galBoardNum"/>
         <result column="GAL_IS_MAIN" property="galIsMain"/>
     </resultMap>
@@ -29,6 +29,7 @@
             , TO_CHAR(GAL_CREATE_DATE, 'YYYY-MM-DD') GAL_CREATE_DATE
             , GAL_BOARD_READ_CNT
             , IMG.GAL_ATTACHED_FILE_NAME
+            , IMG.GALLERY_CODE
         FROM BOARD_GALLERY_LIST LIST, BOARD_GALLERY_IMG IMG
         WHERE LIST.GAL_BOARD_NUM = IMG.GAL_BOARD_NUM
         AND IMG.GAL_IS_MAIN = 'Y'
