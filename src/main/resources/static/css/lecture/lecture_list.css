@@ -41,19 +41,15 @@
     text-align: center;
     padding-top: 3px;
 }
-.lecture-box .title p{
-    padding-top: 20px;
-}
 .lecture-box .title .lecture-event-name{
     display: inline-block;
-    width: 43px;
     height: 28px;
     background-color: #000;
     color: #fff;
     font-weight: 700;
     margin-right: 15px;
     text-align: center;
-    padding-top: 3px;
+    padding: 3px 5px 4px 5px;
 }
 .lecture-box .title .lecture-title{
     font-size: 18px;

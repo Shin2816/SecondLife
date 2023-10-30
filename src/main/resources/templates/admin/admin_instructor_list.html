@@ -1,32 +1,47 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org"
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
     layout:decorate="~{fragment/admin_layout}">
-<head>
-<meta charset="UTF-8">
-<title></title>
-</head>
-<body>
-<th:block layout:fragment="content">
-    <link rel="stylesheet" href="/css/instructor/admin_instructor_list.css">
-<h2>관리자 강사 목록 페이지</h2>
-<div>
-    <div class="admin-instructor-list-box" th:each="instructor : ${instructorList}" th:onclick="|location.href='@{/instructor/adminInstructorDetail(instructorCode=${instructor.instructorCode}, menuCode=MENU_001)}'|">
-    <div class="admin-instructor-list-box-img">
-        <p><img th:src="${'/images/instructor/' + instructor.instructorImgVO.instructorAttachedFileName}"></p>
-    </div>
-    <div>
-        <p>
-            <span>이름 : </span><span>[[${instructor.instructorName}]] </span>
-            <span>나이 : </span><span> [[${instructor.instructorAge}]] </span>
-            <span>성별 : </span><span>[[${instructor.instructorGender}]]</span>
-            <span>담당과목 : </span><span>[[${instructor.lectureEventCode}]]</span> <br>
-            <span>주소 : </span><span>[[${instructor.instructorAddr}]]</span>
-        </p>
-    </div>
-    </div>
 
-</div>
-</th:block>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+
+<body>
+    <th:block layout:fragment="content">
+        <link rel="stylesheet" href="/css/instructor/admin_instructor_list.css">
+        <h2>관리자 강사 목록 페이지</h2>
+        <div>
+            <table class="table table-hover text-center align-center">
+                <colgroup>
+                    <col width="20%">
+                    <col width="10%">
+                    <col width="10%">
+                    <col width="10%">
+                    <col width="*">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <td>이미지</td>
+                        <td>나이</td>
+                        <td>성별</td>
+                        <td>담당과목</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="instructor : ${instructorList}"
+                        th:onclick="|location.href='@{/instructor/adminInstructorDetail(instructorCode=${instructor.instructorCode}, menuCode=MENU_001)}'|">
+                        <td>
+                            <img th:src="${'/images/instructor/' + instructor.instructorImgVO.instructorAttachedFileName}" id="instructor-img">
+                        </td>
+                        <td>[[${instructor.instructorAge}]] </td>
+                        <td>[[${instructor.instructorGender}]]</td>
+                        <td>[[${instructor.lectureEventCode}]]</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </th:block>
 </body>
+
 </html>

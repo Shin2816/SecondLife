@@ -9,66 +9,86 @@
 </head>
 
 <body>
-    <th:block layout:fragment="content" id="block">
+    <th:block layout:fragment="content">
         <link rel="stylesheet" href="/css/instructor/insert_instructor.css">
-        <h2>강사등록페이지</h2>
+        <h3 id="h-tree">등록할 강사의 정보를 입력해주세요</h3>
         <form action="/instructor/adminInsertInstructor" method="post" enctype="multipart/form-data" id="form">
-        <div class="wrap info">
-            <div>
-                <p>이름<p>
-                <span><input type="text" name="instructorName"></span>
-            </div>
-            <div>
-                <p>나이</p>
-                <span><input type="text" name="instructorAge"></span>
-            </div>
-            <div class="box gender">
-                <p>성별</p>
-                <div>
-                    <label><input type="radio" value="남자" name="instructorGender">남자</label>
-                    <label><input type="radio" value="여자" name="instructorGender">여자</label>
+            <div id="wrap_box">
+                <div class="row insert_left">
+                    <div class="col">
+                        <div class="row mb-3">
+                            <div class="col-12">이름</div>
+                            <div class="col-8">
+                                <input class="form-control" type="text" name="instructorName">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-12">나이</div>
+                        <div class="col-8">
+                            <input class="form-control" type="text" name="instructorAge">
+                        </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-12">성별</div>
+                            <div class="col-8">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="남자">
+                                    <label class="form-check-label" for="inlineRadio1">남자</label>
+                                  </div>
+                                  <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="여자">
+                                    <label class="form-check-label" for="inlineRadio2">여자</label>
+                                  </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-12">과목</div>
+                            <div class="col-8">
+                                <select class="form-select"  name="lectureEventCode">
+                                    <th:block th:each="lectureEvent : ${lectureEventList}">
+                                        <option th:value="${lectureEvent.lectureEventCode}">[[${lectureEvent.lectureEventName}]]</option>
+                                    </th:block>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-12">연락처</div>
+                            <div class="col-2">
+                                <select class="form-select"  name="instructorPhones">
+                                    <option value="010">010</option>
+                                    <option value="011">011</option>
+                                    <option value="012">012</option>
+                                    <option value="013">013</option>
+                                </select>
+                            </div>
+                            <div class="col-3"><label><input class="form-control" type="text" name="instructorPhones"></label></div>
+                            <div class="col-3"><label><input class="form-control" type="text" name="instructorPhones"></label></div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-12">주소</div>
+                            <div class="col-6"><input class="form-control" type="text" name="instructorAddr" id="instructorAddr" onclick="openPost();" readonly></div>
+                            <div class="col-2"><input class="btn btn-secondary" type="button" value="주소검색" onclick="openPost();"></div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-12">나머지 주소</div>
+                            <div class="col-8"><input class="form-control" type="text" name="instructorAddr"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row insert_right">
+                    <div class="wrap img">
+                        <p>사진첨부</p>
+                        <div onclick="file();" class="img-file">
+                            <p><img class="file-img" src="/images/icons/plus.jpg"></p>
+                            <input type="file" id="file" name="instructorImg">
+                        </div>
+                    </div>
+                    <div class="wrap button">
+                        <input type="hidden" value="MENU_001" name="menuCode">
+                        <p><input type="submit" class="btn btn-danger submit-btn" value="등록"></p>
+                    </div>  
                 </div>
             </div>
-            <div>
-                <p>담당과목</p>
-                <div class="box lectureEvent">
-                    <select name="lectureEventCode">
-                        <th:block th:each="lectureEvent : ${lectureEventList}">
-                            <option th:value="${lectureEvent.lectureEventCode}">[[${lectureEvent.lectureEventName}]]</option>
-                        </th:block>
-                    </select>
-                </div>
-            </div>
-            <div class="box tel">
-                <p>연락처</p>
-                <select name="instructorPhones">
-                    <option value="010">010</option>
-                    <option value="011">011</option>
-                    <option value="012">012</option>
-                    <option value="013">013</option>
-                </select>
-                <label><input type="text" name="instructorPhones"></label>
-                <label><input type="text" name="instructorPhones"></label>
-            </div>
-            <div>
-                <p>주소</p>
-                <input type="text" name="instructorAddr" id="instructorAddr" onclick="openPost();" readonly>
-                <input type="button" value="주소검색" onclick="openPost();"> <br><br>
-                <p>나머지주소</p>
-                <input type="text" name="instructorAddr"> 
-            </div>
-        </div>
-        <div class="wrap img">
-            <p>사진</p>
-            <div onclick="file();" class="img-file">
-                <p>클릭</p>
-                <input type="file" id="file" name="instructorImg">
-            </div>
-        </div>
-        <div class="wrap button">
-            <input type="hidden" value="MENU_001" name="menuCode">
-            <p><input type="submit" value="등록"></p>
-        </div>
         </form>
         <script src="/js/admin_insert_instructor_form.js"></script>
     </th:block>

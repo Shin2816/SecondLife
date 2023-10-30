@@ -23,7 +23,7 @@
     </thead>
     <tbody>
         <tr th:each="lecture : ${lectureList}" th:onclick="|location.href='@{/lecture/adminSelectLectureDetail(lectureCode=${lecture.lectureCode}, menuCode='MENU_002')}'|" id="lectureList">
-            <td>[[${lecture.instructorName}]]</td>
+            <td>[[${lecture.instructorCode}]]</td>
             <td>[[${lecture.lectureTitle}]]</td>
             <td>[[${lecture.lectureEventCode}]]</td>
             <td>[[${lecture.lectureStudent}]]</td>

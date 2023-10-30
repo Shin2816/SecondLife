@@ -217,6 +217,7 @@ public class UploadUtil {
 
                 galleryImgVO.setGalOriginFileName(originFileName);
                 galleryImgVO.setGalAttachedFileName(attachedFileName);
+                galleryImgVO.setGalIsMain("Y");
 
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -234,6 +235,7 @@ public class UploadUtil {
             GalleryImgVO vo = galUploadFile(img);
 
             if (vo != null){
+                vo.setGalIsMain("N");
                 imgList.add(vo);
             }
         }
