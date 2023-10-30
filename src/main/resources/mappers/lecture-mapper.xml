@@ -194,6 +194,9 @@
         FROM LECTURE L, INSTRUCTOR I, LECTURE_EVENT E
         WHERE L.INSTRUCTOR_CODE = I.INSTRUCTOR_CODE
         AND L.LECTURE_EVENT_CODE = E.LECTURE_EVENT_CODE
+        <if test="lectureEventCode != null">
+            AND L.LECTURE_EVENT_CODE = #{lectureEventCode}
+        </if>
     </select>
     <!-- 강좌 수강신청 -->
     <insert id="insertStudent">

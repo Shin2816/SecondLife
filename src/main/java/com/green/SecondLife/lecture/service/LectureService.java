@@ -37,7 +37,7 @@ public interface LectureService {
     public void adminDeleteLecture(LectureVO lectureVO);
 
     //수업 목록 조회
-    public List<LectureVO> selectLectureList();
+    public List<LectureVO> selectLectureList(String lectureEventCode);
     //수강 신청 기능
     public void insertStudent(StudentVO studentVO);
     //수강생 목록 조회

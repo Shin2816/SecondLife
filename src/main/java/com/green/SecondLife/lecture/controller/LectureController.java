@@ -12,10 +12,7 @@ import kotlin.contracts.ReturnsNotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import retrofit2.http.GET;
@@ -23,6 +20,7 @@ import retrofit2.http.GET;
 import javax.sound.sampled.SourceDataLine;
 import java.awt.*;
 import java.lang.reflect.Member;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -139,14 +137,23 @@ public class LectureController {
     //↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ //
     // 수업 목록 페이지
     @GetMapping("/lectureList")
-    public String lectureList(Model model){
+    public String lectureList(Model model, String lectureEventCode){
         model.addAttribute("lectureEventList", lectureService.adminSelectLectureEventList());
-        model.addAttribute("lectureList", lectureService.selectLectureList());
+        model.addAttribute("lectureList", lectureService.selectLectureList(lectureEventCode));
         return "/lecture/lecture_list";
+    }
+    // 수업 목록 페이지 fetch ( 강좌 종목별 )
+    @ResponseBody
+    @PostMapping("/lectureListFetch")
+    public List<LectureVO> lectureListFetch(String lectureEventCode){
+        System.out.println(lectureEventCode);
+        return lectureService.selectLectureList(lectureEventCode);
     }
     // 수업 상세 페이지
     @GetMapping("/lectureDetail")
     public String lectureDetail(LectureVO lectureVO, Model model, SubMenuVO subMenuVO, LectureEventVO lectureEventVO){
+        System.out.println(lectureVO);
+        System.out.println(lectureEventVO);
         String lectureEventCode = lectureService.adminSelectLectureDetail(lectureVO).getLectureEventCode();
         lectureEventVO.setLectureEventCode(lectureEventCode);
         model.addAttribute("lectureEvent", lectureService.adminSelectLectureEventDetail(lectureEventVO));

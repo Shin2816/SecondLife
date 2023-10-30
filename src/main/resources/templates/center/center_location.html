@@ -8,11 +8,22 @@
 </head>
 <body>
 <th:block layout:fragment ="content">
+    <link rel="stylesheet" href="/css/center_location.css">
     <div class="row">
         <div class="col">
             <h2>오시는 길</h2>
+            <div id="map"></div>
+            <div class="location">
+                <h5>울산 라이프센터</h5>
+                <p> 주소 : 울산광역시 남구 삼산중로100번길 26</p>
+                <p> 대중교통 이용안내 : 306, 649, 905(울산라이프센터 하차)</p>
+                <p> 연락처 : TEL : 052-716-3199 / FAX : 053-635-8684</p>
+            </div>
         </div>
     </div>
+
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1bc71b804b2b70029b98d7911d1a61b0"></script>
+    <script src="/js/center_location.js"></script>
 </th:block>
 </body>
 </html>

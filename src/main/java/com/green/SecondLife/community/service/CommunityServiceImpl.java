@@ -13,7 +13,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CommunityServiceImpl implements CommunityService{
     private final SqlSessionTemplate sqlSession;
-
     //자유게시판 목록 조회
     @Override
     public List<BoardFreeListVO> selectFreeBoardList(BoardFreeListVO boardFreeListVO) {
