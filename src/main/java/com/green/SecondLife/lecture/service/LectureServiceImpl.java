@@ -81,8 +81,8 @@ public class LectureServiceImpl implements LectureService{
 
     //수업 목록 조회 기능
     @Override
-    public List<LectureVO> selectLectureList() {
-        return sqlSession.selectList("lectureMapper.selectLectureList");
+    public List<LectureVO> selectLectureList(String lectureEventCode) {
+        return sqlSession.selectList("lectureMapper.selectLectureList", lectureEventCode);
     }
     //수강 신청 기능
     @Override

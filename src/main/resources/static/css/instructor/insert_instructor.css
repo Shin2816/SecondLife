@@ -1,49 +1,47 @@
 @charset "utf-8";
 /* 강사 등록*/
-
+#h-tree{
+    display: inline-block;
+    text-align: center;
+    margin-bottom: 50px;
+    background-color: palevioletred;
+    padding: 10px;
+    margin-left: 250px;
+    margin-bottom: 80px;
+    color: #fff;
+}
 #form{
-    position: relative;
+    margin-left: 150px;
+    margin-bottom: 80px;
 }
-#form::after{
-    clear: both;
-    display: block;
-    content: "";
-}
-.box.gender div{
-    border: 1px solid #555;
-    background-color: #fff;
-    width: 190px;
-    padding: 4px 5px;
-}
-.wrap{
-    float: left;
-    position: relative;
+#wrap_box{
+    display: flex;
 }
 .wrap.img{
-    position: absolute;
-    top: 0;
-    left: 300px;
+    margin-left: -20px;
 }
-.wrap.button{
-    position: absolute;
-    bottom: -40px;
-    left: 370px;
-}
-.img-file{
-    cursor: pointer;
-    border: 1px solid #555;
-    text-align: center;
-    width: 120px;
-    height: 150px;
-    background-color: #fff;
-}
-.img-file p{
-    margin-top: 60px;
+.wrap.img>p{
+    margin-left: -60px;
 }
 #file{
     display: none;
 }
-.box.tel input{
-    width: 65px;
-    height: 25px;
+.wrap.img{
+    text-align: center;
+}
+.img-file{
+    width: 150px;
+    height: 200px;
+    border: 1px solid #dee2d6;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.file-img{
+    margin-left: 5px;
+    margin-top: 65px;
+    width: 60px;
+    height: 60px;
+}
+.insert_right{
+    margin-left: -100px;
 }
