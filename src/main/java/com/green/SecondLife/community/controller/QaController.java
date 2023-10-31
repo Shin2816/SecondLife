@@ -6,7 +6,6 @@ import com.green.SecondLife.community.vo.BoardQaListVO;
 import com.green.SecondLife.community.vo.QaImgVO;
 import com.green.SecondLife.member.vo.MemberVO;
 import com.green.SecondLife.member.vo.SubMenuVO;
-import com.green.SecondLife.util.ConstantVariable;
 import com.green.SecondLife.util.UploadUtil;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -59,6 +58,7 @@ public class QaController {
         for(QaImgVO e : qaImgList){
             e.setQaBoardNum(nextBoardNum);
         }
+
         boardQaListVO.setQaBoardWriter(loginInfo.getMemberId());//vo안에 writer를 세션에 저장된 id로 갖고옴
         boardQaListVO.setQaBoardNum(nextBoardNum);//다음 들어갈 글 번호 조회된 것을 빈값으로 채움
         boardQaListVO.setQaImgList(qaImgList);
@@ -128,7 +128,7 @@ public class QaController {
     public String updateQaBoard(BoardQaListVO boardQaListVO){
         //수정 쿼리
         qaService.updateQaBoard(boardQaListVO);
-        //수정이 완료되면 해당 게시글 상세페이지로 freeBoardNum=숫자 데이터를 던질 수 있다.
+        //수정이 완료되면 해당 게시글 상세페이지로 BoardNum=숫자 데이터를 던질 수 있다.
         return "redirect:/qa/boardDetail?qaBoardNum=" + boardQaListVO.getQaBoardNum();
     }
     //상세 페이지에서 댓글 삭제버튼 클릭하면 delete 쿼리 실행
@@ -140,7 +140,7 @@ public class QaController {
     //상세 페이지에서 댓글 수정 버튼 클릭하면 update 쿼리 실행
     @ResponseBody
     @PostMapping("/qaUpdateComment")
-    public void qaDeleteComment(BoardCommentListVO boardCommentListVO){
+    public void qaUpdateComment(BoardCommentListVO boardCommentListVO){
         qaService.updateQaBoardComment(boardCommentListVO);
     }
 }

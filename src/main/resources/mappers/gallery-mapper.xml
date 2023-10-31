@@ -12,6 +12,7 @@
         <result column="GAL_CREATE_DATE" property="galCreateDate"/>
         <result column="GAL_BOARD_READ_CNT" property="galBoardReadCnt"/>
         <collection property="galImgList" resultMap="galleryImg"/> <!--galleryImg를 여러개 갖기 위해-->
+        <collection property="galBoardComment" resultMap="comment"/><!--comment를 여러개 가지기 위해서-->
     </resultMap>
     <!--갤러리 이미지-->
     <resultMap id="galleryImg" type="com.green.SecondLife.community.vo.GalleryImgVO">
@@ -20,6 +21,14 @@
         <result column="GAL_ATTACHED_FILE_NAME" property="galAttachedFileName"/>
         <result column="GAL_BOARD_NUM" property="galBoardNum"/>
         <result column="GAL_IS_MAIN" property="galIsMain"/>
+    </resultMap>
+    <!--게시판 댓글 목록-->
+    <resultMap id="comment" type="com.green.SecondLife.community.vo.BoardCommentListVO">
+        <id column="COMMENT_ID" property="commentId"/>
+        <result column="COMMENT_CONTENT" property="commentContent"/>
+        <result column="COMMENT_WRITER" property="commentWriter"/>
+        <result column="COMMENT_CREATE_DATE" property="commentCreateDate"/>
+        <result column="COMMENT_NUM" property="commentNum"/>
     </resultMap>
     <!--Gallery 게시판 목록 조회-->
     <select id="selectGalBoardList" resultMap="galleryList">
@@ -80,6 +89,78 @@
             FROM DUAL
         </foreach>
     </insert>
+    <!--게시판 상세 조회(OUTER JOIN)-->
+    <select id="selectGalBoardDetail" resultMap="galleryList">
+        SELECT LIST.GAL_BOARD_NUM
+            , GAL_BOARD_TITLE
+            , GAL_BOARD_CONTENT
+            , GAL_BOARD_WRITER
+            , TO_CHAR(GAL_CREATE_DATE, 'YYYY-MM-DD') GAL_CREATE_DATE
+            , GAL_BOARD_READ_CNT
+            , IMG.GAL_ATTACHED_FILE_NAME
+            , IMG.GAL_ORIGIN_FILE_NAME
+            , IMG.GALLERY_CODE
+        FROM BOARD_GALLERY_LIST LIST, BOARD_GALLERY_IMG IMG
+        WHERE LIST.GAL_BOARD_NUM = IMG.GAL_BOARD_NUM(+)
+        AND LIST.GAL_BOARD_NUM = #{galBoardNum}
+    </select>
+    <!--클릭하면 조회수 1 증가-->
+    <update id="updateGalBoardCnt">
+        UPDATE BOARD_GALLERY_LIST
+        SET
+        GAL_BOARD_READ_CNT = GAL_BOARD_READ_CNT + 1
+        WHERE GAL_BOARD_NUM = #{galBoardNum}
+    </update>
+    <!--게시판 댓글 조회-->
+    <select id="selectGalBoardComment" resultMap="comment">
+        SELECT COMMENT_ID
+            , COMMENT_CONTENT
+            , COMMENT_WRITER
+            , TO_CHAR(COMMENT_CREATE_DATE, 'YYYY.MM.DD. HH24:MI') COMMENT_CREATE_DATE
+        FROM BOARD_GAL_COMMENTS
+        WHERE COMMENT_NUM = #{galBoardNum}
+    </select>
+    <!--게시판 글 삭제, 댓글이 먼저 삭제되고 게시글 삭제 되도록(외래키 오류에 대응)-->
+    <delete id="deleteGalBoard">
+        DELETE BOARD_GALLERY_LIST
+        WHERE GAL_BOARD_NUM = #{galBoardNum}
+    </delete>
+    <!--게시판 글 수정-->
+    <update id="updateGalBoard">
+        UPDATE BOARD_GALLERY_LIST
+        SET
+        GAL_BOARD_TITLE = #{galBoardTitle}
+        , GAL_BOARD_CONTENT = #{galBoardContent}
+        WHERE GAL_BOARD_NUM = #{galBoardNum}
+    </update>
+    <!--게시판 댓글 작성-->
+    <insert id="insertGalBoardComment">
+        INSERT INTO BOARD_GAL_COMMENTS (
+            COMMENT_ID
+            , COMMENT_CONTENT
+            , COMMENT_WRITER
+            , COMMENT_CREATE_DATE
+            , COMMENT_NUM
+        ) VALUES (
+        (SELECT NVL(MAX(COMMENT_ID), 0) + 1 FROM BOARD_GAL_COMMENTS)
+            , #{commentContent}
+            , #{commentWriter}
+            , SYSDATE
+            , #{commentNum}
+        )
+    </insert>
+    <!--게시판 댓글 삭제-->
+    <delete id="deleteGalBoardComment">
+        DELETE BOARD_GAL_COMMENTS
+        WHERE COMMENT_ID = #{commentId}
+    </delete>
+    <!--게시판 댓글 수정-->
+    <update id="updateGalBoardComment">
+        UPDATE BOARD_GAL_COMMENTS
+        SET
+        COMMENT_CONTENT = #{commentContent}
+        WHERE COMMENT_ID = #{commentId}
+    </update>
 </mapper>
 
 

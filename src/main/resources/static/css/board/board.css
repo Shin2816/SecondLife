@@ -25,3 +25,8 @@
 .board_item{
     cursor: pointer;
 }
+.ellipsis-form{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;  /* ... 표시 */
+}
