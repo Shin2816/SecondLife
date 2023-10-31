@@ -56,20 +56,20 @@ document.addEventListener('DOMContentLoaded', function() {
     calendar.render();
 
     //풀캘린더 평일-예약불가 / 주말-예약가능.불가(데이터따라) / 지난날짜-예약마감
-    var days = document.querySelectorAll('.fc-daygrid-day');
+    // var days = document.querySelectorAll('.fc-daygrid-day');
     
-    console.log(days);
+    // console.log(days);
 
-    days.forEach(day => {
-        var cellContent = document.createElement('div');
-        cellContent.setAttribute('class', 'cell-content');
-        if(day.classList.contains('fc-day-past') == true){
-            cellContent.style.content = '예약마감';
-        } else if(day.classList.contains('fc-day-past') == true){
+    // days.forEach(day => {
+    //     var cellContent = document.createElement('div');
+    //     cellContent.setAttribute('class', 'cell-content');
+    //     if(day.classList.contains('fc-day-past') == true){
+    //         document.querySelector('.cell-content').style.setProperty("--before-content", "'예약마감'");
+    //     } else if(day.classList.contains('fc-day-past') == true){
 
-        }
-        day.appendChild(cellContent);
-    });
+    //     }
+    //     day.appendChild(cellContent);
+    // });
 
     
 

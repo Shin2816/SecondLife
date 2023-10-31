@@ -63,18 +63,34 @@
   display: none;
 }
 
-.fc-day {
+.fc-daygrid-day {
   position: relative;
 }
 /* 지난날짜 예약마감처리 */
-.fc-day .cell-content::before {
+.fc-day-past::before {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 65%;
+  content: "예약마감";
   color: #666;
   font-size: 0.9rem;
+}
+/* 주말 예약처리 */
+.fc-day-sun::before, .fc-day-sat::before{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 65%;
+  content: "예약가능";
+  color: red;
+  font-size: 0.9rem;
+}
+
+.fc-scrollgrid thead .fc-day-sun::before, .fc-scrollgrid thead .fc-day-sat::before{
+  display: none;
 }
 
 
