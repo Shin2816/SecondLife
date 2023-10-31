@@ -104,7 +104,7 @@
     <h1>댓글작성</h1>
     <div class="input-group mb-3" id="qaRegDiv">
         <input type="text" name="commentContent" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2">
-        <button class="btn btn-outline-secondary" type="button" id="button-addon2" th:onclick="qaRegComment([[${board.qaBoardWriter}]], this, [[${board.qaBoardNum}]], [[${session.loginInfo}]]);">작성</button>
+        <button class="btn btn-outline-secondary" type="button" id="button-addon2" th:onclick="qaRegComment(this, [[${board.qaBoardNum}]], [[${#authentication.name}]]);">작성</button>
     </div>
     <hr>
     <table border="1" class="text-center col-12">
@@ -120,8 +120,8 @@
                 <div class="row mb-2 justify-content-between">
                     <div class="col-3">[[${comment.commentWriter}]]</div>
                     <!-- 관리자 이거나, 작성자라면-->
-                    <div class="dropdown col-2 text-end" th:if="${session.loginInfo != null}">
-                        <div th:if="${comment.commentWriter == session.loginInfo.memberId or session.loginInfo.memberRoll == 'ADMIN'}">
+                    <div class="dropdown col-2 text-end" sec:authorize="isAuthenticated()">
+                        <div th:if="${#strings.contains(#authentication.authorities, 'ROLE_ADMIN') or board.qaBoardWriter == #authentication.name}">
                             <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 더보기
                             </a>
