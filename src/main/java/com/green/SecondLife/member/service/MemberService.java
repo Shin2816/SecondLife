@@ -7,7 +7,7 @@ import java.util.List;
 public interface MemberService {
 
     //로그인
-    public MemberVO selectlogin(MemberVO memberVO);
+    public MemberVO selectlogin(String memberId);
     //회원가입
     public void insertMember(MemberVO memberVO);
     //아이디 중복 체크

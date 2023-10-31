@@ -35,6 +35,9 @@ dependencies {
 	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect' //fragment 사용을 위해 추가
 	compileOnly("org.springframework.boot:spring-boot-devtools") //html새로고침
 	implementation 'net.nurigo:sdk:4.2.7'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+	testImplementation 'org.springframework.security:spring-security-test'
 }
 
 tasks.named('test') {

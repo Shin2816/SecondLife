@@ -48,7 +48,7 @@ public class QaController {
     }
     //글 등록 페이지에서 등록하기 누르면 글 등록 쿼리 실행
     @PostMapping("/regBoard")
-    public String regBoard(BoardQaListVO boardQaListVO, HttpSession session, MultipartFile[] qaImg){
+    public String regBoard(BoardQaListVO boardQaListVO, HttpSession session, MultipartFile[] qaImg, SubMenuVO subMenuVO){
         MemberVO loginInfo = (MemberVO)session.getAttribute("loginInfo");
         int nextBoardNum = qaService.selectNextQaBoardNum();//빈 값 채울 pk 조회해서 저장
 
@@ -76,7 +76,7 @@ public class QaController {
     }
     //글 tr태그를 클릭했을때 해당글의 상세페이지 이동
     @RequestMapping("/boardDetail")
-    public String boardDetail(int qaBoardNum, String qaCheckPwInput, Model model, BoardQaListVO boardQaListVO, HttpSession session){
+    public String boardDetail(int qaBoardNum, String qaCheckPwInput, Model model, BoardQaListVO boardQaListVO, HttpSession session, SubMenuVO subMenuVO){
         MemberVO loginInfo = (MemberVO)session.getAttribute("loginInfo");
         //데이터베이스에 저장된 비밀번호를 조회해서 저장함
         String qaPw = qaService.selectQaPw(qaBoardNum);
