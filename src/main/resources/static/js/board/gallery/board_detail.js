@@ -52,11 +52,11 @@ function resetBoardMessage(){
     document.querySelector('.text-error-div').style.display = 'none';
 }
 ///////////////////////////////////////////////////댓글작성(비동기)
-function galRegComment(galBoardWriter, selectedTag, galBoardNum, loginInfo){
+function galRegComment(selectedTag, galBoardNum, name){
     const commentContent = selectedTag.closest('div').querySelector('input[type="text"]').value;
 
     //댓글 입력 여부 체크
-    if(loginInfo == null){//로그인을 하지 않았다면
+    if(name == 'anonymousUser'){//로그인을 하지 않았다면
         if(confirm('로그인이 필요한 서비스입니다.\n로그인 페이지로 이동하시겠습니까?')){//알람 띄운 후 확인버튼 누르면
             location.href='/member/loginForm';//로그인 페이지로 이동
         }
@@ -87,7 +87,7 @@ function galRegComment(galBoardWriter, selectedTag, galBoardNum, loginInfo){
         body: new URLSearchParams({
             // 데이터명 : 데이터값
             'commentContent' : commentContent,
-            'commentWriter' : galBoardWriter,
+            'commentWriter' : name,
             'commentNum' : galBoardNum
         })
     })
@@ -215,3 +215,14 @@ $(document).ready(function () {
        focus: true
    }); 
 });
+
+///////////////////////////////////////////////// 공유하기 ////////////////////////////////////////////
+function shareTwitter() {
+    var sendText = "개발새발"; // 전달할 텍스트
+    var sendUrl = "devpad.tistory.com/"; // 전달할 URL
+    window.open("https://twitter.com/intent/tweet?text=" + sendText + "&url=" + sendUrl);
+}
+function shareFacebook() {
+    var sendUrl = "devpad.tistory.com/"; // 전달할 URL
+    window.open("http://www.facebook.com/sharer/sharer.php?u=" + sendUrl);
+}

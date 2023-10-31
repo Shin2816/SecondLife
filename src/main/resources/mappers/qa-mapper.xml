@@ -133,6 +133,7 @@
             , TO_CHAR(COMMENT_CREATE_DATE, 'YYYY.MM.DD. HH24:MI') COMMENT_CREATE_DATE
         FROM BOARD_QA_COMMENTS
         WHERE COMMENT_NUM = #{qaBoardNum}
+        ORDER BY COMMENT_CREATE_DATE DESC
     </select>
     <!--QA게시판 댓글 작성-->
     <insert id="insertQaBoardComment">
