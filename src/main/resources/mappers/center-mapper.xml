@@ -128,6 +128,20 @@
         WHERE FACILITY_CODE = #{facilityCode}
     </select>
 
+    <!--(사용자)센터소개 페이지 - 시설 조회(카테고리별)-->
+    <select id="selectFacilityInfo" resultMap="facility">
+        SELECT CENTER_FACILITY.FACILITY_CODE
+        , FACILITY_NAME
+        , FACILITY_CONTENT
+        , FACILITY_PLACE_INFO
+        , FACILITY_ORIGIN_FILE_NAME
+        , FACILITY_ATTACHED_FILE_NAME
+        FROM CENTER_FACILITY, CENTER_FACILITY_IMAGE
+        WHERE CENTER_FACILITY.FACILITY_CODE = CENTER_FACILITY_IMAGE.FACILITY_CODE
+        AND CENTER_CATE_CODE = #{centerCateCode}
+        ORDER BY FACILITY_CODE DESC
+    </select>
+
 </mapper>
 
 
