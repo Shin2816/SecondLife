@@ -44,7 +44,6 @@ function qaPasswordValidate(){
         return;
     }
 
-    alert(qaPasswordBoardForm.qaCheckPwInput.value);
     //submit 실행
     qaPasswordBoardForm.submit();
 }

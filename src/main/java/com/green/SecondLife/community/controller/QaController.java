@@ -92,7 +92,7 @@ public class QaController {
             }
             isAuthentication = user.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
         }
-        System.out.println(qaCheckPwInput);
+        System.out.println(qaCheckPwInput + "###################################################");
         //   공개이 거나,         로그인을 했고                관리자라면 프리패스!
         if(qaPw == null || (authentication != null && isAuthentication)){
             //board이름으로 디테일정보 던지기
@@ -119,7 +119,7 @@ public class QaController {
     //상세 페이지에서 댓글 작성버튼 클릭하면 비동기로 insert 쿼리 실행
     @ResponseBody
     @PostMapping("/qaBoardComment")
-    public boolean qaBoardComment(BoardCommentListVO boardCommentListVO, Authentication authentication){
+    public boolean qaBoardComment(BoardCommentListVO boardCommentListVO, Authentication authentication, String qaCheckPwInput){
         //로그인 정보가 없다면 댓글 작성하지 못하게
         if (authentication == null){//로그인 정보가 없을 때
             return false;//board.js로 false리턴
