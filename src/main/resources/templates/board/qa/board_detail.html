@@ -42,11 +42,11 @@
     </div>
     <br>
     <div class="d-flex justify-content-between">
-        <input type="button" class="btn btn-primary" value="목록으로" onclick="location.href='/qa/qaBoardList';">
+        <input type="button" class="btn btn-primary" value="목록으로" th:onclick="|location.href='@{/qa/qaBoardList(menuCode=${subMenuVO.menuCode})}'|">
         <!-- 로그인정보가 비어있지 않다면 버튼 보이게 -->
-        <div th:if="${session.loginInfo != null}">
+        <div sec:authorize="isAuthenticated()">
             <!-- 작성자가 같거나 관리자라면 -->
-            <div class="btn-group" th:if="${board.qaBoardWriter == session.loginInfo.memberId or session.loginInfo.memberRoll == 'ADMIN'}">
+            <div class="btn-group" th:if="${board.qaBoardWriter == #authentication.name}" sec:authorize="hasRole('ROLE_ADMIN')">
                 <input type="button" class="btn btn-primary" value="삭제" th:onclick="deleteboard([[${board.qaBoardNum}]])">
                 <input type="button" class="btn btn-primary" value="수정" data-bs-target="#qaUpdateBoard" data-bs-toggle="modal">
             </div>
@@ -61,6 +61,7 @@
                         </div>          
                         <form action="/qa/updateQaBoard" method="post" id="qaUpdateBoardForm">
                             <input type="hidden" name="qaBoardNum" th:value="${board.qaBoardNum}">
+                            <input type="hidden" name="menuCode" th:value="${subMenuVO.menuCode}">
                             <div class="modal-body">
                                 <div class="row mb-3">
                                     <div class="col">

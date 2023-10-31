@@ -19,9 +19,9 @@
                 <span class="link-main" onclick="location.href='/'"></span>
             </div>
             <div class="login-menu">
-                <p th:unless="${session.loginInfo == null}"> 
-                    <span class="login-span" th:if="${session.loginInfo.memberRoll == 'ADMIN'}" th:onclick="|location.href='@{/admin/admin_main(menuCode=MENU_000)}'|">관리하기 </span>
-                    <span class="login-span" th:if="${session.loginInfo.memberRoll == 'ADMIN'}" onclick="location.href='/member/logout';">로그아웃</span>
+                <p sec:authorize="isAuthenticated()"> 
+                    <span class="login-span" sec:authorize="hasRole('ROLE_ADMIN')" th:onclick="|location.href='@{/admin/admin_main(menuCode=MENU_000)}'|">관리하기 </span>
+                    <span class="login-span" sec:authorize="hasRole('ROLE_ADMIN')" onclick="location.href='/member/logout';">로그아웃</span>
                 </p>
             </div>
         </div>

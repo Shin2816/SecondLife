@@ -19,10 +19,10 @@
 
         SELECT MEMBER_ID
             , MEMBER_NAME
+            , MEMBER_PW
             , MEMBER_ROLL
         FROM MEMBER
         WHERE MEMBER_ID = #{memberId}
-        AND MEMBER_PW = #{memberPW}
 
     </select>
 

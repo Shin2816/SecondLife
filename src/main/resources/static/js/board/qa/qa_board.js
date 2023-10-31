@@ -1,6 +1,7 @@
 //---------------- 전역변수 영역-------------------//
 //비밀번호 확인 모달
 const qaModal = new bootstrap.Modal('#qaPasswordBoard');
+const menuCode = document.querySelector('#menuCode');
 
 
 //---------------- 함수 영역-------------------//
@@ -10,7 +11,7 @@ function openCheckPwModal(qaBoardNum, loginInfo){
         //관리자라면 모달창 띄우지 않고 바로 boardDetail로 이동
         if(loginInfo.memberRoll == 'ADMIN'){
             //프리패스
-            location.href=`/qa/boardDetail?qaBoardNum=${qaBoardNum}`;
+            location.href=`/qa/boardDetail?qaBoardNum=${qaBoardNum}&menuCode=${menuCode}`;
         } else{
             //해당하는 글의 정보를 input태그의 value로 전달
             document.querySelector('#modal_qaBoardNum').value = qaBoardNum;
