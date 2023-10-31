@@ -11,14 +11,17 @@
 #calendar{
   margin-bottom: 20px;
 }
+
 #rental-calendar-table{
   position: relative;
   width: 100%;
   margin: 0 auto;
 }
+
 #rental-table-title{
   text-align: center;
 }
+
 #rental-table{
   position: absolute;
   top: 65px;
@@ -54,6 +57,26 @@
   color: blue;
   text-decoration: none;
 }
+
+/* 다음달 1주 미리 보이지 않게하기 */
+.fc-daygrid-body table tbody tr:last-child{
+  display: none;
+}
+
+.fc-day {
+  position: relative;
+}
+/* 지난날짜 예약마감처리 */
+.fc-day .cell-content::before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 65%;
+  color: #666;
+  font-size: 0.9rem;
+}
+
 
 #sign-btn{
   position: absolute;

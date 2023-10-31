@@ -11,7 +11,6 @@ function selectFacility(name, code){
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
     
-    //var list = [{title : '테스트', start : '2023-10-16'}, {title : '테스트2', start : '2023-10-18', end : '2023-10-22'}, {title : '테스트3', start : '2023-10-22T12:35:00', allDay : false}];
     var calendar = new FullCalendar.Calendar(calendarEl, {
         headerToolbar: {
             left: '',
@@ -23,7 +22,16 @@ document.addEventListener('DOMContentLoaded', function() {
         locale: 'ko', //달력 한국어
         editable : false, //이벤트 위치 변경 가능 여부
         selectable: true, //달력 클릭 여부
-        height: 500,
+        height: 600,
+        eventRender: function(info) {
+            info.el.innerText = '22 Text';
+          },
+        datesRender: function(info) {
+        var dateCell = document.querySelector('.fc-day[data-date="2023-10-31"]');
+        if (dateCell) {
+            dateCell.innerText = '11 Text';
+        }
+        },
         dayCellContent: function(info) {    //달력 '일' 삭제
             var dayNum = document.createElement('a');
             dayNum.classList.add('fc-daygrid-day-number');
@@ -32,21 +40,41 @@ document.addEventListener('DOMContentLoaded', function() {
                 return {
                     html: dayNum.outerHTML
                 };
-            }
+            } 
             return {
                 domNodes: []
             };
+            
         },
         dateClick: function(info) { //달력을 클릭 했을 때, 함수 호출
         if(info.date.getDay() === 0 || info.date.getDay() === 6){ //토(6),일(0)만 클릭 가능
             calendarCheck(info.dateStr); //비동기 통신, 매개변수는 클릭한 날짜
         }
         }
-        //, events: list
     });
 
     calendar.render();
+
+    //풀캘린더 평일-예약불가 / 주말-예약가능.불가(데이터따라) / 지난날짜-예약마감
+    var days = document.querySelectorAll('.fc-daygrid-day');
+    
+    console.log(days);
+
+    days.forEach(day => {
+        var cellContent = document.createElement('div');
+        cellContent.setAttribute('class', 'cell-content');
+        if(day.classList.contains('fc-day-past') == true){
+            cellContent.style.content = '예약마감';
+        } else if(day.classList.contains('fc-day-past') == true){
+
+        }
+        day.appendChild(cellContent);
+    });
+
+    
+
 });
+
 
 
 

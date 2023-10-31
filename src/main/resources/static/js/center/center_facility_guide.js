@@ -27,13 +27,15 @@ function categoryTab(categoryCode){
         let str ='';
         data.forEach(facilityInfo => {
             str += '<div class="row mb-2">'
-            str += '<div class="col-6">'
+            str += '<div class="offset-1 col-5">'
             str += `<img width="300px" height="200px" src="/images/center/${facilityInfo.facilityImageVO.facilityAttachedFileName}" alt="센터이미지">`
             str += '</div>'
             str += '<div class="col-6">'
-            str += '<h4>' + facilityInfo.facilityName + '</h4>';
-            str += '<p>' + facilityInfo.facilityContent + '</p>';
-            str += '<p>위치 : ' + facilityInfo.facilityPlaceInfo + '</p>';
+            str += '<h3>' + facilityInfo.facilityName + '</h3>';
+            str += '<ul>'
+            str += '<li><p>' + facilityInfo.facilityContent + '</p></li>';
+            str += '<li><p>위치 : ' + facilityInfo.facilityPlaceInfo + '</p></li>';
+            str += '</ul>'
             str += '</div>'
             str += '</div>'
             str += '<hr>'
