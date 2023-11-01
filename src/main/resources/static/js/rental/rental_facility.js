@@ -23,14 +23,8 @@ document.addEventListener('DOMContentLoaded', function() {
         editable : false, //이벤트 위치 변경 가능 여부
         selectable: true, //달력 클릭 여부
         height: 600,
-        eventRender: function(info) {
-            info.el.innerText = '22 Text';
-          },
-        datesRender: function(info) {
-        var dateCell = document.querySelector('.fc-day[data-date="2023-10-31"]');
-        if (dateCell) {
-            dateCell.innerText = '11 Text';
-        }
+        validRange: {
+            start: new Date(),  // 현재 날짜 이후의 날짜만 활성화
         },
         dayCellContent: function(info) {    //달력 '일' 삭제
             var dayNum = document.createElement('a');
