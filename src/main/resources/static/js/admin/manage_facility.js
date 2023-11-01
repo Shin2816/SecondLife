@@ -1,3 +1,9 @@
+// 수정하기 버튼 클릭 시 모달창 실행
+// function facilityUpdateModal(centerCateCode){
+//     const myModal = new bootstrap.Modal('#updateFacilityModal');
+//     myModal.show();
+// }
+
 // 삭제하기 버튼 클릭 시 실행되는 함수
 function deleteFacility(facilityCode){
     if(confirm("삭제하시겠습니까?")){

@@ -77,9 +77,7 @@
                                                 <div class="row mb-3">
                                                     <div class="col-4">시설 카테고리</div>
                                                     <div class="col-8">
-                                                        <select name="centerCateCode" class="form-select">
-                                                            <option th:each="centerCategory : ${centerCategoryList}" th:value="${centerCategory.centerCateCode}" selected>[[${centerCategory.centerCateName}]]</option>
-                                                        </select>
+                                                        <input class="form-control" type="text" name="centerCateName" th:value="${facility.centerCateName}">
                                                     </div>
                                                 </div>
                                                 <div class="row mb-3">
