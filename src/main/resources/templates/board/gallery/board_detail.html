@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{fragment/sub_layout}">
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+<th:block layout:fragment="content">
+    <!-- 썸머노트 -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    <h1>사진 게시판</h1>
+    <div class="container text-center">
+        <div class="row">
+            <div class="col">
+                글번호 : [[${board.galBoardNum}]]
+            </div>
+            <div class="col">
+                제목 : [[${board.galBoardTitle}]]
+            </div>
+            <div class="col">
+                작성자 : [[${board.galBoardWriter}]]
+            </div>
+            <div class="col">
+                작성일 : [[${board.galCreateDate}]]
+            </div>
+            <div class="col">
+                조회수 : [[${board.galBoardReadCnt}]]
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <!-- 섬머노트 p태그를 html에서 읽을 수 있도록-->
+            <div class="col" th:utext="${board.galBoardContent}"></div>
+            <th:block th:each="galImgVO, state : ${board.galImgList}">
+                <img width="auto" height="auto" th:src="${'/images/community/gallery/' + galImgVO.galAttachedFileName}" alt="">
+            </th:block>
+        </div>
+    </div>
+    <br>
+    <div class="d-flex justify-content-between">
+        <input type="button" class="btn btn-primary" value="목록으로" onclick="location.href='/gallery/galleryBoardList';">
+        <!-- 로그인정보가 비어있지 않다면 버튼 보이게 -->
+        <div sec:authorize="isAuthenticated()">
+            <!-- 작성자가 같거나 관리자라면 -->
+            <div class="btn-group" th:if="${#strings.contains(#authentication.authorities, 'ROLE_ADMIN') or board.galBoardWriter == #authentication.name}">
+                <input type="button" class="btn btn-primary" value="삭제" th:onclick="deleteboard([[${board.galBoardNum}]])">
+                <input type="button" class="btn btn-primary" value="수정" data-bs-target="#galUpdateBoard" data-bs-toggle="modal">
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="galUpdateBoard" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">수정할 내용을 입력해주세요.</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>          
+                        <form action="/gallery/updateGalBoard" method="post" id="galUpdateBoardForm">
+                            <input type="hidden" name="galBoardNum" th:value="${board.galBoardNum}">
+                            <div class="modal-body">
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <input type="text" name="galBoardTitle" id="galBoardTitle" class="form-control" th:value="${board.galBoardTitle}">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <textarea rows="5" cols="50" name="galBoardContent" id="galBoardContent" class="form-control summernote s-note col" th:utext="${board.galBoardContent}"></textarea>
+                                    </div>
+                                </div>
+                                <!-- 이미지 이름 넣기 -->
+                                <div>
+                                    <th:block th:each="galImgVO : ${board.galImgList}">
+                                        <span th:text="${galImgVO.galOriginFileName}"></span><br>
+                                    </th:block>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <div class="row mb-3 error text-center">
+                                    <div class="title-error-div">
+                                        <!-- 에러 출력 -->
+                                    </div>
+                                </div>
+                                <div class="row mb-3 error text-center">
+                                    <div class="text-error-div">
+                                        <!-- 에러 출력 -->
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                                <button type="button" class="btn btn-primary" onclick="galUpdateValidate()">수정하기</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="d-flex justify-content-between">
+        <h1>댓글작성</h1>
+        <div class="d-flex g-4">
+            <a id="btnTwitter" class="link-icon twitter" href="javascript:shareTwitter();">트위터</a>
+            <a id="btnFacebook" class="link-icon facebook" href="javascript:shareFacebook();">페이스북</a>    
+            <a id="btnKakao" class="link-icon kakao" href="javascript:shareKakao();">카카오</a>
+        </div>
+    </div>
+    <div class="input-group mb-3" id="galRegDiv">
+        <input type="text" name="commentContent" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2">
+        <button class="btn btn-outline-secondary" type="button" id="button-addon2" th:onclick="galRegComment(this, [[${board.galBoardNum}]], [[${#authentication.name}]]);">작성</button>
+    </div>
+    <hr>
+    <table border="1" class="text-center col-12">
+        <!-- 댓글이 존재하지 않을 때 -->
+        <th:block th:if="${#lists.size(comment) == 0}">
+            <tr>
+                <td colspan="5">조회된 댓글이 없습니다</td>
+            </tr>
+        </th:block>
+        <!-- 댓글이 존재 하면 -->
+        <th:block th:if="${#lists.size(comment) != 0}" class="row">
+            <div th:each="comment, state : ${comment}">
+                <div class="row mb-2 justify-content-between">
+                    <div class="col-3">[[${comment.commentWriter}]]</div>
+                    <!-- 관리자 이거나, 작성자라면-->
+                    <div class="dropdown col-2 text-end" sec:authorize="isAuthenticated()">
+                        <div th:if="${#strings.contains(#authentication.authorities, 'ROLE_ADMIN') or comment.commentWriter == #authentication.name}">
+                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                더보기
+                            </a>
+                            <!-- 삭제,수정버튼 -->
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" th:onclick="galDeleteComment([[${comment.commentId}]], [[${board.galBoardNum}]])">삭제</a></li>
+                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" th:onclick="galUpdateModal([[${comment.commentContent}]]);">수정</a></li>
+                            </ul>
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">수정할 내용을 입력해주세요.</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <!-- 내용 -->
+                                            <input type="text" class="form-control" aria-describedby="addon-wrapping" id="galCommentInput">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                                            <button type="button" class="btn btn-primary" th:onclick="galUpdateComment([[${comment.commentId}]], [[${board.galBoardNum}]]);">수정하기</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row space-between">
+                    <span class="col-10">[[${comment.commentContent}]]</span>
+                    <span class="col-2 text-end">[[${comment.commentCreateDate}]]</span>
+                </div>
+                <hr>
+            </div>
+        </th:block>
+    </table>
+    <script src="/js/board/gallery/board_detail.js"></script>
+</th:block>
+</body>
+</html>

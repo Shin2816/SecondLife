@@ -1,8 +1,5 @@
 package com.green.SecondLife.member.controller;
 
-import com.green.SecondLife.community.service.CommunityService;
-import com.green.SecondLife.community.vo.BoardFreeListVO;
-import com.green.SecondLife.lecture.service.LectureService;
 import com.green.SecondLife.member.service.MemberService;
 import com.green.SecondLife.member.vo.MemberVO;
 import com.green.SecondLife.member.vo.SubMenuVO;
@@ -13,7 +10,9 @@ import net.nurigo.sdk.NurigoApp;
 import net.nurigo.sdk.message.exception.NurigoMessageNotReceivedException;
 import net.nurigo.sdk.message.model.Message;
 import net.nurigo.sdk.message.service.DefaultMessageService;
-import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +27,7 @@ import java.util.List;
 public class MemberController {
 
     private final MemberService memberService;
+    private final PasswordEncoder passwordEncoder;
 
     //로그인 폼 화면으로 이동
     @GetMapping("/loginForm")
@@ -45,26 +45,34 @@ public class MemberController {
     //회원가입 처리 후, 메인페이지로 이동
     @PostMapping("/insertMember")
     public String insertMember(MemberVO memberVO){
+        String encodedPw = passwordEncoder.encode(memberVO.getMemberPW());
+        memberVO.setMemberPW(encodedPw);
         memberService.insertMember(memberVO);
+
         return "/main";
     }
 
     //로그인 처리 후, 메인페이지로 이동.
-    @PostMapping("/login")
-    public String login(MemberVO memberVO, HttpSession session){
-
-        MemberVO loginInfo = memberService.selectlogin(memberVO);
-        if(loginInfo != null){
-            session.setAttribute("loginInfo", loginInfo);
-        }
-        return "/member/loginCheck";
-    }
+//    @PostMapping("/login")
+//    public String login(MemberVO memberVO, HttpSession session){
+//
+//        MemberVO loginInfo = memberService.selectlogin(memberVO);
+//        if(loginInfo != null){
+//            session.setAttribute("loginInfo", loginInfo);
+//        }
+//        return "/member/loginCheck";
+//    }
 
     //로그아웃 처리 후, 메인페이지로 이동
-    @GetMapping("/logout")
-    public String logout(HttpSession session, SubMenuVO subMenuVO){
-        session.removeAttribute("loginInfo");
-        return "/main";
+//    @GetMapping("/logout")
+//    public String logout(HttpSession session, SubMenuVO subMenuVO){
+//        session.removeAttribute("loginInfo");
+//        return "/main";
+//    }
+
+    @GetMapping("/loginCheck")
+    public String loginCheck(){
+        return "/member/loginCheck";
     }
 
     //아이디 중복처리 비동기 통신
@@ -115,9 +123,9 @@ public class MemberController {
 
     //회원 정보 수정폼으로 이동
     @GetMapping("/updateMemberForm")
-    public String updateMemberForm(Model model, SubMenuVO subMenuVO, HttpSession session){
-        MemberVO member = (MemberVO)session.getAttribute("loginInfo");
-        model.addAttribute("member", memberService.selectMember(member.getMemberId()));
+    public String updateMemberForm(Model model, SubMenuVO subMenuVO, Authentication authentication){
+        User member = (User)authentication.getPrincipal();
+        model.addAttribute("member", memberService.selectMember(member.getUsername()));
         return "/member/updateMember";
     }
 
