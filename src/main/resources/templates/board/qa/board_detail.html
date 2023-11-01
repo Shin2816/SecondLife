@@ -101,7 +101,17 @@
         </div>
     </div>
     <hr>
-    <h1>댓글작성</h1>
+    <!-- 비밀글이 아닐때만 보이도록 -->
+    <div class="d-flex justify-content-between">
+        <h1>댓글작성</h1>
+        <div class="d-flex justify-content-between" th:if="${board.qaBoardPassword == null}">
+            <div class="d-flex g-4">
+                <a id="btnTwitter" class="link-icon twitter" href="javascript:shareTwitter();">트위터</a>
+                <a id="btnFacebook" class="link-icon facebook" href="javascript:shareFacebook();">페이스북</a>    
+                <a id="btnKakao" class="link-icon kakao" th:onclick="shareKakao([[${board.qaBoardNum}]]);">카카오</a>
+            </div>
+        </div>
+    </div>
     <div class="mb-3" id="qaRegDiv">
         <form action="/qa/qaBoardComment" method="post" id="commentForm">
             <input type="hidden" name="commentNum" th:value="${board.qaBoardNum}">

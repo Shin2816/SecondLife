@@ -87,7 +87,14 @@
         </div>
     </div>
     <hr>
-    <h1>댓글작성</h1>
+    <div class="d-flex justify-content-between">
+        <h1>댓글작성</h1>
+        <div class="d-flex g-4">
+            <a id="btnTwitter" class="link-icon twitter" href="javascript:shareTwitter();">트위터</a>
+            <a id="btnFacebook" class="link-icon facebook" href="javascript:shareFacebook();">페이스북</a>    
+            <a id="btnKakao" class="link-icon kakao" th:onclick="shareKakao([[${board.freeBoardNum}]]);">카카오</a>
+        </div>
+    </div>
     <div class="input-group mb-3" id="freeRegDiv">
         <input type="text" name="commentContent" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2">
         <button class="btn btn-outline-secondary" type="button" id="button-addon2" th:onclick="freeRegComment(this, [[${board.freeBoardNum}]], [[${#authentication.name}]], [[${subMenuVO.menuCode}]]);">작성</button>
