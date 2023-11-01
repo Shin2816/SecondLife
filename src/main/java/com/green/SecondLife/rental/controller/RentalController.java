@@ -87,6 +87,7 @@ public class RentalController {
     public String myRentalHistory(RentalFacilityVO rentalFacilityVO, Authentication authentication, Model model, SubMenuVO subMenuVO){
         //세션 사용자이름 불러오기
         model.addAttribute("memberInfo", memberService.selectMember(authentication.getName()));
+        rentalFacilityVO.setRentalUser(authentication.getName());
         List<RentalFacilityVO> myRentalList =  rentalService.selectMyRentalList(rentalFacilityVO);
         System.out.println(myRentalList);
         System.out.println();

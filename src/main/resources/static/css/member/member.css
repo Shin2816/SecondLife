@@ -3,7 +3,10 @@
 input::placeholder {
     color: #0000FF;
 }
+.check-btn{
+    display: none;
+}
 
-#memberJoin{
+#memberJoin, #updateJoin{
     width: 400px;
 }

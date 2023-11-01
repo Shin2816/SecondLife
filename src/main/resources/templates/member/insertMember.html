@@ -10,6 +10,7 @@
     <th:block layout:fragment="content">
         <link rel="stylesheet" href="/css/member/member.css">
         <div class="row">
+            <h2>회원 가입</h2>
             <div class="col d-flex justify-content-center">
                 <form action="/member/insertMember" method="POST" id="memberJoin">
                     <div class="row mb-3">
@@ -21,7 +22,7 @@
                                 </div>
                             </div>
 
-                            <input type="password" class="form-control" name="memberPW" placeholder="비밀번호" required>
+                            <input type="password" class="form-control" name="memberPW" placeholder="비밀번호" autocomplete="off" required>
                             <div class="row error">
                                 <div class="pw-error-div">
         
@@ -73,7 +74,8 @@
                             </div>
                         </div>
                         <div class="col-2">
-                            <input type="button" class="btn btn-outline-primary" value="인증" onclick="checkPhone();">
+                            <input type="hidden" id="checkStatus" name="checkStatus" value="0">
+                            <input type="button" class="btn btn-outline-primary check-btn-phone" value="인증" onclick="checkPhone();">
                             <input type="button" class="btn btn-outline-primary check-btn" value="확인" onclick="check();">
                         </div>
                     </div>
