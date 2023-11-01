@@ -19,8 +19,9 @@
                 <span class="link-main" onclick="location.href='/'"></span>
             </div>
             <div class="login-menu">
-                <p th:unless="${session.loginInfo == null}"> 
+                <p sec:authorize="isAuthenticated()"> 
                     <span class="login-span" th:onclick="|location.href='@{/admin/admin_main(menuCode=MENU_000)}'|">관리하기 </span>
+                    <span class="login-span" th:onclick="|location.href='@{/member/updateMemberForm(menuCode=MENU_012)}'|">내 정보 </span>
                     <span class="login-span" onclick="location.href='/member/logout';">로그아웃</span>
                 </p>
             </div>

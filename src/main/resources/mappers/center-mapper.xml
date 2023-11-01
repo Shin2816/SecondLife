@@ -94,6 +94,13 @@
         FROM CENTER_FACILITY, CENTER_FACILITY_IMAGE
         WHERE CENTER_FACILITY.FACILITY_CODE = CENTER_FACILITY_IMAGE.FACILITY_CODE
         ORDER BY FACILITY_CODE DESC
+        OFFSET (#{nowPage} - 1) * #{displayDataCnt} ROWS FETCH FIRST #{displayDataCnt} ROWS ONLY
+    </select>
+
+    <!-- 시설관리 - 전체 데이터 수 조회 -->
+    <select id="selectFacilityListCnt" resultType="int">
+        SELECT COUNT(FACILITY_CODE)
+        FROM CENTER_FACILITY
     </select>
 
     <!--시설관리 - 대관가능유무 상태 변경(비동기통신)-->
@@ -126,6 +133,21 @@
         SELECT FACILITY_ATTACHED_FILE_NAME
         FROM CENTER_FACILITY_IMAGE
         WHERE FACILITY_CODE = #{facilityCode}
+    </select>
+
+    <!--(사용자)센터소개 페이지 - 시설 조회(카테고리별)-->
+    <select id="selectFacilityInfo" resultMap="facility">
+        SELECT CENTER_FACILITY.FACILITY_CODE
+        , FACILITY_NAME
+        , FACILITY_CONTENT
+        , FACILITY_PLACE_INFO
+        , CENTER_CATE_CODE
+        , FACILITY_ORIGIN_FILE_NAME
+        , FACILITY_ATTACHED_FILE_NAME
+        FROM CENTER_FACILITY, CENTER_FACILITY_IMAGE
+        WHERE CENTER_FACILITY.FACILITY_CODE = CENTER_FACILITY_IMAGE.FACILITY_CODE
+        AND CENTER_CATE_CODE = #{centerCateCode}
+        ORDER BY FACILITY_CODE DESC
     </select>
 
 </mapper>

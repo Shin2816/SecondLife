@@ -89,7 +89,7 @@ public class InstructorController {
 
     //강사 목록 페이지
     @GetMapping("/instructorList")
-    public String instructorList(Model model){
+    public String instructorList(Model model, SubMenuVO subMenuVO){
         model.addAttribute("instructorList", instructorService.adminSelectInstuctorList());
         return "instructor/instructor_list";
     }

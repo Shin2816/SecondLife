@@ -1,19 +1,16 @@
 package com.green.SecondLife.community.controller;
 
 import com.green.SecondLife.community.service.GalleryService;
-import com.green.SecondLife.community.vo.BoardGalleryListVO;
-import com.green.SecondLife.community.vo.BoardQaListVO;
-import com.green.SecondLife.community.vo.GalleryImgVO;
-import com.green.SecondLife.community.vo.QaImgVO;
-import com.green.SecondLife.member.vo.MemberVO;
+import com.green.SecondLife.community.vo.*;
 import com.green.SecondLife.util.UploadUtil;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -34,20 +31,16 @@ public class GalleryController {
         //게시글 목록 조회
         model.addAttribute("galleryBoardList", galleryService.selectGalBoardList(boardGalleryListVO));
 
-        //테스트
-        List<BoardGalleryListVO> test = galleryService.selectGalBoardList(boardGalleryListVO);
-        System.out.println(test);
         return "board/gallery/gallery_board";
     }
     //등록버튼 누르면 등록 페이지로 이동
     @GetMapping("/regGalBoardForm")
-    public String regQaBoardForm(){
+    public String regGalBoardForm(){
         return "board/gallery/reg_board";
     }
     //글 등록 페이지에서 등록하기 누르면 글 등록 쿼리 실행
     @PostMapping("/regBoard")
-    public String regBoard(BoardGalleryListVO boardGalleryListVO, HttpSession session, MultipartFile[] galImgSub, MultipartFile galImgMain){
-        MemberVO loginInfo = (MemberVO)session.getAttribute("loginInfo");
+    public String regBoard(BoardGalleryListVO boardGalleryListVO, Authentication authentication, MultipartFile[] galImgSub, MultipartFile galImgMain){
         int nextBoardNum = galleryService.selectNextGalBoardNum();//빈 값 채울 boardNum 조회해서 저장
 
         //파일 업로드 메소드를 변수에 저장(단일 파일)
@@ -60,7 +53,7 @@ public class GalleryController {
         for(GalleryImgVO e : galImgList){
             e.setGalBoardNum(nextBoardNum);
         }
-        boardGalleryListVO.setGalBoardWriter(loginInfo.getMemberId());//vo안에 writer를 세션에 저장된 id로 갖고옴
+        boardGalleryListVO.setGalBoardWriter(authentication.getName());//vo안에 writer를 세션에 저장된 id로 갖고옴
         boardGalleryListVO.setGalBoardNum(nextBoardNum);//다음 들어갈 글 번호 조회된 것을 빈값으로 채움
         boardGalleryListVO.setGalImgList(galImgList); //변수안에 파일 업로드 기능의 메소드 넣기
         
@@ -71,18 +64,54 @@ public class GalleryController {
     }
     //글 tr태그를 클릭했을때 해당글의 상세페이지 이동
     @RequestMapping("/boardDetail")
-    public String boardDetail(int qaBoardNum, String qaCheckPwInput, Model model, BoardQaListVO boardQaListVO, HttpSession session){
-        MemberVO loginInfo = (MemberVO)session.getAttribute("loginInfo");
+    public String boardDetail(int galBoardNum, Model model){
 
-//        //board이름으로 디테일정보 던지기
-//        model.addAttribute("board", galleryService.selectQaBoardDetail(qaBoardNum));//아우터조인
-//
-//        //조회수 증가
-//        galleryService.updateQaBoardCnt(qaBoardNum);
-//
-//        //댓글 조회해서 html로 던지기
-//        model.addAttribute("comment", galleryService.selectQaBoardComment(qaBoardNum));
-        return "board/qa/board_detail";
+        //board이름으로 디테일정보 던지기
+        model.addAttribute("board", galleryService.selectGalBoardDetail(galBoardNum));//아우터조인
 
+        //조회수 증가
+        galleryService.updateGalBoardCnt(galBoardNum);
+
+        //댓글 조회해서 html로 던지기
+        model.addAttribute("comment", galleryService.selectGalBoardComment(galBoardNum));
+        return "board/gallery/board_detail";
+    }
+    //글 상세페이지에서 삭제버튼 클릭하였을 때
+    @GetMapping("/deleteGalBoard")
+    public String deleteGalBoard(int galBoardNum){
+        galleryService.deleteGalBoard(galBoardNum);
+        return "redirect:/gallery/galleryBoardList";
+    }
+    //수정 모달에서 수정 버튼을 눌렀을 때 수정 쿼리 실행
+    @RequestMapping("/updateGalBoard")
+    public String updateGalBoard(BoardGalleryListVO boardGalleryListVO){
+        //수정 쿼리
+        galleryService.updateGalBoard(boardGalleryListVO);
+        //수정이 완료되면 해당 게시글 상세페이지로 BoardNum=숫자 데이터를 던질 수 있다.
+        return "redirect:/gallery/boardDetail?galBoardNum=" + boardGalleryListVO.getGalBoardNum();
+    }
+    //상세 페이지에서 댓글 작성버튼 클릭하면 비동기로 insert 쿼리 실행
+    @ResponseBody
+    @PostMapping("/galBoardComment")
+    public boolean galBoardComment(BoardCommentListVO boardCommentListVO, Authentication authentication){
+        //로그인 정보가 없다면 댓글 작성하지 못하게
+        if (authentication == null){//로그인 정보가 없을 때
+            return false;//board.js로 false리턴
+        }
+        //로그인 정보가 있다면 if문 실행되지않고 쿼리가 실행된 후 true 리턴
+        galleryService.insertGalBoardComment(boardCommentListVO);
+        return true;//board.js로 true리턴
+    }
+    //상세 페이지에서 댓글 삭제버튼 클릭하면 delete 쿼리 실행
+    @ResponseBody
+    @PostMapping("/galDeleteComment")
+    public void galBoardComment(int commentId){
+        galleryService.deleteGalBoardComment(commentId);
+    }
+    //상세 페이지에서 댓글 수정 버튼 클릭하면 update 쿼리 실행
+    @ResponseBody
+    @PostMapping("/galUpdateComment")
+    public void galUpdateComment(BoardCommentListVO boardCommentListVO){
+        galleryService.updateGalBoardComment(boardCommentListVO);
     }
 }

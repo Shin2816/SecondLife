@@ -8,19 +8,16 @@
 </head>
 <body>
     <th:block layout:fragment="content">
-        <input type="hidden" id="inputId" th:value="${memberVO.memberId}">
-        <thblock th:if="${session.loginInfo == null}">
+        <thblock sec:authorize="isAnonymous()">
             <script>
                 alert("id와 pw를 확인해주세요.")
                 location.href='/';
             </script>
         </thblock>
-        <thblock th:unless="${session.loginInfo == null}">
+        <thblock sec:authorize="isAuthenticated()">
             <script>
-                // let memberId = document.querySelector('#inputId').value;
-                // alert(memberId + "님 어서오세요.")
                 location.href='/';  
-            </script>s
+            </script>
         </thblock>
     </th:block>
 </body>

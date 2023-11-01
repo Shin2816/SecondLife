@@ -42,8 +42,13 @@ public class CenterServiceImpl implements CenterService{
     }
 
     @Override
-    public List<CenterFacilityVO> selectAllFacility() {
-        return sqlSession.selectList("centerMapper.selectAllFacility");
+    public List<CenterFacilityVO> selectAllFacility(CenterFacilityVO centerFacilityVO) {
+        return sqlSession.selectList("centerMapper.selectAllFacility", centerFacilityVO);
+    }
+
+    @Override
+    public int selectFacilityListCnt() {
+        return sqlSession.selectOne("centerMapper.selectFacilityListCnt");
     }
 
     @Override
@@ -64,6 +69,11 @@ public class CenterServiceImpl implements CenterService{
     @Override
     public String selectCenterImgFileName(String facilityCode) {
         return sqlSession.selectOne("centerMapper.selectCenterImgFileName", facilityCode);
+    }
+
+    @Override
+    public List<CenterFacilityVO> selectFacilityInfo(int centerCateCode) {
+        return sqlSession.selectList("centerMapper.selectFacilityInfo", centerCateCode);
     }
 
 }

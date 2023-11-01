@@ -30,11 +30,11 @@
 
             <!-- 풀캘린더 영역 -->
             <div class="row">
-                <th:block th:if="${session.loginInfo == null}">
-                    <input type="hidden" id="memberName" value="null">
+                <th:block sec:authorize="isAnonymous()">
+                    <input type="hidden" id="memberId" value="null">
                 </th:block>
-                <th:block th:unless="${session.loginInfo == null}">
-                    <input type="hidden" id="memberName" th:value="${session.loginInfo.memberName}">
+                <th:block sec:authorize="isAuthenticated()">
+                    <input type="hidden" id="memberId" th:value="${#authentication.name}">
                 </th:block>
 
                 <div class="col-6">
@@ -77,7 +77,7 @@
                         <form id="signRentalForm" action="/rental/signUpRentalFacility" method="post">
                             <div class="modal-body">
                                 <div class="row">
-                                    <input type="hidden" name="facilityCode" value="FACILITY_001">
+                                    <input type="hidden" name="facilityCode" value="" id="facility-code-tag">
                                     <input type="hidden" name="rentalCharge" value="" id="rental-charge-tag">
                                     <div class="offset-2 col-10 text-start mb-2">시설명 : <input type="text" id="facility-name-tag" class="input-n-box" name="facilityName" value=""> </div>
                                     <div class="offset-2 col-10 text-start mb-2">대관날짜 : <input type="text" id="rental-date-tag" class="input-n-box" name="rentalDate" value=""></div>

@@ -1,5 +1,8 @@
 package com.green.SecondLife.community.vo;
 
+import lombok.Data;
+
+@Data
 public class PageVO {
     private int nowPage; //현재 페이지 번호
     private int totalDataCnt; //전체 데이터 수
@@ -12,8 +15,8 @@ public class PageVO {
 
     public PageVO(){ //페이징처리 기본값 설정
         nowPage = 1; //현재 페이지 1
-        diaplayPageCnt = 5; // 1 2 3 4 5
-        displayDataCnt = 10;
+        diaplayPageCnt = 3; // 1 2 3 4 5
+        displayDataCnt = 5;
     }
 
     //페이징 처리하기위해 변수값 세팅 + - * /
@@ -46,6 +49,7 @@ public class PageVO {
             prev = true;
         }
     }
+
     //전체 데이터 수 setter
     public void setTotalPageCnt(int totalDataCnt){
         this.totalDataCnt = totalDataCnt;
@@ -74,4 +78,5 @@ public class PageVO {
     public boolean getNext() {
         return next;
     }
+
 }

@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.websocket.Session;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,9 +38,7 @@ public class RentalController {
     //시설대관 화면
     @GetMapping("/rentalFacility")
     public String rentalFacility(Model model, SubMenuVO subMenuVO){
-        List<RentalFacilityVO> facilityList = rentalService.selectFacility();
-        System.out.println(facilityList);
-        model.addAttribute("facilityList", facilityList);
+        model.addAttribute("facilityList", rentalService.selectFacility());
         return "/rental/rental_facility";
     }
 
@@ -77,7 +76,7 @@ public class RentalController {
             rentalList.add(rentVO);
         }
         rentalFacilityVO.setFacilityList(rentalList);
-
+        System.out.println(rentalList);
         rentalService.insertRentalFacility(rentalFacilityVO);
 
         return "redirect:/rental/rentalFacility?menuCode="+ ConstantVariable.MENU_CODE_RENTAL_FACILITY;
@@ -85,15 +84,21 @@ public class RentalController {
 
     //사용자(마이페이지)-대관신청 목록 조회
     @GetMapping("/myRentalHistory")
-    public String myRentalHistory(RentalFacilityVO rentalFacilityVO, HttpSession session, Model model, SubMenuVO subMenuVO){
+    public String myRentalHistory(RentalFacilityVO rentalFacilityVO, Authentication authentication, Model model, SubMenuVO subMenuVO){
         //세션 사용자이름 불러오기
-        MemberVO member = (MemberVO)session.getAttribute("loginInfo");
-        rentalFacilityVO.setRentalUser(member.getMemberName());
-        model.addAttribute("memberInfo", memberService.selectMember(member.getMemberId()));
+        model.addAttribute("memberInfo", memberService.selectMember(authentication.getName()));
+        rentalFacilityVO.setRentalUser(authentication.getName());
+
+        // 페이지 정보 세팅
+        int totalDataCnt = rentalService.selectMyRentalListCnt(authentication.getName());
+        rentalFacilityVO.setTotalDataCnt(totalDataCnt);
+        rentalFacilityVO.setPageInfo();
+
         List<RentalFacilityVO> myRentalList =  rentalService.selectMyRentalList(rentalFacilityVO);
         System.out.println(myRentalList);
         System.out.println();
         System.out.println(rentalFacilityVO);
+
         model.addAttribute("myRentalList", myRentalList);
         return "/rental/my_rental_history";
     }
@@ -107,9 +112,14 @@ public class RentalController {
 
     //관리자(대관관리) - 목록조회
     @GetMapping("/rentalManageList")
-    public String selectRentalList(Model model, SubMenuVO subMenuVO){
+    public String selectRentalList(RentalFacilityVO rentalFacilityVO, Model model, SubMenuVO subMenuVO){
         subMenuVO.setMenuCode("MENU_003");
-        model.addAttribute("rentalList", rentalService.selectRentalList());
+        // 페이지 정보 세팅
+        int totalDataCnt = rentalService.selectRentalListCnt();
+        rentalFacilityVO.setTotalDataCnt(totalDataCnt);
+        rentalFacilityVO.setPageInfo();
+
+        model.addAttribute("rentalList", rentalService.selectRentalList(rentalFacilityVO));
         return "/admin/manage_rental";
     }
 
@@ -117,10 +127,9 @@ public class RentalController {
     //반려하기
     @PostMapping("/updateStateReject")
     public String updateRentalStatus0(String rejectReason, RentalFacilityVO rentalFacilityVO){
-        System.out.println(rejectReason);
+        //대관목적 세팅
         rentalFacilityVO.setRejectReason(rejectReason);
         rentalService.updateRentalStatus0(rentalFacilityVO);
-        System.out.println(rentalFacilityVO);
 
         return "redirect:/rental/rentalManageList";
     }

@@ -53,25 +53,29 @@ public class CenterController {
 
     //관리자-전체 시설 목록 조회
     @GetMapping("/selectAllFacility")
-    public String selectAllFacility(Model model, SubMenuVO subMenuVO){
+    public String selectAllFacility(CenterFacilityVO centerFacilityVO, Model model, SubMenuVO subMenuVO){
         subMenuVO.setMenuCode("MENU_003");
+        // 페이지 정보 세팅
+        int totalDataCnt = centerService.selectFacilityListCnt();
+        centerFacilityVO.setTotalDataCnt(totalDataCnt);
+        centerFacilityVO.setPageInfo();
 
         // 시설 카테고리 조회
         model.addAttribute("centerCategoryList", centerService.selectCenterCategory());
 
         // 시설 목록 조회
-        model.addAttribute("facilityList", centerService.selectAllFacility());
+        model.addAttribute("facilityList", centerService.selectAllFacility(centerFacilityVO));
         return "admin/manage_facility";
     }
 
-    //관리자-시설관리 - 대관가능유무 상태 변경
+    //관리자-시설목록 - 대관가능유무 상태 변경
     @ResponseBody
     @PostMapping("/updateRentalAvailable")
     public void updateRentalAvailable(CenterFacilityVO centerFacilityVO){
         centerService.updateRentalAvailable(centerFacilityVO);
     }
 
-    //관리자-시설관리 - 수정하기
+    //관리자-시설목록 - 수정하기
     @PostMapping("/updateFacility")
     public String updateFacility(CenterFacilityVO centerFacilityVO, MultipartFile facilityImg){
 
@@ -94,7 +98,7 @@ public class CenterController {
         return "redirect:/center/selectAllFacility";
     }
 
-    //관리자-시설관리 - 삭제하기
+    //관리자-시설목록 - 삭제하기
     @GetMapping("/deleteFacility")
     public String deleteFacility(String facilityCode){
         // 해당 게시물의 첨부파일 삭제
@@ -108,18 +112,26 @@ public class CenterController {
         return "redirect:/center/selectAllFacility";
     }
 
-    //사용자-오시는길 페이지
+    //사용자-오시는 길 페이지
     @GetMapping("/centerLocation")
     public String centerLocation(SubMenuVO subMenuVO){
         return "/center/center_location";
     }
 
-    //사용자-시설소개 페이지
+    //사용자-센터 소개 페이지
     @GetMapping("/centerGuide")
     public String centerGuide(Model model, SubMenuVO subMenuVO){
         model.addAttribute("categoryList", centerService.selectCenterCategory());
-        model.addAttribute("facilityList", centerService.selectAllFacility());
         return "/center/center_facility_guide";
+    }
+
+    //사용자-센터 소개 페이지(탭클릭 비동기)
+    @ResponseBody
+    @PostMapping("/centerGuideFetch")
+    public List<CenterFacilityVO> centerGuideFetch(int centerCateCode){
+        List<CenterFacilityVO> facilityList = centerService.selectFacilityInfo(centerCateCode);
+        System.out.println(facilityList);
+        return facilityList;
     }
 }
 

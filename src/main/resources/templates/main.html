@@ -41,7 +41,7 @@
                         </table>
                     </div>
                     <div class="col-4">
-                        <th:block th:if="${session.loginInfo == null}">
+                        <th:block sec:authorize="isAnonymous()">
                             <form action="/member/login" method="post">
                                 <div class="login-area">
                                     <div class="main-login-id">
@@ -56,15 +56,15 @@
                                         비밀번호 <input type="password" id="memberPW" name="memberPW" autocomplete="off">
                                     </p>                        
                                     <input type="submit" value="로그인" class="login-btn">
-                                    <span class="login-span insert-member" onclick="location.href='/member/insertMemberForm'">&middot; 회원가입</span>
+                                    <span class="login-span insert-member" th:onclick="|location.href='@{/member/insertMemberForm(menuCode=MENU_000)}'|">&middot; 회원가입</span>
                                 </div>
                             </form>
                         </th:block>
-                        <th:block th:unless="${session.loginInfo == null}">
+                        <th:block sec:authorize="isAuthenticated()">
                             <div class="login-area">
-                                <th:block th:if="${session.loginInfo.memberRoll == 'USER'}">
+                                <th:block sec:authorize="hasRole('ROLE_USER')">
                                     <div class="login-name">
-                                        [[${session.loginInfo.memberName}]]님 어서오세요.
+                                        [[${#authentication.name}]]님 어서오세요.
                                     </div>
                                     <div class="login-menu">
                                         <span class="login-span" th:onclick="|location.href='@{/member/updateMemberForm(menuCode=MENU_012)}'|">내 정보 </span>
@@ -72,9 +72,9 @@
                                         <span class="login-span" onclick="location.href='/member/logout'"> 로그아웃</span> 
                                     </div>
                                 </th:block>
-                                <th:block th:unless="${session.loginInfo.memberRoll == 'USER'}">
+                                <th:block sec:authorize="hasRole('ROLE_ADMIN')">
                                     <div class="login-name">
-                                        [[${session.loginInfo.memberName}]]님 어서오세요.
+                                        [[${#authentication.name}]]님 어서오세요.
                                     </div>
                                     <div class="login-menu">
                                         <span class="login-span" th:onclick="|location.href='@{/admin/admin_main(menuCode=MENU_000)}'|">관리하기 </span>
@@ -151,10 +151,10 @@
                             <div class="slide-2" th:onclick="|@{location.href='/board/freeBoardList(menuCode=MENU_007)}'|">
                                 <img src="/images/main_banner/board.jpg" alt="">
                             </div>
-                            <div class="slide-3">
+                            <div class="slide-3" th:onclick="|@{location.href='/instructor/instructorList(menuCode=MENU_006)}'|">
                                 <img src="/images/main_banner/instructor.jpg" alt="">
                             </div>
-                            <div class="slide-4">
+                            <div class="slide-4" th:onclick="|@{location.href='/lecture/lectureList(menuCode=MENU_005)}'|">
                                 <img src="/images/main_banner/lecture.jpg" alt="">
                             </div>
                         </div>
@@ -168,10 +168,10 @@
                         사진 게시판 영역
                     </div>
                     <div class="col-4 facility">
-                        <div class="left">
+                        <div class="left" th:onclick="|@{location.href='/rental/rentalGuide(menuCode=MENU_010)}'|">
                             <p class="left_info">
                                 <img src="/images/icons/building-small.png" alt="">
-                                <span>센터 소개</span>
+                                <span>대관 안내</span>
                             </p>
                         </div>
                         <div class="right" th:onclick="|@{location.href='/rental/rentalFacility(menuCode=MENU_010)}'|">
@@ -198,7 +198,7 @@
                                 <img src="/images/icons/buildings.png" alt="">
                                 시설 대관
                             </div>
-                            <div onclick="location.href=''">
+                            <div th:onclick="|@{location.href='/center/centerGuide(menuCode=MENU_009)}'|">
                                 <img src="/images/icons/board.png" alt="">
                                 센터 소개
                             </div>
@@ -210,9 +210,9 @@
                                 <img src="/images/icons/warning.png" alt="">
                                 고객센터
                             </div>
-                            <div onclick="location.href=''">
-                                <img src="/images/icons/hire.png" alt="">
-                                채용 공고
+                            <div th:onclick="|@{location.href='/center/centerLocation(menuCode=MENU_009)}'|">
+                                <img src="/images/icons/sitemap.png" alt="">
+                                오시는 길
                             </div>
                         </div>
                     </div>

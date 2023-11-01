@@ -31,6 +31,17 @@ function galRegValidate(){
         return;
     }
 
+    //메인이미지 여부 체크
+    if(galRegBoard.formFile_01.value == ''){
+        inputInvalidate('.main-error-div', '메인이미지를 지정해주세요.');
+        return;
+    }
+    //서브이미지 여부 체크
+    if(galRegBoard.formFile_02.value == ''){
+        inputInvalidate('.sub-error-div', '서브이미지를 지정해주세요.');
+        return;
+    }
+
     //submit 실행
     galRegBoard.submit();
 }
@@ -38,6 +49,8 @@ function galRegValidate(){
 function resetGalMessage(){
     document.querySelector('.title-error-div').style.display = 'none';
     document.querySelector('.text-error-div').style.display = 'none';
+    document.querySelector('.main-error-div').style.display = 'none';
+    document.querySelector('.sub-error-div').style.display = 'none';
 }
 ////////////////////////////////QA게시판 글 등록 썸머노트//////////////////////////////////////////
 //썸머노트 활성화

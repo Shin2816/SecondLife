@@ -12,16 +12,16 @@
         <div class="col-12">
             <h2>예약 현황</h2>
         </div>
-        <div class="col">
+        <div class="col-12">
             <table class="table table-hover text-center align-middle">
                 <colgroup>
                     <col width="5%">
-                    <col width="15%">
+                    <col width="13%">
                     <col width="12%">
+                    <col width="23%">
+                    <col width="13%">
+                    <col width="13%">
                     <col width="*">
-                    <col width="13%">
-                    <col width="13%">
-                    <col width="10%">
                 </colgroup>
                 <thead>
                     <tr>
@@ -97,6 +97,22 @@
                     </th:block>
                 </tbody>
             </table>
+        </div>
+        <div class="col-12">
+            <!-- 페이지 정보 -->
+            <nav aria-label="Page navigation example" class="row-12 text-center">
+                <ul class="pagination justify-content-center" id="my-rental-page">
+                    <li class="page-item" th:if="${rentalFacilityVO.prev}">
+                        <a class="page-link" th:href="@{/rental/myRentalHistory(nowPage=${rentalFacilityVO.beginPage - 1})}">이전</a>
+                    </li>
+                    <li class="page-item" th:each="pageNum : ${#numbers.sequence(rentalFacilityVO.beginPage, rentalFacilityVO.endPage)}">
+                            <a th:href="@{/rental/myRentalHistory(nowPage=${pageNum})}" class="page-link">[[${pageNum}]]</a>
+                    </li>
+                    <li class="page-item" th:if="${rentalFacilityVO.next}">
+                        <a class="page-link" th:href="@{/rental/myRentalHistory(nowPage=${rentalFacilityVO.endPage + 1})}">다음</a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
     

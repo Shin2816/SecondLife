@@ -22,12 +22,23 @@ function insertFacilityValidate(facilityCode){
         return;
     }
 
+    //대관(유)체크 시 대관금액 필수
+    if(insertFacilityForm.rentalAvailable.value == 'YES'){
+        if(insertFacilityForm.facilityRentalCharge.value.length == 0){
+            inputInvalidate('#charge-error-div', '대관 금액을 작성해주세요.');
+            return;
+        }
+    } else{
+        insertFacilityForm.facilityRentalCharge.value = 0;
+    }
+
     // 첨부파일 필수
     if(insertFacilityForm.facilityImg.value == ''){
         inputInvalidate('#file-error-div', '이미지 파일을 첨부해주세요.');
         return;
     }
 
+    
     // 2. 데이터 가져가기 - submit 실행
     // form태그 선택 -> submit()함수 실행
     insertFacilityForm.submit(facilityCode);

@@ -19,8 +19,11 @@ public interface CenterService {
     // 시설 이미지 삭제 + 등록(트랜젝션)
     public void insertFacilityImage(CenterFacilityVO centerFacilityVO);
 
-    // 전체 시설 목록 조회
-    public List<CenterFacilityVO> selectAllFacility();
+    // 시설관리 - 전체 시설 목록 조회
+    public List<CenterFacilityVO> selectAllFacility(CenterFacilityVO centerFacilityVO);
+
+    // 시설관리 - 전체 데이터 수 조회
+    public int selectFacilityListCnt();
 
     // 시설관리 - 대관가능유무 변경 (비동기통신)
     public void updateRentalAvailable(CenterFacilityVO centerFacilityVO);
@@ -33,4 +36,7 @@ public interface CenterService {
 
     // 첨부파일 이름 조회
     public String selectCenterImgFileName(String facilityCode);
+
+    // 센터소개(사용자) - 카테고리별 시설 조회
+    public List<CenterFacilityVO> selectFacilityInfo(int centerCateCode);
 }

@@ -1,9 +1,10 @@
 package com.green.SecondLife.center.vo;
 
+import com.green.SecondLife.community.vo.PageVO;
 import lombok.Data;
 
 @Data
-public class CenterFacilityVO {
+public class CenterFacilityVO extends PageVO {
     private String facilityCode;
     private String facilityName;
     private String facilityContent;

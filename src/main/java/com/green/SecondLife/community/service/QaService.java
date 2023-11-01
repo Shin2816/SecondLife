@@ -1,7 +1,6 @@
 package com.green.SecondLife.community.service;
 
 import com.green.SecondLife.community.vo.BoardCommentListVO;
-import com.green.SecondLife.community.vo.BoardFreeListVO;
 import com.green.SecondLife.community.vo.BoardQaListVO;
 
 import java.util.List;

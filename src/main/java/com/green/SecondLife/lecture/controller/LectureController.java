@@ -137,7 +137,7 @@ public class LectureController {
     //↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ //
     // 수업 목록 페이지
     @GetMapping("/lectureList")
-    public String lectureList(Model model, String lectureEventCode){
+    public String lectureList(Model model, String lectureEventCode, SubMenuVO subMenuVO){
         model.addAttribute("lectureEventList", lectureService.adminSelectLectureEventList());
         model.addAttribute("lectureList", lectureService.selectLectureList(lectureEventCode));
         return "/lecture/lecture_list";

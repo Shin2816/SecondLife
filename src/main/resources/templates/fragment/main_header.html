@@ -19,9 +19,10 @@
                 <span class="link-main" onclick="location.href='/'"></span>
             </div>
             <div class="login-menu">
-                <p th:unless="${session.loginInfo == null}"> 
-                    <span class="login-span" th:if="${session.loginInfo.memberRoll == 'ADMIN'}" th:onclick="|location.href='@{/admin/admin_main(menuCode=MENU_000)}'|">관리하기 </span>
-                    <span class="login-span" th:if="${session.loginInfo.memberRoll == 'ADMIN'}" onclick="location.href='/member/logout';">로그아웃</span>
+                <p sec:authorize="isAuthenticated()"> 
+                    <span class="login-span" sec:authorize="hasRole('ROLE_ADMIN')" th:onclick="|location.href='@{/admin/admin_main(menuCode=MENU_000)}'|">관리하기 </span>
+                    <span class="login-span" th:onclick="|location.href='@{/member/updateMemberForm(menuCode=MENU_012)}'|">내 정보 </span>
+                    <span class="login-span" onclick="location.href='/member/logout';">로그아웃</span>
                 </p>
             </div>
         </div>
@@ -44,6 +45,9 @@
     <!-- 결제 api -->
     <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
     <script src="/js/main_header.js"></script>
+    <script src="/js/member/member.js"></script>
+    <!-- 카카오톡 공유 api -->
+    <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 </th:block>
 </body>
 </html>
