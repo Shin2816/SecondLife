@@ -109,7 +109,7 @@
             <input type="hidden" name="qaCheckPwInput" th:value="${qaCheckPwInput}">
             <div class="input-group">
                 <input type="text" name="commentContent" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2">
-                <button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="qaRegComment(this);">작성</button>
+                <button class="btn btn-outline-secondary" type="button" id="button-addon2" th:onclick="qaRegComment(this, [[${#authentication.name}]]);">작성</button>
             </div>
         </form>
     </div>
@@ -134,7 +134,14 @@
                             </a>
                             <!-- 삭제,수정버튼 -->
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" th:onclick="qaDeleteComment([[${comment.commentId}]], [[${board.qaBoardNum}]])">삭제</a></li>
+                                <li>
+                                    <form action="/qa/qaDeleteComment" method="post" id="commentDeleteForm">
+                                        <input type="hidden" name="qaCheckPwInput" th:value="${qaCheckPwInput}">
+                                        <input type="hidden" name="commentId" th:value="${comment.commentId}">
+                                        <input type="hidden" name="commentNum" th:value="${board.qaBoardNum}">
+                                        <button type="button" class="dropdown-item" th:onclick="qaDeleteComment();">삭제</button>
+                                    </form>
+                                </li>
                                 <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" th:onclick="qaUpdateModal([[${comment.commentContent}]]);">수정</a></li>
                             </ul>
                             <!-- Modal -->
@@ -145,14 +152,19 @@
                                             <h1 class="modal-title fs-5" id="exampleModalLabel">수정할 내용을 입력해주세요.</h1>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
-                                        <div class="modal-body">
-                                            <!-- 내용 -->
-                                            <input type="text" class="form-control" aria-describedby="addon-wrapping" id="qaCommentInput">
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                                            <button type="button" class="btn btn-primary" th:onclick="qaUpdateComment([[${comment.commentId}]], [[${board.qaBoardNum}]]);">수정하기</button>
-                                        </div>
+                                        <form action="/qa/qaUpdateComment" method="post" id="commentUpdateForm">
+                                            <input type="hidden" name="qaCheckPwInput" th:value="${qaCheckPwInput}">
+                                            <input type="hidden" name="commentId" th:value="${comment.commentId}">
+                                            <input type="hidden" name="commentNum" th:value="${board.qaBoardNum}">
+                                            <div class="modal-body">
+                                                <!-- 내용 -->
+                                                <input type="text" class="form-control" aria-describedby="addon-wrapping" name="commentContent" id="qaCommentInput">
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                                                <button type="button" class="btn btn-primary" th:onclick="qaUpdateComment();">수정하기</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>

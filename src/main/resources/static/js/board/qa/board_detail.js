@@ -51,8 +51,8 @@ function resetBoardMessage(){
     document.querySelector('.title-error-div').style.display = 'none';
     document.querySelector('.text-error-div').style.display = 'none';
 }
-///////////////////////////////////////////////////댓글작성(비동기)
-function qaRegComment(selectedTag){
+///////////////////////////////////////////////////댓글작성
+function qaRegComment(selectedTag, name){
     const commentContent = selectedTag.closest('div').querySelector('input[type="text"]').value;
 
     //댓글 입력 여부 체크
@@ -60,6 +60,7 @@ function qaRegComment(selectedTag){
         if(confirm('로그인이 필요한 서비스입니다.\n로그인 페이지로 이동하시겠습니까?')){//알람 띄운 후 확인버튼 누르면
             location.href='/member/loginForm';//로그인 페이지로 이동
         }
+        return;
     }
     else{//로그인을 했다면
         if(commentContent == ''){
@@ -75,44 +76,16 @@ function qaRegComment(selectedTag){
             return;
         }
     }
-
+    alert('댓글 작성이 완료되었습니다.');
     document.querySelector('#commentForm').submit();
 
 }
 ////////////////////////////////////////////////////////댓글 삭제(비동기)
-function qaDeleteComment(commentId, qaBoardNum){
+function qaDeleteComment(){
     if(confirm('삭제하시면 되돌릴 수 없습니다.\n삭제 하시겠습니까?')){
-        fetch('/qa/qaDeleteComment', { //요청경로
-            method: 'POST',
-            cache: 'no-cache',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-            },
-            //컨트롤러로 전달할 데이터
-            body: new URLSearchParams({
-                // 데이터명 : 데이터값
-                'commentId' : commentId
-            })
-        })
-        .then((response) => {
-            if(!response.ok){
-                alert('fetch error!\n컨트롤러로 통신중에 오류가 발생했습니다.');
-                return ;
-            }
-        
-            return response.text(); //컨트롤러에서 return하는 데이터가 없거나 int, String 일 때 사용
-            //return response.json(); //나머지 경우에 사용
-        })
-        //fetch 통신 후 실행 영역
-        .then((data) => {//data -> controller에서 리턴되는 데이터!
-            alert('댓글 삭제가 완료 되었습니다.');
-            location.href=`/qa/boardDetail?commentNum=${qaBoardNum}`;
-        })
-        //fetch 통신 실패 시 실행 영역
-        .catch(err=>{
-            alert('fetch error!\nthen 구문에서 오류가 발생했습니다.\n콘솔창을 확인하세요!');
-            console.log(err);
-        });
+
+        alert('댓글 삭제가 완료되었습니다.');
+        document.querySelector('#commentDeleteForm').submit();//컨트롤러로 이동
     }
 }
 ///////////////////////////////////////////////////////////////////댓글 수정
@@ -137,38 +110,8 @@ function qaUpdateComment(commentId, qaBoardNum){//수정버튼을 누르면 도�
         return;
     }
 
-    fetch('/qa/qaUpdateComment', { //요청경로
-        method: 'POST',
-        cache: 'no-cache',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-        },
-        //컨트롤러로 전달할 데이터
-        body: new URLSearchParams({
-            // 데이터명 : 데이터값
-            'commentId' : commentId,
-            'commentContent' : qaCommentInput
-        })
-    })
-    .then((response) => {
-        if(!response.ok){
-            alert('fetch error!\n컨트롤러로 통신중에 오류가 발생했습니다.');
-            return ;
-        }
-    
-        return response.text(); //컨트롤러에서 return하는 데이터가 없거나 int, String 일 때 사용
-        //return response.json(); //나머지 경우에 사용
-    })
-    //fetch 통신 후 실행 영역
-    .then((data) => {//data -> controller에서 리턴되는 데이터!
-        alert('댓글 수정이 완료 되었습니다.');
-        location.href=`/qa/boardDetail?commentNum=${qaBoardNum}`;
-    })
-    //fetch 통신 실패 시 실행 영역
-    .catch(err=>{
-        alert('fetch error!\nthen 구문에서 오류가 발생했습니다.\n콘솔창을 확인하세요!');
-        console.log(err);
-    });
+    alert('댓글 수정이 완료되었습니다.');
+    document.querySelector('#commentUpdateForm').submit();
 }
 ////////////////////////////////QA게시판 글 등록 썸머노트//////////////////////////////////////////
 //썸머노트 활성화

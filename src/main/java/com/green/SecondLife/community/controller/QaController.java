@@ -35,7 +35,7 @@ public class QaController {
     public String qaBoardList(Model model, BoardQaListVO boardQaListVO, SubMenuVO subMenuVO, Authentication authentication){
         //페이지 정보 세팅
         int totalDataCnt = qaService.selectBoardCnt(); //전체 게시글 갯수 조회해서
-        boardQaListVO.setTotalPageCnt(totalDataCnt);//세터 호출해서 전체 게시글 갯수 전달
+        boardQaListVO.setTotalDataCnt(totalDataCnt);//세터 호출해서 전체 게시글 갯수 전달
         boardQaListVO.setPageInfo();//변수값 설정한 메소드 호출(상속관계라 사용가능)
 
         model.addAttribute("authentication", authentication);
@@ -120,11 +120,10 @@ public class QaController {
             return "board/qa/qa_result";//alert창 띄우기
         }
     }
-    //상세 페이지에서 댓글 작성버튼 클릭하면 비동기로 insert 쿼리 실행
+    //상세 페이지에서 댓글 작성버튼 클릭하면 insert 쿼리 실행
     @PostMapping("/qaBoardComment")
     public String qaBoardComment(BoardCommentListVO boardCommentListVO, RedirectAttributes redirectAttributes){
         qaService.insertQaBoardComment(boardCommentListVO); //댓글 작성 쿼리
-
         redirectAttributes.addFlashAttribute("boardCommentListVO", boardCommentListVO);
 
         return "redirect:/qa/boardDetail"; //디테일 컨트롤러로 다시 이동할 때 값 가져가기
@@ -140,21 +139,23 @@ public class QaController {
     public String updateQaBoard(BoardQaListVO boardQaListVO, BoardCommentListVO boardCommentListVO, RedirectAttributes redirectAttributes){
         qaService.updateQaBoard(boardQaListVO);//수정 쿼리
         boardCommentListVO.setCommentNum(boardQaListVO.getQaBoardNum());//세터로 commentNum을 qaBoardNum으로 수정
-
         redirectAttributes.addFlashAttribute("boardCommentListVO", boardCommentListVO);//commentNum, qaCheckPwInput값을 가지고 다시 디테일로
-        //수정이 완료되면 해당 게시글 상세페이지로 BoardNum=숫자 데이터를 던질 수 있다.
+
         return "redirect:/qa/boardDetail";
     }
     //상세 페이지에서 댓글 삭제버튼 클릭하면 delete 쿼리 실행
-    @ResponseBody
     @PostMapping("/qaDeleteComment")
-    public void qaBoardComment(int commentId){
-        qaService.deleteQaBoardComment(commentId);
+    public String qaDeleteComment(BoardCommentListVO boardCommentListVO, RedirectAttributes redirectAttributes){
+        qaService.deleteQaBoardComment(boardCommentListVO.getCommentId());//삭제 쿼리
+        redirectAttributes.addFlashAttribute("boardCommentListVO", boardCommentListVO);//commentNum, qaCheckPwInput값을 가지고 다시 디테일로
+
+        return "redirect:/qa/boardDetail";
     }
     //상세 페이지에서 댓글 수정 버튼 클릭하면 update 쿼리 실행
-    @ResponseBody
     @PostMapping("/qaUpdateComment")
-    public void qaUpdateComment(BoardCommentListVO boardCommentListVO){
-        qaService.updateQaBoardComment(boardCommentListVO);
+    public String qaUpdateComment(BoardCommentListVO boardCommentListVO, RedirectAttributes redirectAttributes){
+        qaService.updateQaBoardComment(boardCommentListVO);//수정 쿼리
+        redirectAttributes.addFlashAttribute("boardCommentListVO", boardCommentListVO);
+        return "redirect:/qa/boardDetail";
     }
 }
