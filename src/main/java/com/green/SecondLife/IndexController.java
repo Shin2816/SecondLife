@@ -30,7 +30,7 @@ public class IndexController {
 
         //main.html에서 qaBoardPassword가 null인지 체크를 하기위해서 commentNum이 필요한데, 0출력
         BoardQaListVO board = qaService.selectQaBoardDetail(boardCommentListVO.getCommentNum());
-        board.setQaBoardPassword(qaPw);//세터로 데이터베이스의 비밀번호를 저장
+        //board.setQaBoardPassword(qaPw);//세터로 데이터베이스의 비밀번호를 저장
         System.out.println(board + "###############################################");
 
         model.addAttribute("qaBoardList", qaBoardList);
