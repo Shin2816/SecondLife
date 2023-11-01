@@ -10,28 +10,58 @@
 <th:block layout:fragment="content">
     <link rel="stylesheet" href="/css/admin_lecture_list.css">
 <h2>수업관리 페이지</h2>
-<table>
-    <thead>
-        <tr>
-            <td>강사</td>
-            <td>강좌명</td>
-            <td>수강과목</td>
-            <td>정원</td>
-            <td>기간</td>
-            <td>수강료</td>
-        </tr>
-    </thead>
-    <tbody>
-        <tr th:each="lecture : ${lectureList}" th:onclick="|location.href='@{/lecture/adminSelectLectureDetail(lectureCode=${lecture.lectureCode}, menuCode='MENU_002')}'|" id="lectureList">
-            <td>[[${lecture.instructorCode}]]</td>
-            <td>[[${lecture.lectureTitle}]]</td>
-            <td>[[${lecture.lectureEventCode}]]</td>
-            <td>[[${lecture.lectureStudent}]]</td>
-            <td>[[${lecture.lecturePeriod}]]</td>
-            <td>[[${lecture.lecturePrice}]]</td>
-        </tr>
-    </tbody>
-</table>
+<div>
+    <table class="table table-hover text-center align-center">
+        <colgroup>
+            <col width="30%">
+            <col width="10%">
+            <col width="10%">
+            <col width="30%">
+            <col width="10%">
+            <col width="*">
+        </colgroup>
+        <thead>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody class="body-list">
+            <tr th:each="lecture : ${lectureList}"
+                th:onclick="|location.href='@{/lecture/adminSelectLectureDetail(lectureCode=${lecture.lectureCode}, menuCode=MENU_002)}'|">
+                <td class="title">
+                    <p class="top">수업명</p>
+                    <p class="bottom">[[${lecture.lectureTitle}]]</p>
+                </td>
+                <td class="event">
+                    <p class="top">과목</p>
+                    <p class="bottom">[[${lecture.lectureEventVO.lectureEventName}]]</p>
+                </td>
+                <td class="instructor">
+                    <p class="top">강사</p>
+                    <p class="bottom">[[${lecture.instructorVO.instructorName}]]</p>
+                </td>
+                <td class="period">
+                    <p class="top">기간</p><br>
+                    <span class="start-date">시작일</span><span class="finish-date">종강일</span>
+                    <p class="bottom">[[${lecture.lecturePeriod}]]</p>
+                </td>
+                <td class="student">
+                    <p class="top">정원</p>
+                    <p class="bottom">[[${lecture.lectureStudent}]]</p>
+                </td>
+                <td class="price">
+                    <p class="top">수강료</p>
+                    <p class="bottom">[[${lecture.lecturePrice}]]</p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 </th:block>
 </body>
 </html>

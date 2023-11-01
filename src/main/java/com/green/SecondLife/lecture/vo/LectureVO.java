@@ -10,6 +10,7 @@ public class LectureVO {
     private String lectureEventCode;
     private int lectureStudent;
     private String lecturePeriod;
+    private String[] lecturePeriods;
     private int lecturePrice;
     private String instructorCode;
     private InstructorVO instructorVO;

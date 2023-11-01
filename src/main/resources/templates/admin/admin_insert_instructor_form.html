@@ -32,11 +32,11 @@
                             <div class="col-12">성별</div>
                             <div class="col-8">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="남자">
+                                    <input class="form-check-input" type="radio" name="instructorGender" value="남자">
                                     <label class="form-check-label" for="inlineRadio1">남자</label>
                                   </div>
                                   <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="여자">
+                                    <input class="form-check-input" type="radio" name="instructorGender" value="여자">
                                     <label class="form-check-label" for="inlineRadio2">여자</label>
                                   </div>
                             </div>
@@ -66,12 +66,12 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-12">주소</div>
-                            <div class="col-6"><input class="form-control" type="text" name="instructorAddr" id="instructorAddr" onclick="openPost();" readonly></div>
+                            <div class="col-6"><input class="form-control" type="text" name="instructorAddrs" id="instructorAddr" onclick="openPost();" readonly></div>
                             <div class="col-2"><input class="btn btn-secondary" type="button" value="주소검색" onclick="openPost();"></div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-12">나머지 주소</div>
-                            <div class="col-8"><input class="form-control" type="text" name="instructorAddr"></div>
+                            <div class="col-8"><input class="form-control" type="text" name="instructorAddrs"></div>
                         </div>
                     </div>
                 </div>
@@ -79,13 +79,14 @@
                     <div class="wrap img">
                         <p>사진첨부</p>
                         <div onclick="file();" class="img-file">
-                            <p><img class="file-img" src="/images/icons/plus.jpg"></p>
-                            <input type="file" id="file" name="instructorImg">
+                            <p><img class="file-img" src="/images/icons/plus.jpg" id="instructorImg"></p>
+                            <input type="file" id="file" name="instructorImg" onchange="uploadImg(this);">
+                            <div id="img-container"></div>
                         </div>
                     </div>
                     <div class="wrap button">
                         <input type="hidden" value="MENU_001" name="menuCode">
-                        <p><input type="submit" class="btn btn-danger submit-btn" value="등록"></p>
+                        <p onclick="submitButton();">등록</p>
                     </div>  
                 </div>
             </div>

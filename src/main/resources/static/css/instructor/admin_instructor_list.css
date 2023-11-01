@@ -1,7 +1,41 @@
 @charset "utf-8";
 /* admin_instructor_list.css */
-
+h3{
+    display: inline-block;
+    padding: 8px;
+    background-color: palevioletred;
+    color: #fff;
+    margin-left: 370px;
+    margin-bottom: 50px;
+}
 #instructor-img{
-    width: 50px;
-    height: 50px;
+    width: 100px;
+    height: 100px;
+}
+.body-list .top{
+    display: inline-block;
+    padding: 1px;
+    margin-bottom: 10px;
+    margin-top: 19px;
+    font-size: 13px;
+    font-weight: 600;
+    color: palevioletred;
+    border: 2px solid palevioletred;
+}
+.event .top, .phone .top, .addr .top, .date .top{
+    color: skyblue;
+    padding: 1px;
+    border: 2px solid skyblue;
+    background-color: #fff;
+}
+.name .bottom, .age .bottom, .gender .bottom, .phone .bottom, .event .bottom, .addr .bottom, .date .bottom{
+    margin-top: 8px;
+}
+.body-list .bottom{
+    font-size: 18px;
+    font-weight: 700;
+    color: #666;
+}
+.phoneCap{
+
 }

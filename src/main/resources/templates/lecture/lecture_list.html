@@ -33,13 +33,14 @@
                         <p class="top"><span>강사</span></p>
                         <p class="bottom"><span class="instructor-name">[[${lecture.instructorVO.instructorName}]]</span></p>
                     </div>
-                    <div class="period">
-                        <p class="top"><span>기간</span></p>
-                        <p class="bottom"><span class="lecture-period">[[${lecture.lecturePeriod}]]</span></p>
-                    </div>
                     <div class="price">
                         <p class="top"><span>가격</span></p>
                         <p class="bottom"><span class="lecture-price">[[${lecture.lecturePrice}]]</span>원</p>
+                    </div>
+                    <div class="period">
+                        <p class="top"><span>기간</span></p><br>
+                        <span class="start-date">시작일</span><span class="finish-date">종강일</span>
+                        <p class="bottom"><span class="lecture-period">[[${lecture.lecturePeriod}]]</span></p>
                     </div>
                 </div>
             </th:block>
