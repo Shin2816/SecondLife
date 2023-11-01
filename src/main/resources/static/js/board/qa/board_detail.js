@@ -96,6 +96,7 @@ function qaUpdateModal(qaUpdateCommentContent){//실제 데이터value
 ///////////////////////////////////////////////////////////////////댓글 수정(비동기)
 function qaUpdateComment(commentId, qaBoardNum){//수정버튼을 누르면 도착, div id : qaCommentInput 안에 데이터 넣기
     const qaCommentInput = document.querySelector('#qaCommentInput').value;
+    const menuCode = document.querySelector('#menuCode').value;
 
     if(qaCommentInput == ''){
         alert('내용을 입력해주십시요.');
@@ -135,7 +136,7 @@ function qaUpdateComment(commentId, qaBoardNum){//수정버튼을 누르면 도�
     //fetch 통신 후 실행 영역
     .then((data) => {//data -> controller에서 리턴되는 데이터!
         alert('댓글 수정이 완료 되었습니다.');
-        location.href=`/qa/boardDetail?commentNum=${qaBoardNum}`;
+        location.href=`/qa/boardDetail?commentNum=${qaBoardNum}&menuCode=${menuCode}`;
     })
     //fetch 통신 실패 시 실행 영역
     .catch(err=>{

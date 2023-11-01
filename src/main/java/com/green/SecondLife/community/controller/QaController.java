@@ -6,6 +6,7 @@ import com.green.SecondLife.community.vo.BoardQaListVO;
 import com.green.SecondLife.community.vo.QaImgVO;
 import com.green.SecondLife.member.vo.MemberVO;
 import com.green.SecondLife.member.vo.SubMenuVO;
+import com.green.SecondLife.util.ConstantVariable;
 import com.green.SecondLife.util.UploadUtil;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -75,7 +76,7 @@ public class QaController {
             qaService.insertQaBoardClose(boardQaListVO);
         }
 
-        return "redirect:/qa/qaBoardList";
+        return "redirect:/qa/qaBoardList?menuCode="+ ConstantVariable.MENU_CODE_BOARD;
     }
     //글 tr태그를 클릭했을때 해당글의 상세페이지 이동
     @RequestMapping("/boardDetail")
@@ -127,13 +128,13 @@ public class QaController {
 
         redirectAttributes.addFlashAttribute("boardCommentListVO", boardCommentListVO);
 
-        return "redirect:/qa/boardDetail"; //디테일 컨트롤러로 다시 이동할 때 값 가져가기
+        return "redirect:/qa/boardDetail?menuCode="+ConstantVariable.MENU_CODE_BOARD; //디테일 컨트롤러로 다시 이동할 때 값 가져가기
     }
     //글 상세페이지에서 삭제버튼 클릭하였을 때
     @GetMapping("/deleteQaBoard")
     public String deleteQaBoard(int qaBoardNum){
         qaService.deleteQaBoard(qaBoardNum);
-        return "redirect:/qa/qaBoardList";
+        return "redirect:/qa/qaBoardList?menuCode="+ConstantVariable.MENU_CODE_BOARD;
     }
     //수정 모달에서 수정 버튼을 눌렀을 때 수정 쿼리 실행--------------------------------------------------
     @RequestMapping("/updateQaBoard")
@@ -143,7 +144,7 @@ public class QaController {
 
         redirectAttributes.addFlashAttribute("boardCommentListVO", boardCommentListVO);//commentNum, qaCheckPwInput값을 가지고 다시 디테일로
 
-        return "redirect:/qa/boardDetail";
+        return "redirect:/qa/boardDetail?menuCode="+ConstantVariable.MENU_CODE_BOARD;
     }
     //상세 페이지에서 댓글 삭제버튼 클릭하면 delete 쿼리 실행
     @PostMapping("/qaDeleteComment")
@@ -154,7 +155,7 @@ public class QaController {
 
         redirectAttributes.addFlashAttribute("boardCommentListVO", boardCommentListVO);//commentNum, qaCheckPwInput값을 가지고 다시 디테일로
 
-        return "redirect:/qa/boardDetail";
+        return "redirect:/qa/boardDetail?menuCode="+ConstantVariable.MENU_CODE_BOARD;
     }
     //상세 페이지에서 댓글 수정 버튼 클릭하면 update 쿼리 실행
     @ResponseBody
