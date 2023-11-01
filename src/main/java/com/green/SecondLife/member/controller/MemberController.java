@@ -120,4 +120,9 @@ public class MemberController {
         return "/main";
     }
 
+    @GetMapping("/manageMember")
+    public String manageMember(SubMenuVO subMenuVO){
+        return "/member/manageMember";
+    }
+
 }

@@ -48,6 +48,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
                                             ,"/center/insertFacilityForm"
                                             ,"/center/selectAllFacility"
                                             ,"/rental/rentalManageList"
+                                            ,"/member/manageMember"
                                                                                     )
                 .excludePathPatterns("/**/**Fetch")
                 .excludePathPatterns("/images/**", "/js/**", "/css/**");
