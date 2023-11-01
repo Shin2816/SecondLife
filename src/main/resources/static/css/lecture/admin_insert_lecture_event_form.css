@@ -1,0 +1,61 @@
+@charset "utf-8";
+/* admin_insert_lecture_event_form.css */
+
+h3{
+    display: inline-block;
+    padding: 5px;
+    background-color: palevioletred;
+    color: #fff;
+    margin-left: 350px;
+    margin-bottom: 30px;
+}
+#wrap_box{
+    margin-left: 100px;
+}
+.event-name, .event-content{
+    margin-bottom: 30px;
+}
+.event-img{
+    margin-bottom: 200px;
+}
+#file-input-tag{
+    display: none;
+}
+.cap{
+    font-size: 20px;
+    font-weight: 600;
+    color: #999;
+    margin-bottom: 10px;
+    margin-left: 10px;
+}
+.img-box{
+    width: 350px;
+    height: 220px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-left: 13px;
+    cursor: pointer;
+}
+#submit-btn{
+    width: 180px;
+    height: 90px;
+    background-color: palevioletred;
+    color: #fff;
+    font-size: 30px;
+    font-weight: 600;
+    border-radius: 10px;
+    text-align: center;
+    padding-top: 18px;
+    cursor: pointer;
+    margin-left: 265px;
+    margin-top: 130px;
+}
+#submit-btn:hover{
+    opacity: 0.5;
+}
+#uploadImg{
+    width: 100px;
+    height: 100px;
+    margin-left: 115px;
+    margin-top: 60px;
+}

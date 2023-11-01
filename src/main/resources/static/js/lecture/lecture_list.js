@@ -43,13 +43,14 @@ function lectureList(lectureEventCode){
         str += `                <p class="top"><span>강사</span></p>`;
         str += `                <p class="bottom"><span class="instructor-name">${lecture.instructorVO.instructorName}</span></p>`;
         str += `            </div>`;
-        str += `            <div class="period">`;
-        str += `                <p class="top"><span>기간</span></p>`;
-        str += `                <p class="bottom"><span class="lecture-period">${lecture.lecturePeriod}</span></p>`;
-        str += `            </div>`;
         str += `            <div class="price">`;
         str += `                <p class="top"><span>가격</span></p>`;
         str += `                <p class="bottom"><span class="lecture-price">${lecture.lecturePrice}</span>원</p>`;
+        str += `            </div>`;
+        str += `            <div class="period">`;
+        str += `                <p class="top"><span>기간</span></p><br>`;
+        str += `                <span class="start-date">시작일</span><span class="finish-date">종강일</span>`;
+        str += `                <p class="bottom"><span class="lecture-period">${lecture.lecturePeriod}</span></p>`;
         str += `            </div>`;
         str += `        </div>`;
 

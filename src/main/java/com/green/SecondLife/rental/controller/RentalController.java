@@ -76,7 +76,7 @@ public class RentalController {
             rentalList.add(rentVO);
         }
         rentalFacilityVO.setFacilityList(rentalList);
-
+        System.out.println(rentalList);
         rentalService.insertRentalFacility(rentalFacilityVO);
 
         return "redirect:/rental/rentalFacility?menuCode="+ ConstantVariable.MENU_CODE_RENTAL_FACILITY;
@@ -88,10 +88,17 @@ public class RentalController {
         //세션 사용자이름 불러오기
         model.addAttribute("memberInfo", memberService.selectMember(authentication.getName()));
         rentalFacilityVO.setRentalUser(authentication.getName());
+
+        // 페이지 정보 세팅
+        int totalDataCnt = rentalService.selectMyRentalListCnt(authentication.getName());
+        rentalFacilityVO.setTotalDataCnt(totalDataCnt);
+        rentalFacilityVO.setPageInfo();
+
         List<RentalFacilityVO> myRentalList =  rentalService.selectMyRentalList(rentalFacilityVO);
         System.out.println(myRentalList);
         System.out.println();
         System.out.println(rentalFacilityVO);
+
         model.addAttribute("myRentalList", myRentalList);
         return "/rental/my_rental_history";
     }
@@ -105,9 +112,14 @@ public class RentalController {
 
     //관리자(대관관리) - 목록조회
     @GetMapping("/rentalManageList")
-    public String selectRentalList(Model model, SubMenuVO subMenuVO){
+    public String selectRentalList(RentalFacilityVO rentalFacilityVO, Model model, SubMenuVO subMenuVO){
         subMenuVO.setMenuCode("MENU_003");
-        model.addAttribute("rentalList", rentalService.selectRentalList());
+        // 페이지 정보 세팅
+        int totalDataCnt = rentalService.selectRentalListCnt();
+        rentalFacilityVO.setTotalDataCnt(totalDataCnt);
+        rentalFacilityVO.setPageInfo();
+
+        model.addAttribute("rentalList", rentalService.selectRentalList(rentalFacilityVO));
         return "/admin/manage_rental";
     }
 
@@ -115,10 +127,9 @@ public class RentalController {
     //반려하기
     @PostMapping("/updateStateReject")
     public String updateRentalStatus0(String rejectReason, RentalFacilityVO rentalFacilityVO){
-        System.out.println(rejectReason);
+        //대관목적 세팅
         rentalFacilityVO.setRejectReason(rejectReason);
         rentalService.updateRentalStatus0(rentalFacilityVO);
-        System.out.println(rentalFacilityVO);
 
         return "redirect:/rental/rentalManageList";
     }

@@ -56,7 +56,6 @@ public class CenterController {
     public String selectAllFacility(CenterFacilityVO centerFacilityVO, Model model, SubMenuVO subMenuVO){
         subMenuVO.setMenuCode("MENU_003");
         // 페이지 정보 세팅
-        // 전체 데이터 수 조회 후 세팅
         int totalDataCnt = centerService.selectFacilityListCnt();
         centerFacilityVO.setTotalDataCnt(totalDataCnt);
         centerFacilityVO.setPageInfo();
@@ -65,7 +64,7 @@ public class CenterController {
         model.addAttribute("centerCategoryList", centerService.selectCenterCategory());
 
         // 시설 목록 조회
-        model.addAttribute("facilityList", centerService.selectAllFacility());
+        model.addAttribute("facilityList", centerService.selectAllFacility(centerFacilityVO));
         return "admin/manage_facility";
     }
 

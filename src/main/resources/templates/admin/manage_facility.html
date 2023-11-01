@@ -160,15 +160,20 @@
             </table>
         </div>
         <div class="col-12">
-            <!-- 페이지 정보 -->
-            <div>
-                <a th:href="@{/list(nowPage=${centerFacilityVO.beginPage - 1})}"><span th:if="${centerFacilityVO.prev == true}">이전</span></a>
-                <th:block th:each="pageNum : ${#numbers.sequence(centerFacilityVO.beginPage, centerFacilityVO.endPage)}">
-                    <a th:href="@{/list(nowPage=${pageNum})}"><span th:text="${pageNum}"></span></a>
-                    <!-- 컨트롤러에 넘길 데이터 nowPage는 boardVO안에 setNowPage가 있어야함. -->
-                </th:block>
-                <a th:href="@{/list(nowPage=${centerFacilityVO.endPage + 1})}"><span th:if="${centerFacilityVO.next == true}">다음</span></a>
-            </div>
+             <!-- 페이지 정보 -->
+             <nav aria-label="Page navigation example" class="row-12 text-center">
+                <ul class="pagination justify-content-center" id="facility-page">
+                    <li class="page-item" th:if="${centerFacilityVO.prev}">
+                        <a class="page-link" th:href="@{/center/selectAllFacility(nowPage=${centerFacilityVO.beginPage - 1})}">이전</a>
+                    </li>
+                    <li class="page-item" th:each="pageNum : ${#numbers.sequence(centerFacilityVO.beginPage, centerFacilityVO.endPage)}">
+                            <a th:href="@{/center/selectAllFacility(nowPage=${pageNum})}" class="page-link">[[${pageNum}]]</a>
+                    </li>
+                    <li class="page-item" th:if="${centerFacilityVO.next}">
+                        <a class="page-link" th:href="@{/center/selectAllFacility(nowPage=${centerFacilityVO.endPage + 1})}">다음</a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
     

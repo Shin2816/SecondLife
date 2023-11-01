@@ -9,14 +9,48 @@
 <body>
 <th:block layout:fragment="content">
     <link rel="stylesheet" href="/css/admin_lecture_event_list.css">
-<h2>관리자용 강좌 종목 현황</h2>
+<h3>강좌 종목 현황</h3>
 <div>
-    <div th:each="lectureEvent : ${lectureEventList}" class="box" th:onclick="|location.href='@{/lecture/adminLectureEventDetail(lectureEventCode=${lectureEvent.lectureEventCode}, menuCode='MENU_002')}'|">
-        <p class="event-img"><img th:src="${'/images/lectureEvent/' + lectureEvent.lectureEventImgVO.lectureEventAttachedFileName}"></p>
-        <p>[[${lectureEvent.lectureEventName}]]</p>
-        <p>[[${lectureEvent.lectureEventContent}]]</p>
-    </div>
+    <table class="table table-hover text-center align-center">
+        <colgroup>
+            <col width="15%">
+            <col width="25%">
+            <col width="*">
+        </colgroup>
+        <thead>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody class="body-list">
+            <tr th:each="lectureEvent : ${lectureEventList}" th:onclick="|location.href='@{/lecture/adminLectureEventDetail(lectureEventCode=${lectureEvent.lectureEventCode}, menuCode='MENU_002')}'|">
+                <td class="img">
+                    <img th:src="${'/images/lectureEvent/' + lectureEvent.lectureEventImgVO.lectureEventAttachedFileName}">
+                </td>
+                <td class="name">
+                    <div>
+                    <p class="top">강좌명</p>
+                    <p class="bottom">[[${lectureEvent.lectureEventName}]]</p>
+                    </div>
+                </td>
+                <td class="content">
+                    <p class="top">내용</p>
+                    <p class="bottom">[[${lectureEvent.lectureEventContent}]]</p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>
+
+
+
+
+
+
+
+
 </th:block>
 </body>
 </html>

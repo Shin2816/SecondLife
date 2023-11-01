@@ -4,3 +4,62 @@
     cursor: pointer;
     border: 1px solid #000;
 }
+.body-list .top{
+    margin-top: 15px;
+}
+.title .top, .event .top, .instructor .top{
+    display: inline-block;
+    padding: 3px;
+    border: 1px solid palevioletred;
+    color: rgb(231, 80, 130);
+    font-size: 13px;
+    font-weight: 600;
+}
+.period .top, .student .top, .price .top{
+    display: inline-block;
+    padding: 3px;
+    border: 1px solid skyblue;
+    color: rgb(51, 181, 233);
+    font-size: 13px;
+    font-weight: 600;
+}
+.title .bottom, .event .bottom, .instructor .bottom{
+    margin-top: 5px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #555;
+}
+.student .bottom, .price .bottom{
+    
+}
+.period .top{
+    margin-bottom: 3px;
+}
+.period .bottom{
+    font-size: 16px;
+    font-weight: 600;
+    color: #555;
+}
+.student .bottom, .price .bottom{
+    font-size: 18px;
+    font-weight: 600;
+    color: #555;
+    margin-top: 8px;
+}
+.start-date, .finish-date{
+    font-size: 11px;
+    opacity: 0.5;
+}
+.start-date{
+    margin-right: 60px;
+    color: blue;
+    margin-left: -40px;
+    border-bottom: 1px solid blue;
+}
+.finish-date{
+    color: red;
+    border-bottom: 1px solid red;
+}
+.period .top{
+    
+}
