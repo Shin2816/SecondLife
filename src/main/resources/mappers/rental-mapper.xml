@@ -108,7 +108,6 @@
         </foreach>
     </insert>
 
-
     <!--마이페이지 - 예약 현황 조회-->
     <select id="selectMyRentalList" resultMap="rentalFacility">
         SELECT MAX(FACILITY_CODE) FACILITY_CODE
@@ -127,6 +126,14 @@
         AND RENTAL_USER = #{rentalUser}
         GROUP BY RENTAL_SIGN_CODE
         ORDER BY RENTAL_SIGN_CODE DESC
+        OFFSET (#{nowPage} - 1) * #{displayDataCnt} ROWS FETCH FIRST #{displayDataCnt} ROWS ONLY
+    </select>
+
+    <!-- 시설관리 - 전체 데이터 수 조회 -->
+    <select id="selectMyRentalListCnt" resultType="int">
+        SELECT COUNT(DISTINCT RENTAL_SIGN_CODE)
+        FROM RENTAL_FACILITY
+        WHERE RENTAL_USER = #{rentalUser}
     </select>
 
     <!--대관신청 취소-->

@@ -16,8 +16,11 @@ public interface RentalService {
     // (사용자)대관 신청하기
     public void insertRentalFacility(RentalFacilityVO rentalFacilityVO);
 
-    // (사용자)마이페이지-시설예약현황
+    // (사용자)마이페이지-시설예약현황 조회
     public List<RentalFacilityVO> selectMyRentalList(RentalFacilityVO rentalFacilityVO);
+
+    // (사용자)마이페이지-시설예약현황 데이터 수 조회
+    public int selectMyRentalListCnt(String rentalUser);
 
     // (사용자)대관신청 취소하기
     public void deleteSignRental(String rentalSignCode);

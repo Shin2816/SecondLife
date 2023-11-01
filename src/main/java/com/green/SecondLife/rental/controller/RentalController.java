@@ -88,10 +88,17 @@ public class RentalController {
         //세션 사용자이름 불러오기
         model.addAttribute("memberInfo", memberService.selectMember(authentication.getName()));
         rentalFacilityVO.setRentalUser(authentication.getName());
+
+        // 페이지 정보 세팅
+        int totalDataCnt = rentalService.selectMyRentalListCnt(authentication.getName());
+        rentalFacilityVO.setTotalDataCnt(totalDataCnt);
+        rentalFacilityVO.setPageInfo();
+
         List<RentalFacilityVO> myRentalList =  rentalService.selectMyRentalList(rentalFacilityVO);
         System.out.println(myRentalList);
         System.out.println();
         System.out.println(rentalFacilityVO);
+
         model.addAttribute("myRentalList", myRentalList);
         return "/rental/my_rental_history";
     }
@@ -120,10 +127,9 @@ public class RentalController {
     //반려하기
     @PostMapping("/updateStateReject")
     public String updateRentalStatus0(String rejectReason, RentalFacilityVO rentalFacilityVO){
-        System.out.println(rejectReason);
+        //대관목적 세팅
         rentalFacilityVO.setRejectReason(rejectReason);
         rentalService.updateRentalStatus0(rentalFacilityVO);
-        System.out.println(rentalFacilityVO);
 
         return "redirect:/rental/rentalManageList";
     }
