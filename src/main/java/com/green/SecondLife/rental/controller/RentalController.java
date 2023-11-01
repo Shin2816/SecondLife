@@ -37,7 +37,7 @@ public class RentalController {
 
     //시설대관 화면
     @GetMapping("/rentalFacility")
-    public String rentalFacility(Model model, SubMenuVO subMenuVO, Authentication authentication){
+    public String rentalFacility(Model model, SubMenuVO subMenuVO){
         model.addAttribute("facilityList", rentalService.selectFacility());
         return "/rental/rental_facility";
     }

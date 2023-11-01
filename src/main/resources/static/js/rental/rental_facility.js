@@ -110,6 +110,7 @@ function calendarCheck(date){
     .then((data) => {//data -> controller에서 리턴되는 데이터(rentalTimeList)
         let inputTr = document.querySelector('#input-tr');
         let memberId = document.querySelector('#memberId').value;
+        console.log(memberId);
 
         let str ='';
         data.forEach(rentalTime => {
@@ -167,7 +168,6 @@ function signBtn(memberId){
     const totalRentalChargeTag = document.querySelector('#total-rental-charge-tag');
     const userNameTag = document.querySelector('#user-name-tag');
     const insertTimeCodeTag = rentalChargeTag.closest('.row');
-    const menuCode = document.querySelector('#menuCode').value;
     
     let checkBoxes = document.querySelectorAll('input[type=checkbox]');
    
@@ -215,10 +215,6 @@ function signBtn(memberId){
     
             const myModal = new bootstrap.Modal('#signUpModal');
             myModal.show();
-    
-            // setTimeout(() => {
-            //     myModal.hide(); //모달창 닫기
-            // }, 2000);
         }
     };
 }
