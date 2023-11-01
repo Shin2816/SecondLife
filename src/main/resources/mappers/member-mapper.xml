@@ -83,4 +83,15 @@
 
     </select>
 
+    <select id="memberSelectAll" resultMap="member">
+        SELECT MEMBER_ID
+            , MEMBER_NAME
+            , MEMBER_TEL
+            , MEMBER_ADDR
+            , ADDR_DETAIL
+            , MEMBER_EMAIL
+            , MEMBER_GENDER
+        FROM MEMBER
+    </select>
+
 </mapper>

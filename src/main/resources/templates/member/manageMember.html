@@ -8,7 +8,38 @@
 </head>
 <body>
     <th:block layout:fragment="content">
-        111
+        <link rel="stylesheet" href="/css/member/member.css">
+        <div class="row member-all">
+            <div class="col admin-manage">
+                <div class="admin-manage-member-title">
+                    <p class="manage-member-id">ID</p>
+                    <p class="manage-member-name">이름</p>
+                    <p class="manage-member-tel">전화번호</p>
+                    <p class="manage-member-addr">주소</p>
+                    <p class="manage-member-email">이메일</p>
+                    <p class="manage-member-gender">성별</p>
+                </div>
+                <div th:class="${'admin-manage-member-info' + state.count}" th:each="member, state : ${memberAll}">
+                    <p class="manage-member-id">[[${member.memberId}]]</p>
+                    <p class="manage-member-name">[[${member.memberName}]]</p>
+                    <p class="manage-member-tel">[[${member.memberTel}]]</p>
+                    <p class="manage-member-addr">[[${member.memberAddr}]][[${member.addrDetail}]]</p>
+                    <p class="manage-member-email">[[${member.memberEmail}]]</p>
+                    <p class="manage-member-gender">[[${member.memberGender}]]</p>  
+                </div>
+            </div>
+        </div>
+        <div class="row select-member">
+            <div>수정 해야하는 곳을 클릭</div>
+            <div class="col">
+                <input type="text" name="memberName">
+                <input type="text" name="memberTel">
+                <input type="text" name="memberAddr">
+                <input type="text" name="memberEmail">
+                <input type="text" name="memberGender">
+                <input type="button" value="수정">
+            </div>
+        </div>
     </th:block>
 </body>
 </html>

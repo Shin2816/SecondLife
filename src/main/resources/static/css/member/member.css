@@ -1,5 +1,7 @@
 @charset "UTF-8";
-
+p{
+    margin: 0;
+}
 input::placeholder {
     color: #0000FF;
 }
@@ -9,4 +11,44 @@ input::placeholder {
 
 #memberJoin, #updateJoin{
     width: 400px;
+}
+.member-all{
+    margin-bottom: 50px;
+}
+.admin-manage{
+    text-align: center;
+    align-items: center;
+}
+.admin-manage>div:nth-child(n+2){
+    border: 1px solid black;
+    border-bottom: 0;
+    display: flex;
+    width: 100%;
+}
+.admin-manage>div:last-child{
+    border-bottom: 1px solid black;
+}
+.admin-manage-member-title{
+    border: 1px solid black;
+    border-bottom: 0;
+    display: flex;
+    width: 100%;
+}
+.manage-member-id{
+    width: 10%;
+}
+.manage-member-name{
+    width: 10%;
+}
+.manage-member-tel{
+    width: 15%;
+}
+.manage-member-addr{
+    width: 40%;
+}
+.manage-member-email{
+    width: 20%;
+}
+.manage-member-gender{
+    width: 5%;
 }

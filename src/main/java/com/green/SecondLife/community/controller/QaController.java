@@ -157,6 +157,6 @@ public class QaController {
     public String qaUpdateComment(BoardCommentListVO boardCommentListVO, RedirectAttributes redirectAttributes){
         qaService.updateQaBoardComment(boardCommentListVO);//수정 쿼리
         redirectAttributes.addFlashAttribute("boardCommentListVO", boardCommentListVO);
-        return "redirect:/qa/boardDetail";
+        return "redirect:/qa/boardDetail?menuCode="+ConstantVariable.MENU_CODE_BOARD;
     }
 }

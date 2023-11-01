@@ -121,7 +121,8 @@ public class MemberController {
     }
 
     @GetMapping("/manageMember")
-    public String manageMember(SubMenuVO subMenuVO){
+    public String manageMember(SubMenuVO subMenuVO, Model model){
+        model.addAttribute("memberAll", memberService.selectAllMember());
         return "/member/manageMember";
     }
 
