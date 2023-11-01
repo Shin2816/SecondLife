@@ -33,4 +33,7 @@ public interface CenterService {
 
     // 첨부파일 이름 조회
     public String selectCenterImgFileName(String facilityCode);
+
+    // 센터소개(사용자) - 카테고리별 시설 조회
+    public List<CenterFacilityVO> selectFacilityInfo(int centerCateCode);
 }

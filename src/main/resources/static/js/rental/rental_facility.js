@@ -11,7 +11,6 @@ function selectFacility(name, code){
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
     
-    //var list = [{title : '테스트', start : '2023-10-16'}, {title : '테스트2', start : '2023-10-18', end : '2023-10-22'}, {title : '테스트3', start : '2023-10-22T12:35:00', allDay : false}];
     var calendar = new FullCalendar.Calendar(calendarEl, {
         headerToolbar: {
             left: '',
@@ -23,7 +22,10 @@ document.addEventListener('DOMContentLoaded', function() {
         locale: 'ko', //달력 한국어
         editable : false, //이벤트 위치 변경 가능 여부
         selectable: true, //달력 클릭 여부
-        height: 500,
+        height: 600,
+        validRange: {
+            start: new Date(),  // 현재 날짜 이후의 날짜만 활성화
+        },
         dayCellContent: function(info) {    //달력 '일' 삭제
             var dayNum = document.createElement('a');
             dayNum.classList.add('fc-daygrid-day-number');
@@ -32,21 +34,41 @@ document.addEventListener('DOMContentLoaded', function() {
                 return {
                     html: dayNum.outerHTML
                 };
-            }
+            } 
             return {
                 domNodes: []
             };
+            
         },
         dateClick: function(info) { //달력을 클릭 했을 때, 함수 호출
         if(info.date.getDay() === 0 || info.date.getDay() === 6){ //토(6),일(0)만 클릭 가능
             calendarCheck(info.dateStr); //비동기 통신, 매개변수는 클릭한 날짜
         }
         }
-        //, events: list
     });
 
     calendar.render();
+
+    //풀캘린더 평일-예약불가 / 주말-예약가능.불가(데이터따라) / 지난날짜-예약마감
+    // var days = document.querySelectorAll('.fc-daygrid-day');
+    
+    // console.log(days);
+
+    // days.forEach(day => {
+    //     var cellContent = document.createElement('div');
+    //     cellContent.setAttribute('class', 'cell-content');
+    //     if(day.classList.contains('fc-day-past') == true){
+    //         document.querySelector('.cell-content').style.setProperty("--before-content", "'예약마감'");
+    //     } else if(day.classList.contains('fc-day-past') == true){
+
+    //     }
+    //     day.appendChild(cellContent);
+    // });
+
+    
+
 });
+
 
 
 
@@ -87,7 +109,8 @@ function calendarCheck(date){
     //fetch 통신 후 실행 영역
     .then((data) => {//data -> controller에서 리턴되는 데이터(rentalTimeList)
         let inputTr = document.querySelector('#input-tr');
-        let memberName = document.querySelector('#memberName').value;
+        let memberId = document.querySelector('#memberId').value;
+        console.log(memberId);
 
         let str ='';
         data.forEach(rentalTime => {
@@ -125,7 +148,7 @@ function calendarCheck(date){
             }
         });
 
-        str += `<button id=sign-btn type="button" class="btn btn-primary" onclick="signBtn('${memberName}')">신청하기</button>`;     
+        str += `<button id=sign-btn type="button" class="btn btn-primary" onclick="signBtn('${memberId}')">신청하기</button>`;     
        
         inputTr.innerHTML = str;
     })
@@ -137,7 +160,7 @@ function calendarCheck(date){
 }
 
 //신청하기 버튼 클릭 시 실행되는 함수(모달창 열리기)
-function signBtn(memberName){
+function signBtn(memberId){
     const facilityNameTag = document.querySelector('#facility-name-tag');
     const rentalDateTag = document.querySelector('#rental-date-tag');
     const rentalTimeTag = document.querySelector('#rental-time-tag');
@@ -145,7 +168,6 @@ function signBtn(memberName){
     const totalRentalChargeTag = document.querySelector('#total-rental-charge-tag');
     const userNameTag = document.querySelector('#user-name-tag');
     const insertTimeCodeTag = rentalChargeTag.closest('.row');
-    const menuCode = document.querySelector('#menuCode').value;
     
     let checkBoxes = document.querySelectorAll('input[type=checkbox]');
    
@@ -171,7 +193,7 @@ function signBtn(memberName){
     });
 
     //로그인체크
-    if(memberName == 'null'){
+    if(memberId == 'null'){
         alert('로그인 후 이용 가능 합니다');
         location.href = '/member/loginForm';
     } else {
@@ -182,7 +204,7 @@ function signBtn(memberName){
             rentalDateTag.value = rentalDate;
             rentalChargeTag.value = rentCharge;
             totalRentalChargeTag.innerHTML = (rentCharge*checkBoxCnt).toLocaleString('ko-KR') + '원';
-            userNameTag.value = memberName;
+            userNameTag.value = memberId;
             rentTimeCodes.forEach((rentTimeCode) => {
                 insertTimeCodeTag.insertAdjacentHTML('afterbegin', `<input type="hidden" name="rentalTimeCode" value="${rentTimeCode}" class="rental-time-code-tag"></input>`);
             });
@@ -193,10 +215,6 @@ function signBtn(memberName){
     
             const myModal = new bootstrap.Modal('#signUpModal');
             myModal.show();
-    
-            // setTimeout(() => {
-            //     myModal.hide(); //모달창 닫기
-            // }, 2000);
         }
     };
 }

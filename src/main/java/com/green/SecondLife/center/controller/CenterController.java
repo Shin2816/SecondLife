@@ -108,18 +108,26 @@ public class CenterController {
         return "redirect:/center/selectAllFacility";
     }
 
-    //사용자-오시는길 페이지
+    //사용자-오시는 길 페이지
     @GetMapping("/centerLocation")
     public String centerLocation(SubMenuVO subMenuVO){
         return "/center/center_location";
     }
 
-    //사용자-시설소개 페이지
+    //사용자-센터 소개 페이지
     @GetMapping("/centerGuide")
     public String centerGuide(Model model, SubMenuVO subMenuVO){
         model.addAttribute("categoryList", centerService.selectCenterCategory());
-        model.addAttribute("facilityList", centerService.selectAllFacility());
         return "/center/center_facility_guide";
+    }
+
+    //사용자-센터 소개 페이지(탭클릭 비동기)
+    @ResponseBody
+    @PostMapping("/centerGuideFetch")
+    public List<CenterFacilityVO> centerGuideFetch(int centerCateCode){
+        List<CenterFacilityVO> facilityList = centerService.selectFacilityInfo(centerCateCode);
+        System.out.println(facilityList);
+        return facilityList;
     }
 }
 

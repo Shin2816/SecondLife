@@ -47,7 +47,7 @@ public class QaController {
     }
     //등록버튼 누르면 등록 페이지로 이동
     @GetMapping("/regQaBoardForm")
-    public String regQaBoardForm(){
+    public String regQaBoardForm(SubMenuVO subMenuVO){
         return "board/qa/reg_board";
     }
     //글 등록 페이지에서 등록하기 누르면 글 등록 쿼리 실행

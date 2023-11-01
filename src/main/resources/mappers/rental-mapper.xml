@@ -25,11 +25,12 @@
         <result column="RENTAL_END_TIME"    property="rentalEndTime"/>
     </resultMap>
 
-    <!-- 시설코드,이름 조회 -->
+    <!-- 시설 코드, 이름 조회 -->
     <select id="selectFacility" resultMap="centerMapper.facility">
         SELECT FACILITY_CODE
             , FACILITY_NAME
         FROM CENTER_FACILITY
+        WHERE RENTAL_AVAILABLE = 'YES'
     </select>
 
     <!-- 대관 가능 정보 조회 -->
