@@ -52,24 +52,6 @@ public class MemberController {
         return "/main";
     }
 
-    //로그인 처리 후, 메인페이지로 이동.
-//    @PostMapping("/login")
-//    public String login(MemberVO memberVO, HttpSession session){
-//
-//        MemberVO loginInfo = memberService.selectlogin(memberVO);
-//        if(loginInfo != null){
-//            session.setAttribute("loginInfo", loginInfo);
-//        }
-//        return "/member/loginCheck";
-//    }
-
-    //로그아웃 처리 후, 메인페이지로 이동
-//    @GetMapping("/logout")
-//    public String logout(HttpSession session, SubMenuVO subMenuVO){
-//        session.removeAttribute("loginInfo");
-//        return "/main";
-//    }
-
     @GetMapping("/loginCheck")
     public String loginCheck(){
         return "/member/loginCheck";
@@ -129,9 +111,22 @@ public class MemberController {
         return "/member/updateMember";
     }
 
+    //정보수정 비밀번호 체크 비동기
+    @ResponseBody
+    @PostMapping("/updateCheckPW")
+    public boolean updateCheckPW(String newMemberPW, String newMemberPW2){
+        if(newMemberPW.equals(newMemberPW2)) {
+            return true;
+        }else {
+            return false;
+        }
+    }
+
     //회원정보 수정
     @PostMapping("/updateMember")
     public String updateMember(MemberVO memberVO){
+        String encodedPw = passwordEncoder.encode(memberVO.getMemberPW());
+        memberVO.setMemberPW(encodedPw);
         memberService.memberUpdate(memberVO);
         return "/main";
     }
