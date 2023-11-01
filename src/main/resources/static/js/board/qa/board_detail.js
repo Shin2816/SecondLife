@@ -111,6 +111,7 @@ function qaUpdateComment(commentId, qaBoardNum){//수정버튼을 누르면 도�
         return;
     }
 
+<<<<<<< HEAD
     fetch('/qa/qaUpdateComment', { //요청경로
         method: 'POST',
         cache: 'no-cache',
@@ -143,6 +144,10 @@ function qaUpdateComment(commentId, qaBoardNum){//수정버튼을 누르면 도�
         alert('fetch error!\nthen 구문에서 오류가 발생했습니다.\n콘솔창을 확인하세요!');
         console.log(err);
     });
+=======
+    alert('댓글 수정이 완료되었습니다.');
+    document.querySelector('#commentUpdateForm').submit();
+>>>>>>> 5b111538343474d4eb521afe32c27d83e46c8306
 }
 ////////////////////////////////QA게시판 글 등록 썸머노트//////////////////////////////////////////
 //썸머노트 활성화

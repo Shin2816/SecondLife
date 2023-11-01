@@ -26,7 +26,7 @@ public class CommunityController {
     public String freeBoardList(Model model, BoardFreeListVO boardFreeListVO, SubMenuVO subMenuVO){
         //페이지 정보 세팅
         int totalDataCnt = communityService.selectBoardCnt(); //전체 게시글 갯수 조회해서
-        boardFreeListVO.setTotalPageCnt(totalDataCnt);//세터 호출해서 전체 게시글 갯수 전달
+        boardFreeListVO.setTotalDataCnt(totalDataCnt);//세터 호출해서 전체 게시글 갯수 전달
         boardFreeListVO.setPageInfo();//변수값 설정한 메소드 호출(상속관계라 사용가능)
 
         //게시글 목록 조회
