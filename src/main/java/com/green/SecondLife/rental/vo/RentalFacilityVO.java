@@ -1,11 +1,12 @@
 package com.green.SecondLife.rental.vo;
 
+import com.green.SecondLife.community.vo.PageVO;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
-public class RentalFacilityVO {
+public class RentalFacilityVO extends PageVO {
     private String rentalCode;
     private String facilityCode;
     private String facilityName;

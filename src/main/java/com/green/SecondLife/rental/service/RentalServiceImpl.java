@@ -41,8 +41,13 @@ public class RentalServiceImpl implements RentalService{
     }
 
     @Override
-    public List<RentalFacilityVO> selectRentalList() {
-        return sqlSession.selectList("rentalMapper.selectRentalList");
+    public List<RentalFacilityVO> selectRentalList(RentalFacilityVO rentalFacilityVO) {
+        return sqlSession.selectList("rentalMapper.selectRentalList", rentalFacilityVO);
+    }
+
+    @Override
+    public int selectRentalListCnt() {
+        return sqlSession.selectOne("rentalMapper.selectRentalListCnt");
     }
 
     @Override

@@ -31,6 +31,7 @@
             , FACILITY_NAME
         FROM CENTER_FACILITY
         WHERE RENTAL_AVAILABLE = 'YES'
+        ORDER BY FACILITY_NAME
     </select>
 
     <!-- 대관 가능 정보 조회 -->
@@ -48,6 +49,11 @@
                 WHERE RENTAL_TIME_CODE = TIME.RENTAL_TIME_CODE
                 AND RENTAL_DATE = #{rentalDate}
                 AND FACILITY_CODE = #{facilityCode}), #{rentalDate}) RENTAL_DATE
+            , NVL((SELECT FACILITY_CODE
+                FROM RENTAL_FACILITY
+                WHERE RENTAL_TIME_CODE = TIME.RENTAL_TIME_CODE
+                AND RENTAL_DATE = #{rentalDate}
+                AND FACILITY_CODE = #{facilityCode}), #{facilityCode}) FACILITY_CODE
             , (SELECT FACILITY_NAME
                 FROM CENTER_FACILITY
                 WHERE FACILITY_CODE = #{facilityCode}) FACILITY_NAME
@@ -88,7 +94,7 @@
         )
         <foreach index="i" collection="facilityList" item="facility" separator="UNION ALL">
             SELECT
-                 #{facility.rentalDate}||'_'||#{facility.rentalTimeCode}
+                    #{facility.facilityCode}||'_'||#{facility.rentalDate}||'_'||#{facility.rentalTimeCode}
                     , #{facility.facilityCode}
                     , #{facility.rentalDate}
                     , #{facility.rentalTimeCode}
@@ -146,6 +152,14 @@
         WHERE RENTAL_FACILITY.RENTAL_TIME_CODE =  RENTAL_AVAILABLE_TIME.RENTAL_TIME_CODE
         GROUP BY RENTAL_SIGN_CODE
         ORDER BY RENTAL_SIGN_CODE DESC
+        OFFSET (#{nowPage} - 1) * #{displayDataCnt} ROWS FETCH FIRST #{displayDataCnt} ROWS ONLY
+    </select>
+
+    <!-- 시설관리 - 전체 데이터 수 조회 -->
+    <!--DISTINCT 중복제거-->
+    <select id="selectRentalListCnt" resultType="int">
+        SELECT COUNT(DISTINCT RENTAL_SIGN_CODE)
+        FROM RENTAL_FACILITY
     </select>
 
     <!--(관리자)대관관리 상태변경(현상태-승인대기:2 / 반려: 0, 완료: 1, 승인->결제 대기: 3)-->
@@ -165,8 +179,6 @@
         SET RENTAL_STATUS = 3
         WHERE RENTAL_SIGN_CODE = #{rentalSignCode}
     </update>
-
-
 </mapper>
 
 

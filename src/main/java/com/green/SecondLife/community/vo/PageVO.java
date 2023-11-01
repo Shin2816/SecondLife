@@ -55,28 +55,28 @@ public class PageVO {
         this.totalDataCnt = totalDataCnt;
     }
     // 현재 페이지 getter
-//    public int getNowPage() {
-//        return nowPage;
-//    }
-//    //현재 페이지 setter
-//    public void setNowPage(int nowPage) {
-//        this.nowPage = nowPage;
-//    }
-//    //한 페이지에 보여지는 데이터 수 getter
-//    public int getDisplayDataCnt() {
-//        return displayDataCnt;
-//    }
-//    public int getBeginPage() {
-//        return beginPage;
-//    }
-//    public int getEndPage() {
-//        return endPage;
-//    }
-//    public boolean getPrev() {
-//        return prev;
-//    }
-//    public boolean getNext() {
-//        return next;
-//    }
+    public int getNowPage() {
+        return nowPage;
+    }
+    //현재 페이지 setter
+    public void setNowPage(int nowPage) {
+        this.nowPage = nowPage;
+    }
+    //한 페이지에 보여지는 데이터 수 getter
+    public int getDisplayDataCnt() {
+        return displayDataCnt;
+    }
+    public int getBeginPage() {
+        return beginPage;
+    }
+    public int getEndPage() {
+        return endPage;
+    }
+    public boolean getPrev() {
+        return prev;
+    }
+    public boolean getNext() {
+        return next;
+    }
 
 }

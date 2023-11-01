@@ -14,7 +14,7 @@
         <div class="col-12">
             <h2>예약 현황</h2>
         </div>
-        <div class="col">
+        <div class="col-12">
             <table class="table table-hover text-center align-middle">
                 <colgroup>
                     <col width="5%">
@@ -96,6 +96,22 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
+        <div class="col-12">
+            <!-- 페이지 정보 -->
+            <nav aria-label="Page navigation example" class="row-12 text-center">
+                <ul class="pagination justify-content-center" id="rental-manage-page">
+                    <!-- 예) 이전 1 2 3 4 5 다음 / 이전 페이지 누르면 현재 페이지 -1 -->
+                    <li class="page-item"><span th:if="${rentalFacilityVO.prev}"><a class="page-link" th:href="@{/rental/rentalManageList(nowPage=${rentalFacilityVO.beginPage - 1},menuCode=${subMenuVO.menuCode})}">이전</a></span></li>
+                    <!-- 시작번호부터 끝 번호까지 반복한 것을 pageNum으로 지정-->
+                    <th:block class="page-item" th:each="pageNum : ${#numbers.sequence(rentalFacilityVO.beginPage, rentalFacilityVO.endPage)}">
+                        <!-- 출력된 숫자 클릭하면 이동 -->
+                        <a th:href="@{/rental/rentalManageList(nowPage=${pageNum},menuCode=${subMenuVO.menuCode})}" class="page-link"><span th:text="${pageNum}"></span></a>
+                    </th:block>
+                    <li class="page-item"><span th:if="${rentalFacilityVO.next}"><a class="page-link" th:href="@{/rental/rentalManageList(nowPage=${rentalFacilityVO.endPage + 1},menuCode=${subMenuVO.menuCode})}">다음</a></span></li>
+                </ul>
+            </nav>
+        </div>
         </div>
     </div>
     

@@ -20,7 +20,7 @@ public interface CenterService {
     public void insertFacilityImage(CenterFacilityVO centerFacilityVO);
 
     // 시설관리 - 전체 시설 목록 조회
-    public List<CenterFacilityVO> selectAllFacility();
+    public List<CenterFacilityVO> selectAllFacility(CenterFacilityVO centerFacilityVO);
 
     // 시설관리 - 전체 데이터 수 조회
     public int selectFacilityListCnt();

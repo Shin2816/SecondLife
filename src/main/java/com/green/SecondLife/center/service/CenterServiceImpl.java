@@ -42,8 +42,8 @@ public class CenterServiceImpl implements CenterService{
     }
 
     @Override
-    public List<CenterFacilityVO> selectAllFacility() {
-        return sqlSession.selectList("centerMapper.selectAllFacility");
+    public List<CenterFacilityVO> selectAllFacility(CenterFacilityVO centerFacilityVO) {
+        return sqlSession.selectList("centerMapper.selectAllFacility", centerFacilityVO);
     }
 
     @Override

@@ -22,8 +22,11 @@ public interface RentalService {
     // (사용자)대관신청 취소하기
     public void deleteSignRental(String rentalSignCode);
 
-    // (관리자)대관신청현황관리 목록 조회
-    public List<RentalFacilityVO> selectRentalList();
+    // (관리자)대관신청관리 목록 조회
+    public List<RentalFacilityVO> selectRentalList(RentalFacilityVO rentalFacilityVO);
+
+    // (관리자)대관신청관리 전체 데이터 수 조회
+    public int selectRentalListCnt();
 
     //(관리자)대관관리 상태변경(현상태-승인대기:2 / 반려: 0, 완료: 1, 승인->결제 대기: 3)
     public void updateRentalStatus0(RentalFacilityVO rentalFacilityVO);

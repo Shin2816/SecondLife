@@ -79,6 +79,7 @@ function calendarCheck(date){
     inputTitle.innerHTML = date;
 
     const facilityCode = document.querySelector('#facility-name').dataset.facilityCode;
+    console.log(facilityCode);
     
     if(facilityCode == undefined){
         alert('먼저 사용할 시설을 선택해주세요');
@@ -110,7 +111,6 @@ function calendarCheck(date){
     .then((data) => {//data -> controller에서 리턴되는 데이터(rentalTimeList)
         let inputTr = document.querySelector('#input-tr');
         let memberId = document.querySelector('#memberId').value;
-        console.log(memberId);
 
         let str ='';
         data.forEach(rentalTime => {
@@ -120,6 +120,7 @@ function calendarCheck(date){
                 if (rentalTime.rentalStatus == 0) {
                     str += `<input type="checkbox" 
                             data-rental-charge='${rentalTime.rentalCharge}'
+                            data-facility-code='${rentalTime.facilityCode}'
                             data-facility-name='${rentalTime.facilityName}'
                             data-start-time='${rentalTime.rentalTimeVO.rentalStartTime}'
                             data-end-time='${rentalTime.rentalTimeVO.rentalEndTime}'
@@ -161,6 +162,7 @@ function calendarCheck(date){
 
 //신청하기 버튼 클릭 시 실행되는 함수(모달창 열리기)
 function signBtn(memberId){
+    const facilityCodeTag = document.querySelector('#facility-code-tag');
     const facilityNameTag = document.querySelector('#facility-name-tag');
     const rentalDateTag = document.querySelector('#rental-date-tag');
     const rentalTimeTag = document.querySelector('#rental-time-tag');
@@ -172,8 +174,9 @@ function signBtn(memberId){
     let checkBoxes = document.querySelectorAll('input[type=checkbox]');
    
     let checkBoxCnt = 0;  //체크박스 개수
-    let rentCharge = 0;   
+    let facilityCode = '';
     let facilityName = '';
+    let rentCharge = 0;   
     let rentalDate = '';
     let rentTimeCodes = [];
     let rentTimes = [];
@@ -183,6 +186,7 @@ function signBtn(memberId){
         if(checkBox.checked == true){
             ++checkBoxCnt; //체크된 체크박스 개수 증가
             rentCharge = checkBox.dataset.rentalCharge; //요금 dataset들고오기
+            facilityCode = checkBox.dataset.facilityCode; //시설코드 들고오기
             facilityName = checkBox.dataset.facilityName; //시설이름 들고오기
             rentalDate = checkBox.dataset.rentalDate; //대관날짜 들고오기
             let rentTimeCode = checkBox.dataset.timeCode; //타임코드 들고오기
@@ -201,6 +205,7 @@ function signBtn(memberId){
             alert('신청할 시간대를 체크해주세요.');
         } else{
             facilityNameTag.value = facilityName;
+            facilityCodeTag.value = facilityCode;
             rentalDateTag.value = rentalDate;
             rentalChargeTag.value = rentCharge;
             totalRentalChargeTag.innerHTML = (rentCharge*checkBoxCnt).toLocaleString('ko-KR') + '원';
