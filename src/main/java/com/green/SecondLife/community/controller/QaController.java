@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +47,7 @@ public class QaController {
     }
     //등록버튼 누르면 등록 페이지로 이동
     @GetMapping("/regQaBoardForm")
-    public String regQaBoardForm(){
+    public String regQaBoardForm(SubMenuVO subMenuVO){
         return "board/qa/reg_board";
     }
     //글 등록 페이지에서 등록하기 누르면 글 등록 쿼리 실행
@@ -78,9 +79,12 @@ public class QaController {
     }
     //글 tr태그를 클릭했을때 해당글의 상세페이지 이동
     @RequestMapping("/boardDetail")
-    public String boardDetail(int qaBoardNum, String qaCheckPwInput, Model model, SubMenuVO subMenuVO, Authentication authentication){
+    public String boardDetail(Model model, BoardCommentListVO boardCommentListVO, SubMenuVO subMenuVO, Authentication authentication){
+        System.out.println(boardCommentListVO.getQaCheckPwInput());
+
         //데이터베이스에 저장된 비밀번호를 조회해서 저장함
-        String qaPw = qaService.selectQaPw(qaBoardNum);
+        String qaPw = qaService.selectQaPw(boardCommentListVO.getCommentNum());
+        
         boolean isAuthentication = true;
         if(authentication != null){
             User user =  (User) authentication.getPrincipal();
@@ -92,41 +96,38 @@ public class QaController {
             }
             isAuthentication = user.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
         }
-        System.out.println(qaCheckPwInput + "###################################################");
+
         //   공개이 거나,         로그인을 했고                관리자라면 프리패스!
         if(qaPw == null || (authentication != null && isAuthentication)){
             //board이름으로 디테일정보 던지기
-            model.addAttribute("board", qaService.selectQaBoardDetail(qaBoardNum));//아우터조인
+            model.addAttribute("board", qaService.selectQaBoardDetail(boardCommentListVO.getCommentNum()));//아우터조인
             model.addAttribute("authentication", authentication);
             //조회수 증가
-            qaService.updateQaBoardCnt(qaBoardNum);
+            qaService.updateQaBoardCnt(boardCommentListVO.getCommentNum());
             //댓글 조회해서 html로 던지기
-            model.addAttribute("comment", qaService.selectQaBoardComment(qaBoardNum));
+            model.addAttribute("comment", qaService.selectQaBoardComment(boardCommentListVO.getCommentNum()));
             return "board/qa/board_detail";
-        }
-        else if (qaPw.equals(qaCheckPwInput)){ // 비공개
+        } else if (qaPw.equals(boardCommentListVO.getQaCheckPwInput())){ // 비공개
             //board이름으로 디테일정보 던지기
-            model.addAttribute("board", qaService.selectQaBoardDetail(qaBoardNum));//아우터조인
+            model.addAttribute("board", qaService.selectQaBoardDetail(boardCommentListVO.getCommentNum()));//아우터조인
             //조회수 증가
-            qaService.updateQaBoardCnt(qaBoardNum);
+            qaService.updateQaBoardCnt(boardCommentListVO.getCommentNum());
             //댓글 조회해서 html로 던지기
-            model.addAttribute("comment", qaService.selectQaBoardComment(qaBoardNum));
+            model.addAttribute("comment", qaService.selectQaBoardComment(boardCommentListVO.getCommentNum()));
+            model.addAttribute("qaCheckPwInput", boardCommentListVO.getQaCheckPwInput());
             return "board/qa/board_detail";
         } else {//비밀번호 틀렸다면
             return "board/qa/qa_result";//alert창 띄우기
-        }//비공개
+        }
     }
     //상세 페이지에서 댓글 작성버튼 클릭하면 비동기로 insert 쿼리 실행
-    @ResponseBody
     @PostMapping("/qaBoardComment")
-    public boolean qaBoardComment(BoardCommentListVO boardCommentListVO, Authentication authentication, String qaCheckPwInput){
-        //로그인 정보가 없다면 댓글 작성하지 못하게
-        if (authentication == null){//로그인 정보가 없을 때
-            return false;//board.js로 false리턴
-        }
-        //로그인 정보가 있다면 if문 실행되지않고 쿼리가 실행된 후 true 리턴
-        qaService.insertQaBoardComment(boardCommentListVO);
-        return true;//board.js로 true리턴
+    public String qaBoardComment(BoardCommentListVO boardCommentListVO, RedirectAttributes redirectAttributes){
+        qaService.insertQaBoardComment(boardCommentListVO); //댓글 작성 쿼리
+
+        redirectAttributes.addFlashAttribute("boardCommentListVO", boardCommentListVO);
+
+        return "redirect:/qa/boardDetail"; //디테일 컨트롤러로 다시 이동할 때 값 가져가기
     }
     //글 상세페이지에서 삭제버튼 클릭하였을 때
     @GetMapping("/deleteQaBoard")
@@ -134,13 +135,15 @@ public class QaController {
         qaService.deleteQaBoard(qaBoardNum);
         return "redirect:/qa/qaBoardList";
     }
-    //수정 모달에서 수정 버튼을 눌렀을 때 수정 쿼리 실행
+    //수정 모달에서 수정 버튼을 눌렀을 때 수정 쿼리 실행--------------------------------------------------
     @RequestMapping("/updateQaBoard")
-    public String updateQaBoard(BoardQaListVO boardQaListVO){
-        //수정 쿼리
-        qaService.updateQaBoard(boardQaListVO);
+    public String updateQaBoard(BoardQaListVO boardQaListVO, BoardCommentListVO boardCommentListVO, RedirectAttributes redirectAttributes){
+        qaService.updateQaBoard(boardQaListVO);//수정 쿼리
+        boardCommentListVO.setCommentNum(boardQaListVO.getQaBoardNum());//세터로 commentNum을 qaBoardNum으로 수정
+
+        redirectAttributes.addFlashAttribute("boardCommentListVO", boardCommentListVO);//commentNum, qaCheckPwInput값을 가지고 다시 디테일로
         //수정이 완료되면 해당 게시글 상세페이지로 BoardNum=숫자 데이터를 던질 수 있다.
-        return "redirect:/qa/boardDetail?qaBoardNum=" + boardQaListVO.getQaBoardNum();
+        return "redirect:/qa/boardDetail";
     }
     //상세 페이지에서 댓글 삭제버튼 클릭하면 delete 쿼리 실행
     @ResponseBody

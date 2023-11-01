@@ -9,4 +9,5 @@ public class BoardCommentListVO {
     private String commentWriter;
     private String commentCreateDate;
     private int commentNum;
+    private String qaCheckPwInput;
 }

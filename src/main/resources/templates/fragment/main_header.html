@@ -21,7 +21,8 @@
             <div class="login-menu">
                 <p sec:authorize="isAuthenticated()"> 
                     <span class="login-span" sec:authorize="hasRole('ROLE_ADMIN')" th:onclick="|location.href='@{/admin/admin_main(menuCode=MENU_000)}'|">관리하기 </span>
-                    <span class="login-span" sec:authorize="hasRole('ROLE_ADMIN')" onclick="location.href='/member/logout';">로그아웃</span>
+                    <span class="login-span" th:onclick="|location.href='@{/member/updateMemberForm(menuCode=MENU_012)}'|">내 정보 </span>
+                    <span class="login-span" onclick="location.href='/member/logout';">로그아웃</span>
                 </p>
             </div>
         </div>
@@ -44,6 +45,7 @@
     <!-- 결제 api -->
     <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
     <script src="/js/main_header.js"></script>
+    <script src="/js/member/member.js"></script>
 </th:block>
 </body>
 </html>

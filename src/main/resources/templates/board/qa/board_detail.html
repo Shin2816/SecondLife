@@ -46,11 +46,10 @@
         <!-- 로그인정보가 비어있지 않다면 버튼 보이게 -->
         <div sec:authorize="isAuthenticated()">
             <!-- 작성자가 같거나 관리자라면 -->
-            <div class="btn-group" th:if="${board.qaBoardWriter == #authentication.name}" sec:authorize="hasRole('ROLE_ADMIN')">
+            <div class="btn-group" th:if="${#strings.contains(#authentication.authorities, 'ROLE_ADMIN') or board.qaBoardWriter == #authentication.name}">
                 <input type="button" class="btn btn-primary" value="삭제" th:onclick="deleteboard([[${board.qaBoardNum}]])">
                 <input type="button" class="btn btn-primary" value="수정" data-bs-target="#qaUpdateBoard" data-bs-toggle="modal">
             </div>
-
             <!-- Modal -->
             <div class="modal fade" id="qaUpdateBoard" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-xl">
@@ -62,6 +61,7 @@
                         <form action="/qa/updateQaBoard" method="post" id="qaUpdateBoardForm">
                             <input type="hidden" name="qaBoardNum" th:value="${board.qaBoardNum}">
                             <input type="hidden" name="menuCode" th:value="${subMenuVO.menuCode}">
+                            <input type="hidden" name="qaCheckPwInput" th:value="${qaCheckPwInput}">
                             <div class="modal-body">
                                 <div class="row mb-3">
                                     <div class="col">
@@ -102,9 +102,16 @@
     </div>
     <hr>
     <h1>댓글작성</h1>
-    <div class="input-group mb-3" id="qaRegDiv">
-        <input type="text" name="commentContent" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2">
-        <button class="btn btn-outline-secondary" type="button" id="button-addon2" th:onclick="qaRegComment(this, [[${board.qaBoardNum}]], [[${#authentication.name}]]);">작성</button>
+    <div class="mb-3" id="qaRegDiv">
+        <form action="/qa/qaBoardComment" method="post" id="commentForm">
+            <input type="hidden" name="commentNum" th:value="${board.qaBoardNum}">
+            <input type="hidden" name="commentWriter" th:value="${#authentication.name}">
+            <input type="hidden" name="qaCheckPwInput" th:value="${qaCheckPwInput}">
+            <div class="input-group">
+                <input type="text" name="commentContent" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2">
+                <button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="qaRegComment(this);">작성</button>
+            </div>
+        </form>
     </div>
     <hr>
     <table border="1" class="text-center col-12">
@@ -161,7 +168,6 @@
         </th:block>
     </table>
     <script src="/js/board/qa/board_detail.js"></script>
-    <script src="/js/board/qa/qa_board.js"></script>
 </th:block>
 </body>
 </html>
