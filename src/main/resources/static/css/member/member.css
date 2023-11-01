@@ -1,0 +1,9 @@
+@charset "UTF-8";
+
+input::placeholder {
+    color: #0000FF;
+}
+
+#memberJoin{
+    width: 400px;
+}

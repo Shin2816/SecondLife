@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.websocket.Session;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -85,11 +86,9 @@ public class RentalController {
 
     //사용자(마이페이지)-대관신청 목록 조회
     @GetMapping("/myRentalHistory")
-    public String myRentalHistory(RentalFacilityVO rentalFacilityVO, HttpSession session, Model model, SubMenuVO subMenuVO){
+    public String myRentalHistory(RentalFacilityVO rentalFacilityVO, Authentication authentication, Model model, SubMenuVO subMenuVO){
         //세션 사용자이름 불러오기
-        MemberVO member = (MemberVO)session.getAttribute("loginInfo");
-        rentalFacilityVO.setRentalUser(member.getMemberName());
-        model.addAttribute("memberInfo", memberService.selectMember(member.getMemberId()));
+        model.addAttribute("memberInfo", memberService.selectMember(authentication.getName()));
         List<RentalFacilityVO> myRentalList =  rentalService.selectMyRentalList(rentalFacilityVO);
         System.out.println(myRentalList);
         System.out.println();
