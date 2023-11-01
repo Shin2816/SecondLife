@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.websocket.Session;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,7 +37,7 @@ public class RentalController {
 
     //시설대관 화면
     @GetMapping("/rentalFacility")
-    public String rentalFacility(Model model, SubMenuVO subMenuVO){
+    public String rentalFacility(Model model, SubMenuVO subMenuVO, Authentication authentication){
         model.addAttribute("facilityList", rentalService.selectFacility());
         return "/rental/rental_facility";
     }
