@@ -111,20 +111,9 @@ public class MemberController {
         return "/member/updateMember";
     }
 
-    //정보수정 비밀번호 체크 비동기
-    @ResponseBody
-    @PostMapping("/updateCheckPW")
-    public boolean updateCheckPW(String newMemberPW, String newMemberPW2){
-        if(newMemberPW.equals(newMemberPW2)) {
-            return true;
-        }else {
-            return false;
-        }
-    }
-
     //회원정보 수정
     @PostMapping("/updateMember")
-    public String updateMember(MemberVO memberVO){
+    public String updateMember(MemberVO memberVO, SubMenuVO subMenuVO){
         String encodedPw = passwordEncoder.encode(memberVO.getMemberPW());
         memberVO.setMemberPW(encodedPw);
         memberService.memberUpdate(memberVO);
