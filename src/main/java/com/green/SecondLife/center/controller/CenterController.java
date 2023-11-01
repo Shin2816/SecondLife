@@ -64,14 +64,14 @@ public class CenterController {
         return "admin/manage_facility";
     }
 
-    //관리자-시설관리 - 대관가능유무 상태 변경
+    //관리자-시설목록 - 대관가능유무 상태 변경
     @ResponseBody
     @PostMapping("/updateRentalAvailable")
     public void updateRentalAvailable(CenterFacilityVO centerFacilityVO){
         centerService.updateRentalAvailable(centerFacilityVO);
     }
 
-    //관리자-시설관리 - 수정하기
+    //관리자-시설목록 - 수정하기
     @PostMapping("/updateFacility")
     public String updateFacility(CenterFacilityVO centerFacilityVO, MultipartFile facilityImg){
 
@@ -94,7 +94,7 @@ public class CenterController {
         return "redirect:/center/selectAllFacility";
     }
 
-    //관리자-시설관리 - 삭제하기
+    //관리자-시설목록 - 삭제하기
     @GetMapping("/deleteFacility")
     public String deleteFacility(String facilityCode){
         // 해당 게시물의 첨부파일 삭제
