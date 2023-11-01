@@ -53,8 +53,13 @@ public class CenterController {
 
     //관리자-전체 시설 목록 조회
     @GetMapping("/selectAllFacility")
-    public String selectAllFacility(Model model, SubMenuVO subMenuVO){
+    public String selectAllFacility(CenterFacilityVO centerFacilityVO, Model model, SubMenuVO subMenuVO){
         subMenuVO.setMenuCode("MENU_003");
+        // 페이지 정보 세팅
+        // 전체 데이터 수 조회 후 세팅
+        int totalDataCnt = centerService.selectFacilityListCnt();
+        centerFacilityVO.setTotalDataCnt(totalDataCnt);
+        centerFacilityVO.setPageInfo();
 
         // 시설 카테고리 조회
         model.addAttribute("centerCategoryList", centerService.selectCenterCategory());

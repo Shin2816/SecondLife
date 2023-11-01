@@ -78,4 +78,5 @@ public class PageVO {
 //    public boolean getNext() {
 //        return next;
 //    }
+
 }

@@ -47,6 +47,11 @@ public class CenterServiceImpl implements CenterService{
     }
 
     @Override
+    public int selectFacilityListCnt() {
+        return sqlSession.selectOne("centerMapper.selectFacilityListCnt");
+    }
+
+    @Override
     public void updateRentalAvailable(CenterFacilityVO centerFacilityVO) {
         sqlSession.update("centerMapper.updateRentalAvailable", centerFacilityVO);
     }
