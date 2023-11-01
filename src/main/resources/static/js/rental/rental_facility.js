@@ -109,7 +109,8 @@ function calendarCheck(date){
     //fetch 통신 후 실행 영역
     .then((data) => {//data -> controller에서 리턴되는 데이터(rentalTimeList)
         let inputTr = document.querySelector('#input-tr');
-        let memberName = document.querySelector('#memberName').value;
+        let memberId = document.querySelector('#memberId').value;
+        console.log(memberId);
 
         let str ='';
         data.forEach(rentalTime => {
@@ -147,7 +148,7 @@ function calendarCheck(date){
             }
         });
 
-        str += `<button id=sign-btn type="button" class="btn btn-primary" onclick="signBtn('${memberName}')">신청하기</button>`;     
+        str += `<button id=sign-btn type="button" class="btn btn-primary" onclick="signBtn('${memberId}')">신청하기</button>`;     
        
         inputTr.innerHTML = str;
     })
@@ -159,7 +160,7 @@ function calendarCheck(date){
 }
 
 //신청하기 버튼 클릭 시 실행되는 함수(모달창 열리기)
-function signBtn(memberName){
+function signBtn(memberId){
     const facilityNameTag = document.querySelector('#facility-name-tag');
     const rentalDateTag = document.querySelector('#rental-date-tag');
     const rentalTimeTag = document.querySelector('#rental-time-tag');
@@ -167,7 +168,6 @@ function signBtn(memberName){
     const totalRentalChargeTag = document.querySelector('#total-rental-charge-tag');
     const userNameTag = document.querySelector('#user-name-tag');
     const insertTimeCodeTag = rentalChargeTag.closest('.row');
-    const menuCode = document.querySelector('#menuCode').value;
     
     let checkBoxes = document.querySelectorAll('input[type=checkbox]');
    
@@ -193,7 +193,7 @@ function signBtn(memberName){
     });
 
     //로그인체크
-    if(memberName == 'null'){
+    if(memberId == 'null'){
         alert('로그인 후 이용 가능 합니다');
         location.href = '/member/loginForm';
     } else {
@@ -204,7 +204,7 @@ function signBtn(memberName){
             rentalDateTag.value = rentalDate;
             rentalChargeTag.value = rentCharge;
             totalRentalChargeTag.innerHTML = (rentCharge*checkBoxCnt).toLocaleString('ko-KR') + '원';
-            userNameTag.value = memberName;
+            userNameTag.value = memberId;
             rentTimeCodes.forEach((rentTimeCode) => {
                 insertTimeCodeTag.insertAdjacentHTML('afterbegin', `<input type="hidden" name="rentalTimeCode" value="${rentTimeCode}" class="rental-time-code-tag"></input>`);
             });
@@ -215,10 +215,6 @@ function signBtn(memberName){
     
             const myModal = new bootstrap.Modal('#signUpModal');
             myModal.show();
-    
-            // setTimeout(() => {
-            //     myModal.hide(); //모달창 닫기
-            // }, 2000);
         }
     };
 }

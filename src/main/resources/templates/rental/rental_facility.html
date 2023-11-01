@@ -30,11 +30,11 @@
 
             <!-- 풀캘린더 영역 -->
             <div class="row">
-                <th:block th:if="${session.loginInfo == null}">
-                    <input type="hidden" id="memberName" value="null">
+                <th:block sec:authorize="isAnonymous()">
+                    <input type="hidden" id="memberId" value="null">
                 </th:block>
-                <th:block th:unless="${session.loginInfo == null}">
-                    <input type="hidden" id="memberName" th:value="${session.loginInfo.memberName}">
+                <th:block sec:authorize="isAuthenticated()">
+                    <input type="hidden" id="memberId" th:value="${#authentication.name}">
                 </th:block>
 
                 <div class="col-6">
