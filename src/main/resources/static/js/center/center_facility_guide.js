@@ -22,7 +22,8 @@ function categoryTab(categoryCode){
     //fetch 통신 후 실행 영역
     .then((data) => {//data -> controller에서 리턴되는 데이터(facilityList)
         console.log(data);
-        let guideTag = document.querySelector('#guide-content');
+        let contentTag = document.querySelector('#myTabContent');
+        let guideTag = document.querySelector('#guide-tab-content');
 
         let str ='';
         data.forEach(facilityInfo => {
@@ -42,6 +43,7 @@ function categoryTab(categoryCode){
         });    
 
         guideTag.innerHTML = str;
+        
     })
     //fetch 통신 실패 시 실행 영역
     .catch(err=>{

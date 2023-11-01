@@ -96,6 +96,12 @@
         ORDER BY FACILITY_CODE DESC
     </select>
 
+    <!-- 시설관리 - 전체 데이터 수 조회 -->
+    <select id="selectFacilityListCnt" resultType="int">
+        SELECT COUNT(FACILITY_CODE)
+        FROM CENTER_FACILITY
+    </select>
+
     <!--시설관리 - 대관가능유무 상태 변경(비동기통신)-->
     <update id="updateRentalAvailable">
         UPDATE CENTER_FACILITY
@@ -134,6 +140,7 @@
         , FACILITY_NAME
         , FACILITY_CONTENT
         , FACILITY_PLACE_INFO
+        , CENTER_CATE_CODE
         , FACILITY_ORIGIN_FILE_NAME
         , FACILITY_ATTACHED_FILE_NAME
         FROM CENTER_FACILITY, CENTER_FACILITY_IMAGE

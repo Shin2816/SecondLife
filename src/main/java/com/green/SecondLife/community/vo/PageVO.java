@@ -1,5 +1,8 @@
 package com.green.SecondLife.community.vo;
 
+import lombok.Data;
+
+@Data
 public class PageVO {
     private int nowPage; //현재 페이지 번호
     private int totalDataCnt; //전체 데이터 수
@@ -46,32 +49,34 @@ public class PageVO {
             prev = true;
         }
     }
+
     //전체 데이터 수 setter
     public void setTotalPageCnt(int totalDataCnt){
         this.totalDataCnt = totalDataCnt;
     }
     // 현재 페이지 getter
-    public int getNowPage() {
-        return nowPage;
-    }
-    //현재 페이지 setter
-    public void setNowPage(int nowPage) {
-        this.nowPage = nowPage;
-    }
-    //한 페이지에 보여지는 데이터 수 getter
-    public int getDisplayDataCnt() {
-        return displayDataCnt;
-    }
-    public int getBeginPage() {
-        return beginPage;
-    }
-    public int getEndPage() {
-        return endPage;
-    }
-    public boolean getPrev() {
-        return prev;
-    }
-    public boolean getNext() {
-        return next;
-    }
+//    public int getNowPage() {
+//        return nowPage;
+//    }
+//    //현재 페이지 setter
+//    public void setNowPage(int nowPage) {
+//        this.nowPage = nowPage;
+//    }
+//    //한 페이지에 보여지는 데이터 수 getter
+//    public int getDisplayDataCnt() {
+//        return displayDataCnt;
+//    }
+//    public int getBeginPage() {
+//        return beginPage;
+//    }
+//    public int getEndPage() {
+//        return endPage;
+//    }
+//    public boolean getPrev() {
+//        return prev;
+//    }
+//    public boolean getNext() {
+//        return next;
+//    }
+
 }

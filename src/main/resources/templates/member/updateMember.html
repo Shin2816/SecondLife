@@ -27,8 +27,8 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col">
-                            <input type="password" class="form-control" id="newMemberPW" placeholder="새 비밀번호" autocomplete="off" required>
-                            <input type="password-" class="form-control" name="memberPW" id="newMemberPW2" placeholder="비밀번호 확인" autocomplete="off" required>
+                            <input type="password" class="form-control" id="newMemberPW" placeholder="새 비밀번호" autocomplete="off" onblur="UpdateCheckPW()" required>
+                            <input type="password" class="form-control" name="memberPW" id="newMemberPW2" placeholder="비밀번호 확인" autocomplete="off" onblur="UpdateCheckPW()" required>
                             <div class="row mb-3 error">
                                 <div class="pw-error-div">
         
