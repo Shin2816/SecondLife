@@ -10,33 +10,67 @@
 <body>
     <th:block layout:fragment="content">
         <link rel="stylesheet" href="/css/instructor/admin_instructor_list.css">
-        <h2>관리자 강사 목록 페이지</h2>
+        <h3>강사 목록 입니다</h3>
         <div>
             <table class="table table-hover text-center align-center">
                 <colgroup>
-                    <col width="20%">
                     <col width="10%">
                     <col width="10%">
+                    <col width="10%">
+                    <col width="10%">
+                    <col width="10%">
+                    <col width="18%">
                     <col width="10%">
                     <col width="*">
                 </colgroup>
                 <thead>
                     <tr>
-                        <td>이미지</td>
-                        <td>나이</td>
-                        <td>성별</td>
-                        <td>담당과목</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="phoneCap"></td>
+                        <td></td>
+                        <td></td>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="body-list">
                     <tr th:each="instructor : ${instructorList}"
                         th:onclick="|location.href='@{/instructor/adminInstructorDetail(instructorCode=${instructor.instructorCode}, menuCode=MENU_001)}'|">
                         <td>
                             <img th:src="${'/images/instructor/' + instructor.instructorImgVO.instructorAttachedFileName}" id="instructor-img">
                         </td>
-                        <td>[[${instructor.instructorAge}]] </td>
-                        <td>[[${instructor.instructorGender}]]</td>
-                        <td>[[${instructor.lectureEventCode}]]</td>
+                        <td class="name">
+                            <p class="top">이름</p>
+                            <p class="bottom">[[${instructor.instructorName}]]</p>
+                        </td>
+                        <td class="age">
+                            <p class="top">나이</p>
+                            <p class="bottom">[[${instructor.instructorAge}]]</p>
+                        </td>
+                        <td class="gender">
+                            <p class="top">성별</p>
+                            <p class="bottom">[[${instructor.instructorGender}]]</p>
+                        </td>
+                        <td class="event">
+                            <p class="top">담당과목</p>
+                            <p class="bottom">[[${instructor.lectureEventVO.lectureEventName}]]</p>
+                        </td>
+                        <td class="phone">
+                            <p class="top">휴대폰</p>
+                            <p class="bottom">
+                                [[${instructor.instructorPhone}]]
+                            </p>
+                        </td>
+                        <td class="addr">
+                            <p class="top">주소</p>
+                            <p class="bottom">[[${instructor.instructorAddr}]]</p>
+                        </td>
+                        <td class="date">
+                            <p class="top">입사일</p>
+                            <p class="bottom">[[${instructor.instructorJoinDate}]]</p>
+                        </td>
                     </tr>
                 </tbody>
             </table>

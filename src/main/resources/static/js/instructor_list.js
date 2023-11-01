@@ -30,16 +30,29 @@ function showInstructorSimpleInfo(instructorCode){
         document.querySelector('#instructor_gender').innerHTML=`성별 : ${data.instructor.instructorGender}`;
         
         let str = '';
-        data.lectureList.forEach(lecture => {
-            str += `<tr class="lecture_list" onclick="location.href='/lecture/lectureDetail?lectureCode=${lecture.lectureCode}';">`;
-            str += `<td>${lecture.lectureTitle}</td>`;
-            str += `<td>${lecture.lectureSubject}</td>`;
-            str += `<td>${lecture.lecturePeriod}</td>`;
-            str += `</tr>`;
+        data.lectureList.forEach((lecture, index) => {
+            str += `<div>
+                        <div class="index">${index + 1}</div>
+                        <div>
+                            <div class="top">
+                                <span class="event">${lecture.lectureEventVO.lectureEventName}</span>
+                                <span class="start-date">시작일</span>
+                                <span class="finish-date">종강일</span>
+                                <span class="price">가격</span>
+                                <span class="student">정원</span>
+                            </div>
+                            <div class="bottom">
+                                <span class="lecture-title" onclick="location.href='/lecture/lectureDetail?lectureCode=${lecture.lectureCode}';">${lecture.lectureTitle}</span>
+                                <span class="lecture-period-date">${lecture.lecturePeriod}</span>
+                                <span class="lecture-price">${lecture.lecturePrice}</span>
+                                <span class="lecture-student">${lecture.lectureStudent}</span>
+                            </div>
+                        </div>
+                    </div>`;
         });
 
-        document.querySelector('#lecture-table tbody').textContent = '';
-        document.querySelector('#lecture-table tbody').insertAdjacentHTML('afterbegin', str);
+        document.querySelector('#lecture-list-modal').textContent = '';
+        document.querySelector('#lecture-list-modal').insertAdjacentHTML('afterbegin', str);
 
         let str2 = '';
         data.reviewList.forEach(review => {

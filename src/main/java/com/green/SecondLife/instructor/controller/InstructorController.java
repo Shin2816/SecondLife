@@ -37,6 +37,7 @@ public class InstructorController {
         //강사VO에 강사이미지 넣기
         instructorVO.setInstructorImgVO(instructorImgVO);
         //강사 등록하기
+        System.out.println("야야야야야야야야야야야야" + instructorVO);
         instructorService.adminInsertInstructor(instructorVO);
         //리다이렉트로 서브메뉴 코드 보내기
         redirectAttributes.addAttribute("menuCode", "MENU_001");

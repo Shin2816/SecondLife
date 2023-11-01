@@ -1,10 +1,90 @@
 @charset "utf-8";
 /* instructor_list.css */
+.able-lecture{
+    border-bottom: 1px solid #555;
+    margin-bottom: 7px;
+}
+.able-lecture span{
+    display: inline-block;
+    padding: 3px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    background-color: #555;
+    margin-left: 10px;
+}
 .instructor_profil{
     display: flex;
 }
-.lecture_list{
-    border: 1px solid #000;
+#lecture-list-modal>div{
+    display: flex;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ddd;
 }
-.lecture_list td{
-    border: 1px solid #000}
+.index{
+    margin-right: 20px;
+    margin-left: 20px;
+    padding-top: 6px;
+    font-size: 22px;
+    font-weight: 600;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+.top span{
+    display: inline-block;
+    font-size: 11px;
+    padding: 1px;
+    border-radius: 5px;
+    margin-bottom: -20px;
+    background-color: #000;
+    color: #fff;
+}
+.top .event{
+    margin-right: 270px;
+    font-weight: 700;
+    background-color: rgb(64, 191, 241);
+}
+.top .start-date{
+    margin-right: 60px;
+}
+.top .finish-date{
+    margin-right: 87px;
+}
+.top .price{
+    margin-right: 72px;
+}
+.top .student{
+
+}
+.bottom .lecture-title{
+    display: inline-block;
+    font-size: 18px;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 5px;
+    width: 295px;
+    cursor: pointer;
+}
+.bottom .lecture-title:hover{
+    color: #e73407;
+}
+.lecture-period-date{
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 600;
+    color: #777;
+    width: 220px;
+}
+.lecture-price{
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 600;
+    color: #555;
+    width: 100px;
+}
+.lecture-student{
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 600;
+    color: #555;
+}

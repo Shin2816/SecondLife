@@ -17,15 +17,16 @@
     width: 430px;
 }
 .lecture-box .instructor{
-    width: 130px;
+    width: 140px;
     text-align: center;
 }
 .lecture-box .period{
-    width: 130px;
+    width: 250px;
     text-align: center;
 }
 .lecture-box .price{
-    width: 130px;
+    width: 140px;
+    margin-right: 20px;
     text-align: center;
 }
 .lecture-box .top{
@@ -69,13 +70,29 @@
 .lecture-box .instructor .bottom span{
     font-weight: 600;
 }
+.lecture-box .period .top{
+    margin-bottom: -20px;
+}
 .lecture-box .period .top span{
     background-color: yellowgreen;
     color: #fff;
 }
 .lecture-box .period .bottom span{
-    font-size: 14px;
-    color: #444;
+    font-size: 16px;
+    font-weight: 600;
+    color: #777;
+}
+.start-date, .finish-date{
+    font-size: 12px;
+}
+.start-date{
+    margin-right: 60px;
+    border-bottom: 1px solid blue;
+    color: blue;
+}
+.finish-date{
+    color: red;
+    border-bottom: 1px solid red;
 }
 .lecture-box .price .top span{
     background-color: palevioletred;
@@ -86,4 +103,10 @@
 }
 .lecture-box .price .bottom span{
     font-weight: 700;
+}
+.lecture-title{
+    font-size: 20px;
+}
+.instructor-name, .lecture-price{
+    font-size: 20px;
 }

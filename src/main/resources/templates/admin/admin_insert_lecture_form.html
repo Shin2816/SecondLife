@@ -8,38 +8,57 @@
 </head>
 <body>
 <th:block layout:fragment="content">
-<h2>수업 생성 페이지</h2>
-<form action="/lecture/adminInsertLecture" method="post">
+    <link rel="stylesheet" href="/css/lecture/admin_insert_lecture_form.css">
+<h3>새로운 수업을 등록해주세요</h3>
+<form action="/lecture/adminInsertLecture" method="post" id="formTag">
+    <div class="row wrap">
+        <div class="col">
+            <div class="row mb-3">
+                <div class="col-12 cap"><span class="caption">수업명</span></div>
+                <div class="col-8"><input name="lectureTitle" class="form-control" type="text"></div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-12 cap"><span class="caption">과목</span></div>
+                <div class="col-8">
+                    <select name="lectureEventCode" class="form-select" id="">
+                        <th:block th:each="lectureEvent : ${lectureEventList}">
+                        <option th:value="${lectureEvent.lectureEventCode}">[[${lectureEvent.lectureEventName}]]</option>
+                        </th:block>
+                    </select>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-12 cap"><span class="caption">담당강사</span></div>
+                <div class="col-8">
+                    <select name="instructorCode" class="form-select" id="">
+                        <th:block th:each="instructor : ${instructorList}">
+                            <option th:value="${instructor.instructorCode}">[[${instructor.instructorName}]]</option>
+                        </th:block>
+                    </select>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-12 cap"><span class="caption">정원</span></div>
+                <div class="col-8"><input name="lectureStudent" class="form-control" type="number"></div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-12 cap"><span class="caption">기간</span></div>
+                <div class="col-4"><span class="startDate">시작일</span></div>
+                <div class="col-8"><span class="finishDate">종강일</span></div>
+                <div class="col-4"><input name="lecturePeriods" class="form-control" type="date"></div>
+                <div class="col-4"><input name="lecturePeriods" class="form-control" type="date"></div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-12 cap"><span class="caption">수강료</span></div>
+                <div class="col-8"><input name="lecturePrice" class="form-control" type="text"></div>
+            </div>
+        </div>
+    </div>
     <div>
-        <p>
-            강좌명 : 
-            <input type="text" name="lectureTitle">
-        </p>
-        <p>
-            수강과목 : 
-            <select name="lectureEventCode">
-                <th:block th:each="lectureEvent : ${lectureEventList}">
-                    <option th:value="${lectureEvent.lectureEventCode}">[[${lectureEvent.lectureEventName}]]</option>
-                </th:block>
-            </select>
-        </p>
-        <p>
-            강사 : 
-            <select name="instructorCode">
-                <th:block th:each="instructor : ${instructorList}">
-                    <option th:value="${instructor.instructorCode}">[[${instructor.instructorName}]]</option>
-                </th:block>
-            </select>
-        </p>
-        <p>
-            수강생 정원 : 
-            <input type="number" name="lectureStudent">
-        </p>
-        <p>수업기간 : <input type="date" name="lecturePeriod"> ~ <input type="date" name="lecturePeriod"></p>
-        <p>수강료 : <input type="text" name="lecturePrice"></p>
-        <p><input type="submit" value="등록!!"></p>
+        <p class="submit-btn" onclick="submitBtn();">등 록</p>
     </div>
 </form>
+<script src="/js/admin/admin_insert_lecture_form.js"></script>
 </th:block>
 </body>
 </html>

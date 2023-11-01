@@ -8,22 +8,43 @@
 </head>
 <body>
 <th:block layout:fragment="content">
-<h2>관리자용 강좌 종목 생성 페이지</h2>
-<form action="/lecture/adminInsertLectureEvent" method="post" enctype="multipart/form-data">
-    <div>
-        <p>강좌 종목 이름</p>
-        <span><input type="text" name="lectureEventName"></span>
+    <link rel="stylesheet" href="/css/lecture/admin_insert_lecture_event_form.css">
+<h3>새로운 강좌 종목 개설</h3>
+<form action="/lecture/adminInsertLectureEvent" method="post" enctype="multipart/form-data" id="event-form">
+    <div id="wrap_box">
+        <div class="row">
+            <div class="col">
+                <div class="row event-name">
+                    <div class="col-12 cap">강좌명</div>
+                    <div class="col-10 mb-3">
+                        <input class="form-control" type="text" name="lectureEventName">
+                    </div>
+                </div>
+                <div class="row event-content">
+                    <div class="col-12 cap">강좌내용</div>
+                    <div class="col-10 mb-3">
+                        <textarea class="form-control" name="lectureEventContent" cols="30" rows="7"></textarea>
+                    </div>
+                </div>
+                <div class="row event-img">
+                    <div class="col-12 cap">강좌이미지</div>
+                    <div class="img-box" onclick="sendClick();">
+                        <div class="col-12">
+                            <input type="file" id="file-input-tag" name="lectureEventImg" onchange="showImg(this);">
+                        </div>
+                        <div class="col-6">
+                            <img src="/images/icons/plus.jpg" id="uploadImg">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <p id="submit-btn" onclick="submitBtn();">등록</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div>
-        <p>강좌 내용</p>
-        <textarea name="lectureEventContent" cols="20" rows="5"></textarea>
-    </div>
-    <div>
-        <p>강좌 종목 이미지</p>
-        <span><input type="file" name="lectureEventImg"></span>
-    </div>
-    <input type="submit" value="생성">
 </form>
+<script src="/js/admin_insert_lecture_event_form.js"></script>
 </th:block>
 </body>
 </html>
