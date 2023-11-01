@@ -3,15 +3,15 @@ package com.green.SecondLife.community.controller;
 import com.green.SecondLife.community.service.CommunityService;
 import com.green.SecondLife.community.vo.BoardCommentListVO;
 import com.green.SecondLife.community.vo.BoardFreeListVO;
-import com.green.SecondLife.member.vo.MemberVO;
 import com.green.SecondLife.member.vo.SubMenuVO;
 import com.green.SecondLife.util.ConstantVariable;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -58,9 +58,11 @@ public class CommunityController {
     }
     //글 등록 페이지에서 등록하기 누르면 글 등록 쿼리 실행
     @PostMapping("/regBoard")
-    public String regBoard(BoardFreeListVO boardFreeListVO, HttpSession session){
-        MemberVO loginInfo = (MemberVO)session.getAttribute("loginInfo");
-        boardFreeListVO.setFreeBoardWriter(loginInfo.getMemberId());
+    public String regBoard(BoardFreeListVO boardFreeListVO, Authentication authentication){
+        //세터에 작성자 넣기
+        boardFreeListVO.setFreeBoardWriter(authentication.getName());
+
+        //글 등록 쿼리
         communityService.insertFreeBoard(boardFreeListVO);
         return "redirect:/board/freeBoardList?menuCode="+ ConstantVariable.MENU_CODE_BOARD;
     }
@@ -94,9 +96,12 @@ public class CommunityController {
     //상세 페이지에서 댓글 작성버튼 클릭하면 비동기로 insert 쿼리 실행
     @ResponseBody
     @PostMapping("/freeBoardComment")
-    public boolean freeBoardComment(BoardCommentListVO boardCommentListVO, HttpSession session){
+    public boolean freeBoardComment(BoardCommentListVO boardCommentListVO, Authentication authentication){
+        //admin
+        System.out.println(authentication.getName());
+
         //로그인 정보가 없다면 댓글 작성하지 못하게
-        if (session.getAttribute("loginInfo") == null){//로그인 정보가 없을 때
+        if (authentication == null){//로그인 정보가 없을 때
             return false;//board.js로 false리턴
         }
         //로그인 정보가 있다면 if문 실행되지않고 쿼리가 실행된 후 true 리턴

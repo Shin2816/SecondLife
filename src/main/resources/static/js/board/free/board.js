@@ -1,9 +1,9 @@
 ///////////////////////////////////////////////////댓글작성(비동기)
-function freeRegComment(freeBoardWriter, selectedTag, freeBoardNum, loginInfo, menuCode){
+function freeRegComment(selectedTag, freeBoardNum, name, menuCode){
     const commentContent = selectedTag.closest('div').querySelector('input[type="text"]').value;
 
     //댓글 입력 여부 체크
-    if(loginInfo == null){//로그인을 하지 않았다면
+    if(name == 'anonymousUser'){//로그인을 하지 않았다면
         if(confirm('로그인이 필요한 서비스입니다.\n로그인 페이지로 이동하시겠습니까?')){//알람 띄운 후 확인버튼 누르면
             location.href='/member/loginForm';//로그인 페이지로 이동
         }
@@ -34,7 +34,7 @@ function freeRegComment(freeBoardWriter, selectedTag, freeBoardNum, loginInfo, m
         body: new URLSearchParams({
             // 데이터명 : 데이터값
             'commentContent' : commentContent,
-            'commentWriter' : freeBoardWriter,
+            'commentWriter' : name,
             'commentNum' : freeBoardNum
         })
     })

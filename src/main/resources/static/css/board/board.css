@@ -25,3 +25,35 @@
 .board_item{
     cursor: pointer;
 }
+.ellipsis-form{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;  /* ... 표시 */
+}
+
+/* 공유하기 */
+.link-icon {
+    position: relative;
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    margin-right: 10px;
+    padding-top: 50px;
+    width: 35px;
+    height: 35px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 35px;
+    text-indent: -99999px;
+}
+.twitter{
+    background-image: url(../../images/icons/icon-twitter.png);
+    
+}
+.facebook{
+    background-image: url(../../images/icons/icon-facebook.png);
+} 
+.kakao{
+    background-image: url(../../images/icons/icon-kakao.png);
+}

@@ -2,8 +2,6 @@ package com.green.SecondLife.community.vo;
 
 import lombok.Data;
 
-import java.util.List;
-
 @Data
 public class QaImgVO {
     private String qaCode;

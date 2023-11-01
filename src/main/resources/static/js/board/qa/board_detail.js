@@ -52,11 +52,14 @@ function resetBoardMessage(){
     document.querySelector('.text-error-div').style.display = 'none';
 }
 ///////////////////////////////////////////////////댓글작성(비동기)
-function qaRegComment(qaBoardWriter, selectedTag, qaBoardNum, loginInfo){
+function qaRegComment(selectedTag, qaBoardNum, name){
+    //form태그 id값 가져오기
+    const qaPasswordBoardForm = document.querySelector('#qaPasswordBoardForm');
+    const qaCheckPwInput = qaPasswordBoardForm.qaCheckPwInput.value; //컨트롤러의 boardDetail로 이동할 때 값 전달 해야한다.
+    console.log(qaCheckPwInput);
     const commentContent = selectedTag.closest('div').querySelector('input[type="text"]').value;
-
     //댓글 입력 여부 체크
-    if(loginInfo == null){//로그인을 하지 않았다면
+    if(name == 'anonymousUser'){//로그인을 하지 않았다면
         if(confirm('로그인이 필요한 서비스입니다.\n로그인 페이지로 이동하시겠습니까?')){//알람 띄운 후 확인버튼 누르면
             location.href='/member/loginForm';//로그인 페이지로 이동
         }
@@ -87,7 +90,7 @@ function qaRegComment(qaBoardWriter, selectedTag, qaBoardNum, loginInfo){
         body: new URLSearchParams({
             // 데이터명 : 데이터값
             'commentContent' : commentContent,
-            'commentWriter' : qaBoardWriter,
+            'commentWriter' : name,
             'commentNum' : qaBoardNum
         })
     })
@@ -104,7 +107,7 @@ function qaRegComment(qaBoardWriter, selectedTag, qaBoardNum, loginInfo){
     .then((data) => {//data -> controller에서 리턴되는 데이터!
         if(data == true){//로그인 정보가 있다면
             alert('등록이 완료 되었습니다.');
-            location.href=`/qa/boardDetail?qaBoardNum=${qaBoardNum}`;//등록이 완료되고 해당 게시글 상세페이지로 이동
+            location.href=`/qa/boardDetail?qaBoardNum=${qaBoardNum}&qaCheckPwInput=${qaCheckPwInput}`;//등록이 완료되고 해당 게시글 상세페이지로 이동
         }
     })
     //fetch 통신 실패 시 실행 영역
