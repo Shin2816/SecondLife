@@ -6,23 +6,18 @@ const menuCode = document.querySelector('#menuCode').value;
 
 //---------------- 함수 영역-------------------//
 function openCheckPwModal(qaBoardNum, loginInfo){
-    alert(1);
     //로그인을 했다면
     if(loginInfo != null){
-        alert(2);
         //관리자라면 모달창 띄우지 않고 바로 boardDetail로 이동
         if(loginInfo.authorities[0].authority == 'ROLE_ADMIN'){
-            alert(3);
             //프리패스
             location.href=`/qa/boardDetail?commentNum=${qaBoardNum}&menuCode=${menuCode}`;
         } else{
-            alert(4);
             //해당하는 글의 정보를 input태그의 value로 전달
             document.querySelector('#modal_qaBoardNum').value = qaBoardNum;
             qaModal.show();
         }
     } else{
-        alert(5);
         document.querySelector('#modal_qaBoardNum').value = qaBoardNum;
         qaModal.show();
     }
