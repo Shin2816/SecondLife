@@ -23,8 +23,6 @@ public class BoardInterceptor implements HandlerInterceptor {
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
         if(modelAndView != null){
             modelAndView.addObject("freeBoardList", communityService.selectMainFreeBoardList());
-            modelAndView.addObject("qaBoardList", qaService.selectMainQaBoardList());
-
         }
 
     }

@@ -125,4 +125,31 @@ $(document).ready(function () {
    }); 
 });
 
-
+///////////////////////////////////////////////// 공유하기 ////////////////////////////////////////////
+function shareTwitter() {
+    var sendText = "개발 재미있다"; // 전달할 텍스트
+    var sendUrl = "devpad.tistory.com/"; // 전달할 URL
+    window.open("https://twitter.com/intent/tweet?text=" + sendText + "&url=" + sendUrl);
+}
+function shareFacebook() {
+    var sendUrl = "devpad.tistory.com/"; // 전달할 URL
+    window.open("http://www.facebook.com/sharer/sharer.php?u=" + sendUrl);
+}
+function shareKakao(qaBoardNum) { //카카오톡
+    // 사용할 앱의 JavaScript 키 설정
+    Kakao.init('d9f19096fc6d6af46e68d7f05e372fa6');
+  
+    // 카카오링크 버튼 생성
+    Kakao.Link.createDefaultButton({
+      container: '#btnKakao', // 카카오공유버튼ID
+      objectType: 'feed',
+      content: {
+        title: "커뮤니티", // 보여질 제목
+        description: "게시판 공유합니다", // 보여질 설명
+        imageUrl: "devpad.tistory.com/", // 콘텐츠 URL
+        link: {
+           webUrl: "http://localhost:8081/qa/boardDetail?qaBoardNum=" + qaBoardNum
+        }
+      }
+    });
+}

@@ -133,12 +133,54 @@
                                     </th:block>
                                     <!-- 게시글 있을 때 -->
                                     <th:block th:unless="${#lists.size(qaBoardList) == 0}" >
-                                        <tr class="board-tr" th:each="qaBoard : ${qaBoardList}" th:onclick="|location.href='@{/qa/boardDetail(qaBoardNum=${qaBoard.qaBoardNum},menuCode=MENU_007)}'|">
-                                            <td class="board_td_title">[[${qaBoard.qaBoardTitle}]]</td>
-                                            <td>[[${qaBoard.qaBoardWriter}]]</td>
-                                            <td>[[${qaBoard.qaCreateDate}]]</td>
-                                        </tr>
+                                        <tbody id="board-list-body">
+                                            <!-- 비밀번호가 걸려있다면 -->
+                                            <th:block th:if="${qaBoard.qaBoardPassword != null}" th:each="qaBoard : ${qaBoardList}">
+                                                <tr class="board-tr" th:onclick="openCheckPwModal([[${qaBoard.qaBoardNum}]], [[${authentication}]]);">
+                                                    <td>[[${qaBoard.qaBoardTitle}]]비번O</td>
+                                                    <td>[[${qaBoard.qaBoardWriter}]]</td>
+                                                    <td>[[${qaBoard.qaCreateDate}]]</td>
+                                                </tr>
+                                            </th:block>
+                                            <!-- 비밀번호가 걸려있지않다면 -->
+                                            <th:block th:if="${qaBoard.qaBoardPassword == null}" th:each="qaBoard : ${qaBoardList}">
+                                                <tr class="board-tr" th:onclick="|location.href='@{/qa/boardDetail(commentNum=${qaBoard.qaBoardNum}, menuCode=MENU_007)}'|">
+                                                    <td>[[${qaBoard.qaBoardTitle}]]비번X</td>
+                                                    <td>[[${qaBoard.qaBoardWriter}]]</td>
+                                                    <td>[[${qaBoard.qaCreateDate}]]</td>
+                                                </tr>
+                                            </th:block>
+                                        </tbody>
                                     </th:block>
+                                    <!-- Modal창을 띄우고 -->
+                                    <div class="modal fade" id="qaPasswordBoard" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">비밀번호를 입력해주세요.</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>          
+                                                <form action="/qa/boardDetail" method="post" id="qaPasswordBoardForm">
+                                                    <input type="hidden" name="commentNum" id="modal_qaBoardNum" value="">
+                                                    <input type="hidden" name="menuCode" th:value="${subMenuVO.menuCode}">
+                                                    <div class="modal-body">
+                                                        <div class="row mb-3">
+                                                            <input type="text" name="qaCheckPwInput" id="qaCheckPwInput" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <div class="row mb-3 error text-center">
+                                                            <div class="password-error-div">
+                                                                <!-- 에러 출력 -->
+                                                            </div>
+                                                        </div>
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                                                        <button type="button" class="btn btn-primary" onclick="qaPasswordValidate()">확인</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </table>
                             </div>
                         </div>
@@ -220,6 +262,8 @@
 
             </div>
         </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+        <script src="/js/board/qa/qa_board.js"></script>
     </th:block> 
 </body>
 </html>

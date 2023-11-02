@@ -81,7 +81,6 @@ public class QaController {
     //글 tr태그를 클릭했을때 해당글의 상세페이지 이동
     @RequestMapping("/boardDetail")
     public String boardDetail(Model model, BoardCommentListVO boardCommentListVO, SubMenuVO subMenuVO, Authentication authentication){
-        System.out.println(boardCommentListVO.getQaCheckPwInput());
 
         //데이터베이스에 저장된 비밀번호를 조회해서 저장함
         String qaPw = qaService.selectQaPw(boardCommentListVO.getCommentNum());
@@ -98,10 +97,14 @@ public class QaController {
             isAuthentication = user.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
         }
 
+        BoardQaListVO board = qaService.selectQaBoardDetail(boardCommentListVO.getCommentNum());//해당글 상세정보 조회하고
+        board.setQaBoardPassword(qaService.selectQaPw(boardCommentListVO.getCommentNum()));//
+        System.out.println(board);
+
         //   공개이 거나,         로그인을 했고                관리자라면 프리패스!
         if(qaPw == null || (authentication != null && isAuthentication)){
             //board이름으로 디테일정보 던지기
-            model.addAttribute("board", qaService.selectQaBoardDetail(boardCommentListVO.getCommentNum()));//아우터조인
+            model.addAttribute("board", board);//아우터조인
             model.addAttribute("authentication", authentication);
             //조회수 증가
             qaService.updateQaBoardCnt(boardCommentListVO.getCommentNum());
@@ -110,7 +113,7 @@ public class QaController {
             return "board/qa/board_detail";
         } else if (qaPw.equals(boardCommentListVO.getQaCheckPwInput())){ // 비공개
             //board이름으로 디테일정보 던지기
-            model.addAttribute("board", qaService.selectQaBoardDetail(boardCommentListVO.getCommentNum()));//아우터조인
+            model.addAttribute("board", board);//아우터조인
             //조회수 증가
             qaService.updateQaBoardCnt(boardCommentListVO.getCommentNum());
             //댓글 조회해서 html로 던지기
