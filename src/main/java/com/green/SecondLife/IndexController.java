@@ -22,8 +22,6 @@ public class IndexController {
     @GetMapping("/")
     public String main(BoardCommentListVO boardCommentListVO, Model model, SubMenuVO subMenuVO, BoardQaListVO boardQaListVO, Authentication authentication){
         List<BoardQaListVO> qaBoardList = qaService.selectQaBoardList(boardQaListVO);//게시글 목록 조회
-
-        System.out.println(qaBoardList);
         model.addAttribute("qaBoardList", qaBoardList);//게시글정보
         model.addAttribute("authentication", authentication);//유저정보
         return "main";
