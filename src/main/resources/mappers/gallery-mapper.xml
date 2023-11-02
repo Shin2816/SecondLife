@@ -162,6 +162,7 @@
         COMMENT_CONTENT = #{commentContent}
         WHERE COMMENT_ID = #{commentId}
     </update>
+
 </mapper>
 
 

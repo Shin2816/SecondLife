@@ -75,7 +75,7 @@
   transform: translate(-50%, -50%);
   width: 65%;
   content: "예약가능";
-  color: red;
+  color: blue;
   font-size: 0.9rem;
 }
 
@@ -87,6 +87,12 @@
   display: none;
 }
 
+/* 공휴일 글자 위치 */
+.fc-event-title-container{
+  margin-top: 5px;
+  text-align: center;
+  font-size: 0.9rem;
+}
 
 #sign-btn{
   position: absolute;

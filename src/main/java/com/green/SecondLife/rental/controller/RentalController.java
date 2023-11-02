@@ -76,7 +76,6 @@ public class RentalController {
             rentalList.add(rentVO);
         }
         rentalFacilityVO.setFacilityList(rentalList);
-        System.out.println(rentalList);
         rentalService.insertRentalFacility(rentalFacilityVO);
 
         return "redirect:/rental/rentalFacility?menuCode="+ ConstantVariable.MENU_CODE_RENTAL_FACILITY;
@@ -94,12 +93,7 @@ public class RentalController {
         rentalFacilityVO.setTotalDataCnt(totalDataCnt);
         rentalFacilityVO.setPageInfo();
 
-        List<RentalFacilityVO> myRentalList =  rentalService.selectMyRentalList(rentalFacilityVO);
-        System.out.println(myRentalList);
-        System.out.println();
-        System.out.println(rentalFacilityVO);
-
-        model.addAttribute("myRentalList", myRentalList);
+        model.addAttribute("myRentalList", rentalService.selectMyRentalList(rentalFacilityVO));
         return "/rental/my_rental_history";
     }
 

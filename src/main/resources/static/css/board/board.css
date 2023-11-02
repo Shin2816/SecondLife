@@ -1,3 +1,7 @@
+a{
+    text-decoration: none;
+    color: #000;
+}
 .list-select{
     width: 120px;
 }
@@ -14,6 +18,9 @@
     line-height: 2;
     background-color: rgb(206, 226, 243);
 }
+.card-title{
+    font-size: 18px;
+}
 /* .s-note{
     resize: none;
     padding: 0;
@@ -22,8 +29,13 @@
 .openAndClose{
     padding: 0;
 }
-.board_item{
+.board-item{
     cursor: pointer;
+    border: 1px solid #eee;
+    border-radius: 10px;
+}
+.card-body{
+    margin: 0 5px;
 }
 .ellipsis-form{
     white-space: nowrap;

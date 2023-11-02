@@ -13,4 +13,5 @@ public class CenterFacilityVO extends PageVO {
     private int centerCateCode;
     private String facilityPlaceInfo;
     private FacilityImageVO facilityImageVO;
+    private CenterPlaceCategoryVO centerPlaceCategoryVO;
 }

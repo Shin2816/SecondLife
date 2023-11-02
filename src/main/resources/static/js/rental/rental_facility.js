@@ -12,13 +12,13 @@ document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
     
     var calendar = new FullCalendar.Calendar(calendarEl, {
+        googleCalendarApiKey: 'AIzaSyAoUk6r8_Vug3omamUAv4_FAtlRFNcXW3s',
         headerToolbar: {
             left: '',
             center: 'title',
             right: 'prev,next'
         },
         initialView: 'dayGridMonth',
-        initailDate: 'default', // 달력 처음 로드될때 표시되는 날짜. default는 현재 날짜
         locale: 'ko', //달력 한국어
         editable : false, //이벤트 위치 변경 가능 여부
         selectable: true, //달력 클릭 여부
@@ -26,6 +26,19 @@ document.addEventListener('DOMContentLoaded', function() {
         validRange: {
             start: new Date(),  // 현재 날짜 이후의 날짜만 활성화
         },
+        eventSources :[ 
+            {
+                googleCalendarId : 'ko.south_korea.official#holiday@group.v.calendar.google.com'
+                , className: 'gCal'
+                , color: 'white'  
+                , textColor: 'red' 
+            } 
+        ],
+        // eventRender: function(info) {
+        //     if(info.event.source.className.includes('gCal')){
+        //         event.setProp('backgroundColor', 'green');
+        //     }
+        // },
         dayCellContent: function(info) {    //달력 '일' 삭제
             var dayNum = document.createElement('a');
             dayNum.classList.add('fc-daygrid-day-number');
@@ -38,48 +51,23 @@ document.addEventListener('DOMContentLoaded', function() {
             return {
                 domNodes: []
             };
-            
         },
         dateClick: function(info) { //달력을 클릭 했을 때, 함수 호출
-        if(info.date.getDay() === 0 || info.date.getDay() === 6){ //토(6),일(0)만 클릭 가능
-            calendarCheck(info.dateStr); //비동기 통신, 매개변수는 클릭한 날짜
-        }
+            if(info.date.getDay() === 0 || info.date.getDay() === 6){ //토(6),일(0)만 클릭 가능
+                calendarCheck(info.dateStr); //비동기 통신, 매개변수는 클릭한 날짜
+            }
         }
     });
-
     calendar.render();
-
-    //풀캘린더 평일-예약불가 / 주말-예약가능.불가(데이터따라) / 지난날짜-예약마감
-    // var days = document.querySelectorAll('.fc-daygrid-day');
-    
-    // console.log(days);
-
-    // days.forEach(day => {
-    //     var cellContent = document.createElement('div');
-    //     cellContent.setAttribute('class', 'cell-content');
-    //     if(day.classList.contains('fc-day-past') == true){
-    //         document.querySelector('.cell-content').style.setProperty("--before-content", "'예약마감'");
-    //     } else if(day.classList.contains('fc-day-past') == true){
-
-    //     }
-    //     day.appendChild(cellContent);
-    // });
-
-    
-
 });
-
-
-
 
 
 //풀캘린더 날짜 선택 시 실행되는 함수
 function calendarCheck(date){
     let inputTitle = document.querySelector('#rental-table-title'); // h2날짜 표시
     inputTitle.innerHTML = date;
-
+    
     const facilityCode = document.querySelector('#facility-name').dataset.facilityCode;
-    console.log(facilityCode);
     
     if(facilityCode == undefined){
         alert('먼저 사용할 시설을 선택해주세요');
@@ -103,11 +91,8 @@ function calendarCheck(date){
             alert('fetch error!\n컨트롤러로 통신중에 오류가 발생했습니다.');
             return ;
         }
-
-        //return response.text(); //컨트롤러에서 return하는 데이터가 없거나 int, String 일 때 사용
-        return response.json(); //나머지 경우에 사용
+        return response.json(); 
     })
-    //fetch 통신 후 실행 영역
     .then((data) => {//data -> controller에서 리턴되는 데이터(rentalTimeList)
         let inputTr = document.querySelector('#input-tr');
         let memberId = document.querySelector('#memberId').value;
@@ -153,7 +138,6 @@ function calendarCheck(date){
        
         inputTr.innerHTML = str;
     })
-    //fetch 통신 실패 시 실행 영역
     .catch(err=>{
         alert('fetch error!\nthen 구문에서 오류가 발생했습니다.\n콘솔창을 확인하세요!');
         console.log(err);
@@ -233,7 +217,6 @@ function rentalSignUpValidate(){
     // 1. 데이터 유효성 검사
     const signRentalForm = document.querySelector('#signRentalForm');
 
-
     //단체명 필수 입력/ 8자 이하로 작성
     if(signRentalForm.rentalTeam.value.length == 0){
         inputInvalidate('#team-error-div', '단체명을 입력해주세요.');
@@ -253,7 +236,6 @@ function rentalSignUpValidate(){
         inputInvalidate('#purpose-error-div', '10자 이하로 작성해주세요.');
         return;
     }
-
 
     // 2. 데이터 가져가기 - submit 실행
     // form태그 선택 -> submit()함수 실행

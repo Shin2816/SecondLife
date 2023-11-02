@@ -77,41 +77,41 @@
                                                 <div class="row mb-3">
                                                     <div class="col-4">시설 카테고리</div>
                                                     <div class="col-8">
-                                                        <select name="centerCateCode" class="form-select">
-                                                            <option th:each="centerCategory : ${centerCategoryList}" th:value="${centerCategory.centerCateCode}" selected>[[${centerCategory.centerCateName}]]</option>
-                                                        </select>
+                                                        <input class="form-control" type="text" name="centerCateName" th:value="${facility.centerPlaceCategoryVO.centerCateName}" readonly>
                                                     </div>
                                                 </div>
                                                 <div class="row mb-3">
-                                                    <div class="col-4">시설명</div>
+                                                    <div class="col-4"><span style="color:red;">*</span>시설명</div>
                                                     <div class="col-8">
                                                         <input class="form-control" type="text" name="facilityName" th:value="${facility.facilityName}">
                                                     </div>
                                                 </div>
                                                 <div class="row mb-3">
-                                                    <div class="col-4">장소(층) 정보</div>
+                                                    <div class="col-4"><span style="color:red;">*</span>장소(층) 정보</div>
                                                     <div class="col-8">
                                                         <input class="form-control" type="text" name="facilityPlaceInfo" th:value="${facility.facilityPlaceInfo}">
                                                     </div>
                                                 </div>
                                                 <div class="row mb-3">
-                                                    <div class="col-4">시설 설명</div>
+                                                    <div class="col-4"><span style="color:red;">*</span>시설 설명</div>
                                                     <div class="col-8">
                                                         <textarea class="form-control" name="facilityContent" id="" cols="30" rows="10">[[${facility.facilityContent}]]</textarea>
                                                     </div>
                                                 </div>
                                                 <div class="row mb-3">
                                                     <div class="col-4">대관 가능 유무</div>
-                                                    <div class="col-8">[[${facility.rentalAvailable}]]</div>
+                                                    <div class="col-8">
+                                                        <input class="form-control" type="text" name="centerCateName" th:value="${facility.rentalAvailable}" readonly>
+                                                    </div>
                                                 </div>
                                                 <div class="row mb-3">
-                                                    <div class="col-4">대관 요금</div>
+                                                    <div class="col-4"><span style="color:red;">*</span>대관 요금</div>
                                                     <div class="col-8">
                                                         <input class="form-control" type="text" name="facilityRentalCharge" th:value="${facility.facilityRentalCharge}">
                                                     </div>
                                                 </div>
                                                 <div class="row mb-3">
-                                                    <div class="col-4">사진 파일 첨부 </div>
+                                                    <div class="col-4"><span style="color:red;">*</span>사진 파일 첨부 </div>
                                                     <div class="col-8">
                                                         <input class="form-control" type="file" id="formFile" name="facilityImg" onchange="updateImg()">
                                                     </div>
