@@ -60,6 +60,9 @@ public class CenterController {
         centerFacilityVO.setTotalDataCnt(totalDataCnt);
         centerFacilityVO.setPageInfo();
 
+        //카테고리 조회
+        model.addAttribute("categoryList", centerService.selectCenterCategory());
+
         // 시설 목록 조회
         List<CenterFacilityVO> facilityList = centerService.selectAllFacility(centerFacilityVO);
         System.out.println(facilityList);

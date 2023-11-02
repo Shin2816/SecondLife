@@ -16,6 +16,7 @@
         <result column="CENTER_CATE_CODE"       property="centerCateCode"/>
         <result column="FACILITY_PLACE_INFO"    property="facilityPlaceInfo"/>
         <association property="facilityImageVO" resultMap="facilityImage"/>
+        <association property="centerPlaceCategoryVO" resultMap="centerCategory"/>
     </resultMap>
 
     <resultMap id="facilityImage" type="com.green.SecondLife.center.vo.FacilityImageVO">

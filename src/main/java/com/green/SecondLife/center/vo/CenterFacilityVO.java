@@ -11,7 +11,7 @@ public class CenterFacilityVO extends PageVO {
     private String rentalAvailable;
     private int facilityRentalCharge;
     private int centerCateCode;
-    private String centerCateName;
     private String facilityPlaceInfo;
     private FacilityImageVO facilityImageVO;
+    private CenterPlaceCategoryVO centerPlaceCategoryVO;
 }
