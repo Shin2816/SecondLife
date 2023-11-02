@@ -1,11 +1,10 @@
 function categoryTab(categoryCode){
-    fetch('/center/centerGuideFetch', { //요청경로
+    fetch('/center/centerGuideFetch', { 
         method: 'POST',
         cache: 'no-cache',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
         },
-        //컨트롤러로 전달할 데이터
         body: new URLSearchParams({
             'centerCateCode' : categoryCode
         })
@@ -16,13 +15,9 @@ function categoryTab(categoryCode){
             return ;
         }
 
-        //return response.text(); //컨트롤러에서 return하는 데이터가 없거나 int, String 일 때 사용
-        return response.json(); //나머지 경우에 사용
+        return response.json(); 
     })
-    //fetch 통신 후 실행 영역
     .then((data) => {//data -> controller에서 리턴되는 데이터(facilityList)
-        console.log(data);
-        let contentTag = document.querySelector('#myTabContent');
         let guideTag = document.querySelector('#guide-tab-content');
 
         let str ='';
@@ -45,7 +40,6 @@ function categoryTab(categoryCode){
         guideTag.innerHTML = str;
         
     })
-    //fetch 통신 실패 시 실행 영역
     .catch(err=>{
         alert('fetch error!\nthen 구문에서 오류가 발생했습니다.\n콘솔창을 확인하세요!');
         console.log(err);
