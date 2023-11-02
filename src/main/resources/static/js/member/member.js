@@ -286,3 +286,28 @@ function updateresetMessage(){
     document.querySelector('.addr-error-div').style.display = 'none';
     document.querySelector('.email-error-div').style.display = 'none';
 }
+
+function manageMember(e){
+    
+    let memberId = document.querySelector('#memberId');
+    let memberName = document.querySelector('#memberName');
+    let memberTel = document.querySelector('#memberTel');
+    let memberAddr = document.querySelector('#memberAddr');
+    let memberEmail = document.querySelector('#memberEmail');
+    let memberGender = document.querySelector('#memberGender');
+
+    memberId.value = e.querySelector('.manage-member-id').textContent;
+    memberName.value = e.querySelector('.manage-member-name').textContent
+    memberTel.value = e.querySelector('.manage-member-tel').textContent
+    memberAddr.value = e.querySelector('.manage-member-addr').textContent
+    memberEmail.value = e.querySelector('.manage-member-email').textContent
+    memberGender.value = e.querySelector('.manage-member-gender').textContent
+
+}
+
+function manageDeleteMember(e){
+    let memberId = e.closest('div').querySelector('.manage-member-id').textContent
+    if(confirm(memberId + "님을 삭제하겠습니까?")){
+        location.href='/member/manageMemberDelete?memberId='+memberId;
+    }
+}

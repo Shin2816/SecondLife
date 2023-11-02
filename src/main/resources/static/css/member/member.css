@@ -3,7 +3,7 @@ p{
     margin: 0;
 }
 input::placeholder {
-    color: #0000FF;
+    color: #6d6d6d8a;
 }
 .check-btn{
     display: none;
@@ -18,6 +18,7 @@ input::placeholder {
 .admin-manage{
     text-align: center;
     align-items: center;
+    height: 200px;
 }
 .admin-manage>div:nth-child(n+2){
     border: 1px solid black;
@@ -34,6 +35,9 @@ input::placeholder {
     display: flex;
     width: 100%;
 }
+.admin-manage-member-info{
+    padding: 5px 0;
+}
 .manage-member-id{
     width: 10%;
 }
@@ -44,11 +48,38 @@ input::placeholder {
     width: 15%;
 }
 .manage-member-addr{
-    width: 40%;
+    width: 35%;
+}
+.admin-manage-member-info .manage-member-addr{
+    text-align: start;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .manage-member-email{
     width: 20%;
 }
 .manage-member-gender{
     width: 5%;
+}
+.manage-member-delete{
+    width: 5%;
+}
+.admin-manage-member-info .manage-member-delete{
+    cursor: pointer;
+}
+#memberName{
+    width: 5rem;
+}
+#memberTel{
+    width: 9rem;
+}
+#memberEmail{
+    width: 15rem;
+}
+#memberAddr{
+    width: 29rem; 
+}
+#memberGender{
+    width: 3rem;
 }

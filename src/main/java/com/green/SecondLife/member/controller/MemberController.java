@@ -16,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 import java.lang.reflect.Member;
@@ -120,10 +121,29 @@ public class MemberController {
         return "/main";
     }
 
+    //관리자 멤버 관리 멤버 전부 조회.
     @GetMapping("/manageMember")
     public String manageMember(SubMenuVO subMenuVO, Model model){
         model.addAttribute("memberAll", memberService.selectAllMember());
         return "/member/manageMember";
     }
 
+    //관리자 멤버 수정
+    @PostMapping("/manageMemberUpdate")
+    public String manageMemberUpdate(MemberVO memberVO, RedirectAttributes redirectAttributes){
+        String[] addr = memberVO.getMemberAddr().split("//");
+        memberVO.setMemberAddr(addr[0]);
+        memberVO.setAddrDetail(addr[1]);
+        memberService.manageMemberUpdate(memberVO);
+        redirectAttributes.addAttribute("menuCode", "MENU_004");
+        return "redirect:/member/manageMember";
+    }
+
+    //관리자 멤버 삭제
+    @GetMapping("/manageMemberDelete")
+    public String manageMemberDelete(String memberId, RedirectAttributes redirectAttributes){
+        memberService.manageMemberDelete(memberId);
+        redirectAttributes.addAttribute("menuCode", "MENU_004");
+        return "redirect:/member/manageMember";
+    }
 }
