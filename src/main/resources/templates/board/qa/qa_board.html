@@ -44,7 +44,7 @@
                 <!-- 클릭 했을 때 비밀번호가 걸려있다면 -->
                 <th:block th:if="${qaBoard.qaBoardPassword != null}" th:each="qaBoard, state : ${qaBoardList}">
                     <tr class="board-tr" th:onclick="openCheckPwModal([[${qaBoard.qaBoardNum}]], [[${authentication}]]);">
-                        <td>[[${#lists.size(qaBoardList) - state.index}]] </td>
+                        <td>[[${boardQaListVO.totalDataCnt - (boardQaListVO.displayDataCnt * (boardQaListVO.nowPage - 1)) - state.index}]]</td>
                         <td>[[${qaBoard.qaBoardTitle}]]</td>
                         <td>[[${qaBoard.qaBoardWriter}]]</td>
                         <td>[[${qaBoard.qaCreateDate}]]</td>
@@ -54,7 +54,7 @@
                 <!-- 클릭 했을 때 비밀번호가 걸려있지않다면 -->
                 <th:block th:if="${qaBoard.qaBoardPassword == null}" th:each="qaBoard, state : ${qaBoardList}">
                     <tr class="board-tr" th:onclick="|location.href='@{/qa/boardDetail(commentNum=${qaBoard.qaBoardNum}, menuCode=${subMenuVO.menuCode})}'|">
-                        <td>[[${#lists.size(qaBoardList) - state.index}]]</td>
+                        <td>[[${boardQaListVO.totalDataCnt - (boardQaListVO.displayDataCnt * (boardQaListVO.nowPage - 1)) - state.index}]]</td>
                         <td>[[${qaBoard.qaBoardTitle}]]</td>
                         <td>[[${qaBoard.qaBoardWriter}]]</td>
                         <td>[[${qaBoard.qaCreateDate}]]</td>
