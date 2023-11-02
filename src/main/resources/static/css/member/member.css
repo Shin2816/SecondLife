@@ -1,5 +1,5 @@
 @charset "UTF-8";
-p{
+.admin-manage p{
     margin: 0;
 }
 input::placeholder {
@@ -68,18 +68,18 @@ input::placeholder {
 .admin-manage-member-info .manage-member-delete{
     cursor: pointer;
 }
-#memberName{
+.admin-manage-member-info #memberName{
     width: 5rem;
 }
-#memberTel{
+.admin-manage-member-info #memberTel{
     width: 9rem;
 }
-#memberEmail{
+.admin-manage-member-info #memberEmail{
     width: 15rem;
 }
-#memberAddr{
+.admin-manage-member-info #memberAddr{
     width: 29rem; 
 }
-#memberGender{
+.admin-manage-member-info #memberGender{
     width: 3rem;
 }
