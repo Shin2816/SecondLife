@@ -4,7 +4,7 @@
 <!-- 해당 파일에 모든 쿼리문을 작성 -->
 <mapper namespace="anMapper">
     <!--Announce 게시판 목록-->
-    <resultMap id="anList" type="com.green.SecondLife.community.vo.BoardQaListVO">
+    <resultMap id="anList" type="com.green.SecondLife.community.vo.BoardAnnounceListVO">
         <id column="AN_BOARD_NUM" property="anBoardNum"/>
         <result column="AN_BOARD_TITLE" property="anBoardTitle"/>
         <result column="AN_BOARD_CONTENT" property="anBoardContent"/>
@@ -17,7 +17,7 @@
         SELECT AN_BOARD_NUM
             , AN_BOARD_TITLE
             , AN_BOARD_WRITER
-            , AN_CHAR(QA_CREATE_DATE, 'YYYY-MM-DD') QA_CREATE_DATE
+            , AN_CHAR(AN_CREATE_DATE, 'YYYY-MM-DD') AN_CREATE_DATE
             , AN_BOARD_READ_CNT
         FROM BOARD_ANNOUNCE_LIST
         <if test='searchValue != null and !searchValue.equals("")'>
@@ -27,19 +27,55 @@
         OFFSET (#{nowPage} - 1) * #{displayDataCnt} ROWS FETCH FIRST #{displayDataCnt} ROWS ONLY
     </select>
     <!--Announce 게시판 글 등록-->
-    <insert id="insertQaBoardOpen">
+    <insert id="insertAnBoard">
         INSERT INTO BOARD_ANNOUNCE_LIST(
             AN_BOARD_NUM
             , AN_BOARD_TITLE
             , AN_BOARD_CONTENT
             , AN_BOARD_WRITER
         ) VALUES(
-            (SELECT NVL(MAX(COMMENT_ID), 0) + 1 FROM BOARD_QA_COMMENTS)
+            (SELECT NVL(MAX(AN_BOARD_NUM), 0) + 1 FROM BOARD_ANNOUNCE_LIST)
             , #{anBoardTitle}
             , #{anBoardContent}
             , #{anBoardWriter}
         )
     </insert>
+    <!--Announce게시판 상세 조회(JOIN)-->
+    <select id="selecAnBoardDetail" resultMap="anList">
+        SELECT AN_BOARD_NUM
+            , AN_BOARD_TITLE
+            , AN_BOARD_CONTENT
+            , AN_BOARD_WRITER
+            , TO_CHAR(FREE_CREATE_DATE, 'YYYY-MM-DD') FREE_CREATE_DATE
+            , AN_BOARD_READ_CNT
+        FROM BOARD_ANNOUNCE_LIST
+        WHERE AN_BOARD_NUM = #{anBoardNum}
+    </select>
+    <!--클릭하면 조회수 1 증가-->
+    <update id="updateAnBoardCnt">
+        UPDATE BOARD_ANNOUNCE_LIST
+        SET
+        AN_BOARD_READ_CNT = AN_BOARD_READ_CNT + 1
+        WHERE AN_BOARD_NUM = #{anBoardNum}
+    </update>
+    <!--Announce게시판 글 삭제, 댓글이 먼저 삭제되고 게시글 삭제 되도록(외래키 오류에 대응)-->
+    <delete id="deleteAnBoard">
+        DELETE BOARD_ANNOUNCE_LIST
+        WHERE AN_BOARD_NUM = #{anBoardNum}
+    </delete>
+    <!--Announce게시판 글 수정-->
+    <update id="updateAnBoard">
+        UPDATE BOARD_ANNOUNCE_LIST
+        SET
+        AN_BOARD_TITLE = #{anBoardTitle}
+        , AN_BOARD_CONTENT = #{anBoardContent}
+        WHERE AN_BOARD_NUM = #{anBoardNum}
+    </update>
+    <!--게시글 갯수 조회-->
+    <select id="selectBoardCnt" resultType="int">
+        SELECT COUNT(AN_BOARD_NUM)
+        FROM BOARD_ANNOUNCE_LIST
+    </select>
 </mapper>
 
 
