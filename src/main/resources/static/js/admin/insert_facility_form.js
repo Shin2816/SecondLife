@@ -48,6 +48,7 @@ function insertFacilityValidate(facilityCode){
 function resetMessage(){
     document.querySelector('#category-error-div').style.display = 'none';
     document.querySelector('#name-error-div').style.display = 'none';
+    document.querySelector('#charge-error-div').style.display = 'none';
     document.querySelector('#file-error-div').style.display = 'none';
 }
 

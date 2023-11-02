@@ -39,4 +39,7 @@ public interface CenterService {
 
     // 센터소개(사용자) - 카테고리별 시설 조회
     public List<CenterFacilityVO> selectFacilityInfo(int centerCateCode);
+
+    // 센터소개(사용자) - 카테고리별 조회 데이터 수
+    public int selectFacilityGuideCnt(int centerCateCode);
 }

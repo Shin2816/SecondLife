@@ -66,10 +66,11 @@ public class CenterController {
     }
 
     //관리자-시설목록 - 대관가능유무 상태 변경
-    @ResponseBody
+
     @PostMapping("/updateRentalAvailable")
-    public void updateRentalAvailable(CenterFacilityVO centerFacilityVO){
+    public String updateRentalAvailable(CenterFacilityVO centerFacilityVO){
         centerService.updateRentalAvailable(centerFacilityVO);
+        return "redirect:/center/selectAllFacility";
     }
 
     //관리자-시설목록 - 수정하기
@@ -118,7 +119,9 @@ public class CenterController {
     //사용자-센터 소개 페이지
     @GetMapping("/centerGuide")
     public String centerGuide(Model model, SubMenuVO subMenuVO){
+        //카테고리
         model.addAttribute("categoryList", centerService.selectCenterCategory());
+
         return "/center/center_facility_guide";
     }
 
