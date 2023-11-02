@@ -14,6 +14,7 @@
         <result column="INSTRUCTOR_ADDR"          property="instructorAddr"/>
         <result column="INSTRUCTOR_JOIN_DATE"     property="instructorJoinDate"/>
         <association property="instructorImgVO"   resultMap="instructorImg"/>
+        <association property="lectureEventVO"   resultMap="lectureMapper.lectureEvent"/>
     </resultMap>
     <!-- 강사 이미지 테이블 -->
     <resultMap id="instructorImg" type="com.green.SecondLife.instructor.vo.InstructorImgVO">
@@ -48,7 +49,10 @@
             <foreach collection="instructorPhones" item="phone" separator="||'-'||">
                 #{phone}
             </foreach>
-            , #{instructorAddr}
+            ,
+            <foreach collection="instructorAddrs" item="addr" separator="||'-'||">
+                #{addr}
+            </foreach>
         )
     </insert>
     <!-- 3. 관리자용 강사 이미지 등록 -->
@@ -69,16 +73,18 @@
     <!-- 관리자용 강사 목록 조회 쿼리 -->
     <select id="adminSelectInstructorList" resultMap="instructor">
         SELECT INS.INSTRUCTOR_CODE
-            , LECTURE_EVENT_CODE
+            , INS.LECTURE_EVENT_CODE
+            , LECTURE_EVENT_NAME
             , INSTRUCTOR_NAME
             , INSTRUCTOR_AGE
             , INSTRUCTOR_GENDER
             , INSTRUCTOR_PHONE
-            , INSTRUCTOR_ADDR
+            , SUBSTR(INSTRUCTOR_ADDR, 1, 2) INSTRUCTOR_ADDR
             , TO_CHAR (INSTRUCTOR_JOIN_DATE, 'YYYY-MM-DD') INSTRUCTOR_JOIN_DATE
             , INSTRUCTOR_ATTACHED_FILE_NAME
-        FROM INSTRUCTOR INS, INSTRUCTOR_IMG IMG
+        FROM INSTRUCTOR INS, INSTRUCTOR_IMG IMG, LECTURE_EVENT EVT
         WHERE INS.INSTRUCTOR_CODE = IMG.INSTRUCTOR_CODE
+        AND INS.LECTURE_EVENT_CODE = EVT.LECTURE_EVENT_CODE
     </select>
     <!-- 관리자용 강사 상세 조회 쿼리 -->
     <select id="adminSelectInstructorDetail" resultMap="instructor">

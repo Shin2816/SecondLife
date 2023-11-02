@@ -8,7 +8,7 @@
 </head>
 <body>
 <th:block layout:fragment="content">
-    <h1>Q&A 게시판</h1>
+    <h1>QnA 게시판</h1>
     <hr>
     <!-- 검색 영역 -->
     <div class="row-12 d-flex justify-content-between">
@@ -52,9 +52,9 @@
                     </tr>
                 </th:block>
                 <!-- 클릭 했을 때 비밀번호가 걸려있지않다면 -->
-                <th:block th:if="${qaBoard.qaBoardPassword == null}" th:each="qaBoard : ${qaBoardList}">
+                <th:block th:if="${qaBoard.qaBoardPassword == null}" th:each="qaBoard, state : ${qaBoardList}">
                     <tr class="board-tr" th:onclick="|location.href='@{/qa/boardDetail(commentNum=${qaBoard.qaBoardNum}, menuCode=${subMenuVO.menuCode})}'|">
-                        <td>[[${qaBoard.qaBoardNum}]]</td>
+                        <td>[[${#lists.size(qaBoardList) - state.index}]]</td>
                         <td>[[${qaBoard.qaBoardTitle}]]</td>
                         <td>[[${qaBoard.qaBoardWriter}]]</td>
                         <td>[[${qaBoard.qaCreateDate}]]</td>

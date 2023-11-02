@@ -39,7 +39,7 @@
         <div class="row row-cols-4 g-4">
             <div class="col" th:each="gal, state : ${galleryBoardList}">
                 <div class="board-item">
-                    <a th:href="@{/gallery/boardDetail(galBoardNum=${gal.galBoardNum})}"><img width="100%" height="200px;" th:src="${'/images/community/gallery/' + gal.galImgList[0].galAttachedFileName}" class="card-img-top img" alt="..."></a>
+                    <a th:href="@{/gallery/boardDetail(galBoardNum=${gal.galBoardNum})}"><img th:src="${'/images/community/gallery/' + gal.galImgList[0].galAttachedFileName}" class="card-img-top img" alt="..."></a>
                     <div class="card-body">
                         <h5 class="card-title">[[${gal.galBoardTitle}]]</h5>
                         <div class="d-flex justify-content-between">
