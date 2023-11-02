@@ -209,9 +209,6 @@ th{
     cursor: pointer;
     opacity: 0.6;
 }
-.board-photo{
-    background-color: blueviolet;
-}
 .first{
     height: 15rem;
     margin-bottom: 10px;
