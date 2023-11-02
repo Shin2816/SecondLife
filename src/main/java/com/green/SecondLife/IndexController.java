@@ -21,20 +21,11 @@ public class IndexController {
 
     @GetMapping("/")
     public String main(BoardCommentListVO boardCommentListVO, Model model, SubMenuVO subMenuVO, BoardQaListVO boardQaListVO, Authentication authentication){
-        model.addAttribute("authentication", authentication);
-        //게시글 목록 조회
-        List<BoardQaListVO> qaBoardList = qaService.selectQaBoardList(boardQaListVO);
+        List<BoardQaListVO> qaBoardList = qaService.selectQaBoardList(boardQaListVO);//게시글 목록 조회
 
-        //데이터베이스에 저장된 비밀번호를 조회해서 저장함
-        //String qaPw = qaService.selectQaPw(boardCommentListVO.getCommentNum());
-
-        //main.html에서 qaBoardPassword가 null인지 체크를 하기위해서 commentNum이 필요한데, 0출력
-        //BoardQaListVO board = qaService.selectQaBoardDetail(boardCommentListVO.getCommentNum());
-        //board.setQaBoardPassword(qaPw);//세터로 데이터베이스의 비밀번호를 저장
-        //System.out.println(board + "###############################################");
         System.out.println(qaBoardList);
-        model.addAttribute("qaBoardList", qaBoardList);
-
+        model.addAttribute("qaBoardList", qaBoardList);//게시글정보
+        model.addAttribute("authentication", authentication);//유저정보
         return "main";
     }
 }

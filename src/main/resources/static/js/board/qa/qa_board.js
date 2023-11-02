@@ -25,7 +25,6 @@ function openCheckPwModal(qaBoardNum, loginInfo){
 
 ///////////////////////////////////QA 게시판 비밀번호 유효성 검사////////////////////////////////
 function qaPasswordValidate(){
-    alert(6);
     //오류 메세지 리셋
     resetPasswordMessage();
 
