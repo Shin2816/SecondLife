@@ -31,7 +31,9 @@ function kakaopay(facilityName, rentalCharge, rentalUser, menuCode){
 		buyer_name : rentalUser                          
 	},function(data){
 		if(data.success){
-			var msg = "결제 완료 \n";
+			var msg = "결제가 완료되었습니다. \n";
+			msg += '취소/환불 문의는 센터로 문의바랍니다. \n';
+			msg += '\n';
 			msg += '주문번호 : ' + data.merchant_uid + '\n';
 			msg += '예약 시설 이름 : ' + data.name + '\n';
 			msg += '예약자 : ' + data.buyer_name + '\n';

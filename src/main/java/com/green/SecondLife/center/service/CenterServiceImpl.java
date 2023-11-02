@@ -76,4 +76,9 @@ public class CenterServiceImpl implements CenterService{
         return sqlSession.selectList("centerMapper.selectFacilityInfo", centerCateCode);
     }
 
+    @Override
+    public int selectFacilityGuideCnt(int centerCateCode) {
+        return sqlSession.selectOne("centerMapper.selectFacilityGuideCnt", centerCateCode);
+    }
+
 }

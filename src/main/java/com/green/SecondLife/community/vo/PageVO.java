@@ -6,7 +6,7 @@ import lombok.Data;
 public class PageVO {
     private int nowPage; //현재 페이지 번호
     private int totalDataCnt; //전체 데이터 수
-    private int displayDataCnt; //한 페이지에 보여지는 게시글 수 예) 한 페이지에 게시글 10개 출력
+    private int displayDataCnt; //한 페이지에 보여지는 게시글 수 예) 한 페이지에 게시글 5개 출력
     private int beginPage; // 첫번째 페이지 번호                예) 1, 6, 11
     private int endPage; // 마지막 페이지 번호                  예) 5, 10, 15
     private int diaplayPageCnt; // 한번에 출력되는 페이지 수     예) 만약 5라면,  이전 1 2 3 4 5 다음
@@ -78,5 +78,6 @@ public class PageVO {
     public boolean getNext() {
         return next;
     }
+
 
 }

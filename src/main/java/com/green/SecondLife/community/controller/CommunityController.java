@@ -29,8 +29,13 @@ public class CommunityController {
         boardFreeListVO.setTotalDataCnt(totalDataCnt);//세터 호출해서 전체 게시글 갯수 전달
         boardFreeListVO.setPageInfo();//변수값 설정한 메소드 호출(상속관계라 사용가능)
 
+        System.out.println(boardFreeListVO.getNowPage());
+        System.out.println(boardFreeListVO.getTotalDataCnt());
+        System.out.println(boardFreeListVO.getDisplayDataCnt());
+
         //게시글 목록 조회
         List<BoardFreeListVO> freeBoardList = communityService.selectFreeBoardList(boardFreeListVO);
+        System.out.println(freeBoardList);
         model.addAttribute("freeBoardList", freeBoardList);
 
         return "board/free_board";
