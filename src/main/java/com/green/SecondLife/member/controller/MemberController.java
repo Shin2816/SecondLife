@@ -50,7 +50,7 @@ public class MemberController {
         memberVO.setMemberPW(encodedPw);
         memberService.insertMember(memberVO);
 
-        return "/main";
+        return "redirect:/";
     }
 
     @GetMapping("/loginCheck")
@@ -118,7 +118,7 @@ public class MemberController {
         String encodedPw = passwordEncoder.encode(memberVO.getMemberPW());
         memberVO.setMemberPW(encodedPw);
         memberService.memberUpdate(memberVO);
-        return "/main";
+        return "redirect:/";
     }
 
     //관리자 멤버 관리 멤버 전부 조회.
@@ -145,5 +145,10 @@ public class MemberController {
         memberService.manageMemberDelete(memberId);
         redirectAttributes.addAttribute("menuCode", "MENU_004");
         return "redirect:/member/manageMember";
+    }
+    //접근 거부시 오는 페이지.
+    @GetMapping("/denyPage")
+    public String denyPage(){
+        return "/member/deny";
     }
 }

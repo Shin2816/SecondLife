@@ -27,7 +27,23 @@ public class SecurityConfig {
 
                         // /joinForm, /loginForm
                         // /join, /login 요청에 대해서는 인증 해제
-                        authorize.anyRequest().permitAll()
+                        authorize.requestMatchers("/", "/member/**"
+                                        , "/lecture/**"
+                                        , "/instructor/**"
+                                        , "/board/**"
+                                        , "/gallery/**"
+                                        , "/qa/**"
+                                        , "/center/**"
+                                        , "/rental/**"
+                                        , "/etc/**").permitAll()
+                                .requestMatchers("/admin/**"
+                                        , "/instructor/adminInsertInstructorForm", "/instructor/adminInstructorList", "/lecture/adminLectureReviewList"
+                                        , "/lecture/adminInsertLectureEventForm", "/lecture/adminLectureEventList", "/lecture/adminInsertLectureForm", "/lecture/adminLectureList"
+                                        , "/center/insertFacilityForm", "/center/selectAllFacility", "/rental/rentalManageList"
+                                        , "/member/manageMember").hasRole("ADMIN")
+
+                                //나머지 요청에 대해서는 인증 받아야 한다.
+                                .anyRequest().authenticated()
                                 //나머지 요청에 대해서는 인증 받아야 한다.
                               //  .anyRequest().authenticated()
                 )
@@ -45,6 +61,8 @@ public class SecurityConfig {
                         logout.logoutUrl("/member/logout")
                                 .invalidateHttpSession(true) //로그아웃 시, 세션정보 초기화
                                 .logoutSuccessUrl("/")
+                ).exceptionHandling(except ->
+                        except.accessDeniedPage("/member/denyPage") //접근 거부 된 페이지로 이동
                 );
 
         return security.build();

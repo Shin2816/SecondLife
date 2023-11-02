@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{fragment/main_layout}">
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+    <th:block layout:fragment="content">
+        <div>
+            <h2>잘못된 페이지 접근입니다. 2초후 메인페이지로 이동합니다.</h2>
+        </div>
+
+        <script>
+            setTimeout(() => {
+                location.href = '/';
+            }, 2000);
+        </script>
+    </th:block>
+</body>
+</html>
