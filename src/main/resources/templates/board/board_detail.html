@@ -120,8 +120,12 @@
                             </a>
                             <!-- 삭제,수정버튼 -->
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" th:onclick="freeDeleteComment([[${comment.commentId}]], [[${board.freeBoardNum}]], [[${subMenuVO.menuCode}]])">삭제</a></li>
-                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" th:onclick="freeUpdateModal([[${comment.commentContent}]]);">수정</a></li>
+                                <li>
+                                    <button class="dropdown-item" th:onclick="freeDeleteComment([[${comment.commentId}]], [[${board.freeBoardNum}]], [[${subMenuVO.menuCode}]])">삭제</button>
+                                </li>
+                                <li>
+                                    <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" th:onclick="freeUpdateModal([[${comment.commentContent}]]);">수정</button>
+                                </li>
                             </ul>
                             <!-- Modal -->
                             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
