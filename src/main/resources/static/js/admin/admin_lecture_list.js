@@ -1,5 +1,4 @@
 // admin_lecture_list.js
-document.querySelector
 function editInstructor(lectureCode, editBtn){
     let selectTag = editBtn.closest('.instructor').querySelector('#instructor-box');
     fetch('/lecture/adminUpdateLectureInstructor', { //요청경로
@@ -118,7 +117,17 @@ function deleteLecture(lectureCode){
     }
 }
 
-
+function dateCompare(finishDateValue, thisInput){
+    let startDateTag = thisInput.closest('.bottom').querySelector('.left');
+    let finishDateTag = thisInput
+    if(startDateTag.value == finishDateTag.value){
+        alert('시작일과 종강일이 같을 수 없습니다')
+        finishDateTag.value = finishDateValue;
+    } else if(startDateTag.value > finishDateTag.value){
+        alert('종강일이 시작일보다 빠를 수 없습니다')
+        finishDateTag.value = finishDateValue;
+    }
+}
 
 
 

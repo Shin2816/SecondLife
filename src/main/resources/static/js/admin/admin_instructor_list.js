@@ -1,5 +1,13 @@
 // admin_instructor_list.js
 
+function openPost(thisInputTag){
+    new daum.Postcode({
+        oncomplete: function(data) {
+            thisInputTag.value = data.roadAddress;
+        }
+    }).open();
+}
+
 function editPhone(instructorCode, editBtn){
     let totalPhone = '';
     let instructorPhone = editBtn.closest('.phone').querySelectorAll('.phones');

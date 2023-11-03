@@ -55,7 +55,7 @@
                     <span class="start-date">시작일</span><span class="finish-date">종강일</span>
                     <p class="bottom">
                         <input type="date" class="form-control left period-input" th:value="${lecture.lecturePeriods[0]}" style="margin-right: 15px; margin-left: 18px;">
-                        <input type="date" class="form-control right period-input" th:value="${lecture.lecturePeriods[1]}">
+                        <input type="date" class="form-control right period-input" th:value="${lecture.lecturePeriods[1]}" th:onchange="dateCompare([[${lecture.lecturePeriods[1]}]], this);">
                     </p>
                 </td>
                 <td class="student">
@@ -67,7 +67,7 @@
                 <td class="price">
                     <p class="top">수강료</p>
                     <p class="img" th:onclick="deleteLecture([[${lecture.lectureCode}]]);"><img src="/images/icons/x_btn.png"></p>
-                    <p class="bottom">[[${lecture.lecturePrice}]]</p>
+                    <p class="bottom">[[${#numbers.formatCurrency(lecture.lecturePrice)}]]</p>
                 </td>
             </tr>
         </tbody>
