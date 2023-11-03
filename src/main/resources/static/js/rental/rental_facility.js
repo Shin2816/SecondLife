@@ -102,6 +102,7 @@ function calendarCheck(date){
     .then((data) => {//data -> controller에서 리턴되는 데이터(rentalTimeList)
         let inputTr = document.querySelector('#input-tr');
         let memberId = document.querySelector('#memberId').value;
+        console.log(data);
 
         let str ='';
         data.forEach(rentalTime => {
