@@ -44,7 +44,8 @@
                     <p><span class="top">강사</span><span class="edit-btn" th:onclick="editInstructor([[${lecture.lectureCode}]], this);">수정</span></p>
                     <p class="bottom">
                         <select name="instructorCode" id="instructor-box" class="form-select">
-                            <th:block th:each="instructor : ${instructorList}">
+                            <option th:value="${lecture.instructorVO.instructorCode}">[[${lecture.instructorVO.instructorName}]]</option>
+                            <th:block th:if="${lecture.instructorVO.instructorCode != instructor.instructorCode}" th:each="instructor : ${instructorList}">
                                 <option th:value="${instructor.instructorCode}">[[${instructor.instructorName}]]</option>
                             </th:block>
                         </select>
