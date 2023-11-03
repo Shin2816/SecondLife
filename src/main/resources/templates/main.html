@@ -132,12 +132,12 @@
                                         </tr>
                                     </th:block>
                                     <!-- 게시글 있을 때 -->
-                                    <th:block th:unless="${#lists.size(qaBoardList) == 0}" >
+                                    <th:block th:unless="${#lists.size(qaBoardList) == 0}">
                                         <tbody id="board-list-body">
                                             <!-- 비밀번호가 걸려있다면 -->
                                             <th:block th:if="${qaBoard.qaBoardPassword != null}" th:each="qaBoard : ${qaBoardList}">
                                                 <tr class="board-tr" th:onclick="openCheckPwModal([[${qaBoard.qaBoardNum}]], [[${authentication}]]);">
-                                                    <td>[[${qaBoard.qaBoardTitle}]]</td>
+                                                    <td class="board_td_title">[[${qaBoard.qaBoardTitle}]]</td>
                                                     <td>[[${qaBoard.qaBoardWriter}]]</td>
                                                     <td>[[${qaBoard.qaCreateDate}]]</td>
                                                 </tr>
@@ -145,7 +145,7 @@
                                             <!-- 비밀번호가 걸려있지않다면 -->
                                             <th:block th:if="${qaBoard.qaBoardPassword == null}" th:each="qaBoard : ${qaBoardList}">
                                                 <tr class="board-tr" th:onclick="|location.href='@{/qa/boardDetail(commentNum=${qaBoard.qaBoardNum}, menuCode=MENU_007)}'|">
-                                                    <td>[[${qaBoard.qaBoardTitle}]]</td>
+                                                    <td class="board_td_title">[[${qaBoard.qaBoardTitle}]]</td>
                                                     <td>[[${qaBoard.qaBoardWriter}]]</td>
                                                     <td>[[${qaBoard.qaCreateDate}]]</td>
                                                 </tr>
@@ -224,6 +224,27 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- 게시글 있을 때 -->
+                        <th:block th:unless="${#lists.size(galleryBoardList) == 0}">
+                            <!-- 부트스트랩 간격 설정 -->
+                            <div class="row d-flex g-3">
+                                <!-- 출력 갯수 -->
+                                <div th:each="gal, state : ${galleryBoardList}" class="col-4" th:if="${state.index &lt; 3}"> 
+                                    <div class="board-item">
+                                        <a th:href="@{/gallery/boardDetail(galBoardNum=${gal.galBoardNum})}">
+                                            <img height="187px;" th:src="${'/images/community/gallery/' + gal.galImgList[0].galAttachedFileName}" class="card-img-top img" alt="...">
+                                            <div class="card-body">
+                                                <span class="card-title">[[${gal.galBoardTitle}]]</span>
+                                                <div class="d-flex justify-content-between">
+                                                    <span class="card-text">[[${gal.galBoardWriter}]]</span>
+                                                    <span class="card-text">[[${gal.galBoardReadCnt}]]</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </th:block>
                     </div>
                     <div class="col-5 facility">
                         <div class="left" th:onclick="|@{location.href='/rental/rentalGuide(menuCode=MENU_010)}'|">
