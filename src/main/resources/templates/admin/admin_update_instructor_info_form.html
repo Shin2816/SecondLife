@@ -9,6 +9,101 @@
 <body>
 <th:block layout:fragment="content">
     <link rel="stylesheet" href="/css/instructor/admin_update_instructor_info_form.css">
+
+
+
+
+
+
+    <form action="/instructor/adminInsertInstructor" method="post" enctype="multipart/form-data" id="form">
+        <div id="wrap_box">
+            <div class="row insert_left">
+                <div class="col">
+                    <div class="row mb-3">
+                        <div class="col-12">이름</div>
+                        <div class="col-8">
+                            <input class="form-control" type="text" name="instructorName" th:value="${instructor.instructorName}" readonly>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-12">나이</div>
+                    <div class="col-8">
+                        <input class="form-control" type="text" name="instructorAge" th:value="${instructor.instructorAge}" readonly>
+                    </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-12">성별</div>
+                        <div class="col-8">
+                            <input class="form-control" type="text" name="instructorGender" th:value="${instructor.instructorGender}" readonly>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-12">과목</div>
+                        <div class="col-8">
+                            <input class="form-control" type="text" name="lectureEventCode" th:value="${instructor.lectureEventVO.lectureEventName}" readonly>
+                            <input type="hidden" th:value="${lectureEventCode}">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-12">연락처</div>
+                        <div class="col-2">
+                            <select class="form-select" name="instructorPhones">
+                                <option th:value="${phones[0]}">[[${phones[0]}]]</option>
+                                <option value="011">011</option>
+                                <option value="012">012</option>
+                                <option value="013">013</option>
+                            </select>
+                        </div>
+                        <div class="col-3"><label><input class="form-control" type="text" name="instructorPhones" th:value="${phones[1]}"></label></div>
+                        <div class="col-3"><label><input class="form-control" type="text" name="instructorPhones" th:value="${phones[2]}"></label></div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-12">주소</div>
+                        <div class="col-6"><input class="form-control" type="text" name="instructorAddrs" id="instructorAddr" onclick="openPost();" readonly></div>
+                        <div class="col-2"><input class="btn btn-secondary" type="button" value="주소검색" onclick="openPost();"></div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-12">나머지 주소</div>
+                        <div class="col-8"><input class="form-control" type="text" name="instructorAddrs"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row insert_right">
+                <div class="wrap img">
+                    <p>사진첨부</p>
+                    <div onclick="file();" class="img-file">
+                        <p><img class="file-img" src="/images/icons/plus.jpg" id="instructorImg"></p>
+                        <input type="file" id="file" name="instructorImg" onchange="uploadImg(this);">
+                        <div id="img-container"></div>
+                    </div>
+                </div>
+                <div class="wrap button">
+                    <input type="hidden" value="MENU_001" name="menuCode">
+                    <p onclick="submitButton();">등록</p>
+                </div>  
+            </div>
+        </div>
+    </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <h1>관리자용 강사 정보 수정 페이지</h1>
 <form action="/instructor/adminUpdateInstructorInfo" method="post" id="updateForm">
     <div class="instructor_info">

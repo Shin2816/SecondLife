@@ -15,6 +15,9 @@
     font-size: 13px;
     font-weight: 600;
 }
+.instructor .top, .student .top{
+    margin-bottom: 10px;
+}
 .period .top, .student .top, .price .top{
     display: inline-block;
     padding: 3px;
@@ -23,17 +26,22 @@
     font-size: 13px;
     font-weight: 600;
 }
-.title .bottom, .event .bottom, .instructor .bottom{
-    margin-top: 5px;
-    font-size: 20px;
+.edit-btn{
+    display: inline-block;
+    padding: 2px;
+    font-size: 12px;
+    background-color: rgb(0, 255, 0);
+    color: #fff;
     font-weight: 600;
-    color: #555;
+    margin-left: 3px;
+    border: 2px solid rgb(153, 255, 0);
+    cursor: pointer;
 }
-.student .bottom, .price .bottom{
-    
+.edit-btn:hover{
+    opacity: 0.3;
 }
-.period .top{
-    margin-bottom: 3px;
+.period .top-wrap{
+    margin-bottom: -23px;
 }
 .period .bottom{
     font-size: 16px;
@@ -46,20 +54,64 @@
     color: #555;
     margin-top: 8px;
 }
+.student .bottom{
+    margin-top: 10px;
+}
 .start-date, .finish-date{
     font-size: 11px;
-    opacity: 0.5;
+    opacity: 0.8;
 }
 .start-date{
-    margin-right: 60px;
+    margin-right: 100px;
     color: blue;
-    margin-left: -40px;
+    
     border-bottom: 1px solid blue;
 }
 .finish-date{
     color: red;
     border-bottom: 1px solid red;
 }
-.period .top{
-    
+#instructor-box{
+    width: 100px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #555;
+    margin-top: 10px;
+}
+.period .bottom{
+    display: flex;
+}
+.period .bottom input{
+    width: 130px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #555;
+}
+.student .bottom input{
+    text-align: center;
+    width: 85px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #555;
+}
+.title .bottom, .event .bottom, .price .bottom{
+    font-size: 21px;
+    margin-top: 12px;
+    font-weight: 600;
+    color: #555;
+}
+.price{
+    position: relative;
+}
+.price .img{
+    width: 22px;
+    height: 22px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+}
+.price .img img{
+    width: 100%;
+    height: 100%;
 }

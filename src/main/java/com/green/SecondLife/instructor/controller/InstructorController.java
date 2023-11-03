@@ -46,7 +46,14 @@ public class InstructorController {
     //관리자용 강사 목록 페이지
     @GetMapping("/adminInstructorList")
     public String adminInstructorList(Model model, SubMenuVO subMenuVO){
-        model.addAttribute("instructorList", instructorService.adminSelectInstuctorList());
+        List<InstructorVO> instructorList = instructorService.adminSelectInstuctorList();
+        for(InstructorVO instructor : instructorList){
+            String[] phones = instructor.getInstructorPhone().split("-");
+            String[] addrs = instructor.getInstructorAddr().split("-");
+            instructor.setInstructorAddrs(addrs);
+            instructor.setInstructorPhones(phones);
+        }
+        model.addAttribute("instructorList", instructorList);
         return "admin/admin_instructor_list";
     }
     //관리자용 강사 상세 페이지
@@ -59,19 +66,23 @@ public class InstructorController {
     //관리자용 강사 정보 수정 페이지
     @GetMapping("/adminUpdateInstructorInfoForm")
     public String adminUpdateInstructorInfoForm(SubMenuVO subMenuVO, Model model, InstructorVO instructorVO){
-        System.out.println(instructorService.adminSelectInstructorDetail(instructorVO));
         model.addAttribute("instructor", instructorService.adminSelectInstructorDetail(instructorVO));
         return "admin/admin_update_instructor_info_form";
     }
-    //관리자용 강사 정보 수정 기능
-    @PostMapping("/adminUpdateInstructorInfo")
-    public String adminUpdateInstructorInfo(InstructorVO instructorVO, RedirectAttributes redirectAttributes){
+    //관리자용 강사 연락처 수정 페치
+    @ResponseBody
+    @PostMapping("/adminUpdateInstructorPhone")
+    public void adminUpdateInstructorPhone(InstructorVO instructorVO){
         System.out.println(instructorVO);
-        redirectAttributes.addAttribute("instructorCode", instructorVO.getInstructorCode());
-        redirectAttributes.addAttribute("menuCode", "MENU_001");
-        instructorService.adminUpdateInstructorInfo(instructorVO);
-        return "redirect:/instructor/adminInstructorDetail";
+        instructorService.adminUpdateInstructorPhone(instructorVO);
     }
+    //관리자용 강사 주소 수정 페치
+    @ResponseBody
+    @PostMapping("/adminUpdateInstructorAddr")
+    public void adminUpdateInstructorAddr(InstructorVO instructorVO){
+        instructorService.adminUpdateInstructorAddr(instructorVO);
+    }
+
     //관리자용 강사 삭제 기능
     @GetMapping("/adminDeleteInstructor")
     public String adminDeleteInstructor(InstructorVO instructorVO, RedirectAttributes redirectAttributes){
@@ -102,7 +113,6 @@ public class InstructorController {
         simpleInfo.put("lectureList", lectureService.adminSelectLectureList(instructorCode));
         simpleInfo.put("reviewList", lectureService.selectLectureReviewList(instructorVO));
         System.out.println("여기" + simpleInfo);
-
         return simpleInfo;
     }
 }

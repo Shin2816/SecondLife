@@ -28,14 +28,52 @@ h3{
     border: 2px solid skyblue;
     background-color: #fff;
 }
-.name .bottom, .age .bottom, .gender .bottom, .phone .bottom, .event .bottom, .addr .bottom, .date .bottom{
-    margin-top: 8px;
+.name .bottom, .age .bottom, .gender .bottom, .event .bottom, .addr .bottom, .date .bottom{
+    margin-top: 12px;
 }
 .body-list .bottom{
-    font-size: 18px;
-    font-weight: 700;
+    font-size: 16px;
+    font-weight: 600;
     color: #666;
 }
-.phoneCap{
-
+.phone-top, .addr-top{
+    display: inline-block;
+    color: skyblue;
+    padding: 1px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 16px;
+    border: 2px solid skyblue;
+    background-color: #fff;
+}
+.phone-edit{
+    display: inline-block;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 4px;
+    background-color: rgb(3, 226, 3);
+    border-radius: 5px;
+    margin-right: -80px;
+    margin-left: 40px;
+    cursor: pointer;
+}
+.addr-edit{
+    display: inline-block;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 4px;
+    background-color: rgb(3, 226, 3);
+    border-radius: 5px;
+    margin-right: -125px;
+    margin-left: 95px;
+    cursor: pointer;
+}
+.phone-edit:hover, .addr-edit:hover{
+    opacity: 0.3;
+}
+.x-btn:hover{
+    width: 30px;
+    height: 30px;
 }
