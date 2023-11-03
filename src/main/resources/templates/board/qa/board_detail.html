@@ -151,17 +151,17 @@
                                         <input type="hidden" name="qaCheckPwInput" th:value="${qaCheckPwInput}">
                                         <input type="hidden" name="commentId" th:value="${comment.commentId}">
                                         <input type="hidden" name="commentNum" th:value="${board.qaBoardNum}">
-                                        <button type="button" class="dropdown-item" onclick="qaDeleteComment(this);">삭제[[${comment.commentId}]]</button>
+                                        <button type="button" class="dropdown-item" onclick="qaDeleteComment(this);">삭제</button>
                                     </form>
                                 </li>
                                 <li>
-                                    <button type="button" class="dropdown-item" data-bs-toggle="modal" th:data-bs-target="${'#qaModalId' + state.index}" th:onclick="qaUpdateModal([[${comment.commentContent}]]);">수정[[${comment.commentId}]]</button>
+                                    <button type="button" class="dropdown-item" data-bs-toggle="modal" th:data-bs-target="${'#qaModalId' + state.index}" th:onclick="qaUpdateModal([[${comment.commentContent}]]);">수정</button>
                                 </li>
                             </ul>
                             <!-- Modal -->
                             <div class="modal fade" th:id="${'qaModalId' + state.index}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
-                                    <div class="modal-content">
+                                    <div class="modal-content select-div">
                                         <div class="modal-header">
                                             <h1 class="modal-title fs-5" id="exampleModalLabel">수정할 내용을 입력해주세요.</h1>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -176,7 +176,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                                                <button type="button" class="btn btn-primary" onclick="qaUpdateComment(this);">수정하기[[${comment.commentId}]]</button>
+                                                <button type="button" class="btn btn-primary" onclick="qaUpdateComment(this);">수정하기</button>
                                             </div>
                                         </form>
                                     </div>

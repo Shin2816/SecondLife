@@ -146,7 +146,6 @@ public class QaController {
     //상세 페이지에서 댓글 삭제버튼 클릭하면 delete 쿼리 실행
     @PostMapping("/qaDeleteComment")
     public String qaDeleteComment(BoardCommentListVO boardCommentListVO, RedirectAttributes redirectAttributes){
-        System.out.println(boardCommentListVO.getCommentId());
         qaService.deleteQaBoardComment(boardCommentListVO.getCommentId());//삭제 쿼리
         redirectAttributes.addFlashAttribute("boardCommentListVO", boardCommentListVO);//commentNum, qaCheckPwInput값을 가지고 다시 디테일로
 

@@ -87,13 +87,6 @@ function qaDeleteComment(deleteBtn){
         console.log(deleteBtn.closest('li').querySelector('form'));
         deleteBtn.closest('li').querySelector('form').submit(); //가장 가까운 form태그 찾아서 submit
     }
-    // if(confirm('삭제하시면 되돌릴 수 없습니다.\n삭제 하시겠습니까?')){
-    //     const form = deleteBtn.closest('form'); // 해당 버튼과 연결된 form 찾기
-    //     if (form) { // form 요소가 존재하는지 확인
-    //         alert('댓글 삭제가 완료되었습니다.');
-    //         form.submit();
-    //     }
-    // }
 }
 ///////////////////////////////////////////////////////////////////댓글 수정, 모달창의 input 안에 내용 넣기
 function qaUpdateModal(commentContent){//실제 데이터value
@@ -118,7 +111,7 @@ function qaUpdateComment(updateBtn){//수정버튼을 누르면 도착, div id :
     }
 
     alert('댓글 수정이 완료되었습니다.');
-    updateBtn.closest('form').submit(); //가장 가까운 form태그 찾아서 submit
+    updateBtn.closest('.select-div').querySelector('form').submit();
 }
 ////////////////////////////////QA게시판 글 등록 썸머노트//////////////////////////////////////////
 //썸머노트 활성화
