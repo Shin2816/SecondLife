@@ -147,7 +147,7 @@
                             <ul class="dropdown-menu">
                                 <li>
                                     <!-- 아이디를 넣으면 중복되기 때문에 가장 최신값만 가져옴, this활용해서 form태그를 지정하였음 -->
-                                    <form action="/qa/qaDeleteComment" method="post">
+                                    <form action="/qa/qaDeleteComment" method="post" >
                                         <input type="hidden" name="qaCheckPwInput" th:value="${qaCheckPwInput}">
                                         <input type="hidden" name="commentId" th:value="${comment.commentId}">
                                         <input type="hidden" name="commentNum" th:value="${board.qaBoardNum}">
