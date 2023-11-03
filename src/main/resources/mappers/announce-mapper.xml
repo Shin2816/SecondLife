@@ -17,7 +17,7 @@
         SELECT AN_BOARD_NUM
             , AN_BOARD_TITLE
             , AN_BOARD_WRITER
-            , AN_CHAR(AN_CREATE_DATE, 'YYYY-MM-DD') AN_CREATE_DATE
+            , TO_CHAR(AN_CREATE_DATE, 'YYYY-MM-DD') AN_CREATE_DATE
             , AN_BOARD_READ_CNT
         FROM BOARD_ANNOUNCE_LIST
         <if test='searchValue != null and !searchValue.equals("")'>

@@ -19,8 +19,12 @@ public interface InstructorService {
     public List<InstructorVO> adminSelectInstuctorList();
     //관리자용 강사 상세 조회 기능
     public InstructorVO adminSelectInstructorDetail(InstructorVO instructorVO);
-    //관리자용 강사 정보 수정 기능
-    public void adminUpdateInstructorInfo(InstructorVO instructorVO);
+
+    //관리자용 강사 연락처 수정 기능
+    public void adminUpdateInstructorPhone(InstructorVO instructorVO);
+    //관리자용 강사 주소 수정 기능
+    public void adminUpdateInstructorAddr(InstructorVO instructorVO);
+
     //관리자용 강사 삭제 기능
     public void adminDeleteInstructor(InstructorVO instructorVO);
 }

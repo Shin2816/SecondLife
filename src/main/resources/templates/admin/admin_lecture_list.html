@@ -31,8 +31,7 @@
             </tr>
         </thead>
         <tbody class="body-list">
-            <tr th:each="lecture : ${lectureList}"
-                th:onclick="|location.href='@{/lecture/adminSelectLectureDetail(lectureCode=${lecture.lectureCode}, menuCode=MENU_002)}'|">
+            <tr th:each="lecture : ${lectureList}">
                 <td class="title">
                     <p class="top">수업명</p>
                     <p class="bottom">[[${lecture.lectureTitle}]]</p>
@@ -42,26 +41,39 @@
                     <p class="bottom">[[${lecture.lectureEventVO.lectureEventName}]]</p>
                 </td>
                 <td class="instructor">
-                    <p class="top">강사</p>
-                    <p class="bottom">[[${lecture.instructorVO.instructorName}]]</p>
+                    <p><span class="top">강사</span><span class="edit-btn" th:onclick="editInstructor([[${lecture.lectureCode}]], this);">수정</span></p>
+                    <p class="bottom">
+                        <select name="instructorCode" id="instructor-box" class="form-select">
+                            <th:block th:each="instructor : ${instructorList}">
+                                <option th:value="${instructor.instructorCode}">[[${instructor.instructorName}]]</option>
+                            </th:block>
+                        </select>
+                    </p>
                 </td>
                 <td class="period">
-                    <p class="top">기간</p><br>
+                    <p class="top-wrap"><span class="top">기간</span><span class="edit-btn" th:onclick="editPeriod([[${lecture.lectureCode}]], this);">수정</span></p><br>
                     <span class="start-date">시작일</span><span class="finish-date">종강일</span>
-                    <p class="bottom">[[${lecture.lecturePeriod}]]</p>
+                    <p class="bottom">
+                        <input type="date" class="form-control left period-input" th:value="${lecture.lecturePeriods[0]}" style="margin-right: 15px; margin-left: 18px;">
+                        <input type="date" class="form-control right period-input" th:value="${lecture.lecturePeriods[1]}" th:onchange="dateCompare([[${lecture.lecturePeriods[1]}]], this);">
+                    </p>
                 </td>
                 <td class="student">
-                    <p class="top">정원</p>
-                    <p class="bottom">[[${lecture.lectureStudent}]]</p>
+                    <p><span class="top">정원</span><span class="edit-btn" th:onclick="editStudent([[${lecture.lectureCode}]], this);">수정</span></p>
+                    <p class="bottom">
+                        <input type="number" class="form-control student-input" th:value="${lecture.lectureStudent}">
+                    </p>
                 </td>
                 <td class="price">
                     <p class="top">수강료</p>
-                    <p class="bottom">[[${lecture.lecturePrice}]]</p>
+                    <p class="img" th:onclick="deleteLecture([[${lecture.lectureCode}]]);"><img src="/images/icons/x_btn.png"></p>
+                    <p class="bottom">[[${#numbers.formatCurrency(lecture.lecturePrice)}]]</p>
                 </td>
             </tr>
         </tbody>
     </table>
 </div>
+<script src="/js/admin/admin_lecture_list.js"></script>
 </th:block>
 </body>
 </html>

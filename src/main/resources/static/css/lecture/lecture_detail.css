@@ -40,8 +40,17 @@
     color: #fff;
     background-color: orange
 }
+.label-box-content{
+    font-size: 18px;
+    font-weight: 500;
+    color: #666;
+}
 .midBox{
     margin-bottom: 100px;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 25px;
+    color: #444;
 }
 .bottomBox{
     text-align: right;

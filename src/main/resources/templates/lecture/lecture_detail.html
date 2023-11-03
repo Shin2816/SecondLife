@@ -15,15 +15,14 @@
             <div class="topBox-img"><img th:src="${'/images/lectureEvent/' + lectureEvent.lectureEventImgVO.lectureEventAttachedFileName}"></div>
             <div class="topBox-text">
                 <div class="topBox-title"><h3>[[${lecture.lectureTitle}]]</h3></div>
-                <p><span class="label-box">강사</span> [[${lecture.instructorVO.instructorName}]]</p>
-                <p><span class="label-box">기간</span> [[${lecture.lecturePeriod}]]</p>
-                <p><span class="label-box">내용</span> [[${lectureEvent.lectureEventContent}]]</p>
-                <p><span class="label-box">가격</span> [[${lecture.lecturePrice}]]원</p>
+                <p><span class="label-box">강사</span> <span class="label-box-content">[[${lecture.instructorVO.instructorName}]]</span></p>
+                <p><span class="label-box">기간</span> <span class="label-box-content">[[${lecture.lecturePeriod}]]</span></p>
+                <p><span class="label-box">정원</span> <span class="label-box-content">[[${lecture.lectureStudent}]]명</span></p>
+                <p><span class="label-box">가격</span> <span class="label-box-content">[[${#numbers.formatCurrency(lecture.lecturePrice)}]]</span></p>
             </div>
         </div>
         <div class="midBox">
-            <p>이러이러한 내용이 들어갑니다</p>
-            <p>이러이러한 내용이 들어갑니다</p>
+            [[${lectureEvent.lectureEventContent}]]
         </div>
         <div class="bottomBox">
             <input type="button" value="수강신청" class="btn btn-secondary" th:onclick="lectureApply([[${lecture.lectureCode}]]);">

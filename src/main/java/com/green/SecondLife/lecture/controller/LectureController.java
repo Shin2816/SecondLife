@@ -10,6 +10,7 @@ import com.green.SecondLife.util.UploadUtil;
 import jakarta.servlet.http.HttpSession;
 import kotlin.contracts.ReturnsNotNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -71,13 +72,17 @@ public class LectureController {
         model.addAttribute("lectureEvent", lectureService.adminSelectLectureEventDetail(lectureEventVO));
         return "admin/admin_update_lecture_event_info_form";
     }
-    //관리자용 강좌 종목 정보 수정 기능
-    @PostMapping("/adminUpdateLectureEventInfo")
-    public String adminUpdateLectureEventInfo(LectureEventVO lectureEventVO, RedirectAttributes redirectAttributes){
-        lectureService.adminUpdateLectureEventInfo(lectureEventVO);
-        redirectAttributes.addAttribute("lectureEventCode", lectureEventVO.getLectureEventCode());
-        redirectAttributes.addAttribute("menuCode", "MENU_002");
-        return "redirect:/lecture/adminLectureEventDetail";
+    //관리자용 강좌 종목 이름 수정 기능 페치
+    @ResponseBody
+    @PostMapping("/adminUpdateLectureEventName")
+    public void adminUpdateLectureEventName(LectureEventVO lectureEventVO){
+        lectureService.adminUpdateLectureEventName(lectureEventVO);
+    }
+    //관리자용 강좌 종목 내용 수정 기능 페치
+    @ResponseBody
+    @PostMapping("/adminUpdateLectureEventContent")
+    public void adminUpdateLectureEventContent(LectureEventVO lectureEventVO){
+        lectureService.adminUpdateLectureEventContent(lectureEventVO);
     }
     //관리자용 강좌 종목 삭제 기능
     @GetMapping("/adminDeleteLectureEvent")
@@ -112,7 +117,15 @@ public class LectureController {
     //관리자용 수업 목록 페이지
     @GetMapping("/adminLectureList")
     public String adminLectureList(Model model, SubMenuVO subMenuVO, String instructorCode){
-        model.addAttribute("lectureList", lectureService.adminSelectLectureList(instructorCode));
+        List<LectureVO> lectureList = lectureService.adminSelectLectureList(instructorCode);
+        if(instructorCode == null){
+            for(LectureVO lecture : lectureList){
+                String[] periods = lecture.getLecturePeriod().split("~");
+                lecture.setLecturePeriods(periods);
+            }
+        }
+        model.addAttribute("lectureList", lectureList);
+        model.addAttribute("instructorList", instructorService.adminSelectInstuctorList());
         return "admin/admin_lecture_list";
     }
     //관리자용 수업 상세 조회
@@ -120,6 +133,24 @@ public class LectureController {
     public String selectLectureDetail(LectureVO lectureVO, Model model, SubMenuVO subMenuVO){
         model.addAttribute("lecture", lectureService.adminSelectLectureDetail(lectureVO));
         return "admin/admin_lecture_detail";
+    }
+    //관리자용 수업 강사 변경 페치
+    @ResponseBody
+    @PostMapping("/adminUpdateLectureInstructor")
+    public void adminUpdateLectureInstructor(LectureVO lectureVO){
+        lectureService.adminUpdateLectureInstructor(lectureVO);
+    }
+    //관리자용 수업 기간 변경 페치
+    @ResponseBody
+    @PostMapping("/adminUpdateLecturePeriod")
+    public void adminUpdateLecturePeriod(LectureVO lectureVO){
+        lectureService.adminUpdateLecturePeriod(lectureVO);
+    }
+    //관리자용 수업 정원 변경 페치
+    @ResponseBody
+    @PostMapping("/adminUpdateLectureStudent")
+    public void adminUpdateLectureStudent(LectureVO lectureVO){
+        lectureService.adminUpdateLectureStudent(lectureVO);
     }
     //관리자용 수업 삭제 기능
     @GetMapping("/adminDeleteLecture")
@@ -135,6 +166,7 @@ public class LectureController {
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@//
     //유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//
     //↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ //
+
     // 수업 목록 페이지
     @GetMapping("/lectureList")
     public String lectureList(Model model, String lectureEventCode, SubMenuVO subMenuVO){
@@ -162,18 +194,20 @@ public class LectureController {
     }
     // 강좌 구매 페이지
     @GetMapping("/goLectureApplyForm")
-    public String goLectureApplyForm(LectureVO lectureVO, Model model, HttpSession session, LectureEventVO lectureEventVO){
+    public String goLectureApplyForm(LectureVO lectureVO, Model model, Authentication authentication, LectureEventVO lectureEventVO){
+        if(authentication == null){
+            return "redirect:/member/loginForm";
+        }
         lectureEventVO.setLectureEventCode(lectureService.adminSelectLectureDetail(lectureVO).getLectureEventCode());
         model.addAttribute("lectureEventInfo", lectureService.adminSelectLectureEventDetail(lectureEventVO));
         model.addAttribute("lectureInfo", lectureService.adminSelectLectureDetail(lectureVO));
-        MemberVO loginInfo = (MemberVO)session.getAttribute("loginInfo");
-        model.addAttribute("memberInfo", memberService.selectMember(loginInfo.getMemberId()));
+        model.addAttribute("memberInfo", memberService.selectMember(authentication.getName()));
         return "lecture/lecture_apply_form";
     }
     //수강생테이블로 수강생 인서트
     @RequestMapping("/insertStudent")
-    public String insertStudent(StudentVO studentVO, RedirectAttributes redirect, HttpSession session){
-        studentVO.setMemberId(((MemberVO) session.getAttribute("loginInfo")).getMemberId());
+    public String insertStudent(StudentVO studentVO, RedirectAttributes redirect, Authentication authentication){
+        studentVO.setMemberId(authentication.getName());
         lectureService.insertStudent(studentVO);
         redirect.addAttribute("lectureCode", studentVO.getLectureCode());
         return "redirect:/lecture/selectStudentList";

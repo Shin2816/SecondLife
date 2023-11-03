@@ -102,6 +102,18 @@
         WHERE EVENT.LECTURE_EVENT_CODE = IMG.LECTURE_EVENT_CODE
         AND EVENT.LECTURE_EVENT_CODE = #{lectureEventCode}
     </select>
+    <!-- 관리자용 강좌 종목 이름 수정 페치 -->
+    <update id="adminUpdateLectureEventName">
+        UPDATE LECTURE_EVENT
+        SET LECTURE_EVENT_NAME = #{lectureEventName}
+        WHERE LECTURE_EVENT_CODE = #{lectureEventCode}
+    </update>
+    <!-- 관리자용 강좌 종목 내용 수정 페치 -->
+    <update id="adminUpdateLectureEventContent">
+        UPDATE LECTURE_EVENT
+        SET LECTURE_EVENT_CONTENT = #{lectureEventContent}
+        WHERE LECTURE_EVENT_CODE = #{lectureEventCode}
+    </update>
     <!-- 관리자용 강좌 종목 정보 수정 쿼리 -->
     <update id="adminUpdateLectureEventInfo">
         UPDATE LECTURE_EVENT
@@ -180,6 +192,26 @@
         WHERE LECTURE_CODE = #{lectureCode}
         AND L.INSTRUCTOR_CODE = I.INSTRUCTOR_CODE
     </select>
+
+    <!-- 관리자용 수업 강사 수정 쿼리 -->
+    <update id="adminUpdateLectureInstructor">
+        UPDATE LECTURE
+        SET INSTRUCTOR_CODE = #{instructorCode}
+        WHERE LECTURE_CODE = #{lectureCode}
+    </update>
+    <!-- 관리자용 수업 기간 수정 쿼리 -->
+    <update id="adminUpdateLecturePeriod">
+        UPDATE LECTURE
+        SET LECTURE_PERIOD = #{lecturePeriod}
+        WHERE LECTURE_CODE = #{lectureCode}
+    </update>
+    <!-- 관리자용 수업 정원 수정 쿼리 -->
+    <update id="adminUpdateLectureStudent">
+        UPDATE LECTURE
+        SET LECTURE_STUDENT = #{lectureStudent}
+        WHERE LECTURE_CODE = #{lectureCode}
+    </update>
+
     <!-- 관리자용 수업 삭제 쿼리 -->
     <delete id="adminDeleteLecture">
         DELETE LECTURE

@@ -14,14 +14,14 @@
         <div>
             <table class="table table-hover text-center align-center">
                 <colgroup>
-                    <col width="10%">
-                    <col width="10%">
-                    <col width="10%">
-                    <col width="10%">
-                    <col width="10%">
-                    <col width="18%">
-                    <col width="10%">
+                    <col width="6%">
+                    <col width="8%">
+                    <col width="5%">
+                    <col width="5%">
+                    <col width="8%">
+                    <col width="21%">
                     <col width="*">
+                    <col width="10%">
                 </colgroup>
                 <thead>
                     <tr>
@@ -36,8 +36,7 @@
                     </tr>
                 </thead>
                 <tbody class="body-list">
-                    <tr th:each="instructor : ${instructorList}"
-                        th:onclick="|location.href='@{/instructor/adminInstructorDetail(instructorCode=${instructor.instructorCode}, menuCode=MENU_001)}'|">
+                    <tr th:each="instructor : ${instructorList}">
                         <td>
                             <img th:src="${'/images/instructor/' + instructor.instructorImgVO.instructorAttachedFileName}" id="instructor-img">
                         </td>
@@ -58,23 +57,35 @@
                             <p class="bottom">[[${instructor.lectureEventVO.lectureEventName}]]</p>
                         </td>
                         <td class="phone">
-                            <p class="top">휴대폰</p>
-                            <p class="bottom">
-                                [[${instructor.instructorPhone}]]
+                            <p><span class="phone-top">휴대폰</span><span class="phone-edit" th:onclick="editPhone([[${instructor.instructorCode}]], this);">수정</span></p>
+                            <p class="bottom" style="display: flex;">
+                                <select class="form-select phones" name="instructorPhones" style="width: 77px; font-weight: 600; font-size: 15px; color: #666; margin-right: 2px;">
+                                    <option th:value="${instructor.instructorPhones[0]}">[[${instructor.instructorPhones[0]}]]</option>
+                                    <option value="011">011</option>
+                                    <option value="012">012</option>
+                                    <option value="013">013</option>
+                                </select>
+                                <input class="form-control phones" type="text" th:value="${instructor.instructorPhones[1]}" style="width: 70px; text-align: center; color: #666; font-weight: 600; font-size: 15px; margin-left: 2px; margin-right: 2px;">
+                                <input class="form-control phones" type="text" th:value="${instructor.instructorPhones[2]}" style="width: 70px; text-align: center; color: #666; font-weight: 600; font-size: 15px; margin-right: 2px; margin-left: 2px;">
                             </p>
                         </td>
                         <td class="addr">
-                            <p class="top">주소</p>
-                            <p class="bottom">[[${instructor.instructorAddr}]]</p>
+                            <p><span class="addr-top">주소</span><span class="addr-edit" th:onclick="editAddr([[${instructor.instructorCode}]], this);">수정</span></p>
+                            <div style="display: flex;">
+                                <input class="form-control addrs openPost-addr" type="text" th:value="${instructor.instructorAddrs[0]}" style="font-size: 12px; font-weight: 600; margin-top: 0px; color: #666; line-height: 23px;" onclick="openPost(this);">
+                                <input class="form-control addrs" type="text" th:value="${instructor.instructorAddrs[1]}" style="width: 80px; margin-top: 0px; font-size: 12px; font-weight: 600; color: #666; margin-left: 2px; line-height: 23px;">
+                            </div>
                         </td>
-                        <td class="date">
+                        <td class="date" style="position: relative;">
                             <p class="top">입사일</p>
                             <p class="bottom">[[${instructor.instructorJoinDate}]]</p>
+                            <p th:onclick="deleteInstructor([[${instructor.instructorCode}]]);" class="x-btn" style="position: absolute; width: 20px; height: 20px; right: 0; top: -2px; cursor: pointer;"><img style="width: 100%; height: 100%;" src="/images/icons/x_btn.png"></p>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
+        <script src="/js/admin/admin_instructor_list.js"></script>
     </th:block>
 </body>
 

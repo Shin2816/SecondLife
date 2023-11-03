@@ -133,6 +133,7 @@
         </th:block>
         <!-- 댓글이 존재 하면 -->
         <th:block th:if="${#lists.size(comment) != 0}" class="row">
+            <!-- 반복문 -->
             <div th:each="comment, state : ${comment}">
                 <div class="row mb-2 justify-content-between">
                     <div class="col-3">[[${comment.commentWriter}]]</div>
@@ -145,17 +146,20 @@
                             <!-- 삭제,수정버튼 -->
                             <ul class="dropdown-menu">
                                 <li>
-                                    <form action="/qa/qaDeleteComment" method="post" id="commentDeleteForm">
+                                    <!-- 아이디를 넣으면 중복되기 때문에 가장 최신값만 가져옴, this활용해서 form태그를 지정하였음 -->
+                                    <form action="/qa/qaDeleteComment" method="post">
                                         <input type="hidden" name="qaCheckPwInput" th:value="${qaCheckPwInput}">
                                         <input type="hidden" name="commentId" th:value="${comment.commentId}">
                                         <input type="hidden" name="commentNum" th:value="${board.qaBoardNum}">
-                                        <button type="button" class="dropdown-item" th:onclick="qaDeleteComment();">삭제</button>
+                                        <button type="button" class="dropdown-item" onclick="qaDeleteComment(this);">삭제[[${comment.commentId}]]</button>
                                     </form>
                                 </li>
-                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" th:onclick="qaUpdateModal([[${comment.commentContent}]]);">수정</a></li>
+                                <li>
+                                    <button type="button" class="dropdown-item" data-bs-toggle="modal" th:data-bs-target="${'#qaModalId' + state.index}" th:onclick="qaUpdateModal([[${comment.commentContent}]]);">수정[[${comment.commentId}]]</button>
+                                </li>
                             </ul>
                             <!-- Modal -->
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" th:id="${'qaModalId' + state.index}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -172,7 +176,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                                                <button type="button" class="btn btn-primary" th:onclick="qaUpdateComment();">수정하기</button>
+                                                <button type="button" class="btn btn-primary" onclick="qaUpdateComment(this);">수정하기[[${comment.commentId}]]</button>
                                             </div>
                                         </form>
                                     </div>

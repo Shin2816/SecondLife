@@ -31,6 +31,7 @@ function showInstructorSimpleInfo(instructorCode){
         
         let str = '';
         data.lectureList.forEach((lecture, index) => {
+            let won = lecture.lecturePrice.toLocaleString();
             str += `<div>
                         <div class="index">${index + 1}</div>
                         <div>
@@ -44,7 +45,7 @@ function showInstructorSimpleInfo(instructorCode){
                             <div class="bottom">
                                 <span class="lecture-title" onclick="location.href='/lecture/lectureDetail?lectureCode=${lecture.lectureCode}';">${lecture.lectureTitle}</span>
                                 <span class="lecture-period-date">${lecture.lecturePeriod}</span>
-                                <span class="lecture-price">${lecture.lecturePrice}</span>
+                                <span class="lecture-price">${won}원</span>
                                 <span class="lecture-student">${lecture.lectureStudent}</span>
                             </div>
                         </div>
