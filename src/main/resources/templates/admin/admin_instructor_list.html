@@ -72,7 +72,7 @@
                         <td class="addr">
                             <p><span class="addr-top">주소</span><span class="addr-edit" th:onclick="editAddr([[${instructor.instructorCode}]], this);">수정</span></p>
                             <div style="display: flex;">
-                                <input class="form-control addrs" type="text" th:value="${instructor.instructorAddrs[0]}" style="font-size: 12px; font-weight: 600; margin-top: 0px; color: #666; line-height: 23px;">
+                                <input class="form-control addrs openPost-addr" type="text" th:value="${instructor.instructorAddrs[0]}" style="font-size: 12px; font-weight: 600; margin-top: 0px; color: #666; line-height: 23px;" onclick="openPost(this);">
                                 <input class="form-control addrs" type="text" th:value="${instructor.instructorAddrs[1]}" style="width: 80px; margin-top: 0px; font-size: 12px; font-weight: 600; color: #666; margin-left: 2px; line-height: 23px;">
                             </div>
                         </td>
