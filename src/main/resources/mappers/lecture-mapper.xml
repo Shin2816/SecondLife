@@ -272,30 +272,38 @@
     <!--메인페이지 강좌 목록-->
     <select id="selectMainLectureList" resultMap="lecture">
         SELECT ROWNUM
+        , LECTURE_CODE
+        , INSTRUCTOR_NAME
+        , LECTURE_EVENT_NAME
+        , LECTURE_TITLE
+        , LECTURE_EVENT_CODE
+        , LECTURE_STUDENT
+        , LECTURE_PERIOD
+        , LECTURE_PRICE
+        FROM (
+            SELECT ROWNUM AS ROW_NUM
             , LECTURE_CODE
+            , INSTRUCTOR_NAME
+            , LECTURE_EVENT_NAME
             , LECTURE_TITLE
             , LECTURE_EVENT_CODE
             , LECTURE_STUDENT
             , LECTURE_PERIOD
             , LECTURE_PRICE
-        FROM (
-            SELECT ROWNUM AS ROW_NUM
-                , LECTURE_CODE
-                , LECTURE_TITLE
-                , LECTURE_EVENT_CODE
-                , LECTURE_STUDENT
-                , LECTURE_PERIOD
-                , LECTURE_PRICE
             FROM (
-                SELECT LECTURE_CODE
+                SELECT L.LECTURE_CODE
+                , I.INSTRUCTOR_NAME
                 , LECTURE_TITLE
-                , LECTURE_EVENT_CODE
+                , L.LECTURE_EVENT_CODE
+                , LE.LECTURE_EVENT_NAME
                 , LECTURE_STUDENT
                 , LECTURE_PERIOD
                 , LECTURE_PRICE
-                FROM LECTURE
+                FROM LECTURE L, INSTRUCTOR I, LECTURE_EVENT LE
+                WHERE I.INSTRUCTOR_CODE = L.INSTRUCTOR_CODE
+                AND L.LECTURE_EVENT_CODE = LE.LECTURE_EVENT_CODE
                 ORDER BY LECTURE_CODE DESC
-            )
+                )
         )
         WHERE ROWNUM &lt;= 5
     </select>

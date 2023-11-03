@@ -43,7 +43,7 @@ function showInstructorSimpleInfo(instructorCode){
                                 <span class="student">정원</span>
                             </div>
                             <div class="bottom">
-                                <span class="lecture-title" onclick="location.href='/lecture/lectureDetail?lectureCode=${lecture.lectureCode}';">${lecture.lectureTitle}</span>
+                                <span class="lecture-title" onclick="location.href='/lecture/lectureDetail?lectureCode=${lecture.lectureCode}&menuCode=MENU_005';">${lecture.lectureTitle}</span>
                                 <span class="lecture-period-date">${lecture.lecturePeriod}</span>
                                 <span class="lecture-price">${won}원</span>
                                 <span class="lecture-student">${lecture.lectureStudent}</span>

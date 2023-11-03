@@ -57,7 +57,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
         registry.addInterceptor(userMenuInterceptor)
                 .addPathPatterns("/", "/etc/privacy", "/etc/sitemap", "/etc/teamInfo"
                                 ,"/member/logout", "/member/updateMemberForm", "/member/loginForm", "/member/insertMemberForm", "/member/updateMember", "/member/insertMember"
-                                ,"/lecture/lectureList"
+                                ,"/lecture/lectureList", "/lecture/lectureDetail"
                                 ,"/instructor/instructorList"
                                 ,"/board/freeBoardList", "/board/regBoardForm", "/board/boardDetail"
                                 ,"/qa/qaBoardList", "/qa/boardDetail", "/qa/regQaBoardForm"

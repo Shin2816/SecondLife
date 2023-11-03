@@ -53,7 +53,7 @@ public class SecurityConfig {
                                 .loginProcessingUrl("/member/login") //로그인을 처리하는 url 설정
                                 .usernameParameter("memberId") //로그인 시 id로 쓰이는 input태그의 name속성
                                 .passwordParameter("memberPW")
-                                .defaultSuccessUrl("/member/loginCheck", false) // 로그인 성공 시 이동 url
+                                .defaultSuccessUrl("/member/loginCheck") // 로그인 성공 시 이동 url
                                 .failureUrl("/member/loginForm") // 로그인 실패 시 이동 url
 
                 ).logout(logout ->
