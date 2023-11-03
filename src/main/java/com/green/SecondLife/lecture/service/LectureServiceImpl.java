@@ -42,11 +42,18 @@ public class LectureServiceImpl implements LectureService{
     public LectureEventVO adminSelectLectureEventDetail(LectureEventVO lectureEventVO) {
         return sqlSession.selectOne("lectureMapper.adminSelectLectureEventDetail", lectureEventVO);
     }
-    //관리자용 강좌 종목 정보 수정 기능
+
+    //관리자용 강좌 종목 이름 수정 기능
     @Override
-    public void adminUpdateLectureEventInfo(LectureEventVO lectureEventVO) {
-        sqlSession.update("lectureMapper.adminUpdateLectureEventInfo", lectureEventVO);
+    public void adminUpdateLectureEventName(LectureEventVO lectureEventVO) {
+        sqlSession.update("lectureMapper.adminUpdateLectureEventName", lectureEventVO);
     }
+    //관리자용 강좌 종목 내용 수정 기능
+    @Override
+    public void adminUpdateLectureEventContent(LectureEventVO lectureEventVO) {
+        sqlSession.update("lectureMapper.adminUpdateLectureEventContent", lectureEventVO);
+    }
+
     //관리자용 강좌 종목 삭제 기능
     @Override
     public void adminDeleteLectureEvent(LectureEventVO lectureEventVO) {
@@ -73,6 +80,23 @@ public class LectureServiceImpl implements LectureService{
     public LectureVO adminSelectLectureDetail(LectureVO lectureVO) {
         return sqlSession.selectOne("lectureMapper.adminSelectLectureDetail", lectureVO);
     }
+
+    //관리자용 수업 강사 수정 기능
+    @Override
+    public void adminUpdateLectureInstructor(LectureVO lectureVO) {
+        sqlSession.update("lectureMapper.adminUpdateLectureInstructor", lectureVO);
+    }
+    //관리자용 수업 강사 수정 기능
+    @Override
+    public void adminUpdateLecturePeriod(LectureVO lectureVO) {
+        sqlSession.update("lectureMapper.adminUpdateLecturePeriod", lectureVO);
+    }
+    //관리자용 수업 강사 수정 기능
+    @Override
+    public void adminUpdateLectureStudent(LectureVO lectureVO) {
+        sqlSession.update("lectureMapper.adminUpdateLectureStudent", lectureVO);
+    }
+
     //관리자용 수업 삭제 기능
     @Override
     public void adminDeleteLecture(LectureVO lectureVO) {

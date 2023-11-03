@@ -25,32 +25,30 @@
             </tr>
         </thead>
         <tbody class="body-list">
-            <tr th:each="lectureEvent : ${lectureEventList}" th:onclick="|location.href='@{/lecture/adminLectureEventDetail(lectureEventCode=${lectureEvent.lectureEventCode}, menuCode='MENU_002')}'|">
+            <tr th:each="lectureEvent : ${lectureEventList}">
                 <td class="img">
                     <img th:src="${'/images/lectureEvent/' + lectureEvent.lectureEventImgVO.lectureEventAttachedFileName}">
                 </td>
                 <td class="name">
                     <div>
-                    <p class="top">강좌명</p>
-                    <p class="bottom">[[${lectureEvent.lectureEventName}]]</p>
+                    <p><span class="event-name">강좌명</span><span class="edit" th:onclick="editName([[${lectureEvent.lectureEventCode}]], this);">수정</span></p>
+                    <p class="bottom">
+                        <input style="width: 150px; text-align: center; font-size: 22px; font-weight: 600; color: #666; margin-left: 30px;" type="text" class="form-control" th:value="${lectureEvent.lectureEventName}">
+                    </p>
                     </div>
                 </td>
-                <td class="content">
-                    <p class="top">내용</p>
-                    <p class="bottom">[[${lectureEvent.lectureEventContent}]]</p>
+                <td class="content" style="position: relative;">
+                    <p><span class="event-content">내용</span><span class="edit" th:onclick="editContent([[${lectureEvent.lectureEventCode}]], this);">수정</span></p>
+                    <p th:onclick="deleteLectureEvent([[${lectureEvent.lectureEventCode}]]);" style="position: absolute; width: 30px; height: 30px; top: 0; right: 0; cursor: pointer;"><img style="width: 100%; height: 100%;" src="/images/icons/x_btn.png"></p>
+                    <p class="bottom">
+                        <textarea class="form-control" style="font-size: 18px; font-weight: 600; color: #666;" name="" id="" cols="30" rows="3">[[${lectureEvent.lectureEventContent}]]</textarea>
+                    </p>
                 </td>
             </tr>
         </tbody>
     </table>
 </div>
-
-
-
-
-
-
-
-
+<script src="/js/admin/admin_lecture_event_list.js"></script>
 </th:block>
 </body>
 </html>
