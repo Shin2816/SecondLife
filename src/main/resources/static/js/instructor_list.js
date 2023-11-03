@@ -55,16 +55,16 @@ function showInstructorSimpleInfo(instructorCode){
         document.querySelector('#lecture-list-modal').textContent = '';
         document.querySelector('#lecture-list-modal').insertAdjacentHTML('afterbegin', str);
 
-        let str2 = '';
-        data.reviewList.forEach(review => {
-            str2 += `<tr>`;
-            str2 += `<td>${review.lectureStarPoint}</td>`;
-            str2 += `<td>${review.lectureReviewContent}</td>`;
-            str2 += `</td>`;
-        });
+        // let str2 = '';
+        // data.reviewList.forEach(review => {
+        //     str2 += `<tr>`;
+        //     str2 += `<td>${review.lectureStarPoint}</td>`;
+        //     str2 += `<td>${review.lectureReviewContent}</td>`;
+        //     str2 += `</td>`;
+        // });
 
-        document.querySelector('#lecture-review-table tbody').textContent = '';
-        document.querySelector('#lecture-review-table tbody').insertAdjacentHTML('afterbegin', str2);
+        // document.querySelector('#lecture-review-table tbody').textContent = '';
+        // document.querySelector('#lecture-review-table tbody').insertAdjacentHTML('afterbegin', str2);
         
         myModal.show();
 
