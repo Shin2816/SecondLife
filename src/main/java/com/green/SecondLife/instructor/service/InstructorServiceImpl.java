@@ -43,10 +43,15 @@ public class InstructorServiceImpl implements InstructorService{
     public InstructorVO adminSelectInstructorDetail(InstructorVO instructorVO) {
         return sqlSession.selectOne("instructorMapper.adminSelectInstructorDetail", instructorVO);
     }
-    //관리자용 강사 정보 수정 기능
+    //관리자용 강사 연락처 수정 기능
     @Override
-    public void adminUpdateInstructorInfo(InstructorVO instructorVO) {
-        sqlSession.update("instructorMapper.adminUpdateInstructorInfo", instructorVO);
+    public void adminUpdateInstructorPhone(InstructorVO instructorVO) {
+        sqlSession.update("instructorMapper.adminUpdateInstructorPhone", instructorVO);
+    }
+    //관리자용 강사 주소 수정 기능
+    @Override
+    public void adminUpdateInstructorAddr(InstructorVO instructorVO) {
+        sqlSession.update("instructorMapper.adminUpdateInstructorAddr", instructorVO);
     }
     //관리자용 강사 삭제 기능
     @Override

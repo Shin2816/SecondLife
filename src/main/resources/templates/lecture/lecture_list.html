@@ -12,7 +12,7 @@
     <div id="wrap">
         <div id="inner">
             <div class="event-box">
-                <select name="lectureEventCode" onchange="lectureList();" id="lecture-event-category">
+                <select class="form-select" style="width: 150px;" name="lectureEventCode" onchange="lectureList();" id="lecture-event-category">
                     <th:block th:each="lectureEvent : ${lectureEventList}">
                         <option th:value="${lectureEvent.lectureEventCode}">[[${lectureEvent.lectureEventName}]]</option>
                     </th:block>

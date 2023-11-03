@@ -29,10 +29,19 @@ a{
 .openAndClose{
     padding: 0;
 }
+.card-img-top{
+    background-position: center;
+}
+.card-img-gal{
+    width: 100%;
+    background-position: center;
+    background-size: cover;
+    height: 200px;
+}
 .board-item{
     cursor: pointer;
     border: 1px solid #eee;
-    border-radius: 10px;
+    border-radius: 6px;
 }
 .card-body{
     margin: 0 5px;

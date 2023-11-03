@@ -43,7 +43,7 @@
         <if test='searchValue != null and !searchValue.equals("")'>
             WHERE UPPER(${searchType}) LIKE '%'||UPPER(#{searchValue})||'%'
         </if>
-        ORDER BY QA_CREATE_DATE DESC
+        ORDER BY QA_BOARD_NUM DESC
         OFFSET (#{nowPage} - 1) * #{displayDataCnt} ROWS FETCH FIRST #{displayDataCnt} ROWS ONLY
     </select>
     <!--게시글 갯수 조회-->
@@ -133,7 +133,7 @@
             , TO_CHAR(COMMENT_CREATE_DATE, 'YYYY.MM.DD. HH24:MI') COMMENT_CREATE_DATE
         FROM BOARD_QA_COMMENTS
         WHERE COMMENT_NUM = #{qaBoardNum}
-        ORDER BY COMMENT_CREATE_DATE DESC
+        ORDER BY COMMENT_ID DESC
     </select>
     <!--QA게시판 댓글 작성-->
     <insert id="insertQaBoardComment">

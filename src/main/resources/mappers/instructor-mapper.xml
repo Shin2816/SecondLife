@@ -79,7 +79,7 @@
             , INSTRUCTOR_AGE
             , INSTRUCTOR_GENDER
             , INSTRUCTOR_PHONE
-            , SUBSTR(INSTRUCTOR_ADDR, 1, 2) INSTRUCTOR_ADDR
+            , INSTRUCTOR_ADDR
             , TO_CHAR (INSTRUCTOR_JOIN_DATE, 'YYYY-MM-DD') INSTRUCTOR_JOIN_DATE
             , INSTRUCTOR_ATTACHED_FILE_NAME
         FROM INSTRUCTOR INS, INSTRUCTOR_IMG IMG, LECTURE_EVENT EVT
@@ -88,8 +88,9 @@
     </select>
     <!-- 관리자용 강사 상세 조회 쿼리 -->
     <select id="adminSelectInstructorDetail" resultMap="instructor">
-        SELECT INSTRUCTOR.INSTRUCTOR_CODE
-            , LECTURE_EVENT_CODE
+        SELECT INS.INSTRUCTOR_CODE
+            , INS.LECTURE_EVENT_CODE
+            , LECTURE_EVENT_NAME
             , INSTRUCTOR_NAME
             , INSTRUCTOR_AGE
             , INSTRUCTOR_GENDER
@@ -97,15 +98,21 @@
             , INSTRUCTOR_ADDR
             , TO_CHAR (INSTRUCTOR_JOIN_DATE, 'YYYY-MM-DD') INSTRUCTOR_JOIN_DATE
             , INSTRUCTOR_ATTACHED_FILE_NAME
-        FROM INSTRUCTOR, INSTRUCTOR_IMG
-        WHERE INSTRUCTOR.INSTRUCTOR_CODE = #{instructorCode}
-        AND INSTRUCTOR.INSTRUCTOR_CODE = INSTRUCTOR_IMG.INSTRUCTOR_CODE
+        FROM INSTRUCTOR INS, INSTRUCTOR_IMG IMG, LECTURE_EVENT EVT
+        WHERE INS.INSTRUCTOR_CODE = #{instructorCode}
+        AND INS.INSTRUCTOR_CODE = IMG.INSTRUCTOR_CODE
+        AND INS.LECTURE_EVENT_CODE = EVT.LECTURE_EVENT_CODE
     </select>
-    <!-- 관리자용 강사 수정 쿼리 -->
-    <update id="adminUpdateInstructorInfo">
+    <!-- 관리자용 강사 연락처 수정 쿼리 -->
+    <update id="adminUpdateInstructorPhone">
         UPDATE INSTRUCTOR
         SET INSTRUCTOR_PHONE = #{instructorPhone}
-            , INSTRUCTOR_ADDR = #{instructorAddr}
+        WHERE INSTRUCTOR_CODE = #{instructorCode}
+    </update>
+    <!-- 관리자용 강사 주소 수정 쿼리 -->
+    <update id="adminUpdateInstructorAddr">
+        UPDATE INSTRUCTOR
+        SET INSTRUCTOR_ADDR = #{instructorAddr}
         WHERE INSTRUCTOR_CODE = #{instructorCode}
     </update>
     <!-- 관리자용 강사 삭제 기능 -->

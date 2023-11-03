@@ -95,10 +95,8 @@ public class QaController {
             }
             isAuthentication = user.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
         }
-
         BoardQaListVO board = qaService.selectQaBoardDetail(boardCommentListVO.getCommentNum());//해당글 상세정보 조회하고
-        board.setQaBoardPassword(qaService.selectQaPw(boardCommentListVO.getCommentNum()));//
-        System.out.println(board);
+        board.setQaBoardPassword(qaService.selectQaPw(boardCommentListVO.getCommentNum()));
 
         //   공개이 거나,         로그인을 했고                관리자라면 프리패스!
         if(qaPw == null || (authentication != null && isAuthentication)){
@@ -128,7 +126,6 @@ public class QaController {
     public String qaBoardComment(BoardCommentListVO boardCommentListVO, RedirectAttributes redirectAttributes){
         qaService.insertQaBoardComment(boardCommentListVO); //댓글 작성 쿼리
         redirectAttributes.addFlashAttribute("boardCommentListVO", boardCommentListVO);
-
         return "redirect:/qa/boardDetail"; //디테일 컨트롤러로 다시 이동할 때 값 가져가기
     }
     //글 상세페이지에서 삭제버튼 클릭하였을 때
@@ -149,6 +146,7 @@ public class QaController {
     //상세 페이지에서 댓글 삭제버튼 클릭하면 delete 쿼리 실행
     @PostMapping("/qaDeleteComment")
     public String qaDeleteComment(BoardCommentListVO boardCommentListVO, RedirectAttributes redirectAttributes){
+        System.out.println(boardCommentListVO.getCommentId());
         qaService.deleteQaBoardComment(boardCommentListVO.getCommentId());//삭제 쿼리
         redirectAttributes.addFlashAttribute("boardCommentListVO", boardCommentListVO);//commentNum, qaCheckPwInput값을 가지고 다시 디테일로
 

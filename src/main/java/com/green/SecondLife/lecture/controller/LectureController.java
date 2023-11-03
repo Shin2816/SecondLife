@@ -71,13 +71,17 @@ public class LectureController {
         model.addAttribute("lectureEvent", lectureService.adminSelectLectureEventDetail(lectureEventVO));
         return "admin/admin_update_lecture_event_info_form";
     }
-    //관리자용 강좌 종목 정보 수정 기능
-    @PostMapping("/adminUpdateLectureEventInfo")
-    public String adminUpdateLectureEventInfo(LectureEventVO lectureEventVO, RedirectAttributes redirectAttributes){
-        lectureService.adminUpdateLectureEventInfo(lectureEventVO);
-        redirectAttributes.addAttribute("lectureEventCode", lectureEventVO.getLectureEventCode());
-        redirectAttributes.addAttribute("menuCode", "MENU_002");
-        return "redirect:/lecture/adminLectureEventDetail";
+    //관리자용 강좌 종목 이름 수정 기능 페치
+    @ResponseBody
+    @PostMapping("/adminUpdateLectureEventName")
+    public void adminUpdateLectureEventName(LectureEventVO lectureEventVO){
+        lectureService.adminUpdateLectureEventName(lectureEventVO);
+    }
+    //관리자용 강좌 종목 내용 수정 기능 페치
+    @ResponseBody
+    @PostMapping("/adminUpdateLectureEventContent")
+    public void adminUpdateLectureEventContent(LectureEventVO lectureEventVO){
+        lectureService.adminUpdateLectureEventContent(lectureEventVO);
     }
     //관리자용 강좌 종목 삭제 기능
     @GetMapping("/adminDeleteLectureEvent")
@@ -112,7 +116,15 @@ public class LectureController {
     //관리자용 수업 목록 페이지
     @GetMapping("/adminLectureList")
     public String adminLectureList(Model model, SubMenuVO subMenuVO, String instructorCode){
-        model.addAttribute("lectureList", lectureService.adminSelectLectureList(instructorCode));
+        List<LectureVO> lectureList = lectureService.adminSelectLectureList(instructorCode);
+        if(instructorCode == null){
+            for(LectureVO lecture : lectureList){
+                String[] periods = lecture.getLecturePeriod().split("~");
+                lecture.setLecturePeriods(periods);
+            }
+        }
+        model.addAttribute("lectureList", lectureList);
+        model.addAttribute("instructorList", instructorService.adminSelectInstuctorList());
         return "admin/admin_lecture_list";
     }
     //관리자용 수업 상세 조회
@@ -120,6 +132,24 @@ public class LectureController {
     public String selectLectureDetail(LectureVO lectureVO, Model model, SubMenuVO subMenuVO){
         model.addAttribute("lecture", lectureService.adminSelectLectureDetail(lectureVO));
         return "admin/admin_lecture_detail";
+    }
+    //관리자용 수업 강사 변경 페치
+    @ResponseBody
+    @PostMapping("/adminUpdateLectureInstructor")
+    public void adminUpdateLectureInstructor(LectureVO lectureVO){
+        lectureService.adminUpdateLectureInstructor(lectureVO);
+    }
+    //관리자용 수업 기간 변경 페치
+    @ResponseBody
+    @PostMapping("/adminUpdateLecturePeriod")
+    public void adminUpdateLecturePeriod(LectureVO lectureVO){
+        lectureService.adminUpdateLecturePeriod(lectureVO);
+    }
+    //관리자용 수업 정원 변경 페치
+    @ResponseBody
+    @PostMapping("/adminUpdateLectureStudent")
+    public void adminUpdateLectureStudent(LectureVO lectureVO){
+        lectureService.adminUpdateLectureStudent(lectureVO);
     }
     //관리자용 수업 삭제 기능
     @GetMapping("/adminDeleteLecture")
