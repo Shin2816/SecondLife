@@ -64,6 +64,7 @@
                                     <input type="hidden" id="addrDetail" name="addrDetail" th:value="${memberInfo.addrDetail}">
                                     <input type="hidden" id="rentalSignCode" name="rentalSignCode" th:value="${myRental.rentalSignCode}">
                                     <button type="button" class="btn btn-primary btn-sm" th:onclick="kakaopay([[${myRental.facilityName}]], [[${myRental.rentalCharge}]], [[${memberInfo.memberName}]], [[${subMenuVO.menuCode}]])">결제하기</button>
+                                    <button type="button" class="btn btn-secondary btn-sm" th:onclick="cancelRental([[${myRental.rentalSignCode}]])">취소</button>
                                 </td>
                             </th:block>
                             <th:block th:if="${myRental.rentalStatus == '1'}">
@@ -74,7 +75,6 @@
                                 <td>반려</td>
                                 <td>
                                     <button type="button" class="btn btn-secondary btn-sm" th:onclick="rejectReasonBtn([[${state.count}]])">반려내용</button>
-                                    <button type="button" class="btn btn-secondary btn-sm" th:onclick="cancelRental([[${myRental.rentalSignCode}]])">취소</button>
                                 </td>
                             </th:block>
 

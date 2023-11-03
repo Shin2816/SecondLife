@@ -34,11 +34,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 , textColor: 'red' 
             } 
         ],
-        // eventRender: function(info) {
-        //     if(info.event.source.className.includes('gCal')){
-        //         event.setProp('backgroundColor', 'green');
-        //     }
-        // },
         dayCellContent: function(info) {    //달력 '일' 삭제
             var dayNum = document.createElement('a');
             dayNum.classList.add('fc-daygrid-day-number');
@@ -47,10 +42,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 return {
                     html: dayNum.outerHTML
                 };
+                
             } 
             return {
-                domNodes: []
+                domNodes: [dayNum]
             };
+        },
+        eventContent: function (arg) {
+            // 이벤트 렌더링을 커스터마이즈하는 코드를 여기에 작성
+            console.log(arg);
+            var dayNumColor = document.querySelector('.fc-daygrid-day-number');
+            // 이벤트 렌더링을 커스터마이즈하는 코드를 여기에 작성
+            if (arg.event) {
+                dayNumColor.style.color = 'red';
+            }
+                    
         },
         dateClick: function(info) { //달력을 클릭 했을 때, 함수 호출
             if(info.date.getDay() === 0 || info.date.getDay() === 6){ //토(6),일(0)만 클릭 가능
@@ -96,6 +102,7 @@ function calendarCheck(date){
     .then((data) => {//data -> controller에서 리턴되는 데이터(rentalTimeList)
         let inputTr = document.querySelector('#input-tr');
         let memberId = document.querySelector('#memberId').value;
+        console.log(data);
 
         let str ='';
         data.forEach(rentalTime => {
@@ -255,4 +262,14 @@ function resetMessage(){
 function inputInvalidate(tagId, message){
     document.querySelector(tagId).style.display = 'block';
     document.querySelector(tagId).textContent = message;
+}
+
+function aaaaa(){
+    document.querySelector('#calendar')
+            .querySelectorAll('.fc-day-sat').forEach((element, idx) => {
+                if(element.dataset.date == '2023-11-04'){
+                    console.log(element);
+                    console.log(element.content);
+                }
+            });
 }
