@@ -25,7 +25,7 @@
                         <p class="lectureTitle">[[${lectureInfo.lectureTitle}]]</p>
                     </div>
                 </div>
-                <div class="price"><div><span>[[${lectureInfo.lecturePrice}]]</span>원</div></div>
+                <div class="price"><div><span>[[${#numbers.formatCurrency(lectureInfo.lecturePrice)}]]</span></div></div>
                 <div class="period"><div>[[${lectureInfo.lecturePeriod}]]</div></div>
             </div>
         </div>
@@ -50,7 +50,7 @@
             <h3>결제정보</h3>
             <div class="pay-info-box">
                 <h5>결제 하실 금액</h5>
-                <div class="price"><span>[[${lectureInfo.lecturePrice}]]</span>원</div>
+                <div class="price"><span>[[${#numbers.formatCurrency(lectureInfo.lecturePrice)}]]</span></div>
             </div>
         </div>
         <input type="hidden" th:value="${lectureInfo.lectureCode}" name="lectureCode">

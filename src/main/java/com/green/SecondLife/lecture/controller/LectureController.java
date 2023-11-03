@@ -10,6 +10,7 @@ import com.green.SecondLife.util.UploadUtil;
 import jakarta.servlet.http.HttpSession;
 import kotlin.contracts.ReturnsNotNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -165,6 +166,7 @@ public class LectureController {
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@//
     //유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//유저//
     //↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ //
+
     // 수업 목록 페이지
     @GetMapping("/lectureList")
     public String lectureList(Model model, String lectureEventCode, SubMenuVO subMenuVO){
@@ -192,18 +194,20 @@ public class LectureController {
     }
     // 강좌 구매 페이지
     @GetMapping("/goLectureApplyForm")
-    public String goLectureApplyForm(LectureVO lectureVO, Model model, HttpSession session, LectureEventVO lectureEventVO){
+    public String goLectureApplyForm(LectureVO lectureVO, Model model, Authentication authentication, LectureEventVO lectureEventVO){
+        if(authentication == null){
+            return "redirect:/member/loginForm";
+        }
         lectureEventVO.setLectureEventCode(lectureService.adminSelectLectureDetail(lectureVO).getLectureEventCode());
         model.addAttribute("lectureEventInfo", lectureService.adminSelectLectureEventDetail(lectureEventVO));
         model.addAttribute("lectureInfo", lectureService.adminSelectLectureDetail(lectureVO));
-        MemberVO loginInfo = (MemberVO)session.getAttribute("loginInfo");
-        model.addAttribute("memberInfo", memberService.selectMember(loginInfo.getMemberId()));
+        model.addAttribute("memberInfo", memberService.selectMember(authentication.getName()));
         return "lecture/lecture_apply_form";
     }
     //수강생테이블로 수강생 인서트
     @RequestMapping("/insertStudent")
-    public String insertStudent(StudentVO studentVO, RedirectAttributes redirect, HttpSession session){
-        studentVO.setMemberId(((MemberVO) session.getAttribute("loginInfo")).getMemberId());
+    public String insertStudent(StudentVO studentVO, RedirectAttributes redirect, Authentication authentication){
+        studentVO.setMemberId(authentication.getName());
         lectureService.insertStudent(studentVO);
         redirect.addAttribute("lectureCode", studentVO.getLectureCode());
         return "redirect:/lecture/selectStudentList";
