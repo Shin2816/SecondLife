@@ -1,7 +1,8 @@
 /////////////////////////////////////////////////////////////////////////////사진 게시판 글 삭제
 function deleteboard(galBoardNum){
+    const menuCode = document.querySelector('#menuCode').value;
     if(confirm('삭제하시면 되돌릴 수 없습니다 \n삭제 하시겠습니까?')){
-        location.href=`/gallery/deleteGalBoard?galBoardNum=${galBoardNum}`;
+        location.href=`/gallery/deleteGalBoard?galBoardNum=${galBoardNum}&menuCode=${menuCode}`;
     }
 }
 /////////////////////////////////////////////////////////////////////////////사진 게시판 글 수정 유효성 검사
@@ -53,12 +54,13 @@ function resetBoardMessage(){
 }
 ///////////////////////////////////////////////////댓글작성(비동기)
 function galRegComment(selectedTag, galBoardNum, name){
+    const menuCode = document.querySelector('#menuCode').value;
     const commentContent = selectedTag.closest('div').querySelector('input[type="text"]').value;
 
     //댓글 입력 여부 체크
     if(name == 'anonymousUser'){//로그인을 하지 않았다면
         if(confirm('로그인이 필요한 서비스입니다.\n로그인 페이지로 이동하시겠습니까?')){//알람 띄운 후 확인버튼 누르면
-            location.href='/member/loginForm';//로그인 페이지로 이동
+            location.href=`/member/loginForm?menuCode=${menuCode}`;//로그인 페이지로 이동
         }
     }
     else{//로그인을 했다면
@@ -104,7 +106,7 @@ function galRegComment(selectedTag, galBoardNum, name){
     .then((data) => {//data -> controller에서 리턴되는 데이터!
         if(data == true){//로그인 정보가 있다면
             alert('등록이 완료 되었습니다.');
-            location.href=`/gallery/boardDetail?galBoardNum=${galBoardNum}`;//등록이 완료되고 해당 게시글 상세페이지로 이동
+            location.href=`/gallery/boardDetail?galBoardNum=${galBoardNum}&menuCode=${menuCode}`;//등록이 완료되고 해당 게시글 상세페이지로 이동
         }
     })
     //fetch 통신 실패 시 실행 영역
@@ -115,6 +117,7 @@ function galRegComment(selectedTag, galBoardNum, name){
 }
 ////////////////////////////////////////////////////////댓글 삭제(비동기)
 function galDeleteComment(commentId, galBoardNum){
+    const menuCode = document.querySelector('#menuCode').value;
     if(confirm('삭제하시면 되돌릴 수 없습니다.\n삭제 하시겠습니까?')){
         fetch('/gallery/galDeleteComment', { //요청경로
             method: 'POST',
@@ -140,7 +143,7 @@ function galDeleteComment(commentId, galBoardNum){
         //fetch 통신 후 실행 영역
         .then((data) => {//data -> controller에서 리턴되는 데이터!
             alert('댓글 삭제가 완료 되었습니다.');
-            location.href=`/gallery/boardDetail?galBoardNum=${galBoardNum}`;
+            location.href=`/gallery/boardDetail?galBoardNum=${galBoardNum}&menuCode=${menuCode}`;
         })
         //fetch 통신 실패 시 실행 영역
         .catch(err=>{
@@ -157,7 +160,7 @@ function galUpdateModal(galUpdateCommentContent){//실제 데이터value
 ///////////////////////////////////////////////////////////////////댓글 수정(비동기)
 function galUpdateComment(commentId, galBoardNum){//수정버튼을 누르면 도착, div id : galCommentInput 안에 데이터 넣기
     const galCommentInput = document.querySelector('#galCommentInput').value;
-
+    const menuCode = document.querySelector('#menuCode').value;
     if(galCommentInput == ''){
         alert('내용을 입력해주십시요.');
         return;
@@ -196,7 +199,7 @@ function galUpdateComment(commentId, galBoardNum){//수정버튼을 누르면 �
     //fetch 통신 후 실행 영역
     .then((data) => {//data -> controller에서 리턴되는 데이터!
         alert('댓글 수정이 완료 되었습니다.');
-        location.href=`/gallery/boardDetail?galBoardNum=${galBoardNum}`;
+        location.href=`/gallery/boardDetail?galBoardNum=${galBoardNum}&menuCode=${menuCode}`;
     })
     //fetch 통신 실패 시 실행 영역
     .catch(err=>{
@@ -220,6 +223,7 @@ $(document).ready(function () {
 function shareTwitter() {
     var sendText = "개발 재미있다"; // 전달할 텍스트
     var sendUrl = "devpad.tistory.com/"; // 전달할 URL
+
     window.open("https://twitter.com/intent/tweet?text=" + sendText + "&url=" + sendUrl);
 }
 function shareFacebook() {
@@ -229,6 +233,7 @@ function shareFacebook() {
 function shareKakao(galBoardNum) { //카카오톡 
     // 사용할 앱의 JavaScript 키 설정
     Kakao.init('d9f19096fc6d6af46e68d7f05e372fa6');
+    const menuCode = document.querySelector('#menuCode').value;
   
     // 카카오링크 버튼 생성
     Kakao.Link.createDefaultButton({
@@ -239,7 +244,7 @@ function shareKakao(galBoardNum) { //카카오톡
         description: "게시판 공유합니다", // 보여질 설명
         imageUrl: "devpad.tistory.com/", // 콘텐츠 URL
         link: {
-           webUrl: "http://localhost:8081/gallery/boardDetail?galBoardNum=" + galBoardNum
+           webUrl: `http://localhost:8081/gallery/boardDetail?galBoardNum=${galBoardNum}&menuCode=${menuCode}`
         }
       }
     });

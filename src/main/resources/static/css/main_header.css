@@ -189,6 +189,7 @@ th{
 }
 .main-slide{
     position: relative;
+    margin-top: 15px;
 }
 .top_banner_prev, .top_banner_next{
     position: absolute;

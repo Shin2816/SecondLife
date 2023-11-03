@@ -42,7 +42,7 @@
     </div>
     <br>
     <div class="d-flex justify-content-between">
-        <input type="button" class="btn btn-primary" value="목록으로" onclick="location.href='/gallery/galleryBoardList';">
+        <input type="button" class="btn btn-primary" value="목록으로" th:onclick="|location.href='@{/gallery/galleryBoardList(menuCode=${subMenuVO.menuCode})}'|">
         <!-- 로그인정보가 비어있지 않다면 버튼 보이게 -->
         <div sec:authorize="isAuthenticated()">
             <!-- 작성자가 같거나 관리자라면 -->
@@ -61,6 +61,7 @@
                         </div>          
                         <form action="/gallery/updateGalBoard" method="post" id="galUpdateBoardForm">
                             <input type="hidden" name="galBoardNum" th:value="${board.galBoardNum}">
+                            <input type="hidden" id="menuCode" name="menuCode" th:value="${subMenuVO.menuCode}">
                             <div class="modal-body">
                                 <div class="row mb-3">
                                     <div class="col">

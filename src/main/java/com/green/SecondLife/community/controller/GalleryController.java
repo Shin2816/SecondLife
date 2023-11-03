@@ -2,6 +2,8 @@ package com.green.SecondLife.community.controller;
 
 import com.green.SecondLife.community.service.GalleryService;
 import com.green.SecondLife.community.vo.*;
+import com.green.SecondLife.member.vo.SubMenuVO;
+import com.green.SecondLife.util.ConstantVariable;
 import com.green.SecondLife.util.UploadUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -22,7 +24,7 @@ public class GalleryController {
     private final GalleryService galleryService;
 
     @RequestMapping("/galleryBoardList")
-    public String selectGalBoardList(Model model, BoardGalleryListVO boardGalleryListVO){
+    public String selectGalBoardList(Model model, BoardGalleryListVO boardGalleryListVO, SubMenuVO subMenuVO){
         //페이지 정보 세팅
         int totalDataCnt = galleryService.selectBoardCnt(); //전체 게시글 갯수 조회해서
         boardGalleryListVO.setTotalPageCnt(totalDataCnt);//세터 호출해서 전체 게시글 갯수 전달
@@ -35,7 +37,7 @@ public class GalleryController {
     }
     //등록버튼 누르면 등록 페이지로 이동
     @GetMapping("/regGalBoardForm")
-    public String regGalBoardForm(){
+    public String regGalBoardForm(SubMenuVO subMenuVO){
         return "board/gallery/reg_board";
     }
     //글 등록 페이지에서 등록하기 누르면 글 등록 쿼리 실행
@@ -60,11 +62,11 @@ public class GalleryController {
         //글 등록 쿼리 실행
         galleryService.insertGalBoard(boardGalleryListVO);
 
-        return "redirect:/gallery/galleryBoardList";
+        return "redirect:/gallery/galleryBoardList?menuCode="+ ConstantVariable.MENU_CODE_BOARD;
     }
     //글 tr태그를 클릭했을때 해당글의 상세페이지 이동
     @RequestMapping("/boardDetail")
-    public String boardDetail(int galBoardNum, Model model){
+    public String boardDetail(int galBoardNum, Model model, SubMenuVO subMenuVO){
 
         //board이름으로 디테일정보 던지기
         model.addAttribute("board", galleryService.selectGalBoardDetail(galBoardNum));//아우터조인
@@ -80,7 +82,7 @@ public class GalleryController {
     @GetMapping("/deleteGalBoard")
     public String deleteGalBoard(int galBoardNum){
         galleryService.deleteGalBoard(galBoardNum);
-        return "redirect:/gallery/galleryBoardList";
+        return "redirect:/gallery/galleryBoardList?menuCode="+ConstantVariable.MENU_CODE_BOARD;
     }
     //수정 모달에서 수정 버튼을 눌렀을 때 수정 쿼리 실행
     @RequestMapping("/updateGalBoard")
@@ -88,7 +90,7 @@ public class GalleryController {
         //수정 쿼리
         galleryService.updateGalBoard(boardGalleryListVO);
         //수정이 완료되면 해당 게시글 상세페이지로 BoardNum=숫자 데이터를 던질 수 있다.
-        return "redirect:/gallery/boardDetail?galBoardNum=" + boardGalleryListVO.getGalBoardNum();
+        return "redirect:/gallery/boardDetail?galBoardNum=" + boardGalleryListVO.getGalBoardNum()+"&menuCode="+ConstantVariable.MENU_CODE_BOARD;
     }
     //상세 페이지에서 댓글 작성버튼 클릭하면 비동기로 insert 쿼리 실행
     @ResponseBody

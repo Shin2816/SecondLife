@@ -15,6 +15,7 @@
 
     <form action="/gallery/regBoard" method="post" id="galRegBoard" enctype="multipart/form-data">
         <input type="hidden" name="galBoardWriter" value="">
+        <input type="hidden" id="menuCode" name="menuCode" th:value="${subMenuVO.menuCode}">
         <div class="row mb-3">
             <div class="text-center">
                 <h1>사진 게시판 등록</h1>
