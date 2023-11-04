@@ -2,9 +2,11 @@ package com.green.SecondLife.community.controller;
 
 import com.green.SecondLife.community.service.AnnounceService;
 import com.green.SecondLife.community.vo.BoardAnnounceListVO;
+import com.green.SecondLife.community.vo.BoardFreeListVO;
 import com.green.SecondLife.community.vo.BoardQaListVO;
 import com.green.SecondLife.community.vo.QaImgVO;
 import com.green.SecondLife.member.vo.SubMenuVO;
+import com.green.SecondLife.util.ConstantVariable;
 import com.green.SecondLife.util.UploadUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -59,5 +61,20 @@ public class AnnounceController {
         //조회수 증가
         announceService.updateAnBoardCnt(anBoardNum);
         return "board/announce/board_detail";
+    }
+    //글 상세페이지에서 삭제버튼 클릭하였을 때
+    @GetMapping("/deleteAnBoard")
+    public String deleteFreeBoard(int anBoardNum){
+        announceService.deleteAnBoard(anBoardNum);
+        return "redirect:/announce/anBoardList?menuCode="+ ConstantVariable.MENU_CODE_BOARD;
+    }
+
+    //수정페이지에서 수정 버튼을 눌렀을 때 수정 쿼리 실행
+    @RequestMapping("/updateAnBoard")
+    public String updateFreeBoard(BoardAnnounceListVO boardAnnounceListVO){
+        //수정 쿼리
+        announceService.updateAnBoard(boardAnnounceListVO);
+        //수정이 완료되면 해당 게시글 상세페이지로 freeBoardNum=숫자 데이터를 던질 수 있다.
+        return "redirect:/announce/boardDetail?anBoardNum=" + boardAnnounceListVO.getAnBoardNum()+"&menuCode="+ConstantVariable.MENU_CODE_BOARD;
     }
 }
