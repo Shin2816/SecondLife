@@ -40,13 +40,13 @@
             , #{anBoardWriter}
         )
     </insert>
-    <!--Announce게시판 상세 조회(JOIN)-->
-    <select id="selecAnBoardDetail" resultMap="anList">
+    <!--Announce게시판 상세 조회-->
+    <select id="selectAnBoardDetail" resultMap="anList">
         SELECT AN_BOARD_NUM
             , AN_BOARD_TITLE
             , AN_BOARD_CONTENT
             , AN_BOARD_WRITER
-            , TO_CHAR(FREE_CREATE_DATE, 'YYYY-MM-DD') FREE_CREATE_DATE
+            , TO_CHAR(AN_CREATE_DATE, 'YYYY-MM-DD') AN_CREATE_DATE
             , AN_BOARD_READ_CNT
         FROM BOARD_ANNOUNCE_LIST
         WHERE AN_BOARD_NUM = #{anBoardNum}

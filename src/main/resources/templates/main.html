@@ -137,7 +137,7 @@
                                             <!-- 비밀번호가 걸려있다면 -->
                                             <th:block th:if="${qaBoard.qaBoardPassword != null}" th:each="qaBoard : ${qaBoardList}">
                                                 <tr class="board-tr" th:onclick="openCheckPwModal([[${qaBoard.qaBoardNum}]], [[${authentication}]]);">
-                                                    <td>[[${qaBoard.qaBoardTitle}]]</td>
+                                                    <td class="board_td_title">[[${qaBoard.qaBoardTitle}]]</td>
                                                     <td>[[${qaBoard.qaBoardWriter}]]</td>
                                                     <td>[[${qaBoard.qaCreateDate}]]</td>
                                                 </tr>
@@ -145,7 +145,7 @@
                                             <!-- 비밀번호가 걸려있지않다면 -->
                                             <th:block th:if="${qaBoard.qaBoardPassword == null}" th:each="qaBoard : ${qaBoardList}">
                                                 <tr class="board-tr" th:onclick="|location.href='@{/qa/boardDetail(commentNum=${qaBoard.qaBoardNum}, menuCode=MENU_007)}'|">
-                                                    <td>[[${qaBoard.qaBoardTitle}]]</td>
+                                                    <td class="board_td_title">[[${qaBoard.qaBoardTitle}]]</td>
                                                     <td>[[${qaBoard.qaBoardWriter}]]</td>
                                                     <td>[[${qaBoard.qaCreateDate}]]</td>
                                                 </tr>

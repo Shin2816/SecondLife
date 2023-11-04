@@ -47,8 +47,17 @@ public class AnnounceController {
     //글 등록 페이지에서 등록하기 누르면 글 등록 쿼리 실행
     @PostMapping("/regBoard")
     public String regBoard(BoardAnnounceListVO boardAnnounceListVO, Authentication authentication, SubMenuVO subMenuVO){
+        boardAnnounceListVO.setAnBoardWriter(authentication.getName());// 작성자 이름 넣기
+        System.out.println(boardAnnounceListVO);
         announceService.insertAnBoard(boardAnnounceListVO);
-        return "redirect:/qa/qaBoardList";
+        return "redirect:/announce/anBoardList";
     }
-
+    //글 제목 클릭했을때 해당글의 상세페이지 이동
+    @RequestMapping("/boardDetail")
+    public String boardDetail(int anBoardNum, Model model, SubMenuVO subMenuVO){
+        model.addAttribute("board", announceService.selectAnBoardDetail(anBoardNum));
+        //조회수 증가
+        announceService.updateAnBoardCnt(anBoardNum);
+        return "board/announce/board_detail";
+    }
 }
