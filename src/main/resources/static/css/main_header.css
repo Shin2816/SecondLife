@@ -313,3 +313,8 @@ cursor: pointer;
 .team-info-forth-img{
     background-image: url(../images/team_info/person-purple.png); 
 }
+
+.bi-person-square{
+    width: 50px;
+    height: 50px;
+}

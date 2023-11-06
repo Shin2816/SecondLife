@@ -63,23 +63,49 @@
                         <th:block sec:authorize="isAuthenticated()">
                             <div class="login-area">
                                 <th:block sec:authorize="hasRole('ROLE_USER')">
-                                    <div class="login-name">
-                                        [[${#authentication.name}]]님 어서오세요.
-                                    </div>
-                                    <div class="login-menu">
-                                        <span class="login-span" th:onclick="|location.href='@{/member/updateMemberForm(menuCode=MENU_012)}'|">내 정보 </span>
-                                         / 
-                                        <span class="login-span" onclick="location.href='/member/logout'"> 로그아웃</span> 
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <!-- 여기에 이미지 넣기 -->
+                                        </div>
+                                        <div class="col-8">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="login-name">
+                                                        [[${#authentication.name}]]님 어서오세요.
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="login-menu">
+                                                        <span class="login-span" th:onclick="|location.href='@{/member/updateMemberForm(menuCode=MENU_012)}'|">내 정보 </span>
+                                                         / 
+                                                        <span class="login-span" onclick="location.href='/member/logout'"> 로그아웃</span> 
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </th:block>
                                 <th:block sec:authorize="hasRole('ROLE_ADMIN')">
-                                    <div class="login-name">
-                                        [[${#authentication.name}]]님 어서오세요.
-                                    </div>
-                                    <div class="login-menu">
-                                        <span class="login-span" th:onclick="|location.href='@{/admin/admin_main(menuCode=MENU_000)}'|">관리하기 </span>
-                                         / 
-                                        <span class="login-span" onclick="location.href='/member/logout'"> 로그아웃</span> 
+                                    <div class="row">
+                                        <div class="col-4">
+
+                                        </div>
+                                        <div class="col-8">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="login-name">
+                                                        [[${#authentication.name}]]님 어서오세요.
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="login-menu">
+                                                        <span class="login-span" th:onclick="|location.href='@{/admin/admin_main(menuCode=MENU_000)}'|">관리하기 </span>
+                                                         / 
+                                                        <span class="login-span" onclick="location.href='/member/logout'"> 로그아웃</span> 
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </th:block>
                             </div>
