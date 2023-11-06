@@ -72,13 +72,19 @@ th{
 }
 .main-header-menu .banner img{
     width: 1295px;
-    height: px;
+    height: 390px;
 }
 
 .sub-header{
+    position: relative;
     padding: 5px 0 5px 10px;
     margin-bottom: 5px;
-    background-color: #8bffae;
+    margin-top: -50px;
+    color: #353535;
+    font-size: 17px;
+    font-weight: 500;
+    background-color: rgb(255, 255, 255, 0.7);
+    z-index: 100;
 }
 .sub-header-nav-item{
     position: relative;
