@@ -20,7 +20,13 @@ th{
     background-repeat: no-repeat;
 }
 .login-span{
+    margin-right: 10px;
     cursor: pointer;
+}
+.bi-person-circle{
+    width: 18px;
+    height: 18px;
+    margin-bottom: 4px;
 }
 
 .menu{
