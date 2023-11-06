@@ -41,16 +41,19 @@ th{
     border: 1px solid black;
     border-radius: 10px;
 }
-.main-login-id{
+.main-login-id, .main-login-pw{
     display: flex;
 }
 .login-id{
-    margin-right: 20px;
+    margin-right: 23px;
+}
+.login-pw{
+    margin-right: 8px;
 }
 .login-btn{
     position: absolute;
-    top: 25px;
-    right: 50px;
+    top: 32px;
+    right: 48px;
     line-height: 4rem;
 }
 .insert-member{
