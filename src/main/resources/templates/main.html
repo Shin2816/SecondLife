@@ -99,7 +99,7 @@
                                 <table class="board-table">
                                     <colgroup>
                                         <col width="*">
-                                        <col width="10%">
+                                        <col width="15%">
                                         <col width="20%">
                                     </colgroup>
                                     <!-- 게시글 없을 때 -->
@@ -122,7 +122,7 @@
                                 <table class="board-table">
                                     <colgroup>
                                         <col width="*">
-                                        <col width="10%">
+                                        <col width="15%">
                                         <col width="20%">
                                     </colgroup>
                                     <!-- 게시글 없을 때 -->
@@ -205,27 +205,34 @@
                     </div>
                 </div>
                 <div class="row thrid">
-                    <div class="col-8">
+                    <div class="col-7 text-center left-gal">
+                        <!-- 게시글 없을 때 -->
+                        <th:block th:if="${#lists.size(galleryBoardList) == 0}">
+                                <span class="gal-main align-center">조회된 게시글이 없습니다</span>
+                        </th:block>
+                        <!-- 게시글 있을 때 -->
+                        <th:block th:unless="${#lists.size(galleryBoardList) == 0}">
                         <!-- 부트스트랩 간격 설정 -->
-                        <div class="row d-flex g-3">
-                            <!-- 출력 갯수 -->
-                            <div th:each="gal, state : ${galleryBoardList}" class="col-4" th:if="${state.index &lt; 3}"> 
-                                <div class="board-item">
-                                    <a th:href="@{/gallery/boardDetail(galBoardNum=${gal.galBoardNum})}">
-                                        <img height="187px;" th:src="${'/images/community/gallery/' + gal.galImgList[0].galAttachedFileName}" class="card-img-top img" alt="...">
-                                        <div class="card-body">
-                                            <span class="card-title">[[${gal.galBoardTitle}]]</span>
-                                            <div class="d-flex justify-content-between">
-                                                <span class="card-text">[[${gal.galBoardWriter}]]</span>
-                                                <span class="card-text">[[${gal.galBoardReadCnt}]]</span>
+                            <div class="row d-flex g-3">
+                                <!-- 출력 갯수 최대 3개 -->
+                                <div th:each="gal, state : ${galleryBoardList}" class="col-4" th:if="${state.index &lt; 3}"> 
+                                    <div class="board-item">
+                                        <a th:href="@{/gallery/boardDetail(galBoardNum=${gal.galBoardNum})}">
+                                            <img height="187px;" th:src="${'/images/community/gallery/' + gal.galImgList[0].galAttachedFileName}" class="card-img-top img" alt="...">
+                                            <div class="card-body">
+                                                <span class="card-title">[[${gal.galBoardTitle}]]</span>
+                                                <div class="d-flex justify-content-between">
+                                                    <span class="card-text">[[${gal.galBoardWriter}]]</span>
+                                                    <span class="card-text">[[${gal.galBoardReadCnt}]]</span>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </a>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </th:block>
                     </div>
-                    <div class="col-4 facility">
+                    <div class="col-5 facility">
                         <div class="left" th:onclick="|@{location.href='/rental/rentalGuide(menuCode=MENU_010)}'|">
                             <p class="left_info">
                                 <img src="/images/icons/building-small.png" alt="">

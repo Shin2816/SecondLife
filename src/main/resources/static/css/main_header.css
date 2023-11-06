@@ -170,7 +170,12 @@ th{
 }
 .facility{
     display: flex;
+    text-align: center;
 }
+.facility img{
+    width: 75px;
+}
+
 .facility .left{
     position: relative;
     width: 100%;
