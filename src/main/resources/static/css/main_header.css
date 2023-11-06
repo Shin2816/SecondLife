@@ -33,9 +33,7 @@ th{
     display: flex;
     justify-content: space-between;
 }
-.main-menu-link{
-    margin:0 10px;
-}
+
 .login-area{
     position: relative;
     margin: 40px 0;
@@ -71,8 +69,40 @@ th{
 }
 .main-header-menu .banner img{
     width: 1295px;
-    height: auto;
+    height: 400px;
 }
+.main-nav{
+    width: 150px;
+    text-align: center;
+    background-color: lightcoral;
+    z-index: 5;
+}
+.sub-nav-div{
+    position: absolute;
+    top: 45px;
+    left: 0;
+}
+.sub-nav{
+    padding-top: 10px;
+    width: 150px;
+    background-color: violet;
+}
+.sub-nav-item{
+    display: block;
+    list-style: none;
+    width: 150px;
+    height: 40px;
+    padding: 8px 0;
+    margin-left: -32px;
+    box-sizing: border-box;
+    text-align: center;
+    background-color: darkkhaki;
+    z-index: 1;
+}
+.sub-nav-item a:hover{
+    color: #0d6efd;
+}
+
 .sub-header{
     padding: 5px 0 5px 10px;
     margin-bottom: 5px;
@@ -113,7 +143,7 @@ th{
     top: 0;
     left: 0;
     width: 1295px;
-    background-color: aliceblue;
+    background-color: aliceblue; 
 }
 
 .error div{
