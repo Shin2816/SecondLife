@@ -127,6 +127,7 @@ function check(){
         if(data){
             alert("인증되었습니다");
             document.querySelector('.check-btn').style.display = "none";
+            document.querySelector('.check-btn-phone').style.display = "none"
             checkStatus = 3;
             checkStatusInput.value = checkStatus;
         }else{
