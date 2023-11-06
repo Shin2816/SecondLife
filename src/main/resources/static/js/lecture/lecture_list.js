@@ -65,5 +65,6 @@ function lectureList(lectureEventCode){
 }
 
 function lectureDetail(lectureCode){
-    location.href=`/lecture/lectureDetail?lectureCode=${lectureCode}`;
+    const menuCode = document.querySelector('#menuCode').value
+    location.href=`/lecture/lectureDetail?lectureCode=${lectureCode}&menuCode=${menuCode}`;
 }

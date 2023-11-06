@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService{
@@ -34,10 +36,27 @@ public class MemberServiceImpl implements MemberService{
     public void memberUpdate(MemberVO memberVO) {
         sqlSession.update("memberMapper.memberUpdate", memberVO);
     }
+
     //회원 정보 검색
     @Override
     public MemberVO selectMember(String memberId) {
         return sqlSession.selectOne("memberMapper.memberSelectOne", memberId);
     }
+
+    @Override
+    public List<MemberVO> selectAllMember() {
+        return sqlSession.selectList("memberMapper.memberSelectAll");
+    }
+
+    @Override
+    public void manageMemberUpdate(MemberVO memberVO) {
+        sqlSession.update("memberMapper.manageMemberUpdate", memberVO);
+    }
+
+    @Override
+    public void manageMemberDelete(String memberId) {
+        sqlSession.delete("memberMapper.manageMemberDelete", memberId);
+    }
+
 
 }

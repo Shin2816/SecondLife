@@ -7,12 +7,8 @@
 </head>
 <body>
 <th:block th:fragment="adminHeaderFragment">
-    <!-- 게시판 css -->
-    <link rel="stylesheet" href="/css/board/board.css">
     <link rel="stylesheet" href="/css/main_header.css">
-    <!-- slick 슬라이드 -->
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" /> 
+    <link rel="stylesheet" href="/css/member/member.css">
     <div class="header">
         <div class="menu">
             <div class="left-menu">
@@ -38,9 +34,9 @@
                 <img src="/images/icons/town-hall.png" alt="" class="mx-auto d-block">
                 <span class="admin-img-info"> 시설관리 </span>
             </div>
-            <div class="col-3" th:onclick="|location.href='@{/admin/admin_main(menuCode=MENU_004)}'|">
+            <div class="col-3" th:onclick="|location.href='@{/member/manageMember(menuCode=MENU_004)}'|">
                 <img src="/images/icons/board-bold.png" alt="" class="mx-auto d-block">
-                <span class="admin-img-info"> 게시판관리 </span>
+                <span class="admin-img-info"> 멤버관리 </span>
             </div>
         </div>
     </div>
@@ -50,8 +46,7 @@
     <!-- 카카오 주소 api -->
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script src="/js/main_header.js"></script>
-    <!-- 게시판 js -->
-    <script src="/js/board.js"></script>
+    <script src="/js/member/member.js"></script>
 </th:block>
 </body>
 </html>

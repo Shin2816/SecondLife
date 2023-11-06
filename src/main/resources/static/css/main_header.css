@@ -145,7 +145,7 @@ th{
     position: relative;
     width: 100%;
     height: auto;
-    margin : 25px 10px 15px 0;
+    margin : 0 10px 0 0;
     cursor: pointer;
     background-color: antiquewhite;
 }
@@ -153,14 +153,13 @@ th{
     position: absolute;
     width: 80px;
     height: 120px;
-    top: 50px;
-    right: 55px;
+    top: 75px;
+    right: 85px;
 }
 .facility .right{
     position: relative;
     width: 100%;
     height: auto;
-    margin : 25px 0 15px 0;
     cursor: pointer;
     background-color: azure;
 }
@@ -168,8 +167,8 @@ th{
     position: absolute;
     width: 80px;
     height: 120px;
-    top: 50px;
-    right: 55px;
+    top: 75px;
+    right: 85px;
 }
 
 .lecture{
@@ -196,6 +195,7 @@ th{
 }
 .main-slide{
     position: relative;
+    margin-top: 15px;
 }
 .top_banner_prev, .top_banner_next{
     position: absolute;
@@ -217,19 +217,19 @@ th{
 }
 .first{
     height: 15rem;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 .second{
     height: 15rem;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 .thrid{
     height: 15rem;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 .forth{
     height: 15rem;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 .privacy-title {
     margin-top: 30px;

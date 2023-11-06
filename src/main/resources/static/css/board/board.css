@@ -1,6 +1,7 @@
 a{
     text-decoration: none;
     color: #000;
+    cursor: pointer;
 }
 .list-select{
     width: 120px;

@@ -43,7 +43,7 @@ function showInstructorSimpleInfo(instructorCode){
                                 <span class="student">정원</span>
                             </div>
                             <div class="bottom">
-                                <span class="lecture-title" onclick="location.href='/lecture/lectureDetail?lectureCode=${lecture.lectureCode}';">${lecture.lectureTitle}</span>
+                                <span class="lecture-title" onclick="location.href='/lecture/lectureDetail?lectureCode=${lecture.lectureCode}&menuCode=MENU_005';">${lecture.lectureTitle}</span>
                                 <span class="lecture-period-date">${lecture.lecturePeriod}</span>
                                 <span class="lecture-price">${won}원</span>
                                 <span class="lecture-student">${lecture.lectureStudent}</span>
@@ -55,16 +55,16 @@ function showInstructorSimpleInfo(instructorCode){
         document.querySelector('#lecture-list-modal').textContent = '';
         document.querySelector('#lecture-list-modal').insertAdjacentHTML('afterbegin', str);
 
-        let str2 = '';
-        data.reviewList.forEach(review => {
-            str2 += `<tr>`;
-            str2 += `<td>${review.lectureStarPoint}</td>`;
-            str2 += `<td>${review.lectureReviewContent}</td>`;
-            str2 += `</td>`;
-        });
+        // let str2 = '';
+        // data.reviewList.forEach(review => {
+        //     str2 += `<tr>`;
+        //     str2 += `<td>${review.lectureStarPoint}</td>`;
+        //     str2 += `<td>${review.lectureReviewContent}</td>`;
+        //     str2 += `</td>`;
+        // });
 
-        document.querySelector('#lecture-review-table tbody').textContent = '';
-        document.querySelector('#lecture-review-table tbody').insertAdjacentHTML('afterbegin', str2);
+        // document.querySelector('#lecture-review-table tbody').textContent = '';
+        // document.querySelector('#lecture-review-table tbody').insertAdjacentHTML('afterbegin', str2);
         
         myModal.show();
 

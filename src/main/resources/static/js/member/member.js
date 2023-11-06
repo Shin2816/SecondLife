@@ -228,55 +228,6 @@ function resetMessage(){
 //////////////▽///▽////▽///▽///▽///               계정 정보 수정                ////▽///▽///▽///▽///▽///▽//////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-//비밀번호 체크 비동기 통신
-function UpdateCheckPW(){
-
-    let newMemberPW = document.querySelector('#newMemberPW').value
-    let newMemberPW2 = document.querySelector('#newMemberPW2').value
-
-    if(newMemberPW != '' && newMemberPW2 != ''){
-        fetch('/member/updateCheckPW', { //요청경로
-            method: 'POST',
-            cache: 'no-cache',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-            },
-            //컨트롤러로 전달할 데이터
-            body: new URLSearchParams({
-                newMemberPW : newMemberPW,
-                newMemberPW2 : newMemberPW2
-            })
-        })
-        .then((response) => {
-            if(!response.ok){
-                alert('fetch error!\n컨트롤러로 통신중에 오류가 발생했습니다.');
-                return ;
-            }
-
-            //return response.text(); //컨트롤러에서 return하는 데이터가 없거나 int, String 일 때 사용
-            return response.json(); //나머지 경우에 사용
-        })
-        //fetch 통신 후 실행 영역
-        .then((data) => {//data -> controller에서 리턴되는 데이터!
-            if(data){
-                document.querySelector('.pw-error-div').style.display = 'none';
-                document.querySelector('#update-btn').disabled = false;
-            }else{
-                inputInvalidate('.pw-error-div', '비밀번호가 맞지 않습니다. 확인해주세요.');
-                document.querySelector('#update-btn').disabled = true;
-            }
-        })
-        //fetch 통신 실패 시 실행 영역
-        .catch(err=>{
-            alert('fetch error!\nthen 구문에서 오류가 발생했습니다.\n콘솔창을 확인하세요!');
-            console.log(err);
-            checkStatus = 0;
-        });
-    }else{
-        return;
-    }
-}
-
 
 //계정 정보 수정 데이터 유효성 검사.
 function UpdateValidate(){
@@ -286,12 +237,22 @@ function UpdateValidate(){
 
     const updateJoin = document.querySelector('#updateJoin');
 
-    //pw 입력 여부 체크
-    if(updateJoin.memberPW.value == updateJoin.memberPW2){
-        inputInvalidate('.pw-error-div', '비밀번호가 같지 않습니다.');
+
+    let newMemberPW = document.querySelector('#newMemberPW').value
+    let newMemberPW2 = document.querySelector('#newMemberPW2').value
+
+    if(newMemberPW != '' && newMemberPW2 != ''){
+        if(newMemberPW != newMemberPW2){
+            inputInvalidate('.pw-error-div', '비밀번호가 맞지 않습니다. 확인해주세요.');
+            return;
+        }else if(newMemberPW.length < 3 || newMemberPW2.length < 3){
+            inputInvalidate('.pw-error-div', '비밀번호는 3자리 이상으로 해주세요.');
+            return;
+        }
+    }else{
+        inputInvalidate('.pw-error-div', '비밀번호를 입력해주세요.');
         return;
     }
-
 
     //휴대폰 정규식표현식
     let telRegex = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
@@ -324,4 +285,29 @@ function updateresetMessage(){
     document.querySelector('.tel-error-div').style.display = 'none';
     document.querySelector('.addr-error-div').style.display = 'none';
     document.querySelector('.email-error-div').style.display = 'none';
+}
+
+function manageMember(e){
+    
+    let memberId = document.querySelector('#memberId');
+    let memberName = document.querySelector('#memberName');
+    let memberTel = document.querySelector('#memberTel');
+    let memberAddr = document.querySelector('#memberAddr');
+    let memberEmail = document.querySelector('#memberEmail');
+    let memberGender = document.querySelector('#memberGender');
+
+    memberId.value = e.querySelector('.manage-member-id').textContent;
+    memberName.value = e.querySelector('.manage-member-name').textContent
+    memberTel.value = e.querySelector('.manage-member-tel').textContent
+    memberAddr.value = e.querySelector('.manage-member-addr').textContent
+    memberEmail.value = e.querySelector('.manage-member-email').textContent
+    memberGender.value = e.querySelector('.manage-member-gender').textContent
+
+}
+
+function manageDeleteMember(e){
+    let memberId = e.closest('div').querySelector('.manage-member-id').textContent
+    if(confirm(memberId + "님을 삭제하겠습니까?")){
+        location.href='/member/manageMemberDelete?memberId='+memberId;
+    }
 }

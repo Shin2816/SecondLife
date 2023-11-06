@@ -147,6 +147,9 @@
     <select id="selectBoardCnt" resultType="int">
         SELECT COUNT(FREE_BOARD_NUM)
         FROM BOARD_FREE_LIST
+        <if test='searchValue != null and !searchValue.equals("")'>
+            WHERE UPPER(${searchType}) LIKE '%'||UPPER(#{searchValue})||'%'
+        </if>
     </select>
     <!--내가 쓴 게시글 갯수 조회-->
     <select id="selectMyBoardCnt" resultType="int">

@@ -13,6 +13,7 @@
             <h2>내 정보 수정</h2>
             <div class="col d-flex justify-content-center">
                 <form action="/member/updateMember" method="POST" id="updateJoin">
+                    
                     <div class="row mb-3">
                         <div class="col-3">
                             <p>아이디</p>
@@ -27,8 +28,8 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col">
-                            <input type="password" class="form-control" id="newMemberPW" placeholder="새 비밀번호" autocomplete="off" onblur="UpdateCheckPW()" required>
-                            <input type="password" class="form-control" name="memberPW" id="newMemberPW2" placeholder="비밀번호 확인" autocomplete="off" onblur="UpdateCheckPW()" required>
+                            <input type="password" class="form-control" id="newMemberPW" placeholder="새 비밀번호" autocomplete="off" required>
+                            <input type="password" class="form-control" name="memberPW" id="newMemberPW2" placeholder="비밀번호 확인" autocomplete="off" required>
                             <div class="row mb-3 error">
                                 <div class="pw-error-div">
         

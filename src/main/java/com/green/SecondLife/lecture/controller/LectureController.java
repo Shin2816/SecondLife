@@ -7,6 +7,7 @@ import com.green.SecondLife.member.service.MemberService;
 import com.green.SecondLife.member.vo.MemberVO;
 import com.green.SecondLife.member.vo.SubMenuVO;
 import com.green.SecondLife.util.UploadUtil;
+import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpSession;
 import kotlin.contracts.ReturnsNotNull;
 import lombok.RequiredArgsConstructor;
@@ -57,6 +58,7 @@ public class LectureController {
     @GetMapping("/adminLectureEventList")
     public String adminLectureEventList(Model model,SubMenuVO subMenuVO){
         //관리자용 강좌 종목 리스트 조회 + 보내기 기능
+        System.out.println(lectureService.adminSelectLectureEventList());
         model.addAttribute("lectureEventList", lectureService.adminSelectLectureEventList());
         return "admin/admin_lecture_event_list";
     }

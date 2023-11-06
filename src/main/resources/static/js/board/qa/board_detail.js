@@ -109,7 +109,7 @@ function qaUpdateComment(updateBtn){//수정버튼을 누르면 도착, div id :
         alert('내용은 100글자 이내로 작성해주세요.');
         return;
     }
-
+    
     alert('댓글 수정이 완료되었습니다.');
     updateBtn.closest('.select-div').querySelector('form').submit();
 }

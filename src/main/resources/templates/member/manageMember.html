@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{fragment/admin_layout}">
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+    <th:block layout:fragment="content">
+        <div class="row member-all">
+            <div class="col admin-manage">
+                <div class="admin-manage-member-title">
+                    <p class="manage-member-id">ID</p>
+                    <p class="manage-member-name">이름</p>
+                    <p class="manage-member-tel">전화번호</p>
+                    <p class="manage-member-addr">주소</p>
+                    <p class="manage-member-email">이메일</p>
+                    <p class="manage-member-gender">성별</p>
+                    <p class="manage-member-delete"> </p>
+                </div>
+                <div class="admin-manage-member-info" th:each="member : ${memberAll}" onclick="manageMember(this)">
+                    <p class="manage-member-id">[[${member.memberId}]]</p>
+                    <p class="manage-member-name">[[${member.memberName}]]</p>
+                    <p class="manage-member-tel">[[${member.memberTel}]]</p>
+                    <p class="manage-member-addr">[[${member.memberAddr}]]//[[${member.addrDetail}]]</p>
+                    <p class="manage-member-email">[[${member.memberEmail}]]</p>
+                    <p class="manage-member-gender">[[${member.memberGender}]]</p> 
+                    <p class="manage-member-delete" onclick="manageDeleteMember(this)">삭제</p> 
+                </div>
+            </div>
+        </div>
+        <div class="row select-member">
+            <div>수정 해야하는 곳을 클릭</div>
+            <div class="col">
+                <form action="/member/manageMemberUpdate" method="post">
+                    <input type="hidden" id="memberId" name="memberId" value="">
+                    <input type="text" id="memberName" name="memberName" placeholder="이름">
+                    <input type="text" id="memberTel" name="memberTel" placeholder="전화번호">
+                    <input type="text" id="memberAddr" name="memberAddr" placeholder="주소">
+                    <input type="text" id="memberEmail" name="memberEmail" placeholder="이메일">
+                    <input type="text" id="memberGender" name="memberGender" placeholder="성별">
+                    <input type="submit" value="수정">
+                </form>
+            </div>
+        </div>
+        <script src="/js/member/member.js"></script>
+    </th:block>
+</body>
+</html>

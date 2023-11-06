@@ -19,6 +19,7 @@
                 </select>
             </div>
             <div id="lectureBlock">
+                <input type="hidden" id="menuCode" name="menuCode" th:value="${subMenuVO.menuCode}">
             <th:block th:each="lecture : ${lectureList}">
                 <div class="lecture-box">
                     <div class="title">

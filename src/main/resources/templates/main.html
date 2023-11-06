@@ -30,9 +30,9 @@
                                 <th>기간</th>
                                 <th>수강료</th>
                             </tr>
-                            <tr class="board-tr" th:onclick="|location.href='@{/lecture/selectLectureDetail(lectureCode=${lecture.lectureCode})}'|" th:each="lecture : ${lectureList}">
-                                <td></td>
-                                <td>[[${lecture.lectureEventCode}]]</td>
+                            <tr class="board-tr" th:onclick="|location.href='@{/lecture/lectureDetail(lectureCode=${lecture.lectureCode})}'|" th:each="lecture : ${lectureList}">
+                                <td>[[${lecture.instructorVO.instructorName}]]</td>
+                                <td>[[${lecture.lectureEventVO.lectureEventName}]]</td>
                                 <td>[[${lecture.lectureTitle}]]</td>
                                 <td>[[${lecture.lectureStudent}]]</td>
                                 <td>[[${lecture.lecturePeriod}]]</td>
@@ -137,7 +137,7 @@
                                             <!-- 비밀번호가 걸려있다면 -->
                                             <th:block th:if="${qaBoard.qaBoardPassword != null}" th:each="qaBoard : ${qaBoardList}">
                                                 <tr class="board-tr" th:onclick="openCheckPwModal([[${qaBoard.qaBoardNum}]], [[${authentication}]]);">
-                                                    <td>[[${qaBoard.qaBoardTitle}]]</td>
+                                                    <td class="board_td_title">[[${qaBoard.qaBoardTitle}]]</td>
                                                     <td>[[${qaBoard.qaBoardWriter}]]</td>
                                                     <td>[[${qaBoard.qaCreateDate}]]</td>
                                                 </tr>
@@ -145,7 +145,7 @@
                                             <!-- 비밀번호가 걸려있지않다면 -->
                                             <th:block th:if="${qaBoard.qaBoardPassword == null}" th:each="qaBoard : ${qaBoardList}">
                                                 <tr class="board-tr" th:onclick="|location.href='@{/qa/boardDetail(commentNum=${qaBoard.qaBoardNum}, menuCode=MENU_007)}'|">
-                                                    <td>[[${qaBoard.qaBoardTitle}]]</td>
+                                                    <td class="board_td_title">[[${qaBoard.qaBoardTitle}]]</td>
                                                     <td>[[${qaBoard.qaBoardWriter}]]</td>
                                                     <td>[[${qaBoard.qaCreateDate}]]</td>
                                                 </tr>

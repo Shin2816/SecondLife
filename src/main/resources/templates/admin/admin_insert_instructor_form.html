@@ -44,7 +44,7 @@
                         <div class="row mb-3">
                             <div class="col-12">과목</div>
                             <div class="col-8">
-                                <select class="form-select"  name="lectureEventCode">
+                                <select class="form-select" name="lectureEventCode">
                                     <th:block th:each="lectureEvent : ${lectureEventList}">
                                         <option th:value="${lectureEvent.lectureEventCode}">[[${lectureEvent.lectureEventName}]]</option>
                                     </th:block>

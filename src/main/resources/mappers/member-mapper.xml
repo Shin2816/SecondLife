@@ -83,4 +83,32 @@
 
     </select>
 
+    <select id="memberSelectAll" resultMap="member">
+        SELECT MEMBER_ID
+            , MEMBER_NAME
+            , MEMBER_TEL
+            , MEMBER_ADDR
+            , ADDR_DETAIL
+            , MEMBER_EMAIL
+            , MEMBER_GENDER
+        FROM MEMBER
+    </select>
+
+    <update id="manageMemberUpdate">
+
+        UPDATE MEMBER SET
+        MEMBER_NAME = #{memberName}
+        , MEMBER_TEL = #{memberTel}
+        , MEMBER_ADDR = #{memberAddr}
+        , ADDR_DETAIL = #{addrDetail}
+        , MEMBER_EMAIL = #{memberEmail}
+        WHERE MEMBER_ID = #{memberId}
+
+    </update>
+
+    <delete id="manageMemberDelete">
+        DELETE FROM MEMBER
+        WHERE MEMBER_ID = #{memberId}
+    </delete>
+
 </mapper>
