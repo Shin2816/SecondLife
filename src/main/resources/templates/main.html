@@ -15,8 +15,8 @@
                         <span class="board_title"> 현재 신청 가능한 강좌 </span>
                         <table class="board-table">
                             <colgroup>
+                                <col width="12%">
                                 <col width="15%">
-                                <col width="10%">
                                 <col width="*">
                                 <col width="5%">
                                 <col width="28%">
@@ -30,7 +30,7 @@
                                 <th>기간</th>
                                 <th>수강료</th>
                             </tr>
-                            <tr class="board-tr" th:onclick="|location.href='@{/lecture/lectureDetail(lectureCode=${lecture.lectureCode})}'|" th:each="lecture : ${lectureList}">
+                            <tr class="board-tr" th:onclick="|location.href='@{/lecture/lectureDetail(lectureCode=${lecture.lectureCode}, menuCode=MENU_005)}'|" th:each="lecture : ${lectureList}">
                                 <td>[[${lecture.instructorVO.instructorName}]]</td>
                                 <td>[[${lecture.lectureEventVO.lectureEventName}]]</td>
                                 <td>[[${lecture.lectureTitle}]]</td>
@@ -52,9 +52,14 @@
                                             <input type="text" id="memberId" name="memberId">
                                         </p>
                                     </div>
-                                    <p class="main-login-pw">
-                                        비밀번호 <input type="password" id="memberPW" name="memberPW" autocomplete="off">
-                                    </p>                        
+                                    <div class="main-login-pw">
+                                        <p class="login-pw">
+                                            비밀번호 
+                                        </p>
+                                        <p class="login-pw-input">
+                                            <input type="password" id="memberPW" name="memberPW" autocomplete="off">
+                                        </p>
+                                    </div>                        
                                     <input type="submit" value="로그인" class="login-btn">
                                     <span class="login-span insert-member" th:onclick="|location.href='@{/member/insertMemberForm(menuCode=MENU_000)}'|">&middot; 회원가입</span>
                                 </div>
@@ -63,23 +68,45 @@
                         <th:block sec:authorize="isAuthenticated()">
                             <div class="login-area">
                                 <th:block sec:authorize="hasRole('ROLE_USER')">
-                                    <div class="login-name">
-                                        [[${#authentication.name}]]님 어서오세요.
-                                    </div>
-                                    <div class="login-menu">
-                                        <span class="login-span" th:onclick="|location.href='@{/member/updateMemberForm(menuCode=MENU_012)}'|">내 정보 </span>
-                                         / 
-                                        <span class="login-span" onclick="location.href='/member/logout'"> 로그아웃</span> 
+                                    <div class="row">
+                                        <div class="col-4 person-img"></div>
+                                        <div class="col-8">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="login-name">
+                                                        [[${#authentication.name}]]님 어서오세요.
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="login-menu">
+                                                        <span class="login-span" th:onclick="|location.href='@{/member/updateMemberForm(menuCode=MENU_012)}'|">내 정보 </span>
+                                                         / 
+                                                        <span class="login-span" onclick="location.href='/member/logout'"> 로그아웃</span> 
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </th:block>
                                 <th:block sec:authorize="hasRole('ROLE_ADMIN')">
-                                    <div class="login-name">
-                                        [[${#authentication.name}]]님 어서오세요.
-                                    </div>
-                                    <div class="login-menu">
-                                        <span class="login-span" th:onclick="|location.href='@{/admin/admin_main(menuCode=MENU_000)}'|">관리하기 </span>
-                                         / 
-                                        <span class="login-span" onclick="location.href='/member/logout'"> 로그아웃</span> 
+                                    <div class="row">
+                                        <div class="col-4 person-img"></div>
+                                        <div class="col-8">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="login-name">
+                                                        [[${#authentication.name}]]님 어서오세요.
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="login-menu">
+                                                        <span class="login-span" th:onclick="|location.href='@{/admin/admin_main(menuCode=MENU_000)}'|">관리하기 </span>
+                                                         / 
+                                                        <span class="login-span" onclick="location.href='/member/logout'"> 로그아웃</span> 
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </th:block>
                             </div>
@@ -249,7 +276,7 @@
                 </div>
     
                 <div class="row forth">
-                    <div class="col-12 link">
+                    <div class="col-12 all-menu-link">
                         <div class="link-area">
                             <div th:onclick="|@{location.href='/instructor/instructorList(menuCode=MENU_006)}'|">
                                 <img src="/images/icons/running.png" alt="">
@@ -271,7 +298,7 @@
                                 <img src="/images/icons/community.png" alt="">
                                 커뮤니티
                             </div>
-                            <div onclick="location.href='/announce/anBoardList?menuCode=MENU_008'">
+                            <div th:onclick="|@{location.href='/announce/anBoardList(menuCode=MENU_008)}'|">
                                 <img src="/images/icons/warning.png" alt="">
                                 고객센터
                             </div>

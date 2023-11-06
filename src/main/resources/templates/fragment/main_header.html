@@ -36,11 +36,15 @@
             <div class="banner">
                 <img src="/images/head.jpg" alt="">
             </div>
-            <ul class="nav nav-underline">
-                <li class="nav-item" th:each="mainMenu : ${mainMenuList}" th:if="${mainMenu.menuCode != 'MENU_012'}">
-                    <a class="nav-link main-menu-link" th:href="@{${mainMenu.menuUrl}(menuCode=${mainMenu.menuCode})}">[[${mainMenu.menuName}]]</a>
-                </li>
-            </ul>
+            <div class="main-nav-div">
+                <ul class="nav nav-underline">
+                    <li class="nav-item main-nav" th:each="mainMenu, state : ${mainMenuList}" th:if="${mainMenu.menuCode != 'MENU_012'}">
+                        <a class="nav-link main-menu-link" th:href="@{${mainMenu.menuUrl}(menuCode=${mainMenu.menuCode})}" >
+                            [[${mainMenu.menuName}]]
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
     <!-- slick 슬라이드 -->

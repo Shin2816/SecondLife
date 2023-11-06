@@ -33,26 +33,27 @@ th{
     display: flex;
     justify-content: space-between;
 }
-.main-menu-link{
-    margin:0 10px;
-}
+
 .login-area{
     position: relative;
     margin: 40px 0;
-    padding: 25px 15px;
+    padding: 30px 15px;
     border: 1px solid black;
     border-radius: 10px;
 }
-.main-login-id{
+.main-login-id, .main-login-pw{
     display: flex;
 }
 .login-id{
-    margin-right: 20px;
+    margin-right: 23px;
+}
+.login-pw{
+    margin-right: 8px;
 }
 .login-btn{
     position: absolute;
-    top: 25px;
-    right: 50px;
+    top: 32px;
+    right: 48px;
     line-height: 4rem;
 }
 .insert-member{
@@ -71,12 +72,19 @@ th{
 }
 .main-header-menu .banner img{
     width: 1295px;
-    height: auto;
+    height: 390px;
 }
+
 .sub-header{
+    position: relative;
     padding: 5px 0 5px 10px;
     margin-bottom: 5px;
-    background-color: #8bffae;
+    margin-top: -50px;
+    color: #353535;
+    font-size: 17px;
+    font-weight: 500;
+    background-color: rgb(255, 255, 255, 0.7);
+    z-index: 100;
 }
 .sub-header-nav-item{
     position: relative;
@@ -113,16 +121,20 @@ th{
     top: 0;
     left: 0;
     width: 1295px;
-    background-color: aliceblue;
+    background-color: aliceblue; 
 }
 
 .error div{
     color:red;
     font-size: 0.8rem;
 }
+.all-menu-link{
+    width: 100%;
+}
 .link-area{
     display: flex;
     text-align: center;
+    justify-content: center;
     margin: 30px 0;
 }
 .link-area div{
@@ -186,9 +198,11 @@ th{
     display: block;
     text-align: start;
     margin-bottom: 20px;
+    font-size: 18px;
+    font-weight: 500;
 }
 .board-table{
-    width: 80%;
+    width: 85%;
     margin: 0 auto 0 auto;
 }
 .board .board_td_title{
@@ -201,6 +215,9 @@ th{
 .main-slide{
     position: relative;
     margin-top: 15px;
+}
+.main-menu-link{
+    margin: 0 15px;
 }
 .top_banner_prev, .top_banner_next{
     position: absolute;
@@ -282,4 +299,10 @@ cursor: pointer;
 }
 .team-info-forth-img{
     background-image: url(../images/team_info/person-purple.png); 
+}
+
+.person-img{
+    background-image: url(../images/icons/person-gray.png);
+    background-repeat: no-repeat;
+    background-position: center;
 }
