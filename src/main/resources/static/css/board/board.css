@@ -20,6 +20,7 @@ a{
     background-color: rgb(206, 226, 243);
 }
 .card-title{
+    margin-left: 10px;
     font-size: 18px;
 }
 /* .s-note{
@@ -29,6 +30,10 @@ a{
 } */
 .openAndClose{
     padding: 0;
+}
+.left-gal{
+    border: 1px solid #eee;
+    border-radius: 10px;
 }
 .card-img-top{
     background-position: center;
@@ -54,6 +59,9 @@ a{
     font-weight: 700;
     align-items: center;
     color: #888;
+}
+.card-text{
+    margin: 0 10px;
 }
 .ellipsis-form{
     white-space: nowrap;
