@@ -37,7 +37,7 @@ th{
 .login-area{
     position: relative;
     margin: 40px 0;
-    padding: 25px 15px;
+    padding: 30px 15px;
     border: 1px solid black;
     border-radius: 10px;
 }
@@ -69,38 +69,7 @@ th{
 }
 .main-header-menu .banner img{
     width: 1295px;
-    height: 400px;
-}
-.main-nav{
-    width: 150px;
-    text-align: center;
-    background-color: lightcoral;
-    z-index: 5;
-}
-.sub-nav-div{
-    position: absolute;
-    top: 45px;
-    left: 0;
-}
-.sub-nav{
-    padding-top: 10px;
-    width: 150px;
-    background-color: violet;
-}
-.sub-nav-item{
-    display: block;
-    list-style: none;
-    width: 150px;
-    height: 40px;
-    padding: 8px 0;
-    margin-left: -32px;
-    box-sizing: border-box;
-    text-align: center;
-    background-color: darkkhaki;
-    z-index: 1;
-}
-.sub-nav-item a:hover{
-    color: #0d6efd;
+    height: px;
 }
 
 .sub-header{
@@ -150,9 +119,13 @@ th{
     color:red;
     font-size: 0.8rem;
 }
+.all-menu-link{
+    width: 100%;
+}
 .link-area{
     display: flex;
     text-align: center;
+    justify-content: center;
     margin: 30px 0;
 }
 .link-area div{
@@ -216,9 +189,11 @@ th{
     display: block;
     text-align: start;
     margin-bottom: 20px;
+    font-size: 18px;
+    font-weight: 500;
 }
 .board-table{
-    width: 80%;
+    width: 85%;
     margin: 0 auto 0 auto;
 }
 .board .board_td_title{
@@ -231,6 +206,9 @@ th{
 .main-slide{
     position: relative;
     margin-top: 15px;
+}
+.main-menu-link{
+    margin: 0 15px;
 }
 .top_banner_prev, .top_banner_next{
     position: absolute;
@@ -314,7 +292,8 @@ cursor: pointer;
     background-image: url(../images/team_info/person-purple.png); 
 }
 
-.bi-person-square{
-    width: 50px;
-    height: 50px;
+.person-img{
+    background-image: url(../images/icons/person-gray.png);
+    background-repeat: no-repeat;
+    background-position: center;
 }

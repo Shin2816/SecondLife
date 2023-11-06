@@ -15,8 +15,8 @@
                         <span class="board_title"> 현재 신청 가능한 강좌 </span>
                         <table class="board-table">
                             <colgroup>
+                                <col width="12%">
                                 <col width="15%">
-                                <col width="10%">
                                 <col width="*">
                                 <col width="5%">
                                 <col width="28%">
@@ -30,7 +30,7 @@
                                 <th>기간</th>
                                 <th>수강료</th>
                             </tr>
-                            <tr class="board-tr" th:onclick="|location.href='@{/lecture/lectureDetail(lectureCode=${lecture.lectureCode})}'|" th:each="lecture : ${lectureList}">
+                            <tr class="board-tr" th:onclick="|location.href='@{/lecture/lectureDetail(lectureCode=${lecture.lectureCode}, menuCode=MENU_005)}'|" th:each="lecture : ${lectureList}">
                                 <td>[[${lecture.instructorVO.instructorName}]]</td>
                                 <td>[[${lecture.lectureEventVO.lectureEventName}]]</td>
                                 <td>[[${lecture.lectureTitle}]]</td>
@@ -64,9 +64,7 @@
                             <div class="login-area">
                                 <th:block sec:authorize="hasRole('ROLE_USER')">
                                     <div class="row">
-                                        <div class="col-4">
-                                            <!-- 여기에 이미지 넣기 -->
-                                        </div>
+                                        <div class="col-4 person-img"></div>
                                         <div class="col-8">
                                             <div class="row">
                                                 <div class="col-12">
@@ -87,9 +85,7 @@
                                 </th:block>
                                 <th:block sec:authorize="hasRole('ROLE_ADMIN')">
                                     <div class="row">
-                                        <div class="col-4">
-
-                                        </div>
+                                        <div class="col-4 person-img"></div>
                                         <div class="col-8">
                                             <div class="row">
                                                 <div class="col-12">
@@ -275,7 +271,7 @@
                 </div>
     
                 <div class="row forth">
-                    <div class="col-12 link">
+                    <div class="col-12 all-menu-link">
                         <div class="link-area">
                             <div th:onclick="|@{location.href='/instructor/instructorList(menuCode=MENU_006)}'|">
                                 <img src="/images/icons/running.png" alt="">
@@ -297,7 +293,7 @@
                                 <img src="/images/icons/community.png" alt="">
                                 커뮤니티
                             </div>
-                            <div onclick="location.href=''">
+                            <div th:onclick="|@{location.href='/announce/anBoardList(menuCode=MENU_008)}'|">
                                 <img src="/images/icons/warning.png" alt="">
                                 고객센터
                             </div>
