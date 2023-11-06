@@ -47,6 +47,14 @@ a{
 .card-body{
     margin: 0 5px;
 }
+.thrid .gal-main{
+    width: 100%;
+    height: 200px;
+    font-size: 20px;
+    font-weight: 700;
+    align-items: center;
+    color: #888;
+}
 .ellipsis-form{
     white-space: nowrap;
     overflow: hidden;
