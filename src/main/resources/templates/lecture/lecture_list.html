@@ -13,6 +13,7 @@
         <div id="inner">
             <div class="event-box">
                 <select class="form-select" style="width: 150px;" name="lectureEventCode" onchange="lectureList();" id="lecture-event-category">
+                    <option value="">전체</option>
                     <th:block th:each="lectureEvent : ${lectureEventList}">
                         <option th:value="${lectureEvent.lectureEventCode}">[[${lectureEvent.lectureEventName}]]</option>
                     </th:block>

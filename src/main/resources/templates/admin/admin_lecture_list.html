@@ -13,9 +13,9 @@
 <div>
     <table class="table table-hover text-center align-center">
         <colgroup>
-            <col width="30%">
+            <col width="25%">
             <col width="10%">
-            <col width="10%">
+            <col width="15%">
             <col width="30%">
             <col width="10%">
             <col width="*">
@@ -55,7 +55,7 @@
                     <p class="top-wrap"><span class="top">기간</span><span class="edit-btn" th:onclick="editPeriod([[${lecture.lectureCode}]], this);">수정</span></p><br>
                     <span class="start-date">시작일</span><span class="finish-date">종강일</span>
                     <p class="bottom">
-                        <input type="date" class="form-control left period-input" th:value="${lecture.lecturePeriods[0]}" style="margin-right: 15px; margin-left: 18px;">
+                        <input type="date" class="form-control left period-input" th:value="${lecture.lecturePeriods[0]}" th:onchange="todayCompare([[${lecture.lecturePeriods[0]}]], this);" style="margin-right: 15px; margin-left: 18px;">
                         <input type="date" class="form-control right period-input" th:value="${lecture.lecturePeriods[1]}" th:onchange="dateCompare([[${lecture.lecturePeriods[1]}]], this);">
                     </p>
                 </td>

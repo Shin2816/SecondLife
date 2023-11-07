@@ -19,3 +19,18 @@ function dateCompare(thisInput){
         thisInput.value = '';
     }
 }
+
+function todayCompare(thisInputTag){
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth() + 1;
+    const date = now.getDate();
+    let today = year + "-" + ("00" + month.toString()).slice(-2) + "-" + ("00" + date.toString()).slice(-2);
+    if(thisInputTag.value == today){
+        alert('시작일을 오늘로 설정 할 수 없습니다')
+        thisInputTag.value = '';
+    } else if (thisInputTag.value < today){
+        alert('시작일이 과거 일 수 없습니다.')
+        thisInputTag.value = '';
+    }
+}

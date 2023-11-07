@@ -13,22 +13,13 @@
         <result column="INSTRUCTOR_CODE"        property="instructorCode"/>
         <association property="instructorVO"    resultMap="instructorMapper.instructor"/>
         <association property="lectureEventVO"  resultMap="lectureEvent"/>
+        <association property="studentVO"       resultMap="student"/>
     </resultMap>
     <!-- 수강생 테이블 -->
     <resultMap id="student" type="com.green.SecondLife.lecture.vo.StudentVO">
         <id column="STUDENT_CODE"           property="studentCode"/>
         <result column="MEMBER_ID"          property="memberId"/>
         <result column="LECTURE_CODE"       property="lectureCode"/>
-    </resultMap>
-    <!-- 강좌 리뷰 테이블 -->
-    <resultMap id="lectureReview" type="com.green.SecondLife.lecture.vo.LectureReviewVO">
-        <id column="LECTURE_REVIEW_CODE"         property="lectureReviewCode"/>
-        <result column="LECTURE_CODE"            property="lectureCode"/>
-        <result column="INSTRUCTOR_CODE"         property="instructorCode"/>
-        <result column="STUDENT_CODE"            property="studentCode"/>
-        <result column="LECTURE_STAR_POINT"      property="lectureStarPoint"/>
-        <result column="LECTURE_REVIEW_CONTENT"  property="lectureReviewContent"/>
-        <result column="LECTURE_REVIEW_DATE"     property="lectureReviewDate"/>
     </resultMap>
     <!-- 강좌 종목 테이블 -->
     <resultMap id="lectureEvent" type="com.green.SecondLife.lecture.vo.LectureEventVO">
@@ -44,6 +35,7 @@
         <result column="LECTURE_EVENT_ORIGIN_FILE_NAME"     property="lectureEventOriginFileName"/>
         <result column="LECTURE_EVENT_ATTACHED_FILE_NAME"   property="lectureEventAttachedFileName"/>
     </resultMap>
+
     <!-- 관리자용 다음 강좌 종목 코드 조회 쿼리 -->
     <select id="adminSelectNextLectureEventCode" resultType="String">
         SELECT 'LECTURE_EVENT_'||LPAD(NVL(MAX(TO_NUMBER(SUBSTR(LECTURE_EVENT_CODE, 15))), 0) + 1, 3,'0')
@@ -126,17 +118,6 @@
         DELETE LECTURE_EVENT
         WHERE LECTURE_EVENT_CODE = #{lectureEventCode}
     </delete>
-    <!-- 관리자용 강좌 리뷰 리스트 조회 쿼리 -->
-    <select id="adminSelectLectureReviewList" resultMap="lectureReview">
-        SELECT LECTURE_REVIEW_CODE
-            , LECTURE_CODE
-            , INSTRUCTOR_CODE
-            , STUDENT_CODE
-            , LECTURE_STAR_POINT
-            , LECTURE_REVIEW_CONTENT
-            , TO_CHAR (LECTURE_REVIEW_DATE, 'YYYY-MM-DD') LECTURE_REVIEW_DATE
-        FROM LECTURE_REVIEW
-    </select>
     <!-- 관리자용 수업 생성 쿼리 -->
     <insert id="adminInsertLecture">
         INSERT INTO LECTURE (
@@ -174,7 +155,7 @@
         , INSTRUCTOR_NAME
         FROM LECTURE L, INSTRUCTOR I, LECTURE_EVENT E
         WHERE L.INSTRUCTOR_CODE = I.INSTRUCTOR_CODE
-        AND I.LECTURE_EVENT_CODE = E.LECTURE_EVENT_CODE
+        AND L.LECTURE_EVENT_CODE = E.LECTURE_EVENT_CODE
         <if test="instructorCode != null">
             AND I.INSTRUCTOR_CODE = #{instructorCode}
         </if>
@@ -193,7 +174,6 @@
         WHERE LECTURE_CODE = #{lectureCode}
         AND L.INSTRUCTOR_CODE = I.INSTRUCTOR_CODE
     </select>
-
     <!-- 관리자용 수업 강사 수정 쿼리 -->
     <update id="adminUpdateLectureInstructor">
         UPDATE LECTURE
@@ -220,7 +200,7 @@
     </delete>
     <!-- 강좌 목록 조회 쿼리 join -->
     <select id="selectLectureList" resultMap="lecture">
-        SELECT L.LECTURE_CODE
+        SELECT LECTURE_CODE
             , LECTURE_TITLE
             , LECTURE_PERIOD
             , LECTURE_PRICE
@@ -231,7 +211,7 @@
         FROM LECTURE L, INSTRUCTOR I, LECTURE_EVENT E
         WHERE L.INSTRUCTOR_CODE = I.INSTRUCTOR_CODE
         AND L.LECTURE_EVENT_CODE = E.LECTURE_EVENT_CODE
-        <if test="lectureEventCode != null">
+        <if test="lectureEventCode != null and lectureEventCode != ''">
             AND L.LECTURE_EVENT_CODE = #{lectureEventCode}
         </if>
     </select>
@@ -248,28 +228,44 @@
             , #{lectureCode}
         )
     </insert>
-    <!-- 수강생 목록 조회 -->
-    <select id="selectStudentList" resultMap="student">
+    <!-- 수강신청 시 수강 가능 여부 조회 -->
+    <select id="studentOverLapCheck" resultType="String">
         SELECT STUDENT_CODE
-            , MEMBER_ID
-            , LECTURE_CODE
-        FROM STUDENT
-        WHERE LECTURE_CODE = #{lectureCode}
-    </select>
-    <!-- 리뷰 작성을 하려는 학생 정보 조회 -->
-    <select id="selectTheStudent" resultMap="student">
-        SELECT STUDENT_CODE
-            , MEMBER_ID
-            , LECTURE_CODE
         FROM STUDENT
         WHERE LECTURE_CODE = #{lectureCode}
         AND MEMBER_ID = #{memberId}
+    </select>
+    <!-- 내 수강 목록 조회 -->
+    <select id="selectMyLectureList" resultMap="lecture">
+        SELECT L.LECTURE_CODE
+            , LECTURE_TITLE
+            , LECTURE_PERIOD
+            , L.LECTURE_EVENT_CODE
+            , LECTURE_EVENT_NAME
+            , L.INSTRUCTOR_CODE
+            , INSTRUCTOR_NAME
+            , STUDENT_CODE
+        FROM LECTURE L, LECTURE_EVENT E, INSTRUCTOR I, STUDENT S
+        WHERE L.INSTRUCTOR_CODE = I.INSTRUCTOR_CODE
+        AND L.LECTURE_EVENT_CODE = E.LECTURE_EVENT_CODE
+        AND L.LECTURE_CODE IN
+        (SELECT LECTURE_CODE
+         FROM STUDENT
+         WHERE MEMBER_ID = #{memberId})
     </select>
     <!-- 수강생 삭제 기능 -->
     <delete id="deleteStudent">
         DELETE STUDENT
         WHERE STUDENT_CODE = #{studentCode}
     </delete>
+    <!-- 수강생 목록 조회 -->
+    <select id="selectStudentList" resultMap="student">
+        SELECT STUDENT_CODE
+        , MEMBER_ID
+        , LECTURE_CODE
+        FROM STUDENT
+        WHERE LECTURE_CODE = #{lectureCode}
+    </select>
     <!--메인페이지 강좌 목록-->
     <select id="selectMainLectureList" resultMap="lecture">
         SELECT ROWNUM
@@ -307,36 +303,6 @@
                 )
         )
         WHERE ROWNUM &lt;= 5
-    </select>
-    <!-- 강좌 리뷰 등록 기능 -->
-    <insert id="insertLectureReview">
-        INSERT INTO LECTURE_REVIEW (
-            LECTURE_REVIEW_CODE
-            , LECTURE_CODE
-            , INSTRUCTOR_CODE
-            , STUDENT_CODE
-            , LECTURE_STAR_POINT
-            , LECTURE_REVIEW_CONTENT
-        ) VALUES (
-            (SELECT #{lectureCode}||'_REVIEW_'||LPAD(NVL(MAX(TO_NUMBER(SUBSTR(LECTURE_REVIEW_CODE, 20))), 0) + 1, 3,'0')
-            FROM LECTURE_REVIEW)
-            , #{lectureCode}
-            , #{instructorCode}
-            , #{studentCode}
-            , #{lectureStarPoint}
-            , #{lectureReviewContent}
-        )
-    </insert>
-    <!-- 강좌 리뷰 목록 조회 -->
-    <select id="selectLectureReviewList" resultMap="lectureReview">
-        SELECT LECTURE_REVIEW_CODE
-            , LECTURE_CODE
-            , INSTRUCTOR_CODE
-            , LECTURE_STAR_POINT
-            , LECTURE_REVIEW_CONTENT
-            , TO_CHAR (LECTURE_REVIEW_DATE, 'YYYY-MM-DD') LECTURE_REVIEW_DATE
-        FROM LECTURE_REVIEW
-        WHERE INSTRUCTOR_CODE = #{instructorCode}
     </select>
 
 </mapper>
