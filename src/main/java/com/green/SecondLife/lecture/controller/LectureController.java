@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpSession;
 import kotlin.contracts.ReturnsNotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,7 @@ import retrofit2.http.GET;
 import javax.sound.sampled.SourceDataLine;
 import java.awt.*;
 import java.lang.reflect.Member;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -92,12 +94,6 @@ public class LectureController {
         lectureService.adminDeleteLectureEvent(lectureEventVO);
         redirectAttributes.addAttribute("menuCode", "MENU_002");
         return "redirect:/lecture/adminLectureEventList";
-    }
-    //관리자용 강좌 리뷰 리스트 페이지
-    @GetMapping("/adminLectureReviewList")
-    public String adminLectureReviewList(Model model, SubMenuVO subMenuVO){
-        model.addAttribute("lectureReviewList", lectureService.adminSelectLectureReviewList());
-        return "admin/admin_lecture_review_list";
     }
     //관리자용 수업 등록 페이지로 이동
     @GetMapping("/adminInsertLectureForm")
@@ -196,7 +192,7 @@ public class LectureController {
     }
     // 강좌 구매 페이지
     @GetMapping("/goLectureApplyForm")
-    public String goLectureApplyForm(LectureVO lectureVO, Model model, Authentication authentication, LectureEventVO lectureEventVO){
+    public String goLectureApplyForm(LectureVO lectureVO, Model model, Authentication authentication, LectureEventVO lectureEventVO, SubMenuVO subMenuVO){
         if(authentication == null){
             return "redirect:/member/loginForm";
         }
@@ -206,22 +202,29 @@ public class LectureController {
         model.addAttribute("memberInfo", memberService.selectMember(authentication.getName()));
         return "lecture/lecture_apply_form";
     }
+    //수강생 중복 체크 페치
+    @ResponseBody
+    @PostMapping("/studentOverLapCheck")
+    public boolean studentOverLapCheck(StudentVO studentVO, Authentication authentication){
+        User user = (User) authentication.getPrincipal();
+        System.out.println(authentication.getName() + "11111111111111111111111111111");
+        studentVO.setMemberId(user.getUsername());
+        return lectureService.studentOverLapCheck(studentVO);
+    }
     //수강생테이블로 수강생 인서트
     @RequestMapping("/insertStudent")
-    public String insertStudent(StudentVO studentVO, RedirectAttributes redirect, Authentication authentication){
+    public String insertStudent(StudentVO studentVO, Authentication authentication, Model model){
         studentVO.setMemberId(authentication.getName());
         lectureService.insertStudent(studentVO);
-        redirect.addAttribute("lectureCode", studentVO.getLectureCode());
-        return "redirect:/lecture/selectStudentList";
+        return "redirect:/lecture/myLectureList";
     }
-    //수강생 목록 조회
-    @RequestMapping("/selectStudentList")
-    public String selectStudentList(Model model, @RequestParam String lectureCode, StudentVO studentVO, LectureVO lectureVO){
-        Optional.ofNullable(lectureCode).ifPresent(lc -> studentVO.setLectureCode(lc));
-        System.out.println(studentVO);
-        model.addAttribute("lectureInfo", lectureService.adminSelectLectureDetail(lectureVO));
-        model.addAttribute("studentList", lectureService.selectStudentList(studentVO));
-        return "lecture/student_list";
+    //내 수강 목록 페이지로 이동
+    @GetMapping("/myLectureList")
+    public String myLectureList(Model model, StudentVO studentVO, Authentication authentication){
+        User user = (User) authentication.getPrincipal();
+        studentVO.setMemberId(user.getUsername());
+        model.addAttribute("lectureList", lectureService.selectMyLectureList(studentVO));
+        return "/lecture/my_lecture_list";
     }
     //수강생 삭제
     @RequestMapping("/deleteStudent")
@@ -229,22 +232,17 @@ public class LectureController {
         lectureService.deleteStudent(studentVO);
         System.out.println(lectureVO);
         redirect.addAttribute("lectureCode", lectureVO.getLectureCode());
-        return "redirect:/lecture/selectStudentList";
+        return "redirect:/lecture/myLectureList";
     }
-    //강좌 리뷰 폼으로 이동
-    @GetMapping("/goLectureReviewForm")
-    public String goLectureReviewForm(Model model, StudentVO studentVO, HttpSession session, LectureVO lectureVO){
-        MemberVO loginInfo = (MemberVO) session.getAttribute("loginInfo");
-        studentVO.setMemberId(loginInfo.getMemberId());
-        System.out.println(studentVO);
-        model.addAttribute("lecture", lectureService.adminSelectLectureDetail(lectureVO));
-        model.addAttribute("student", lectureService.selectTheStudent(studentVO));
-        return "lecture/lecture_review_form";
-    }
-    //강좌 리뷰 등록
-    @PostMapping("/insertLectureReview")
-    public String insertLectureReview(LectureReviewVO lectureReviewVO){
-        lectureService.insertLectureReview(lectureReviewVO);
-        return "redirect:/lecture/selectLectureList";
-    }
+
+//    //수강생 목록 조회
+//    @RequestMapping("/selectStudentList")
+//    public String selectStudentList(Model model, @RequestParam String lectureCode, StudentVO studentVO, LectureVO lectureVO){
+//        Optional.ofNullable(lectureCode).ifPresent(lc -> studentVO.setLectureCode(lc));
+//        System.out.println(studentVO);
+//        model.addAttribute("lectureInfo", lectureService.adminSelectLectureDetail(lectureVO));
+//        model.addAttribute("studentList", lectureService.selectStudentList(lectureVO));
+//        return "lecture/student_list";
+//    }
+
 }

@@ -33,6 +33,7 @@ function lectureList(lectureEventCode){
         str += `<div class="lecture-box">`;
         str += `       <div class="title">`;
         str += `               <p>`;
+        str += `               <input type="hidden" id="menuCode" name="menuCode" value="MENU_005">`;
         str += `                    <span class="lecture-event-name">${lecture.lectureEventVO.lectureEventName}</span>`;
         str += `                </p>`;
         str += `                <p>`;

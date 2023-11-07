@@ -120,6 +120,7 @@ function deleteLecture(lectureCode){
 function dateCompare(finishDateValue, thisInput){
     let startDateTag = thisInput.closest('.bottom').querySelector('.left');
     let finishDateTag = thisInput
+
     if(startDateTag.value == finishDateTag.value){
         alert('시작일과 종강일이 같을 수 없습니다')
         finishDateTag.value = finishDateValue;
@@ -128,6 +129,20 @@ function dateCompare(finishDateValue, thisInput){
         finishDateTag.value = finishDateValue;
     }
 }
+function todayCompare(thisInputTagValue, thisInputTag){
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth() + 1;
+    const date = now.getDate();
+    let today = year + "-" + ("00" + month.toString()).slice(-2) + "-" + ("00" + date.toString()).slice(-2);
+    if(thisInputTag.value == today){
+        alert('시작일을 오늘로 설정 할 수 없습니다.')
+        thisInputTag.value = thisInputTagValue;
+    } else if (thisInputTag.value < today){
+        alert('시작일을 과거로 설정 할 수 없습니다.')
+        thisInputTag.value = thisInputTagValue;
+    }
+};
 
 
 

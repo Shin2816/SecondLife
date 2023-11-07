@@ -20,8 +20,8 @@ public class GalleryServiceImpl implements GalleryService{
     }
     //게시글 갯수 조회
     @Override
-    public int selectBoardCnt() {
-        return sqlSession.selectOne("galleryMapper.selectBoardCnt");
+    public int selectBoardCnt(BoardGalleryListVO boardGalleryListVO) {
+        return sqlSession.selectOne("galleryMapper.selectBoardCnt", boardGalleryListVO);
     }
     //다음 GAL_BOARD_NUM 조회
     @Override

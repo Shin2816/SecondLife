@@ -10,7 +10,7 @@ public interface QaService {
     //QA게시판 목록 조회
     public List<BoardQaListVO> selectQaBoardList(BoardQaListVO boardQaListVO);
     //게시글 갯수 조회
-    public int selectBoardCnt();
+    public int selectBoardCnt(BoardQaListVO boardQaListVO);
     //QA게시판 글 등록(비공개)
     public void insertQaBoardClose(BoardQaListVO boardQaListVO);
     //QA게시판 글 등록(비공개)

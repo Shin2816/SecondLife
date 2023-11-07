@@ -111,7 +111,6 @@ public class InstructorController {
         Map<String, Object> simpleInfo = new HashMap<>();
         simpleInfo.put("instructor", instructorService.adminSelectInstructorDetail(instructorVO));
         simpleInfo.put("lectureList", lectureService.adminSelectLectureList(instructorCode));
-        simpleInfo.put("reviewList", lectureService.selectLectureReviewList(instructorVO));
         System.out.println("여기" + simpleInfo);
         return simpleInfo;
     }

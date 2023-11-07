@@ -2,7 +2,6 @@ package com.green.SecondLife.lecture.service;
 
 import com.green.SecondLife.instructor.vo.InstructorVO;
 import com.green.SecondLife.lecture.vo.LectureEventVO;
-import com.green.SecondLife.lecture.vo.LectureReviewVO;
 import com.green.SecondLife.lecture.vo.LectureVO;
 import com.green.SecondLife.lecture.vo.StudentVO;
 import com.green.SecondLife.member.vo.SubMenuVO;
@@ -59,11 +58,6 @@ public class LectureServiceImpl implements LectureService{
     public void adminDeleteLectureEvent(LectureEventVO lectureEventVO) {
         sqlSession.delete("lectureMapper.adminDeleteLectureEvent", lectureEventVO);
     }
-    //관리자용 강좌 리뷰 리스트 조회 기능
-    @Override
-    public List<LectureReviewVO> adminSelectLectureReviewList() {
-        return sqlSession.selectList("lectureMapper.adminSelectLectureReviewList");
-    }
 
     //관리자용 수업 생성 기능
     @Override
@@ -113,11 +107,18 @@ public class LectureServiceImpl implements LectureService{
     public void insertStudent(StudentVO studentVO) {
         sqlSession.insert("lectureMapper.insertStudent", studentVO);
     }
-    //수강생 목록 조회
+    //내 수업 목록 조회 기능
     @Override
-    public List<StudentVO> selectStudentList(StudentVO studentVO) {
-        return sqlSession.selectList("lectureMapper.selectStudentList", studentVO);
+    public List<LectureVO> selectMyLectureList(StudentVO studentVO) {
+        return sqlSession.selectList("lectureMapper.selectMyLectureList", studentVO);
     }
+    //수강생 중복 체크 ,  가능 -> true
+    @Override
+    public boolean studentOverLapCheck(StudentVO studentVO) {
+        String result = sqlSession.selectOne("lectureMapper.studentOverLapCheck", studentVO);
+        return result == null;
+    }
+
     //수강생 삭제 기능
     @Override
     public void deleteStudent(StudentVO studentVO) {
@@ -128,20 +129,10 @@ public class LectureServiceImpl implements LectureService{
     public List<LectureVO> selectMainLectureList() {
         return sqlSession.selectList("lectureMapper.selectMainLectureList");
     }
-    //강좌 리뷰 등록 기능
-    @Override
-    public void insertLectureReview(LectureReviewVO lectureReviewVO) {
-        sqlSession.insert("lectureMapper.insertLectureReview", lectureReviewVO);
-    }
-    //리뷰 작성을 하려는 수강생 정보 조회
-    @Override
-    public StudentVO selectTheStudent(StudentVO studentVO) {
-        return sqlSession.selectOne("lectureMapper.selectTheStudent", studentVO);
-    }
-    //강좌 리뷰 목록 조회
-    @Override
-    public List<LectureReviewVO> selectLectureReviewList(InstructorVO instructorVO) {
-        return sqlSession.selectList("lectureMapper.selectLectureReviewList", instructorVO);
-    }
 
+    //수강생 목록 조회
+    @Override
+    public List<StudentVO> selectStudentList(LectureVO lectureVO) {
+        return sqlSession.selectList("lectureMapper.selectStudentList", lectureVO);
+    }
 }

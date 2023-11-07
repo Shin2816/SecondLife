@@ -1,5 +1,13 @@
 @charset "utf-8";
 /* instructor_list.css */
+#simple_profil_title{
+    font-size: 22px;
+    background-color: palevioletred;
+    color: #fff;
+    padding: 3px;
+    font-weight: 600;
+    border-radius: 5px;
+}
 .able-lecture{
     border-bottom: 1px solid #555;
     margin-bottom: 7px;
@@ -15,6 +23,25 @@
 }
 .instructor_profil{
     display: flex;
+    justify-content: center;
+}
+.instructor_img{
+    margin-right: 20px;
+}
+#instructor_img{
+    width: 200px;
+    height: 200px;
+}
+.instructor_simple_info{
+    margin-top: 40px;
+}
+.instructor_simple_info p{
+    font-size: 22px;
+    font-weight: 600;
+    color: #fff;
+    background-color: #000;
+    border-radius: 5px;
+    padding: 3px;
 }
 #lecture-list-modal>div{
     display: flex;
@@ -52,9 +79,6 @@
 }
 .top .price{
     margin-right: 72px;
-}
-.top .student{
-
 }
 .bottom .lecture-title{
     display: inline-block;

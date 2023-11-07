@@ -35,7 +35,8 @@ public class SecurityConfig {
                                         , "/qa/**"
                                         , "/center/**"
                                         , "/rental/**"
-                                        , "/etc/**").permitAll()
+                                        , "/etc/**"
+                                        , "/announce/**").permitAll()
                                 .requestMatchers("/admin/**"
                                         , "/instructor/adminInsertInstructorForm", "/instructor/adminInstructorList", "/lecture/adminLectureReviewList"
                                         , "/lecture/adminInsertLectureEventForm", "/lecture/adminLectureEventList", "/lecture/adminInsertLectureForm", "/lecture/adminLectureList"
