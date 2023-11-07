@@ -50,6 +50,9 @@
     <select id="selectBoardCnt" resultType="int">
         SELECT COUNT(QA_BOARD_NUM)
         FROM BOARD_QA_LIST
+        <if test='searchValue != null and !searchValue.equals("")'>
+            WHERE UPPER(${searchType}) LIKE '%'||UPPER(#{searchValue})||'%'
+        </if>
     </select>
     <!--Q&A 게시판 글 등록(비공개)-->
     <insert id="insertQaBoardClose">

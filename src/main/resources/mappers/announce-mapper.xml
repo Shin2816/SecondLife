@@ -75,6 +75,9 @@
     <select id="selectBoardCnt" resultType="int">
         SELECT COUNT(AN_BOARD_NUM)
         FROM BOARD_ANNOUNCE_LIST
+        <if test='searchValue != null and !searchValue.equals("")'>
+            WHERE UPPER(${searchType}) LIKE '%'||UPPER(#{searchValue})||'%'
+        </if>
     </select>
 </mapper>
 

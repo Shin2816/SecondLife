@@ -52,6 +52,9 @@
     <select id="selectBoardCnt" resultType="int">
         SELECT COUNT(GAL_BOARD_NUM)
         FROM BOARD_GALLERY_LIST
+        <if test='searchValue != null and !searchValue.equals("")'>
+            WHERE UPPER(${searchType}) LIKE '%'||UPPER(#{searchValue})||'%'
+        </if>
     </select>
     <!--다음 galBoardNum 조회-->
     <select id="selectNextGalBoardNum" resultType="int">

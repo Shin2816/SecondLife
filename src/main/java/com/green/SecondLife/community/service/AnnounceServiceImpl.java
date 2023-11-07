@@ -43,7 +43,7 @@ public class AnnounceServiceImpl implements AnnounceService{
     }
     //게시글 갯수 조회(페이징)
     @Override
-    public int selectBoardCnt() {
-        return sqlsession.selectOne("anMapper.selectBoardCnt");
+    public int selectBoardCnt(BoardAnnounceListVO boardAnnounceListVO) {
+        return sqlsession.selectOne("anMapper.selectBoardCnt", boardAnnounceListVO);
     }
 }
