@@ -18,5 +18,5 @@ public interface AnnounceService {
     //Announce게시판 글 수정
     public int updateAnBoard(BoardAnnounceListVO boardAnnounceListVO);
     //게시글 갯수 조회
-    public int selectBoardCnt();
+    public int selectBoardCnt(BoardAnnounceListVO boardAnnounceListVO);
 }

@@ -35,7 +35,7 @@ public class QaController {
     @RequestMapping("/qaBoardList")
     public String qaBoardList(Model model, BoardQaListVO boardQaListVO, SubMenuVO subMenuVO, Authentication authentication){
         //페이지 정보 세팅
-        int totalDataCnt = qaService.selectBoardCnt(); //전체 게시글 갯수 조회해서
+        int totalDataCnt = qaService.selectBoardCnt(boardQaListVO); //전체 게시글 갯수 조회해서
         boardQaListVO.setTotalDataCnt(totalDataCnt);//세터 호출해서 전체 게시글 갯수 전달
         boardQaListVO.setPageInfo();//변수값 설정한 메소드 호출(상속관계라 사용가능)
 
@@ -81,6 +81,7 @@ public class QaController {
     //글 tr태그를 클릭했을때 해당글의 상세페이지 이동
     @RequestMapping("/boardDetail")
     public String boardDetail(Model model, BoardCommentListVO boardCommentListVO, SubMenuVO subMenuVO, Authentication authentication){
+        System.out.println(boardCommentListVO);
 
         //데이터베이스에 저장된 비밀번호를 조회해서 저장함
         String qaPw = qaService.selectQaPw(boardCommentListVO.getCommentNum());
@@ -136,7 +137,7 @@ public class QaController {
         qaService.deleteQaBoard(qaBoardNum);
         return "redirect:/qa/qaBoardList?menuCode="+ConstantVariable.MENU_CODE_BOARD;
     }
-    //수정 모달에서 수정 버튼을 눌렀을 때 수정 쿼리 실행--------------------------------------------------
+    //수정 모달에서 수정 버튼을 눌렀을 때 수정 쿼리 실행
     @RequestMapping("/updateQaBoard")
     public String updateQaBoard(BoardQaListVO boardQaListVO, BoardCommentListVO boardCommentListVO, RedirectAttributes redirectAttributes){
         qaService.updateQaBoard(boardQaListVO);//수정 쿼리

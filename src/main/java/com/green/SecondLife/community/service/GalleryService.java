@@ -9,7 +9,7 @@ public interface GalleryService {
     //갤러리 게시판 목록 조회
     public List<BoardGalleryListVO> selectGalBoardList(BoardGalleryListVO boardGalleryListVO);
     //게시글 갯수 조회
-    public int selectBoardCnt();
+    public int selectBoardCnt(BoardGalleryListVO boardGalleryListVO);
     //다음 GAL_BOARD_NUM 조회
     public int selectNextGalBoardNum();
     //게시글 등록

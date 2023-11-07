@@ -192,7 +192,7 @@ public class LectureController {
     }
     // 강좌 구매 페이지
     @GetMapping("/goLectureApplyForm")
-    public String goLectureApplyForm(LectureVO lectureVO, Model model, Authentication authentication, LectureEventVO lectureEventVO){
+    public String goLectureApplyForm(LectureVO lectureVO, Model model, Authentication authentication, LectureEventVO lectureEventVO, SubMenuVO subMenuVO){
         if(authentication == null){
             return "redirect:/member/loginForm";
         }
