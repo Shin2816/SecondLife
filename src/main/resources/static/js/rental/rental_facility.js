@@ -48,16 +48,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 domNodes: [dayNum]
             };
         },
-        eventContent: function (arg) {
-            // 이벤트 렌더링을 커스터마이즈하는 코드를 여기에 작성
-            console.log(arg);
-            var dayNumColor = document.querySelector('.fc-daygrid-day-number');
-            // 이벤트 렌더링을 커스터마이즈하는 코드를 여기에 작성
-            if (arg.event) {
-                dayNumColor.style.color = 'red';
-            }
+        // eventContent: function (arg) {
+        //     console.log(arg);
+        //     var dayNumColor = document.querySelector('.fc-daygrid-day-number');
+        //     // 이벤트 렌더링을 커스터마이즈하는 코드를 여기에 작성
+        //     if (arg.event) {
+        //         dayNumColor.style.color = 'red';
+        //     }
                     
-        },
+        // },
         dateClick: function(info) { //달력을 클릭 했을 때, 함수 호출
             if(info.date.getDay() === 0 || info.date.getDay() === 6){ //토(6),일(0)만 클릭 가능
                 calendarCheck(info.dateStr); //비동기 통신, 매개변수는 클릭한 날짜

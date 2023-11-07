@@ -42,6 +42,7 @@ function insertFacilityValidate(facilityCode){
     // 2. 데이터 가져가기 - submit 실행
     // form태그 선택 -> submit()함수 실행
     insertFacilityForm.submit(facilityCode);
+    alert('시설 등록이 완료되었습니다.');
 }
 
 // 오류메세지 초기화
