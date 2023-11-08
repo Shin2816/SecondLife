@@ -162,20 +162,22 @@
                                     <th:block th:unless="${#lists.size(qaBoardList) == 0}" >
                                         <tbody id="board-list-body">
                                             <!-- 비밀번호가 걸려있다면 -->
-                                            <th:block th:if="${qaBoard.qaBoardPassword != null}" th:each="qaBoard : ${qaBoardList}">
-                                                <tr class="board-tr" th:onclick="openCheckPwModal([[${qaBoard.qaBoardNum}]], [[${authentication}]]);">
-                                                    <td class="board_td_title">[[${qaBoard.qaBoardTitle}]]</td>
-                                                    <td>[[${qaBoard.qaBoardWriter}]]</td>
-                                                    <td>[[${qaBoard.qaCreateDate}]]</td>
-                                                </tr>
-                                            </th:block>
-                                            <!-- 비밀번호가 걸려있지않다면 -->
-                                            <th:block th:if="${qaBoard.qaBoardPassword == null}" th:each="qaBoard : ${qaBoardList}">
-                                                <tr class="board-tr" th:onclick="|location.href='@{/qa/boardDetail(commentNum=${qaBoard.qaBoardNum}, menuCode=MENU_007)}'|">
-                                                    <td class="board_td_title">[[${qaBoard.qaBoardTitle}]]</td>
-                                                    <td>[[${qaBoard.qaBoardWriter}]]</td>
-                                                    <td>[[${qaBoard.qaCreateDate}]]</td>
-                                                </tr>
+                                            <th:block th:each="qaBoard, state : ${qaBoardList}">
+                                                <th:block th:if="${qaBoard.qaBoardPassword != null}">
+                                                    <tr class="board-tr" th:onclick="openCheckPwModal([[${qaBoard.qaBoardNum}]], [[${authentication}]]);">
+                                                        <td class="board_td_title">[[${qaBoard.qaBoardTitle}]]</td>
+                                                        <td>[[${qaBoard.qaBoardWriter}]]</td>
+                                                        <td>[[${qaBoard.qaCreateDate}]]</td>
+                                                    </tr>
+                                                </th:block>
+                                                <!-- 비밀번호가 걸려있지않다면 -->
+                                                <th:block th:if="${qaBoard.qaBoardPassword == null}">
+                                                    <tr class="board-tr" th:onclick="|location.href='@{/qa/boardDetail(commentNum=${qaBoard.qaBoardNum}, menuCode=MENU_007)}'|">
+                                                        <td class="board_td_title">[[${qaBoard.qaBoardTitle}]]</td>
+                                                        <td>[[${qaBoard.qaBoardWriter}]]</td>
+                                                        <td>[[${qaBoard.qaCreateDate}]]</td>
+                                                    </tr>
+                                                </th:block>
                                             </th:block>
                                         </tbody>
                                     </th:block>
