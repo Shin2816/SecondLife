@@ -220,7 +220,7 @@ public class LectureController {
     }
     //내 수강 목록 페이지로 이동
     @GetMapping("/myLectureList")
-    public String myLectureList(Model model, StudentVO studentVO, Authentication authentication){
+    public String myLectureList(Model model, StudentVO studentVO, Authentication authentication, SubMenuVO subMenuVO){
         User user = (User) authentication.getPrincipal();
         studentVO.setMemberId(user.getUsername());
         model.addAttribute("lectureList", lectureService.selectMyLectureList(studentVO));
