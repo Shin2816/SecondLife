@@ -84,6 +84,7 @@ function checkPhone(){
     //fetch 통신 후 실행 영역
     .then((data) => {//data -> controller에서 리턴되는 데이터!
         alert("메세지가 전송되었습니다, 다시 보내고 싶으신 경우, 확인 버튼을 눌러주세요.");
+        resetMessage();
         document.querySelector('.check-btn-phone').style.display = "none"
         document.querySelector('.check-btn').style.display = "block";
         checkStatus = 1;
@@ -126,12 +127,14 @@ function check(){
     .then((data) => {//data -> controller에서 리턴되는 데이터!
         if(data){
             alert("인증되었습니다");
+            resetMessage();
             document.querySelector('.check-btn').style.display = "none";
             document.querySelector('.check-btn-phone').style.display = "none"
             checkStatus = 3;
             checkStatusInput.value = checkStatus;
         }else{
             alert("실패하셨습니다. 번호를 다시 확인해주세요.")
+            resetMessage();
             checkStatus = 0;
             checkStatusInput.value = checkStatus;
             document.querySelector('.check-btn').style.display = "block";

@@ -57,11 +57,12 @@ public class InterceptorConfig implements WebMvcConfigurer {
         registry.addInterceptor(userMenuInterceptor)
                 .addPathPatterns("/", "/etc/privacy", "/etc/sitemap", "/etc/teamInfo"
                                 ,"/member/logout", "/member/updateMemberForm", "/member/loginForm", "/member/insertMemberForm", "/member/updateMember", "/member/insertMember"
-                                ,"/lecture/lectureList", "/lecture/lectureDetail", "/lecture/goLectureApplyForm"
+                                ,"/lecture/lectureList", "/lecture/lectureDetail", "/lecture/goLectureApplyForm", "/lecture/myLectureList"
                                 ,"/instructor/instructorList"
                                 ,"/board/freeBoardList", "/board/regBoardForm", "/board/boardDetail"
                                 ,"/qa/qaBoardList", "/qa/boardDetail", "/qa/regQaBoardForm"
                                 ,"/gallery/galleryBoardList", "/gallery/regGalBoardForm", "/gallery/boardDetail"
+                                ,"/announce/anBoardList", "/announce/regAnBoardForm", "/announce/boardDetail"
                                 ,"/rental/rentalFacility", "/rental/myRentalHistory", "/rental/rentalGuide"
                                 ,"/center/centerLocation", "/center/centerGuide")
                 .excludePathPatterns("/**/**Fetch")

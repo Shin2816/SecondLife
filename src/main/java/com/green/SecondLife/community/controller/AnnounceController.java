@@ -52,7 +52,7 @@ public class AnnounceController {
         boardAnnounceListVO.setAnBoardWriter(authentication.getName());// 작성자 이름 넣기
         System.out.println(boardAnnounceListVO);
         announceService.insertAnBoard(boardAnnounceListVO);
-        return "redirect:/announce/anBoardList";
+        return "redirect:/announce/anBoardList?menuCode="+ ConstantVariable.MENU_CODE_BOARD;
     }
     //글 제목 클릭했을때 해당글의 상세페이지 이동
     @RequestMapping("/boardDetail")

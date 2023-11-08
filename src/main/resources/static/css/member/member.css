@@ -12,6 +12,9 @@ input::placeholder {
 #memberJoin, #updateJoin{
     width: 400px;
 }
+#updateJoin #memberId, #updateJoin #memberName, #updateJoin #memberGender{
+    background-color: #c9c9c9;
+}
 .member-all{
     margin-bottom: 50px;
 }
@@ -65,21 +68,21 @@ input::placeholder {
 .manage-member-delete{
     width: 5%;
 }
-.admin-manage-member-info .manage-member-delete{
+.select-member .manage-member-delete{
     cursor: pointer;
 }
-.admin-manage-member-info #memberName{
+.select-member #memberName{
     width: 5rem;
 }
-.admin-manage-member-info #memberTel{
+.select-member #memberTel{
     width: 9rem;
 }
-.admin-manage-member-info #memberEmail{
+.select-member #memberEmail{
     width: 15rem;
 }
-.admin-manage-member-info #memberAddr{
+.select-member #memberAddr{
     width: 29rem; 
 }
-.admin-manage-member-info #memberGender{
+.select-member #memberGender{
     width: 3rem;
 }

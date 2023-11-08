@@ -10,16 +10,31 @@
     <th:block layout:fragment="content">
         <div class="row sitemap-row">
             <h2>사이트맵</h2>
-            <div class="col-4" th:each="mainMenu : ${mainMenuList}">
-                <div class="sitemap-main" th:onclick="@{${mainMenu.menuUrl}}">
-                    [[${mainMenu.menuName}]]
+            <th:block sec:authorize="isAnonymous()">
+                <!-- 유저 메뉴는 5번부터 12번 까지기 때문에 state.count 는 최대 8까지. 8번은 내 페이지 이므로 로그인 x 일 때, 표시를 안함. -->
+                <div class="col-4" th:each="mainMenu, state : ${mainMenuList}" th:if="${state.count &lt; 8}">
+                    <div class="sitemap-main" th:onclick="@{${mainMenu.menuUrl}}">
+                        [[${mainMenu.menuName}]]
+                    </div>
+                    <div class="sitemap-sub">
+                        <ul>
+                            <li class="sitemap-sub-url" th:each="subMenu : ${mainSubMenuList}" th:if="${mainMenu.menuCode == subMenu.menuCode}" th:onclick="|location.href='@{${subMenu.subMenuUrl}}'|">[[${subMenu.subMenuName}]]</li>
+                        </ul>
+                    </div>
+                </div>        
+            </th:block>
+            <th:block sec:authorize="isAuthenticated()">
+                <div class="col-4" th:each="mainMenu : ${mainMenuList}">
+                    <div class="sitemap-main" th:onclick="@{${mainMenu.menuUrl}}">
+                        [[${mainMenu.menuName}]]
+                    </div>
+                    <div class="sitemap-sub">
+                        <ul>
+                            <li class="sitemap-sub-url" th:each="subMenu : ${mainSubMenuList}" th:if="${mainMenu.menuCode == subMenu.menuCode}" th:onclick="|location.href='@{${subMenu.subMenuUrl}}'|">[[${subMenu.subMenuName}]]</li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="sitemap-sub">
-                    <ul>
-                        <li class="sitemap-sub-url" th:each="subMenu : ${mainSubMenuList}" th:if="${mainMenu.menuCode == subMenu.menuCode}" th:onclick="|location.href='@{${subMenu.subMenuUrl}}'|">[[${subMenu.subMenuName}]]</li>
-                    </ul>
-                </div>
-            </div>
+            </th:block>
         </div>
     </th:block>
 </body>
