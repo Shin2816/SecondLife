@@ -97,7 +97,7 @@ public class CommunityController {
         //수정 쿼리
         communityService.updateFreeBoard(boardFreeListVO);
         //수정이 완료되면 해당 게시글 상세페이지로 freeBoardNum=숫자 데이터를 던질 수 있다.
-        return "redirect:/board/boardDetail?freeBoardNum=" + boardFreeListVO.getFreeBoardNum()+"&menuCode="+ConstantVariable.MENU_CODE_BOARD;
+        return "redirect:/board/boardDetail?commentNum=" + boardFreeListVO.getFreeBoardNum()+"&menuCode="+ConstantVariable.MENU_CODE_BOARD;
     }
     //상세 페이지에서 댓글 작성버튼 클릭하면 insert 쿼리 실행
     @PostMapping("/freeBoardComment")

@@ -59,10 +59,10 @@
                             <input type="hidden" name="freeBoardNum" th:value="${board.freeBoardNum}">
                             <div class="modal-body">
                                 <div class="row mb-3">
-                                    <input type="text" name="freeBoardTitle" id="freeBoardTitle" class="form-control" th:value="${board.freeBoardTitle}">
+                                    <input type="text" name="freeBoardTitle" class="form-control freeBoardTitle" th:value="${board.freeBoardTitle}">
                                 </div>
                                 <div class="row mb-3">
-                                    <textarea rows="5" cols="50" name="freeBoardContent" id="freeBoardContent" class="form-control summernote">[[${board.freeBoardContent}]]</textarea>
+                                    <textarea rows="5" cols="50" name="freeBoardContent" class="form-control summernote freeBoardContent">[[${board.freeBoardContent}]]</textarea>
                                 </div>
                             </div>
                             <div class="modal-footer">
