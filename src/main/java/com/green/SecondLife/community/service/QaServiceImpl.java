@@ -20,8 +20,8 @@ public class QaServiceImpl implements QaService{
     }
 
     @Override
-    public int selectBoardCnt() {
-        return sqlSession.selectOne("qaMapper.selectBoardCnt");
+    public int selectBoardCnt(BoardQaListVO boardQaListVO) {
+        return sqlSession.selectOne("qaMapper.selectBoardCnt", boardQaListVO);
     }
 
     //트랜잭션, 어떤 이유건 오류가 나면 중지(비공개)

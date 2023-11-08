@@ -30,7 +30,7 @@ public class AnnounceController {
     @RequestMapping("/anBoardList")
     public String anBoardList(Model model, BoardAnnounceListVO boardAnnounceListVO, SubMenuVO subMenuVO, Authentication authentication){
         //페이지 정보 세팅
-        int totalDataCnt = announceService.selectBoardCnt(); //전체 게시글 갯수 조회해서
+        int totalDataCnt = announceService.selectBoardCnt(boardAnnounceListVO); //전체 게시글 갯수 조회해서
         boardAnnounceListVO.setTotalDataCnt(totalDataCnt);//세터 호출해서 전체 게시글 갯수 전달
         boardAnnounceListVO.setPageInfo();//변수값 설정한 메소드 호출(상속관계라 사용가능)
 

@@ -23,10 +23,10 @@ function showInstructorSimpleInfo(instructorCode){
     //fetch 통신 후 실행 영역
     .then((data) => {//data -> controller에서 리턴되는 데이터!
         const myModal = new bootstrap.Modal('#simpleInfoModal');
-        document.querySelector('#simple_profil_title').innerHTML=`${data.instructor.instructorName}강사님 프로필`;
+        document.querySelector('#simple_profil_title').innerHTML=`${data.instructor.instructorName}강사님`;
         document.querySelector('#instructor_img').src=`/images/instructor/${data.instructor.instructorImgVO.instructorAttachedFileName}`;
         document.querySelector('#instructor_name').innerHTML=`이름 : ${data.instructor.instructorName}`;
-        document.querySelector('#instructor_age').innerHTML=`나이 : ${data.instructor.instructorAge}`;
+        document.querySelector('#instructor_age').innerHTML=`나이 : ${data.instructor.instructorAge}세`;
         document.querySelector('#instructor_gender').innerHTML=`성별 : ${data.instructor.instructorGender}`;
         
         let str = '';

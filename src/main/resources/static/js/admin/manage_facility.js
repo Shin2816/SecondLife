@@ -2,6 +2,7 @@
 function deleteFacility(facilityCode){
     if(confirm("삭제하시겠습니까?")){
         location.href = `/center/deleteFacility?facilityCode=${facilityCode}`;
+        alert('삭제가 완료되었습니다.');
     }
 }
 

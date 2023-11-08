@@ -25,7 +25,7 @@
             [[${lectureEvent.lectureEventContent}]]
         </div>
         <div class="bottomBox">
-            <input type="button" value="수강신청" class="btn btn-secondary" th:onclick="lectureApply([[${lecture.lectureCode}]], [[${subMenuVO.menuCode}]]);">
+            <input type="button" value="수강신청" class="btn btn-secondary" th:onclick="studentOverLapCheck([[${lecture.lectureCode}]]);">
         </div>
     </div>
 </div>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{fragment/sub_layout}">
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+<th:block layout:fragment="content">
+    <div class="row">
+        <div class="col-12">
+            <h2>내 수강 목록</h2>
+        </div>
+        <div class="col-12">
+            <table class="table table-hover text-center align-middle">
+                <colgroup>
+                    <col width="5%">
+                    <col width="30%">
+                    <col width="20%">
+                    <col width="20%">
+                    <col width="*">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <td style="font-size: 17px; font-weight: 700;">No</td>
+                        <td style="font-size: 17px; font-weight: 700;">수업명</td>
+                        <td style="font-size: 17px; font-weight: 700;">과목</td>
+                        <td style="font-size: 17px; font-weight: 700;">강사</td>
+                        <td style="font-size: 17px; font-weight: 700;">기간</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="lecture, state : ${lectureList}">
+                        <td>[[${#lists.size(lectureList) - state.index}]]</td>
+                        <td>[[${lecture.lectureTitle}]]</td>
+                        <td>[[${lecture.lectureEventVO.lectureEventName}]]</td>
+                        <td>[[${lecture.instructorVO.instructorName}]]</td>
+                        <td>[[${lecture.lecturePeriod}]]</td>
+                        <td><input class="btn btn-secondary" type="button" value="삭제" th:onclick="deleteStudent([[${lecture.studentVO.studentCode}]]);"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="/js/lecture/my_lecture_list.js"></script>
+</th:block>
+</body>
+</html>

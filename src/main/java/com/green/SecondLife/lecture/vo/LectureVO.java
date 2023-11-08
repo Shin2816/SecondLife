@@ -15,4 +15,5 @@ public class LectureVO {
     private String instructorCode;
     private InstructorVO instructorVO;
     private LectureEventVO lectureEventVO;
+    private StudentVO studentVO;
 }
