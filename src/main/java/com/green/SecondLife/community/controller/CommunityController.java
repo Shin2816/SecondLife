@@ -72,7 +72,7 @@ public class CommunityController {
     //글 제목 클릭했을때 해당글의 상세페이지 이동
     @RequestMapping("/boardDetail")
     public String boardDetail(Model model, SubMenuVO subMenuVO, BoardCommentListVO boardCommentListVO){
-        System.out.println(boardCommentListVO);
+        System.out.println(boardCommentListVO + " #########왜 안나와#######");
         BoardFreeListVO board = communityService.selectFreeBoardDetail(boardCommentListVO.getCommentNum());
         //디테일정보 던지기
         model.addAttribute("board", board);
@@ -97,7 +97,7 @@ public class CommunityController {
         //수정 쿼리
         communityService.updateFreeBoard(boardFreeListVO);
         //수정이 완료되면 해당 게시글 상세페이지로 freeBoardNum=숫자 데이터를 던질 수 있다.
-        return "redirect:/board/boardDetail?freeBoardNum=" + boardFreeListVO.getFreeBoardNum()+"&menuCode="+ConstantVariable.MENU_CODE_BOARD;
+        return "redirect:/board/boardDetail?commentNum=" + boardFreeListVO.getFreeBoardNum()+"&menuCode="+ConstantVariable.MENU_CODE_BOARD;
     }
     //상세 페이지에서 댓글 작성버튼 클릭하면 insert 쿼리 실행
     @PostMapping("/freeBoardComment")
