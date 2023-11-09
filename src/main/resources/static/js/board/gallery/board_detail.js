@@ -116,51 +116,21 @@ function galRegComment(selectedTag, galBoardNum, name){
     });
 }
 ////////////////////////////////////////////////////////댓글 삭제(비동기)
-function galDeleteComment(commentId, galBoardNum){
-    const menuCode = document.querySelector('#menuCode').value;
+function galDeleteComment(deleteBtn){
     if(confirm('삭제하시면 되돌릴 수 없습니다.\n삭제 하시겠습니까?')){
-        fetch('/gallery/galDeleteComment', { //요청경로
-            method: 'POST',
-            cache: 'no-cache',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-            },
-            //컨트롤러로 전달할 데이터
-            body: new URLSearchParams({
-                // 데이터명 : 데이터값
-                'commentId' : commentId
-            })
-        })
-        .then((response) => {
-            if(!response.ok){
-                alert('fetch error!\n컨트롤러로 통신중에 오류가 발생했습니다.');
-                return ;
-            }
-        
-            return response.text(); //컨트롤러에서 return하는 데이터가 없거나 int, String 일 때 사용
-            //return response.json(); //나머지 경우에 사용
-        })
-        //fetch 통신 후 실행 영역
-        .then((data) => {//data -> controller에서 리턴되는 데이터!
-            alert('댓글 삭제가 완료 되었습니다.');
-            location.href=`/gallery/boardDetail?galBoardNum=${galBoardNum}&menuCode=${menuCode}`;
-        })
-        //fetch 통신 실패 시 실행 영역
-        .catch(err=>{
-            alert('fetch error!\nthen 구문에서 오류가 발생했습니다.\n콘솔창을 확인하세요!');
-            console.log(err);
-        });
+        alert('댓글 삭제가 완료되었습니다.');
+        deleteBtn.closest('li').querySelector('form').submit(); //가장 가까운 form태그 찾아서 submit
     }
 }
 ///////////////////////////////////////////////////////////////////댓글 수정
-function galUpdateModal(galUpdateCommentContent){//실제 데이터value
+function galUpdateModal(CommentContent){//실제 데이터value
     const galCommentInput = document.querySelector('#galCommentInput'); //input 지정해서 변수로
-    galCommentInput.value = galUpdateCommentContent;//input안에 내용 넣기
+    galCommentInput.value = CommentContent;//input안에 내용 넣기
 }
 ///////////////////////////////////////////////////////////////////댓글 수정(비동기)
-function galUpdateComment(commentId, galBoardNum){//수정버튼을 누르면 도착, div id : galCommentInput 안에 데이터 넣기
+function galUpdateComment(updateBtn){//수정버튼을 누르면 도착, div id : galCommentInput 안에 데이터 넣기
     const galCommentInput = document.querySelector('#galCommentInput').value;
-    const menuCode = document.querySelector('#menuCode').value;
+
     if(galCommentInput == ''){
         alert('내용을 입력해주십시요.');
         return;
@@ -174,38 +144,8 @@ function galUpdateComment(commentId, galBoardNum){//수정버튼을 누르면 �
         return;
     }
 
-    fetch('/gallery/galUpdateComment', { //요청경로
-        method: 'POST',
-        cache: 'no-cache',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-        },
-        //컨트롤러로 전달할 데이터
-        body: new URLSearchParams({
-            // 데이터명 : 데이터값
-            'commentId' : commentId,
-            'commentContent' : galCommentInput
-        })
-    })
-    .then((response) => {
-        if(!response.ok){
-            alert('fetch error!\n컨트롤러로 통신중에 오류가 발생했습니다.');
-            return ;
-        }
-    
-        return response.text(); //컨트롤러에서 return하는 데이터가 없거나 int, String 일 때 사용
-        //return response.json(); //나머지 경우에 사용
-    })
-    //fetch 통신 후 실행 영역
-    .then((data) => {//data -> controller에서 리턴되는 데이터!
-        alert('댓글 수정이 완료 되었습니다.');
-        location.href=`/gallery/boardDetail?galBoardNum=${galBoardNum}&menuCode=${menuCode}`;
-    })
-    //fetch 통신 실패 시 실행 영역
-    .catch(err=>{
-        alert('fetch error!\nthen 구문에서 오류가 발생했습니다.\n콘솔창을 확인하세요!');
-        console.log(err);
-    });
+    alert('댓글 수정이 완료되었습니다.');
+    updateBtn.closest('.select-div').querySelector('form').submit();
 }
 ////////////////////////////////갤러리 게시판 글 등록 썸머노트//////////////////////////////////////////
 //썸머노트 활성화

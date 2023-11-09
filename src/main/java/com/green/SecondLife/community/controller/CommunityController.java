@@ -72,7 +72,6 @@ public class CommunityController {
     //글 제목 클릭했을때 해당글의 상세페이지 이동
     @RequestMapping("/boardDetail")
     public String boardDetail(Model model, SubMenuVO subMenuVO, BoardCommentListVO boardCommentListVO){
-        System.out.println(boardCommentListVO + " #########왜 안나와#######");
         BoardFreeListVO board = communityService.selectFreeBoardDetail(boardCommentListVO.getCommentNum());
         //디테일정보 던지기
         model.addAttribute("board", board);

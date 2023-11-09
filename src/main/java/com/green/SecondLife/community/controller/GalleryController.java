@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -66,16 +67,17 @@ public class GalleryController {
     }
     //글 tr태그를 클릭했을때 해당글의 상세페이지 이동
     @RequestMapping("/boardDetail")
-    public String boardDetail(int galBoardNum, Model model, SubMenuVO subMenuVO){
+    public String boardDetail(Model model, SubMenuVO subMenuVO, BoardCommentListVO boardCommentListVO){
+        System.out.println(boardCommentListVO);
 
         //board이름으로 디테일정보 던지기
-        model.addAttribute("board", galleryService.selectGalBoardDetail(galBoardNum));//아우터조인
+        model.addAttribute("board", galleryService.selectGalBoardDetail(boardCommentListVO.getCommentNum()));//아우터조인
 
         //조회수 증가
-        galleryService.updateGalBoardCnt(galBoardNum);
+        galleryService.updateGalBoardCnt(boardCommentListVO.getCommentNum());
 
         //댓글 조회해서 html로 던지기
-        model.addAttribute("comment", galleryService.selectGalBoardComment(galBoardNum));
+        model.addAttribute("comment", galleryService.selectGalBoardComment(boardCommentListVO.getCommentNum()));
         return "board/gallery/board_detail";
     }
     //글 상세페이지에서 삭제버튼 클릭하였을 때
@@ -105,15 +107,16 @@ public class GalleryController {
         return true;//board.js로 true리턴
     }
     //상세 페이지에서 댓글 삭제버튼 클릭하면 delete 쿼리 실행
-    @ResponseBody
     @PostMapping("/galDeleteComment")
-    public void galBoardComment(int commentId){
-        galleryService.deleteGalBoardComment(commentId);
+    public String galBoardComment(BoardCommentListVO boardCommentListVO, RedirectAttributes redirectAttributes){
+        galleryService.deleteGalBoardComment(boardCommentListVO.getCommentId());
+        return "redirect:/board/boardDetail?menuCode="+ConstantVariable.MENU_CODE_BOARD + "&commentNum=" + boardCommentListVO.getCommentNum();
     }
+
     //상세 페이지에서 댓글 수정 버튼 클릭하면 update 쿼리 실행
-    @ResponseBody
     @PostMapping("/galUpdateComment")
-    public void galUpdateComment(BoardCommentListVO boardCommentListVO){
+    public String galUpdateComment(BoardCommentListVO boardCommentListVO, RedirectAttributes redirectAttributes){
         galleryService.updateGalBoardComment(boardCommentListVO);
+        return "redirect:/board/boardDetail?menuCode="+ConstantVariable.MENU_CODE_BOARD + "&commentNum=" + boardCommentListVO.getCommentNum();
     }
 }
