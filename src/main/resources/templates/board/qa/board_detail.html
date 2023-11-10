@@ -155,7 +155,7 @@
                                     </form>
                                 </li>
                                 <li>
-                                    <button type="button" class="dropdown-item" data-bs-toggle="modal" th:data-bs-target="${'#qaModalId' + state.index}" th:onclick="qaUpdateModal([[${comment.commentContent}]]);">수정</button>
+                                    <button type="button" class="dropdown-item" data-bs-toggle="modal" th:data-bs-target="${'#qaModalId' + state.index}" th:onclick="qaUpdateModal([[${comment.commentContent}]], this);">수정</button>
                                 </li>
                             </ul>
                             <!-- Modal -->

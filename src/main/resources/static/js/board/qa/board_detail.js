@@ -75,25 +75,24 @@ function qaRegComment(selectedTag, name){
             alert('내용은 100글자 이내로 작성해주세요.');
             return;
         }
+        alert('댓글 작성이 완료되었습니다.');
+        document.querySelector('#commentForm').submit();
     }
-    alert('댓글 작성이 완료되었습니다.');
-    document.querySelector('#commentForm').submit();
 
 }
 ////////////////////////////////////////////////////////댓글 삭제
 function qaDeleteComment(deleteBtn){
     if(confirm('삭제하시면 되돌릴 수 없습니다.\n삭제 하시겠습니까?')){
         alert('댓글 삭제가 완료되었습니다.');
-        console.log(deleteBtn.closest('li').querySelector('form'));
         deleteBtn.closest('li').querySelector('form').submit(); //가장 가까운 form태그 찾아서 submit
     }
 }
 ///////////////////////////////////////////////////////////////////댓글 수정, 모달창의 input 안에 내용 넣기
-function qaUpdateModal(commentContent){//실제 데이터value
-    const qaCommentInput = document.querySelector('#qaCommentInput'); //input 지정해서 변수로
-    qaCommentInput.value = commentContent;//input안에 내용 넣기
+function qaUpdateModal(CommentContent, updateBtn){//실제 데이터value
+    const qaCommentInput = updateBtn.closest('div').querySelector('#qaCommentInput');//가장 가까운 폼태그 찾아가서 id값 가져오기
+    qaCommentInput.value = CommentContent;//input안에 내용 넣기
 }
-///////////////////////////////////////////////////////////////////댓글 수정(비동기)
+///////////////////////////////////////////////////////////////////댓글 수정
 function qaUpdateComment(updateBtn){//수정버튼을 누르면 도착, div id : qaCommentInput 안에 데이터 넣기
     const qaCommentInput = document.querySelector('#qaCommentInput').value;
 

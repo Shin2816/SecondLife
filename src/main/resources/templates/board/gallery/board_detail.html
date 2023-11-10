@@ -109,9 +109,16 @@
             <a id="btnKakao" class="link-icon kakao" th:onclick="shareKakao([[${board.galBoardNum}]]);">카카오</a>
         </div>
     </div>
-    <div class="input-group mb-3" id="galRegDiv">
-        <input type="text" name="commentContent" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2">
-        <button class="btn btn-outline-secondary" type="button" id="button-addon2" th:onclick="galRegComment(this, [[${board.galBoardNum}]], [[${#authentication.name}]]);">작성</button>
+    <div class="mb-3" id="galRegDiv">
+        <form action="/gallery/galBoardComment" method="post" id="commentForm">
+            <input type="hidden" name="commentNum" th:value="${board.galBoardNum}">
+            <input type="hidden" name="commentWriter" th:value="${#authentication.name}">
+            <input type="hidden" name="menuCode" th:value="${subMenuVO.menuCode}">
+            <div class="input-group">
+                <input type="text" name="commentContent" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2">
+                <button class="btn btn-outline-secondary" type="button" id="button-addon2" th:onclick="galRegComment(this, [[${#authentication.name}]]);">작성</button>
+            </div>
+        </form>
     </div>
     <hr>
     <table border="1" class="text-center col-12">
@@ -134,25 +141,39 @@
                             </a>
                             <!-- 삭제,수정버튼 -->
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" th:onclick="galDeleteComment([[${comment.commentId}]], [[${board.galBoardNum}]])">삭제</a></li>
-                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" th:onclick="galUpdateModal([[${comment.commentContent}]]);">수정</a></li>
+                                <li>
+                                    <!-- 아이디를 넣으면 중복되기 때문에 가장 최신값만 가져옴, this활용해서 form태그를 지정하였음 -->
+                                    <form action="/gallery/galDeleteComment" method="post">
+                                        <input type="hidden" name="commentId" th:value="${comment.commentId}">
+                                        <input type="hidden" name="commentNum" th:value="${board.galBoardNum}">
+                                        <button type="button" class="dropdown-item" onclick="galDeleteComment(this);">삭제</button>
+                                    </form>
+                                </li>
+                                <li>
+                                    <button class="dropdown-item" data-bs-toggle="modal" th:data-bs-target="${'#galModalId' + state.index}" th:onclick="galUpdateModal([[${comment.commentContent}]], this);">수정</button>
+                                </li>
                             </ul>
                             <!-- Modal -->
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" th:id="${'galModalId' + state.index}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
-                                    <div class="modal-content">
+                                    <div class="modal-content select-div">
                                         <div class="modal-header">
                                             <h1 class="modal-title fs-5" id="exampleModalLabel">수정할 내용을 입력해주세요.</h1>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
-                                        <div class="modal-body">
-                                            <!-- 내용 -->
-                                            <input type="text" class="form-control" aria-describedby="addon-wrapping" id="galCommentInput">
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                                            <button type="button" class="btn btn-primary" th:onclick="galUpdateComment([[${comment.commentId}]], [[${board.galBoardNum}]]);">수정하기</button>
-                                        </div>
+                                        <form action="/gallery/galUpdateComment" method="post" id="commentUpdateForm">
+                                            <input type="hidden" name="commentId" th:value="${comment.commentId}">
+                                            <input type="hidden" name="commentNum" th:value="${board.galBoardNum}">
+                                            <input type="hidden" name="menuCode" th:value="${subMenuVO.menuCode}">
+                                            <div class="modal-body">
+                                                <!-- 내용 -->
+                                                <input type="text" class="form-control" aria-describedby="addon-wrapping" name="commentContent" id="galCommentInput">
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                                                <button type="button" class="btn btn-primary" onclick="galUpdateComment(this);">수정하기</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
