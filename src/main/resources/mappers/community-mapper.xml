@@ -157,18 +157,6 @@
         FROM BOARD_FREE_LIST
         WHERE FREE_BOARD_WRITER = #{freeBoardWriter}
     </select>
-    <!--내글 찾기 조회-->
-    <select id="selectFreeMyBoard" resultMap="free">
-        SELECT FREE_BOARD_NUM
-            , FREE_BOARD_TITLE
-            , FREE_BOARD_CONTENT
-            , FREE_BOARD_WRITER
-            , TO_CHAR(FREE_CREATE_DATE, 'YYYY-MM-DD') FREE_CREATE_DATE
-            , FREE_BOARD_READ_CNT
-        FROM BOARD_FREE_LIST
-        WHERE FREE_BOARD_WRITER = #{freeBoardWriter}
-        ORDER BY FREE_BOARD_NUM DESC
-    </select>
 </mapper>
 
 

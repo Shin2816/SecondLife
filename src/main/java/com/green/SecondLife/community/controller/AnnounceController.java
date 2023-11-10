@@ -2,21 +2,15 @@ package com.green.SecondLife.community.controller;
 
 import com.green.SecondLife.community.service.AnnounceService;
 import com.green.SecondLife.community.vo.BoardAnnounceListVO;
-import com.green.SecondLife.community.vo.BoardFreeListVO;
-import com.green.SecondLife.community.vo.BoardQaListVO;
-import com.green.SecondLife.community.vo.QaImgVO;
 import com.green.SecondLife.member.vo.SubMenuVO;
 import com.green.SecondLife.util.ConstantVariable;
-import com.green.SecondLife.util.UploadUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 

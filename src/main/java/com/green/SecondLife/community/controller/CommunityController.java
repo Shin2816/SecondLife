@@ -3,7 +3,6 @@ package com.green.SecondLife.community.controller;
 import com.green.SecondLife.community.service.CommunityService;
 import com.green.SecondLife.community.vo.BoardCommentListVO;
 import com.green.SecondLife.community.vo.BoardFreeListVO;
-import com.green.SecondLife.community.vo.BoardQaListVO;
 import com.green.SecondLife.member.vo.SubMenuVO;
 import com.green.SecondLife.util.ConstantVariable;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -33,26 +31,10 @@ public class CommunityController {
 
         //게시글 목록 조회
         List<BoardFreeListVO> freeBoardList = communityService.selectFreeBoardList(boardFreeListVO);
-        System.out.println(freeBoardList);
         model.addAttribute("freeBoardList", freeBoardList);
 
         return "board/free_board";
     }
-
-    //내글 찾기 버튼 누르면 비동기로 (내정보 페이지를 새로 만들어서 활용할 것)
-//    @ResponseBody
-//    @PostMapping("/freeMyBoard")
-//    public List<BoardFreeListVO> freeMyBoard(BoardFreeListVO boardFreeListVO, HttpSession session){
-//        //세션에 저장된 memberID를 VO에 넣기
-//        MemberVO loginInfo = (MemberVO)session.getAttribute("loginInfo");
-//        boardFreeListVO.setFreeBoardWriter(loginInfo.getMemberId());
-//        //페이지 정보 세팅
-//        int totalDataCnt = communityService.selectMyBoardCnt(boardFreeListVO); //전체 게시글 갯수 조회해서
-//        boardFreeListVO.setTotalPageCnt(totalDataCnt);//세터 호출해서 전체 게시글 갯수 전달
-//        boardFreeListVO.setPageInfo();//변수값 설정한 메소드 호출(상속관계라 사용가능)
-//        //내글 찾기 조회
-//        return communityService.selectFreeMyBoard(boardFreeListVO);
-//    }
 
     //등록버튼 누르면 등록 페이지로 이동
     @GetMapping("/regBoardForm")

@@ -94,7 +94,7 @@ function qaUpdateModal(CommentContent, updateBtn){//실제 데이터value
 }
 ///////////////////////////////////////////////////////////////////댓글 수정
 function qaUpdateComment(updateBtn){//수정버튼을 누르면 도착, div id : qaCommentInput 안에 데이터 넣기
-    const qaCommentInput = document.querySelector('#qaCommentInput').value;
+    const qaCommentInput = updateBtn.closest('.select-div').querySelector('#qaCommentInput').value;
 
     if(qaCommentInput == ''){
         alert('내용을 입력해주십시요.');

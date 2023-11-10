@@ -94,7 +94,7 @@ function galUpdateModal(CommentContent, updateBtn){//실제 데이터value
 }
 ///////////////////////////////////////////////////////////////////댓글 수정
 function galUpdateComment(updateBtn){//수정버튼을 누르면 도착, div id : galCommentInput 안에 데이터 넣기
-    const galCommentInput = document.querySelector('#galCommentInput').value;
+    const galCommentInput = updateBtn.closest('.select-div').querySelector('#galCommentInput').value;
 
     if(galCommentInput == ''){
         alert('내용을 입력해주십시요.');

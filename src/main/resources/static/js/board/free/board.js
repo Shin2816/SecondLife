@@ -40,7 +40,7 @@ function freeUpdateModal(CommentContent, updateBtn){//실제 데이터value
 }
 ///////////////////////////////////////////////////////////////////댓글 수정
 function freeUpdateComment(updateBtn){//수정버튼을 누르면 도착, div id : freeCommentInput 안에 데이터 넣기
-    const freeCommentInput = document.querySelector('#freeCommentInput').value;
+    const freeCommentInput = updateBtn.closest('.select-div').querySelector('#freeCommentInput').value;
 
     if(freeCommentInput == ''){
         alert('내용을 입력해주십시요.');
