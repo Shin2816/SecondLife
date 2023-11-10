@@ -68,8 +68,6 @@ public class GalleryController {
     //글 tr태그를 클릭했을때 해당글의 상세페이지 이동
     @RequestMapping("/boardDetail")
     public String boardDetail(Model model, SubMenuVO subMenuVO, BoardCommentListVO boardCommentListVO){
-        System.out.println(boardCommentListVO);
-
         //board이름으로 디테일정보 던지기
         model.addAttribute("board", galleryService.selectGalBoardDetail(boardCommentListVO.getCommentNum()));//아우터조인
 

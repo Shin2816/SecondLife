@@ -86,7 +86,7 @@ function shareKakao(anBoardNum) { //카카오톡
         description: "게시판 공유합니다", // 보여질 설명
         imageUrl: "devpad.tistory.com/", // 콘텐츠 URL
         link: {
-           webUrl: "http://localhost:8081/announce/boardDetail?anBoardNum=" + anBoardNum
+           webUrl: "http://localhost:8081/announce/boardDetail?commentNum=" + anBoardNum
         }
       }
     });
