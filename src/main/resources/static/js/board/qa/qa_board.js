@@ -10,6 +10,7 @@ function openCheckPwModal(qaBoardNum, loginInfo){
     if(loginInfo != null){
         //관리자라면 모달창 띄우지 않고 바로 boardDetail로 이동
         if(loginInfo.authorities[0].authority == 'ROLE_ADMIN'){
+            console.log(menuCode);
             //프리패스
             location.href=`/qa/boardDetail?commentNum=${qaBoardNum}&menuCode=${menuCode}`;
         } else{
