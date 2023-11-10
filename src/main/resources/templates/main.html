@@ -246,7 +246,7 @@
                                 <!-- 출력 갯수 최대 3개 -->
                                 <div th:each="gal, state : ${galleryBoardList}" class="col-4" th:if="${state.index &lt; 3}"> 
                                     <div class="board-item">
-                                        <a th:href="@{/gallery/boardDetail(galBoardNum=${gal.galBoardNum})}">
+                                        <a th:href="@{/gallery/boardDetail(commentNum=${gal.galBoardNum})}">
                                             <img height="187px;" th:src="${'/images/community/gallery/' + gal.galImgList[0].galAttachedFileName}" class="card-img-top img" alt="...">
                                             <div class="card-body">
                                                 <span class="card-title">[[${gal.galBoardTitle}]]</span>
