@@ -109,9 +109,16 @@
             <a id="btnKakao" class="link-icon kakao" th:onclick="shareKakao([[${board.galBoardNum}]]);">카카오</a>
         </div>
     </div>
-    <div class="input-group mb-3" id="galRegDiv">
-        <input type="text" name="commentContent" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2">
-        <button class="btn btn-outline-secondary" type="button" id="button-addon2" th:onclick="galRegComment(this, [[${board.galBoardNum}]], [[${#authentication.name}]]);">작성</button>
+    <div class="mb-3" id="galRegDiv">
+        <form action="/gallery/galBoardComment" method="post" id="commentForm">
+            <input type="hidden" name="commentNum" th:value="${board.galBoardNum}">
+            <input type="hidden" name="commentWriter" th:value="${#authentication.name}">
+            <input type="hidden" name="menuCode" th:value="${subMenuVO.menuCode}">
+            <div class="input-group">
+                <input type="text" name="commentContent" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2">
+                <button class="btn btn-outline-secondary" type="button" id="button-addon2" th:onclick="galRegComment(this, [[${#authentication.name}]]);">작성</button>
+            </div>
+        </form>
     </div>
     <hr>
     <table border="1" class="text-center col-12">
@@ -143,7 +150,7 @@
                                     </form>
                                 </li>
                                 <li>
-                                    <button class="dropdown-item" data-bs-toggle="modal" th:data-bs-target="${'#galModalId' + state.index}" th:onclick="galUpdateModal([[${comment.commentContent}]]);">수정</button>
+                                    <button class="dropdown-item" data-bs-toggle="modal" th:data-bs-target="${'#galModalId' + state.index}" th:onclick="galUpdateModal([[${comment.commentContent}]], this);">수정</button>
                                 </li>
                             </ul>
                             <!-- Modal -->

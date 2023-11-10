@@ -122,7 +122,7 @@
             , TO_CHAR(COMMENT_CREATE_DATE, 'YYYY.MM.DD. HH24:MI') COMMENT_CREATE_DATE
         FROM BOARD_GAL_COMMENTS
         WHERE COMMENT_NUM = #{galBoardNum}
-        ORDER BY COMMENT_CREATE_DATE DESC
+        ORDER BY COMMENT_ID DESC
     </select>
     <!--게시판 글 삭제, 댓글이 먼저 삭제되고 게시글 삭제 되도록(외래키 오류에 대응)-->
     <delete id="deleteGalBoard">

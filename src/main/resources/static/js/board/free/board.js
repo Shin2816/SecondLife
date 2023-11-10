@@ -21,9 +21,9 @@ function freeRegComment(selectedTag, name){
             alert('내용은 100글자 이내로 작성해주세요.');
             return;
         }
+        document.querySelector('#commentForm').submit();
+        alert('댓글 작성이 완료되었습니다.');
     }
-    alert('댓글 작성이 완료되었습니다.');
-    document.querySelector('#commentForm').submit();
 }
 
 ////////////////////////////////////////////////////////댓글 삭제
@@ -34,8 +34,8 @@ function freeDeleteComment(deleteBtn){
     }
 }
 ///////////////////////////////////////////////////////////////////댓글 수정
-function freeUpdateModal(CommentContent){//실제 데이터value
-    const freeCommentInput = document.querySelector('#freeCommentInput'); //input 지정해서 변수로
+function freeUpdateModal(CommentContent, updateBtn){//실제 데이터value
+    const freeCommentInput = updateBtn.closest('div').querySelector('#freeCommentInput');//가장 가까운 폼태그 찾아가서 id값 가져오기
     freeCommentInput.value = CommentContent;//input안에 내용 넣기
 }
 ///////////////////////////////////////////////////////////////////댓글 수정

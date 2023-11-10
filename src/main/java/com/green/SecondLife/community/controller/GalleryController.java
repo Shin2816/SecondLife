@@ -95,28 +95,23 @@ public class GalleryController {
         return "redirect:/gallery/boardDetail?galBoardNum=" + boardGalleryListVO.getGalBoardNum()+"&menuCode="+ConstantVariable.MENU_CODE_BOARD;
     }
     //상세 페이지에서 댓글 작성버튼 클릭하면 비동기로 insert 쿼리 실행
-    @ResponseBody
     @PostMapping("/galBoardComment")
-    public boolean galBoardComment(BoardCommentListVO boardCommentListVO, Authentication authentication){
-        //로그인 정보가 없다면 댓글 작성하지 못하게
-        if (authentication == null){//로그인 정보가 없을 때
-            return false;//board.js로 false리턴
-        }
-        //로그인 정보가 있다면 if문 실행되지않고 쿼리가 실행된 후 true 리턴
+    public String galBoardComment(BoardCommentListVO boardCommentListVO, Authentication authentication){
+
         galleryService.insertGalBoardComment(boardCommentListVO);
-        return true;//board.js로 true리턴
+        return "redirect:/gallery/boardDetail?menuCode="+ConstantVariable.MENU_CODE_BOARD+ "&commentNum=" + boardCommentListVO.getCommentNum(); //디테일 컨트롤러로 다시 이동할 때 값 가져가기
     }
     //상세 페이지에서 댓글 삭제버튼 클릭하면 delete 쿼리 실행
     @PostMapping("/galDeleteComment")
     public String galBoardComment(BoardCommentListVO boardCommentListVO, RedirectAttributes redirectAttributes){
         galleryService.deleteGalBoardComment(boardCommentListVO.getCommentId());
-        return "redirect:/board/boardDetail?menuCode="+ConstantVariable.MENU_CODE_BOARD + "&commentNum=" + boardCommentListVO.getCommentNum();
+        return "redirect:/gallery/boardDetail?menuCode="+ConstantVariable.MENU_CODE_BOARD + "&commentNum=" + boardCommentListVO.getCommentNum();
     }
 
     //상세 페이지에서 댓글 수정 버튼 클릭하면 update 쿼리 실행
     @PostMapping("/galUpdateComment")
     public String galUpdateComment(BoardCommentListVO boardCommentListVO, RedirectAttributes redirectAttributes){
         galleryService.updateGalBoardComment(boardCommentListVO);
-        return "redirect:/board/boardDetail?menuCode="+ConstantVariable.MENU_CODE_BOARD + "&commentNum=" + boardCommentListVO.getCommentNum();
+        return "redirect:/gallery/boardDetail?menuCode="+ConstantVariable.MENU_CODE_BOARD + "&commentNum=" + boardCommentListVO.getCommentNum();
     }
 }

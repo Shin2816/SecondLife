@@ -136,7 +136,7 @@
                                     </form>
                                 </li>
                                 <li>
-                                    <button class="dropdown-item" data-bs-toggle="modal" th:data-bs-target="${'#freeModalId' + state.index}" th:onclick="freeUpdateModal([[${comment.commentContent}]]);">수정</button>
+                                    <button class="dropdown-item" data-bs-toggle="modal" th:data-bs-target="${'#freeModalId' + state.index}" th:onclick="freeUpdateModal([[${comment.commentContent}]], this);">수정</button>
                                 </li>
                             </ul>
                             <!-- Modal -->

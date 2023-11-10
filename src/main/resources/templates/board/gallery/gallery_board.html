@@ -40,7 +40,7 @@
         <div class="row row-cols-4 g-4 mb-3">
             <div class="col" th:each="gal, state : ${galleryBoardList}">
                 <div class="board-item">
-                    <a th:href="@{/gallery/boardDetail(galBoardNum=${gal.galBoardNum}, menuCode=${subMenuVO.menuCode})}">
+                    <a th:href="@{/gallery/boardDetail(commentNum=${gal.galBoardNum}, menuCode=${subMenuVO.menuCode})}">
                         <img th:src="${'/images/community/gallery/' + gal.galImgList[0].galAttachedFileName}" class="card-img-gal img" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">[[${gal.galBoardTitle}]]</h5>
