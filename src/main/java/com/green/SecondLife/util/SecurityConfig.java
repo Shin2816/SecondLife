@@ -75,7 +75,7 @@ public class SecurityConfig {
                             .requestMatchers("/js/**"
                                             ,"/css/**"
                                             ,"/images/**"
-                                            ,"/favicon.ico");
+                                           );
     }
 
 }
